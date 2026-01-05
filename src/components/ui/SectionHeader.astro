@@ -1,0 +1,39 @@
+---
+import { cn } from '../../lib/utils/cn';
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center' | 'right';
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  align = 'left',
+  class: className,
+} = Astro.props;
+
+const alignments = {
+  left: 'text-left',
+  center: 'text-center',
+  right: 'text-right',
+};
+---
+
+<div class={cn('mb-8 lg:mb-12', alignments[align], className)}>
+  {subtitle && (
+    <p class="text-sm font-medium text-gray-600 uppercase tracking-wider mb-2">
+      {subtitle}
+    </p>
+  )}
+  <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
+    {title}
+  </h2>
+  {Astro.slots.has('description') && (
+    <div class="mt-4 text-lg text-gray-600 max-w-3xl">
+      <slot name="description" />
+    </div>
+  )}
+</div>

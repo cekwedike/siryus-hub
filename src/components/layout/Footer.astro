@@ -1,0 +1,146 @@
+---
+const currentYear = new Date().getFullYear();
+
+const footerSections = {
+  brands: {
+    title: 'Our Brands',
+    items: [
+      {
+        name: 'SIRYUS Artist Management',
+        description: 'Professional artist management and marketing services',
+      },
+      {
+        name: 'Siryus Creative Hub',
+        description: 'Community for independent creatives',
+      },
+      {
+        name: 'Siryus Creative Media Ltd',
+        description: 'Parent company',
+      },
+    ],
+  },
+  navigation: {
+    title: 'Navigation',
+    links: [
+      { href: '/', label: 'Home' },
+      { href: '/about', label: 'About' },
+      { href: '/services', label: 'Services' },
+      { href: '/projects', label: 'Projects' },
+      { href: '/artists', label: 'Artists' },
+      { href: '/community', label: 'Community' },
+      { href: '/blog', label: 'Blog' },
+      { href: '/contact', label: 'Contact' },
+    ],
+  },
+  legal: {
+    title: 'Support & Legal',
+    links: [
+      { href: '/faq', label: 'FAQ' },
+      { href: '/privacy-policy', label: 'Privacy Policy' },
+      { href: '/terms-of-use', label: 'Terms of Use' },
+      { href: '/cookie-policy', label: 'Cookie Policy' },
+    ],
+  },
+  social: {
+    title: 'Connect',
+    links: [
+      { href: '#', label: 'YouTube', icon: 'youtube' },
+      { href: '#', label: 'Instagram', icon: 'instagram' },
+      { href: '#', label: 'X (Twitter)', icon: 'twitter' },
+      { href: '#', label: 'Facebook', icon: 'facebook' },
+      { href: '#', label: 'TikTok', icon: 'tiktok' },
+    ],
+  },
+};
+---
+
+<footer class="bg-[#323836] text-[#F5F9E9]">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <!-- Brand Group -->
+      <div class="lg:col-span-2">
+        <h3 class="text-[#D1DF4B] font-semibold text-lg mb-4">
+          {footerSections.brands.title}
+        </h3>
+        <div class="space-y-4">
+          {footerSections.brands.items.map(brand => (
+            <div>
+              <h4 class="text-[#F5F9E9] font-medium mb-1">{brand.name}</h4>
+              <p class="text-sm text-[#949BA0]">{brand.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <div>
+        <h3 class="text-[#D1DF4B] font-semibold text-lg mb-4">
+          {footerSections.navigation.title}
+        </h3>
+        <ul class="space-y-2">
+          {footerSections.navigation.links.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm hover:text-[#D1DF4B] transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Legal & Social -->
+      <div>
+        <!-- Legal Links -->
+        <h3 class="text-[#D1DF4B] font-semibold text-lg mb-4">
+          {footerSections.legal.title}
+        </h3>
+        <ul class="space-y-2 mb-8">
+          {footerSections.legal.links.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm hover:text-[#D1DF4B] transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <!-- Social Links -->
+        <h3 class="text-[#D1DF4B] font-semibold text-lg mb-4">
+          {footerSections.social.title}
+        </h3>
+        <ul class="space-y-2">
+          {footerSections.social.links.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm hover:text-[#D1DF4B] transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 pt-8 border-t border-[#949BA0]/30">
+      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <p class="text-sm text-[#949BA0]">
+          © {currentYear} Siryus Creative Media Ltd. All rights reserved.
+        </p>
+        <p class="text-sm text-[#949BA0]">
+          Designed and built with care for independent artists.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
