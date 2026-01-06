@@ -29,9 +29,9 @@ const variants = {
 };
 
 const sizes = {
-  sm: 'text-sm px-4 py-2 rounded-md',
-  md: 'text-base px-6 py-3 rounded-md',
-  lg: 'text-lg px-8 py-4 rounded-lg',
+  sm: 'text-xs sm:text-sm px-3 sm:px-4 py-2 rounded-md',
+  md: 'text-sm sm:text-base px-4 sm:px-6 py-2.5 sm:py-3 rounded-md',
+  lg: 'text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-lg',
 };
 
 const classes = cn(baseStyles, variants[variant], sizes[size], className);

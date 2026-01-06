@@ -17,22 +17,22 @@ const {
 
 const alignments = {
   left: 'text-left',
-  center: 'text-center',
-  right: 'text-right',
+  center: 'text-center mx-auto',
+  right: 'text-right ml-auto',
 };
 ---
 
-<div class={cn('mb-8 lg:mb-12', alignments[align], className)}>
+<div class={cn('mb-6 md:mb-8 lg:mb-12 max-w-4xl', alignments[align], className)}>
   {subtitle && (
-    <p class="text-sm font-medium text-gray-600 uppercase tracking-wider mb-2">
+    <p class="text-xs sm:text-sm font-semibold text-[#949BA0] uppercase tracking-wider mb-2">
       {subtitle}
     </p>
   )}
-  <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
+  <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1B1B1E] leading-tight">
     {title}
   </h2>
   {Astro.slots.has('description') && (
-    <div class="mt-4 text-lg text-gray-600 max-w-3xl">
+    <div class="mt-3 md:mt-4 text-base md:text-lg text-[#323836] max-w-3xl">
       <slot name="description" />
     </div>
   )}

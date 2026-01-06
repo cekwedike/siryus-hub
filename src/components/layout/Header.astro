@@ -23,7 +23,7 @@ function isActive(href: string): boolean {
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-[#F5F9E9]/95 backdrop-blur-md border-b border-[#D5DD85]/30">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 md:h-20">
       <!-- Logo -->
       <a href="/" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
@@ -36,12 +36,12 @@ function isActive(href: string): boolean {
       </a>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden lg:flex items-center space-x-1">
+      <nav class="hidden lg:flex items-center space-x-1 xl:space-x-2">
         {navItems.map(item => (
           <a
             href={item.href}
             class={cn(
-              "px-4 py-2 rounded-md text-sm font-medium transition-colors",
+              "px-3 xl:px-4 py-2 rounded-md text-sm font-medium transition-colors",
               isActive(item.href)
                 ? "bg-[#323836] text-[#D1DF4B]"
                 : "text-[#323836] hover:bg-[#D1DF4B]/20 hover:text-[#1B1B1E]"
@@ -87,7 +87,7 @@ function isActive(href: string): boolean {
 
   <!-- Mobile Menu (Hidden by default) -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-[#D5DD85]/30 bg-[#F5F9E9]">
-    <nav class="container mx-auto px-4 py-4 space-y-1">
+    <nav class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-1">
       {navItems.map(item => (
         <a
           href={item.href}
