@@ -100,15 +100,59 @@ PUBLIC_GA_ID=
 - [ ] Configure `tailwind.config.mjs` with design tokens
 - [ ] Set up `tsconfig.json` paths
 - [ ] Create `.gitignore` additions
+- [ ] Set up Aeonik font loading
 
 **Reference Documents:**
-- `siryushub_seo_and_design_system.md` (spacing, typography)
+- `siryushub_seo_and_design_system.md` (spacing, typography, colors, brand style guide)
 - `siryushub_tech_stack_and_deployment.md` (configuration)
+
+**Tailwind Config Must Include:**
+```javascript
+theme: {
+  extend: {
+    colors: {
+      primary: {
+        DEFAULT: '#D1DF4B',
+        light: '#D5DD85'
+      },
+      background: {
+        DEFAULT: '#1B1B1E',
+        elevated: '#323836'
+      },
+      text: {
+        primary: '#F5F9E9',
+        muted: '#949BA0'
+      }
+    },
+    fontFamily: {
+      sans: ['Aeonik', 'system-ui', '-apple-system', 'sans-serif']
+    },
+    fontWeight: {
+      regular: '400',
+      medium: '500',
+      bold: '700',
+      black: '900'
+    },
+    spacing: {
+      '4': '4px',
+      '8': '8px',
+      '16': '16px',
+      '24': '24px',
+      '32': '32px',
+      '48': '48px',
+      '64': '64px',
+      '96': '96px',
+      '128': '128px'
+    }
+  }
+}
+```
 
 **Validation:**
 - Build runs successfully: `npm run build`
 - No TypeScript errors
 - Tailwind intellisense working
+- Brand colors accessible in components
 
 ---
 
@@ -266,19 +310,43 @@ PUBLIC_GA_ID=
 ### 3.1 Configure Tailwind Design Tokens
 
 **Tasks:**
-- [ ] Add brand colors to Tailwind config
-- [ ] Configure typography scale
+- [ ] Add brand colors to Tailwind config (from official style guide)
+- [ ] Configure typography scale with Aeonik font family
 - [ ] Set up spacing system (8-point grid)
 - [ ] Configure breakpoints
 - [ ] Add custom animations
+- [ ] Set up dark theme as default
 
 **Reference Documents:**
-- `siryushub_seo_and_design_system.md` (design tokens, spacing system)
+- `siryushub_seo_and_design_system.md` (complete design tokens, spacing system, colors, typography)
 
 **Update `tailwind.config.js`:**
 ```javascript
 theme: {
   extend: {
+    colors: {
+      primary: {
+        DEFAULT: '#D1DF4B',
+        light: '#D5DD85'
+      },
+      background: {
+        DEFAULT: '#1B1B1E',
+        elevated: '#323836'
+      },
+      text: {
+        primary: '#F5F9E9',
+        muted: '#949BA0'
+      }
+    },
+    fontFamily: {
+      sans: ['Aeonik', 'system-ui', '-apple-system', 'sans-serif']
+    },
+    fontWeight: {
+      regular: '400',
+      medium: '500',
+      bold: '700',
+      black: '900'
+    },
     spacing: {
       '4': '4px',
       '8': '8px',
@@ -287,16 +355,37 @@ theme: {
       '32': '32px',
       '48': '48px',
       '64': '64px',
+      '96': '96px',
+      '128': '128px'
     },
-    // Add brand colors, fonts, etc.
+    fontSize: {
+      'xs': '12px',
+      'sm': '14px',
+      'base': '16px',
+      'lg': '18px',
+      'xl': '20px',
+      '2xl': '24px',
+      '3xl': '32px',
+      '4xl': '36px',
+      '5xl': '48px',
+      '6xl': '64px'
+    },
+    borderRadius: {
+      'sm': '4px',
+      'DEFAULT': '8px',
+      'lg': '12px',
+      'xl': '16px'
+    }
   }
 }
 ```
 
 **Validation:**
 - Design tokens accessible in components
-- Spacing system consistent
-- Typography hierarchy working
+- Spacing system consistent with 8-point grid
+- Typography hierarchy working with Aeonik
+- Brand colors (yellow accents on dark background) rendering correctly
+- Dark theme applied as default
 
 ---
 

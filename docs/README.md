@@ -251,6 +251,106 @@ SIRYUS communicates in a tone that is:
 
 ## Design System
 
+### Visual Theme
+
+**Dark Theme Aesthetic:**
+The website uses a sophisticated dark theme with high-contrast accents, creating a modern, immersive experience suited for a creative agency brand.
+
+### Brand Colors
+
+The SIRYUS color palette is carefully selected for visual impact and accessibility:
+
+**Primary Colors:**
+- **Brand Yellow:** `#D1DF4B` rgb(209, 223, 75) — Primary CTAs and key highlights
+- **Light Yellow:** `#D5DD85` rgb(213, 221, 133) — Secondary accents and hover states
+
+**Backgrounds:**
+- **Deep Black:** `#1B1B1E` rgb(27, 27, 30) — Main background
+- **Charcoal:** `#323836` rgb(50, 56, 54) — Cards and elevated surfaces
+
+**Text Colors:**
+- **Off-White:** `#F5F9E9` rgb(245, 249, 233) — Primary text and headings
+- **Gray:** `#949BA0` rgb(148, 155, 160) — Secondary text and captions
+
+### Typography
+
+**Primary Typeface:** Aeonik (sans-serif)
+
+**Font Weights:**
+- **Regular (400):** Body text, paragraphs
+- **Medium (500):** Emphasized text, subheadings
+- **Bold (700):** Section titles (H2, H3), buttons
+- **Black (900):** Hero headings (H1), major titles
+
+**Typography Scale:**
+- H1: 48px - 64px (Black weight)
+- H2: 36px - 48px (Bold weight)
+- H3: 24px - 32px (Bold weight)
+- Body: 16px - 18px (Regular weight)
+
+**Line Height:**
+- Headings: 1.2 - 1.3
+- Body text: 1.6 - 1.8
+
+### Spacing System
+
+8-point grid system for consistent rhythm:
+- 4px, 8px, 16px, 24px, 32px, 48px, 64px, 96px, 128px
+
+All margins, padding, and gaps use these values.
+
+### Layout Grid
+
+- **Desktop:** 12-column grid
+- **Tablet:** 8-column grid
+- **Mobile:** 4-column grid
+
+**Max Content Width:** 1280px - 1440px
+
+### Motion Principles
+
+- **Purpose:** Motion serves clarity and delight
+- **Performance:** Hardware-accelerated animations (60fps)
+- **Duration:** 200ms (interactions), 400-600ms (transitions)
+- **Easing:** ease-out for entrance, ease-in-out for interactions
+- **Accessibility:** Respects `prefers-reduced-motion`
+
+**Animation Types:**
+- Fade in + slide up for content entrance
+- Subtle scale (1.02-1.05) for hover states
+- View Transitions API for page navigation
+- Staggered animations for grid items
+
+### Accessibility Standards
+
+- **WCAG AA Compliance:** Minimum 4.5:1 contrast ratio for text
+- **Keyboard Navigation:** Full support with visible focus states
+- **Semantic HTML:** Proper heading hierarchy and ARIA labels
+- **Screen Reader Friendly:** Descriptive labels and alt text
+- **Motion Sensitivity:** Reduced motion support
+
+### Component Design Patterns
+
+**Buttons:**
+- Primary: Yellow (`#D1DF4B`) background, dark text
+- Secondary: Transparent with white border
+- Border radius: 4px - 8px
+
+**Cards:**
+- Background: Charcoal (`#323836`)
+- Border: Subtle off-white (`rgba(245, 249, 233, 0.1)`)
+- Border radius: 8px - 12px
+- Hover: Yellow border accent
+
+**Forms:**
+- Dark background inputs
+- Yellow focus states
+- Clear error messaging
+
+---
+
+## Design System
+
 ### Design Philosophy
 
 The SIRYUS design system prioritizes:

@@ -58,14 +58,36 @@ Astro provides superior performance and simpler deployment for content-heavy sit
 - **Motion One** (lightweight animations)
 - **View Transitions API** (page transitions)
 
+### Brand Design System
+
+**Visual Theme:** Dark theme with high-contrast accents
+
+**Typography:**
+- **Font Family:** Aeonik (sans-serif)
+- **Font Weights:** Regular (400), Medium (500), Bold (700), Black (900)
+- **Loading Method:** Self-hosted or Google Fonts
+- **Fallback:** -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif
+
+**Color Palette:**
+- **Primary Accent:** `#D1DF4B` (Brand Yellow)
+- **Secondary Accent:** `#D5DD85` (Light Yellow)
+- **Background:** `#1B1B1E` (Deep Black)
+- **Elevated Surface:** `#323836` (Charcoal)
+- **Primary Text:** `#F5F9E9` (Off-White)
+- **Muted Text:** `#949BA0` (Gray)
+
+**Spacing:** 8-point grid system (4px, 8px, 16px, 24px, 32px, 48px, 64px)
+
 ### UI Philosophy
 
-- Minimal but expressive
-- Motion used intentionally
-- Strong typography hierarchy
-- Grid-based layouts
-- White space respected
+- Dark theme aesthetic for modern appeal
+- Minimal but expressive design
+- Motion used intentionally for engagement
+- Strong typography hierarchy with Aeonik
+- Grid-based layouts with consistent spacing
+- White space respected for breathing room
 - Partial hydration for optimal performance
+- High-contrast yellow accents on dark backgrounds
 
 ---
 
