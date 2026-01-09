@@ -12,7 +12,7 @@
   <script>
     // Redirect to splash screen if page is reloaded
     (function() {
-      const navEntry = performance.getEntriesByType('navigation')[0];
+      const navEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
       if (navEntry && navEntry.type === 'reload') {
         window.location.href = '/';
       }
