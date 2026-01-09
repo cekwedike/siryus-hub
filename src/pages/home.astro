@@ -9,6 +9,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Siryus Hub - Home</title>
+  <script>
+    // Redirect to splash screen if page is reloaded
+    (function() {
+      const navEntry = performance.getEntriesByType('navigation')[0];
+      if (navEntry && navEntry.type === 'reload') {
+        window.location.href = '/';
+      }
+    })();
+  </script>
 </head>
 <body>
   <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #0a0a0a; color: white; font-family: sans-serif;">

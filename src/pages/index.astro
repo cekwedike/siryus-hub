@@ -47,7 +47,7 @@
       <!-- Subtitle Text (Between rotating text and M) -->
       <div class="subtitle-text" id="subtitleText">Creative Collective | Marketing | Management</div>
 
-      <!-- Large M Letter (Bottom) - Only visible when "SIRYUS" is shown -->
+      <!-- Large M Letter (Bottom) - Only visible when "SIRYUS A.M" is shown -->
       <div class="large-letter letter-m" id="letterM">M</div>
     </div>
 
@@ -59,6 +59,31 @@
   </div>
 
   <style>
+    /* ===== CUSTOM FONTS ===== */
+    @font-face {
+      font-family: 'Laren';
+      src: url('/fonts/laren.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Cenzo';
+      src: url('/fonts/cenzo.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Romantica';
+      src: url('/fonts/romantica.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
     /* ===== RESET & BASE STYLES ===== */
     * {
       margin: 0;
@@ -210,6 +235,7 @@
 
     /* ===== LARGE A & M LETTERS ===== */
     .large-letter {
+      font-family: 'Cenzo', 'Unbounded', sans-serif;
       font-size: clamp(4rem, 10vw, 7rem);
       font-weight: 900;
       color: #ffffff;
@@ -221,6 +247,8 @@
       transition: opacity 0.7s ease, transform 0.7s ease;
       user-select: none;
       line-height: 1;
+      font-feature-settings: 'calt' 1, 'ss01' 1;
+      font-variant-ligatures: contextual;
     }
 
     .letter-a {
@@ -253,6 +281,7 @@
     }
 
     .rotating-text {
+      font-family: 'Cenzo', 'Unbounded', sans-serif;
       font-size: clamp(3.5rem, 8vw, 6rem);
       font-weight: 700;
       color: #ffffff;
@@ -260,12 +289,22 @@
       white-space: nowrap;
       opacity: 1;
       line-height: 1.2;
+      letter-spacing: 0.05em;
       transition: opacity 1s ease, transform 1s ease, font-size 0.3s ease;
+      font-feature-settings: 'calt' 1, 'ss01' 1;
+      font-variant-ligatures: contextual;
       position: absolute;
       left: 50%;
       transform: translateX(-50%) rotateY(0deg);
       transform-style: preserve-3d;
       backface-visibility: hidden;
+    }
+
+    /* Style periods with Laren font */
+    .rotating-text .period {
+      font-family: 'Laren', 'Unbounded', sans-serif !important;
+      font-weight: 700;
+      letter-spacing: 0.05em;
     }
 
     .rotating-text.smaller {
@@ -700,8 +739,14 @@
       // Click anywhere to skip
       document.body.addEventListener('click', transitionToHome);
       
-      // Press any key to skip
-      document.addEventListener('keydown', transitionToHome);
+      // Press spacebar or Enter to skip (other keys work normally)
+      document.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault(); // Prevent spacebar scrolling and Enter default behavior
+          transitionToHome();
+        }
+        // All other keys (screenshot, etc.) work normally and do nothing here
+      });
     }
 
     // ===== INITIALIZATION =====
