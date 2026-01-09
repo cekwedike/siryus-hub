@@ -1,6 +1,7 @@
 ---
-// This is a placeholder home page
-// Replace this with your actual home page content
+// Siryus Hub - Loading/Splash Screen
+// This page displays for 10 seconds before auto-transitioning to home
+// Users can skip by clicking or pressing any key
 ---
 
 <!DOCTYPE html>
@@ -8,15 +9,647 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Siryus Hub - Home</title>
+  <title>Siryus Hub - Loading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #0a0a0a; color: white; font-family: sans-serif;">
-    <div style="text-align: center;">
-      <h1 style="font-size: 3rem; margin-bottom: 1rem;">Welcome to Siryus Hub</h1>
-      <p style="font-size: 1.2rem; opacity: 0.8;">This is your home page</p>
-      <a href="/splash" style="display: inline-block; margin-top: 2rem; padding: 1rem 2rem; background: #4F46E5; color: white; text-decoration: none; border-radius: 8px;">View Splash Screen</a>
+  <!-- Logo Placeholder (Top Left) -->
+  <div class="logo-placeholder">
+    <div class="logo-box">LOGO</div>
+  </div>
+
+  <!-- Main Content Container -->
+  <div class="splash-container">
+    <!-- Background Animated Elements -->
+    <div class="particles-container">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+      <div class="particle particle-5"></div>
+    </div>
+
+    <!-- Gradient Overlay -->
+    <div class="gradient-overlay"></div>
+
+    <!-- Center Content Area (Vertical Stack: A - SIRYUS - M) -->
+    <div class="center-content">
+      <!-- Large A Letter (Top) - Only visible when "SIRYUS" is shown -->
+      <div class="large-letter letter-a" id="letterA">A</div>
+
+      <!-- Middle Text Rotation Area -->
+      <div class="text-rotation-container">
+        <div class="rotating-text" id="rotatingText">SIRYUS A.M</div>
+      </div>
+
+      <!-- Subtitle Text (Between rotating text and M) -->
+      <div class="subtitle-text" id="subtitleText">Creative Collective | Marketing | Management</div>
+
+      <!-- Large M Letter (Bottom) - Only visible when "SIRYUS" is shown -->
+      <div class="large-letter letter-m" id="letterM">M</div>
+    </div>
+
+    <!-- Click to Enter Text -->
+    <div class="click-to-enter">
+      <span class="click-text">Click To Enter</span>
+      <div class="pulse-ring"></div>
     </div>
   </div>
+
+  <style>
+    /* ===== RESET & BASE STYLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000000;
+      color: #ffffff;
+      overflow: hidden;
+      cursor: pointer;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* ===== LOGO PLACEHOLDER (TOP LEFT) ===== */
+    .logo-placeholder {
+      position: fixed;
+      top: 40px;
+      left: 50px;
+      z-index: 100;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .logo-box {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      color: #ffffff;
+      width: 150px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-box:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ===== MAIN SPLASH CONTAINER ===== */
+    .splash-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ===== ANIMATED BACKGROUND PARTICLES ===== */
+    .particles-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.3), rgba(124, 58, 237, 0.3));
+      border-radius: 50%;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .particle-1 {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 25s;
+    }
+
+    .particle-2 {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      right: 15%;
+      animation-delay: 3s;
+      animation-duration: 30s;
+    }
+
+    .particle-3 {
+      width: 150px;
+      height: 150px;
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 5s;
+      animation-duration: 22s;
+    }
+
+    .particle-4 {
+      width: 250px;
+      height: 250px;
+      top: 30%;
+      right: 30%;
+      animation-delay: 8s;
+      animation-duration: 28s;
+    }
+
+    .particle-5 {
+      width: 180px;
+      height: 180px;
+      bottom: 10%;
+      right: 10%;
+      animation-delay: 2s;
+      animation-duration: 24s;
+    }
+
+    /* ===== GRADIENT OVERLAY ===== */
+    .gradient-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(79, 70, 229, 0.15) 0%,
+        rgba(0, 0, 0, 0.8) 50%,
+        rgba(0, 0, 0, 1) 100%
+      );
+      z-index: 2;
+      animation: gradientPulse 8s ease-in-out infinite;
+    }
+
+    /* ===== CENTER CONTENT AREA (VERTICAL STACK) ===== */
+    .center-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      animation: fadeInScale 1.2s ease-out;
+    }
+
+    /* ===== LARGE A & M LETTERS ===== */
+    .large-letter {
+      font-size: clamp(4rem, 10vw, 7rem);
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 
+        0 0 40px rgba(255, 255, 255, 0.5),
+        0 0 80px rgba(255, 255, 255, 0.3);
+      animation: floatPulse 4s ease-in-out infinite;
+      opacity: 1;
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .letter-a {
+      animation-delay: 0s;
+      margin-bottom: -1rem;
+    }
+
+    .letter-m {
+      animation-delay: 2s;
+      margin-top: -1rem;
+    }
+
+    /* Hidden state for A and M when not showing "SIRYUS" */
+    .large-letter.hidden {
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+    }
+
+    /* ===== TEXT ROTATION CONTAINER ===== */
+    .text-rotation-container {
+      min-width: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .rotating-text {
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+      white-space: nowrap;
+      opacity: 1;
+      line-height: 1.2;
+      transition: opacity 1s ease, transform 1s ease;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .rotating-text.fade-out {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.85);
+    }
+
+    .rotating-text.fade-in {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* ===== SUBTITLE TEXT ===== */
+    .subtitle-text {
+      font-size: clamp(0.9rem, 2vw, 1.4rem);
+      font-weight: 400;
+      color: #ffffff;
+      text-align: center;
+      letter-spacing: 3px;
+      opacity: 1;
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      user-select: none;
+      line-height: 1.4;
+    }
+
+    .subtitle-text.hidden {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    /* ===== CLICK TO ENTER ===== */
+    .click-to-enter {
+      position: fixed;
+      bottom: 4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      text-align: center;
+      animation: fadeInUp 1.5s ease-out 0.5s backwards;
+    }
+
+    .click-text {
+      font-size: 0.9rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: lowercase;
+      color: #ffffff;
+      opacity: 0.6;
+      animation: blink 3s ease-in-out infinite;
+      display: inline-block;
+      position: relative;
+      z-index: 2;
+    }
+
+    .pulse-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 40px;
+      border: 2px solid rgba(79, 70, 229, 0.6);
+      border-radius: 30px;
+      display: none;
+      animation: ringPulse 2s ease-out infinite;
+      z-index: 1;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.3;
+      }
+      25% {
+        transform: translate(50px, -50px) scale(1.1);
+        opacity: 0.5;
+      }
+      50% {
+        transform: translate(100px, 50px) scale(0.9);
+        opacity: 0.3;
+      }
+      75% {
+        transform: translate(-50px, 100px) scale(1.05);
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes floatPulse {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-15px) scale(1.03);
+      }
+    }
+
+    @keyframes gradientPulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes blink {
+      0%, 100% {
+        opacity: 0.6;
+      }
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    @keyframes ringPulse {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.3;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translate(-50%, 30px);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1024px) {
+      .center-content {
+        gap: 0.8rem;
+      }
+
+      .text-rotation-container {
+        min-width: 300px;
+        padding: 1.5rem 0;
+      }
+
+      .large-letter {
+        font-size: clamp(8rem, 22vw, 14rem);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .logo-placeholder {
+        top: 20px;
+        left: 20px;
+      }
+
+      .logo-box {
+        font-size: 0.75rem;
+        padding: 0.6rem 1rem;
+        width: 120px;
+      }
+
+      .center-content {
+        gap: 0.5rem;
+      }
+
+      .large-letter {
+        font-size: clamp(6rem, 18vw, 10rem);
+      }
+
+      .letter-a {
+        margin-bottom: -0.5rem;
+      }
+
+      .letter-m {
+        margin-top: -0.5rem;
+      }
+
+      .text-rotation-container {
+        min-width: 250px;
+        padding: 1rem 0;
+      }
+
+      .rotating-text {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+      }
+
+      .click-to-enter {
+        bottom: 3rem;
+      }
+
+      .click-text {
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .center-content {
+        gap: 0.3rem;
+      }
+
+      .large-letter {
+        font-size: clamp(4rem, 15vw, 8rem);
+      }
+
+      .rotating-text {
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+      }
+
+      .text-rotation-container {
+        min-width: 200px;
+      }
+
+      .particle {
+        opacity: 0.4;
+      }
+    }
+
+    /* ===== ACCESSIBILITY: REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .particle {
+        display: none;
+      }
+    }
+
+    /* ===== FOCUS STATES FOR ACCESSIBILITY ===== */
+    body:focus-visible {
+      outline: 3px solid rgba(79, 70, 229, 0.8);
+      outline-offset: -3px;
+    }
+  </style>
+
+  <script>
+    // ===== CONFIGURATION =====
+    const TRANSITION_DELAY = 15000; // 15 seconds
+    const TEXT_DISPLAY_DURATION = 2500; // 2.5 seconds per text
+    const FADE_DURATION = 1000; // 1000ms (1 second) for fade transitions
+    
+    // Text rotation options
+    const textOptions = [
+      { text: 'SIRYUS A.M', subtitle: 'Creative Collective | Marketing | Management', showLetters: true },
+      { text: 'SIRYUS HUB', subtitle: 'Your Digital Creative Space', showLetters: false },
+      { text: 'Siryus Creative Media Ltd', subtitle: 'Where Creativity Meets Strategy', showLetters: false },
+      { text: 'Siryus Community', subtitle: 'Building Connections & Creativity', showLetters: false }
+    ];
+
+    // ===== DOM ELEMENTS =====
+    const rotatingTextEl = document.getElementById('rotatingText');
+    const letterAEl = document.getElementById('letterA');
+    const letterMEl = document.getElementById('letterM');
+    const subtitleEl = document.getElementById('subtitleText');
+
+    // ===== STATE =====
+    let currentIndex = 0;
+    let rotationInterval;
+    let autoTransitionTimeout;
+    let hasTransitioned = false;
+
+    // ===== TEXT ROTATION LOGIC =====
+    function rotateText() {
+      // Fade out current text and letters
+      rotatingTextEl.classList.add('fade-out');
+      
+      setTimeout(() => {
+        // Move to next text option
+        currentIndex = (currentIndex + 1) % textOptions.length;
+        const currentOption = textOptions[currentIndex];
+        
+        // Update text content
+        rotatingTextEl.textContent = currentOption.text;
+        
+        // Update subtitle content
+        if (currentOption.subtitle) {
+          subtitleEl.textContent = currentOption.subtitle;
+        }
+        
+        // Show/hide A, M letters and subtitle based on current text
+        if (currentOption.showLetters) {
+          letterAEl.classList.remove('hidden');
+          letterMEl.classList.remove('hidden');
+          subtitleEl.classList.remove('hidden');
+        } else {
+          letterAEl.classList.add('hidden');
+          letterMEl.classList.add('hidden');
+          subtitleEl.classList.remove('hidden');
+        }
+        
+        // Fade in new text
+        rotatingTextEl.classList.remove('fade-out');
+        rotatingTextEl.classList.add('fade-in');
+        
+        setTimeout(() => {
+          rotatingTextEl.classList.remove('fade-in');
+        }, FADE_DURATION);
+      }, FADE_DURATION);
+    }
+
+    // ===== TRANSITION TO HOME PAGE =====
+    function transitionToHome() {
+      if (hasTransitioned) return;
+      hasTransitioned = true;
+
+      // Clear all intervals and timeouts
+      clearInterval(rotationInterval);
+      clearTimeout(autoTransitionTimeout);
+
+      // Add exit animation
+      document.body.style.transition = 'opacity 0.5s ease-out';
+      document.body.style.opacity = '0';
+
+      // Navigate to home after fade out
+      setTimeout(() => {
+        window.location.href = '/home';
+      }, 500);
+    }
+
+    // ===== SKIP FUNCTIONALITY =====
+    function setupSkipListeners() {
+      // Click anywhere to skip
+      document.body.addEventListener('click', transitionToHome);
+      
+      // Press any key to skip
+      document.addEventListener('keydown', transitionToHome);
+    }
+
+    // ===== INITIALIZATION =====
+    function init() {
+      // Start text rotation
+      rotationInterval = setInterval(rotateText, TEXT_DISPLAY_DURATION);
+      
+      // Set up auto-transition after 10 seconds
+      autoTransitionTimeout = setTimeout(transitionToHome, TRANSITION_DELAY);
+      
+      // Set up skip functionality
+      setupSkipListeners();
+
+      // Make body focusable for keyboard accessibility
+      document.body.setAttribute('tabindex', '0');
+      document.body.focus();
+    }
+
+    // Start everything when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
 </body>
 </html>
