@@ -12,7 +12,7 @@
   <title>Siryus Hub - Loading</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=Tagesschrift&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Logo Placeholder (Top Left) -->
@@ -67,7 +67,7 @@
     }
 
     body {
-      font-family: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Unbounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: #000000;
       color: #ffffff;
       overflow: hidden;
@@ -249,6 +249,7 @@
       height: auto;
       position: relative;
       padding: 2rem 0;
+      perspective: 1000px;
     }
 
     .rotating-text {
@@ -259,40 +260,90 @@
       white-space: nowrap;
       opacity: 1;
       line-height: 1.2;
-      transition: opacity 1s ease, transform 1s ease;
+      transition: opacity 1s ease, transform 1s ease, font-size 0.3s ease;
       position: absolute;
       left: 50%;
-      transform: translateX(-50%) scale(1);
+      transform: translateX(-50%) rotateY(0deg);
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
     }
 
+    .rotating-text.smaller {
+      font-size: clamp(2.8rem, 6.5vw, 4.8rem);
+    }
+
+    /* 3D Flip Transition */
     .rotating-text.fade-out {
       opacity: 0;
-      transform: translateX(-50%) scale(0.85);
+      transform: translateX(-50%) rotateY(90deg);
     }
 
     .rotating-text.fade-in {
       opacity: 1;
+      transform: translateX(-50%) rotateY(0deg);
+    }
+
+    /* Blur Transition */
+    .rotating-text.fade-out.blur {
+      opacity: 0;
+      filter: blur(30px);
+      transform: translateX(-50%) scale(1.2);
+    }
+
+    .rotating-text.fade-in.blur {
+      opacity: 1;
+      filter: blur(0px);
       transform: translateX(-50%) scale(1);
+    }
+
+    /* Glitch Transition */
+    .rotating-text.fade-out.glitch {
+      opacity: 0;
+      transform: translateX(-50%) skewX(10deg);
+      text-shadow: 
+        -5px 0 rgba(255, 0, 0, 0.7),
+        5px 0 rgba(0, 255, 255, 0.7);
+    }
+
+    .rotating-text.fade-in.glitch {
+      opacity: 1;
+      transform: translateX(-50%) skewX(0deg);
+      text-shadow: none;
     }
 
     /* ===== SUBTITLE TEXT ===== */
     .subtitle-text {
+      font-family: 'Tagesschrift', 'Unbounded', sans-serif;
       font-size: clamp(0.9rem, 2vw, 1.4rem);
       font-weight: 400;
       color: #ffffff;
       text-align: center;
       letter-spacing: 3px;
       opacity: 1;
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.7s ease;
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
       user-select: none;
       line-height: 1.4;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .subtitle-text.typewriter {
+      animation: typewriter 1.5s steps(60) forwards;
+    }
+
+    @keyframes typewriter {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
     }
 
     .subtitle-text.hidden {
       opacity: 0;
-      transform: scale(0.9);
     }
 
     /* ===== CLICK TO ENTER ===== */
@@ -537,8 +588,8 @@
 
   <script>
     // ===== CONFIGURATION =====
-    const TRANSITION_DELAY = 15000; // 15 seconds
-    const TEXT_DISPLAY_DURATION = 2500; // 2.5 seconds per text
+    const TRANSITION_DELAY = 30000; // 30 seconds (increased from 15s)
+    const TEXT_DISPLAY_DURATION = 4000; // 4 seconds per text
     const FADE_DURATION = 1000; // 1000ms (1 second) for fade transitions
     
     // Text rotation options
@@ -560,11 +611,19 @@
     let rotationInterval;
     let autoTransitionTimeout;
     let hasTransitioned = false;
+    let transitionType = 0; // 0 = 3D flip, 1 = blur, 2 = glitch
 
     // ===== TEXT ROTATION LOGIC =====
     function rotateText() {
+      // Cycle through transition types
+      const transitions = ['', 'blur', 'glitch'];
+      const currentTransition = transitions[transitionType % transitions.length];
+      
       // Fade out current text and letters
       rotatingTextEl.classList.add('fade-out');
+      if (currentTransition) {
+        rotatingTextEl.classList.add(currentTransition);
+      }
       
       setTimeout(() => {
         // Move to next text option
@@ -574,9 +633,20 @@
         // Update text content
         rotatingTextEl.textContent = currentOption.text;
         
-        // Update subtitle content
+        // Add smaller class for long company name
+        if (currentOption.text === 'Siryus Creative Media Ltd') {
+          rotatingTextEl.classList.add('smaller');
+        } else {
+          rotatingTextEl.classList.remove('smaller');
+        }
+        
+        // Update subtitle content with typewriter effect
         if (currentOption.subtitle) {
           subtitleEl.textContent = currentOption.subtitle;
+          subtitleEl.classList.remove('typewriter');
+          // Trigger reflow to restart animation
+          void subtitleEl.offsetWidth;
+          subtitleEl.classList.add('typewriter');
         }
         
         // Show/hide A, M letters and subtitle based on current text
@@ -591,11 +661,17 @@
         }
         
         // Fade in new text
-        rotatingTextEl.classList.remove('fade-out');
+        rotatingTextEl.classList.remove('fade-out', 'blur', 'glitch');
         rotatingTextEl.classList.add('fade-in');
+        if (currentTransition) {
+          rotatingTextEl.classList.add(currentTransition);
+        }
+        
+        // Move to next transition type for next rotation
+        transitionType++;
         
         setTimeout(() => {
-          rotatingTextEl.classList.remove('fade-in');
+          rotatingTextEl.classList.remove('fade-in', 'blur', 'glitch');
         }, FADE_DURATION);
       }, FADE_DURATION);
     }
