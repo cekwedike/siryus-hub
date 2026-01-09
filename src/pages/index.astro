@@ -17,7 +17,39 @@
 <body>
   <!-- Logo Placeholder (Top Left) -->
   <div class="logo-placeholder">
-    <div class="logo-box">LOGO</div>
+    <img src="/images/logo/dark/siryus-logo-dark.png" alt="Siryus A.M Logo" class="logo-image logo-dark" />
+    <img src="/images/logo/light/siryus-logo-light.png" alt="Siryus A.M Logo" class="logo-image logo-light" />
+  </div>
+
+  <!-- Theme Toggle (Top Right) -->
+  <div class="theme-toggle-container">
+    <div class="theme-toggle-pill">
+      <button class="theme-btn" data-theme="device" aria-label="Device theme">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+      </button>
+      <button class="theme-btn" data-theme="light" aria-label="Light theme">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <button class="theme-btn" data-theme="dark" aria-label="Dark theme">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </div>
   </div>
 
   <!-- Main Content Container -->
@@ -29,6 +61,13 @@
       <div class="particle particle-3"></div>
       <div class="particle particle-4"></div>
       <div class="particle particle-5"></div>
+      <div class="particle particle-6"></div>
+      <div class="particle particle-7"></div>
+      <div class="particle particle-8"></div>
+      <div class="particle particle-9"></div>
+      <div class="particle particle-10"></div>
+      <div class="particle particle-11"></div>
+      <div class="particle particle-12"></div>
     </div>
 
     <!-- Gradient Overlay -->
@@ -102,6 +141,32 @@
       position: relative;
     }
 
+    body::before,
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: opacity 4s ease-in-out;
+      z-index: 0;
+      filter: brightness(0.4) contrast(1.1);
+    }
+
+    body::before {
+      background-image: var(--bg-image-before, none);
+      opacity: var(--opacity-before, 1);
+    }
+
+    body::after {
+      background-image: var(--bg-image-after, none);
+      opacity: var(--opacity-after, 0);
+    }
+
     /* ===== LOGO PLACEHOLDER (TOP LEFT) ===== */
     .logo-placeholder {
       position: fixed;
@@ -111,23 +176,127 @@
       animation: fadeInDown 1s ease-out;
     }
 
-    .logo-box {
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      color: #ffffff;
-      width: 150px;
-      text-align: center;
-      transition: transform 0.3s ease;
+    .logo-image {
+      height: 60px;
+      width: auto;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      display: block;
     }
 
-    .logo-box:hover {
+    .logo-light {
+      display: none;
+    }
+
+    body.light-theme .logo-dark {
+      display: none;
+    }
+
+    body.light-theme .logo-light {
+      display: block;
+    }
+
+    .logo-image:hover {
       transform: scale(1.05);
+    }
+
+    /* Theme Toggle Pill */
+    .theme-toggle-container {
+      position: fixed;
+      top: 40px;
+      right: 50px;
+      z-index: 100;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .theme-toggle-pill {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      padding: 8px;
+      display: flex;
+      gap: 4px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-btn {
+      background: transparent;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: rgba(255, 255, 255, 0.5);
+      position: relative;
+    }
+
+    .theme-btn:hover {
+      color: rgba(255, 255, 255, 0.8);
+      transform: scale(1.05);
+    }
+
+    .theme-btn.active {
       background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    .theme-btn:active {
+      transform: scale(0.95);
+    }
+
+    .theme-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    body.light-theme {
+      background: #F5F9E9;
+      color: #1B1B1E;
+    }
+
+    body.light-theme .theme-toggle-pill {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(27, 27, 30, 0.2);
+    }
+
+    body.light-theme .theme-btn {
+      color: rgba(27, 27, 30, 0.5);
+    }
+
+    body.light-theme .theme-btn:hover {
+      color: rgba(27, 27, 30, 0.8);
+    }
+
+    body.light-theme .theme-btn.active {
+      background: rgba(27, 27, 30, 0.1);
+      color: #1B1B1E;
+    }
+
+    body.light-theme::before,
+    body.light-theme::after {
+      filter: brightness(1) contrast(1);
+    }
+
+    body.light-theme .gradient-overlay {
+      background: radial-gradient(
+        ellipse at center,
+        rgba(245, 249, 233, 0.3) 0%,
+        rgba(245, 249, 233, 0.7) 40%,
+        rgba(245, 249, 233, 0.95) 100%
+      );
+    }
+
+    body.light-theme .rotating-text,
+    body.light-theme .large-letter,
+    body.light-theme .subtitle-text,
+    body.light-theme .click-text {
+      color: #1B1B1E;
+      text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
     }
 
     /* ===== MAIN SPLASH CONTAINER ===== */
@@ -154,9 +323,10 @@
 
     .particle {
       position: absolute;
-      background: linear-gradient(135deg, rgba(79, 70, 229, 0.3), rgba(124, 58, 237, 0.3));
+      background: radial-gradient(circle, rgba(209, 223, 75, 0.4), rgba(213, 221, 133, 0.2));
       border-radius: 50%;
-      animation: float 20s infinite ease-in-out;
+      animation: float 15s infinite ease-in-out;
+      filter: blur(5px);
     }
 
     .particle-1 {
@@ -165,7 +335,7 @@
       top: 10%;
       left: 10%;
       animation-delay: 0s;
-      animation-duration: 25s;
+      animation-duration: 18s;
     }
 
     .particle-2 {
@@ -174,7 +344,7 @@
       top: 60%;
       right: 15%;
       animation-delay: 3s;
-      animation-duration: 30s;
+      animation-duration: 20s;
     }
 
     .particle-3 {
@@ -183,7 +353,7 @@
       bottom: 20%;
       left: 20%;
       animation-delay: 5s;
-      animation-duration: 22s;
+      animation-duration: 16s;
     }
 
     .particle-4 {
@@ -192,7 +362,7 @@
       top: 30%;
       right: 30%;
       animation-delay: 8s;
-      animation-duration: 28s;
+      animation-duration: 19s;
     }
 
     .particle-5 {
@@ -201,7 +371,70 @@
       bottom: 10%;
       right: 10%;
       animation-delay: 2s;
-      animation-duration: 24s;
+      animation-duration: 17s;
+    }
+
+    .particle-6 {
+      width: 220px;
+      height: 220px;
+      top: 50%;
+      left: 50%;
+      animation-delay: 4s;
+      animation-duration: 21s;
+    }
+
+    .particle-7 {
+      width: 160px;
+      height: 160px;
+      top: 15%;
+      right: 20%;
+      animation-delay: 6s;
+      animation-duration: 15s;
+    }
+
+    .particle-8 {
+      width: 190px;
+      height: 190px;
+      bottom: 25%;
+      right: 35%;
+      animation-delay: 1s;
+      animation-duration: 22s;
+    }
+
+    .particle-9 {
+      width: 140px;
+      height: 140px;
+      top: 5%;
+      left: 40%;
+      animation-delay: 7s;
+      animation-duration: 19s;
+    }
+
+    .particle-10 {
+      width: 210px;
+      height: 210px;
+      bottom: 35%;
+      left: 5%;
+      animation-delay: 3.5s;
+      animation-duration: 23s;
+    }
+
+    .particle-11 {
+      width: 170px;
+      height: 170px;
+      top: 70%;
+      left: 60%;
+      animation-delay: 5.5s;
+      animation-duration: 18s;
+    }
+
+    .particle-12 {
+      width: 195px;
+      height: 195px;
+      top: 25%;
+      left: 75%;
+      animation-delay: 2.5s;
+      animation-duration: 20s;
     }
 
     /* ===== GRADIENT OVERLAY ===== */
@@ -213,9 +446,9 @@
       left: 0;
       background: radial-gradient(
         ellipse at center,
-        rgba(79, 70, 229, 0.15) 0%,
-        rgba(0, 0, 0, 0.8) 50%,
-        rgba(0, 0, 0, 1) 100%
+        rgba(209, 223, 75, 0.1) 0%,
+        rgba(27, 27, 30, 0.9) 40%,
+        rgba(27, 27, 30, 1) 100%
       );
       z-index: 2;
       animation: gradientPulse 8s ease-in-out infinite;
@@ -266,6 +499,16 @@
       opacity: 0;
       transform: scale(0.8);
       pointer-events: none;
+    }
+
+    .large-letter.fade-out {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    .large-letter.fade-in {
+      opacity: 1;
+      transform: scale(1);
     }
 
     /* ===== TEXT ROTATION CONTAINER ===== */
@@ -426,19 +669,23 @@
     /* ===== ANIMATIONS ===== */
     @keyframes float {
       0%, 100% {
-        transform: translate(0, 0) scale(1);
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 0.4;
+      }
+      20% {
+        transform: translate(250px, -180px) scale(1.3) rotate(90deg);
+        opacity: 0.7;
+      }
+      40% {
+        transform: translate(400px, 120px) scale(0.7) rotate(180deg);
         opacity: 0.3;
       }
-      25% {
-        transform: translate(50px, -50px) scale(1.1);
-        opacity: 0.5;
+      60% {
+        transform: translate(-180px, 280px) scale(1.25) rotate(270deg);
+        opacity: 0.6;
       }
-      50% {
-        transform: translate(100px, 50px) scale(0.9);
-        opacity: 0.3;
-      }
-      75% {
-        transform: translate(-50px, 100px) scale(1.05);
+      80% {
+        transform: translate(-320px, -80px) scale(0.85) rotate(360deg);
         opacity: 0.4;
       }
     }
@@ -540,10 +787,27 @@
         left: 20px;
       }
 
-      .logo-box {
-        font-size: 0.75rem;
-        padding: 0.6rem 1rem;
-        width: 120px;
+      .logo-image {
+        height: 45px;
+      }
+
+      .theme-toggle-container {
+        top: 20px;
+        right: 20px;
+      }
+
+      .theme-toggle-pill {
+        padding: 6px;
+      }
+
+      .theme-btn {
+        width: 38px;
+        height: 38px;
+      }
+
+      .theme-btn svg {
+        width: 18px;
+        height: 18px;
       }
 
       .center-content {
@@ -582,6 +846,35 @@
     }
 
     @media (max-width: 480px) {
+      .logo-image {
+        height: 35px;
+      }
+
+      .logo-placeholder {
+        top: 15px;
+        left: 15px;
+      }
+
+      .theme-toggle-container {
+        top: 15px;
+        right: 15px;
+      }
+
+      .theme-toggle-pill {
+        padding: 4px;
+        gap: 2px;
+      }
+
+      .theme-btn {
+        width: 36px;
+        height: 36px;
+      }
+
+      .theme-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
       .center-content {
         gap: 0.3rem;
       }
@@ -629,14 +922,38 @@
     // ===== CONFIGURATION =====
     const TRANSITION_DELAY = 30000; // 30 seconds (increased from 15s)
     const TEXT_DISPLAY_DURATION = 4000; // 4 seconds per text
-    const FADE_DURATION = 1000; // 1000ms (1 second) for fade transitions
+    const FADE_DURATION = 4000; // 4000ms (4 seconds) for fade transitions
     
     // Text rotation options
     const textOptions = [
-      { text: 'SIRYUS A.M', subtitle: 'Creative Collective | Marketing | Management', showLetters: true },
-      { text: 'SIRYUS HUB', subtitle: 'Your Digital Creative Space', showLetters: false },
-      { text: 'Siryus Creative Media Ltd', subtitle: 'Where Creativity Meets Strategy', showLetters: false },
-      { text: 'Siryus Community', subtitle: 'Building Connections & Creativity', showLetters: false }
+      { 
+        text: 'SIRYUS A.M', 
+        subtitle: 'Creative Collective | Marketing | Management', 
+        showLetters: true,
+        imageDark: '/images/background/siryus-am.png',
+        imageLight: '/images/background/siryus-am-light.png'
+      },
+      { 
+        text: 'SIRYUS HUB', 
+        subtitle: 'Your Digital Creative Space', 
+        showLetters: false,
+        imageDark: '/images/background/siryus-hub.jpg',
+        imageLight: '/images/background/siryus-hub.jpg'
+      },
+      { 
+        text: 'Siryus Creative Media Ltd', 
+        subtitle: 'Where Creativity Meets Strategy', 
+        showLetters: false,
+        imageDark: '/images/background/siryus-creative-media.png',
+        imageLight: '/images/background/siryus-creative-media-light.png'
+      },
+      { 
+        text: 'Siryus Community', 
+        subtitle: 'Building Connections & Creativity', 
+        showLetters: false,
+        imageDark: '/images/background/siryus-community.jpg',
+        imageLight: '/images/background/siryus-community.jpg'
+      }
     ];
 
     // ===== DOM ELEMENTS =====
@@ -644,13 +961,105 @@
     const letterAEl = document.getElementById('letterA');
     const letterMEl = document.getElementById('letterM');
     const subtitleEl = document.getElementById('subtitleText');
+    const themeButtons = document.querySelectorAll('.theme-btn');
 
     // ===== STATE =====
     let currentIndex = 0;
-    let rotationInterval;
-    let autoTransitionTimeout;
+    let rotationInterval: ReturnType<typeof setInterval>;
+    let autoTransitionTimeout: ReturnType<typeof setTimeout>;
     let hasTransitioned = false;
     let transitionType = 0; // 0 = 3D flip, 1 = blur, 2 = glitch
+    let currentLayer = 'before'; // Track which pseudo-element is active
+
+    // ===== THEME MANAGEMENT =====
+    const THEMES = {
+      DARK: 'dark',
+      LIGHT: 'light',
+      DEVICE: 'device'
+    };
+
+    let currentTheme = localStorage.getItem('theme') || THEMES.DEVICE;
+
+    function getDeviceTheme() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEMES.DARK : THEMES.LIGHT;
+    }
+
+    // Helper function to get correct image based on current theme
+    function getCurrentImage(option: typeof textOptions[number]): string {
+      const effectiveTheme = currentTheme === THEMES.DEVICE ? getDeviceTheme() : currentTheme;
+      return effectiveTheme === THEMES.LIGHT ? option.imageLight : option.imageDark;
+    }
+
+    // Set initial background image
+    const initialImage = getCurrentImage(textOptions[0]);
+    document.body.style.setProperty('--bg-image-before', `url('${initialImage}')`);
+    document.body.style.setProperty('--bg-image-after', `url('${initialImage}')`);
+
+    // Function to update background image with crossfade
+    function updateBackgroundImage(imageUrl: string): void {
+      if (currentLayer === 'before') {
+        // Update the 'after' layer with new image
+        document.body.style.setProperty('--bg-image-after', `url('${imageUrl}')`);
+        // Fade out 'before', fade in 'after'
+        document.body.style.setProperty('--opacity-before', '0');
+        document.body.style.setProperty('--opacity-after', '1');
+        currentLayer = 'after';
+      } else {
+        // Update the 'before' layer with new image
+        document.body.style.setProperty('--bg-image-before', `url('${imageUrl}')`);
+        // Fade out 'after', fade in 'before'
+        document.body.style.setProperty('--opacity-before', '1');
+        document.body.style.setProperty('--opacity-after', '0');
+        currentLayer = 'before';
+      }
+    }
+
+    function applyTheme(theme: string): void {
+      const effectiveTheme = theme === THEMES.DEVICE ? getDeviceTheme() : theme;
+      
+      if (effectiveTheme === THEMES.LIGHT) {
+        document.body.classList.add('light-theme');
+      } else {
+        document.body.classList.remove('light-theme');
+      }
+      
+      // Update active button
+      themeButtons.forEach(btn => {
+        if ((btn as HTMLElement).dataset.theme === theme) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      // Update background image for current option
+      const currentOption = textOptions[currentIndex];
+      const newImage = getCurrentImage(currentOption);
+      updateBackgroundImage(newImage);
+    }
+
+    // Initialize theme
+    applyTheme(currentTheme);
+
+    // Theme button click handlers
+    themeButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const theme = (btn as HTMLElement).dataset.theme;
+        if (theme) {
+          currentTheme = theme;
+          localStorage.setItem('theme', currentTheme);
+          applyTheme(currentTheme);
+        }
+      });
+    });
+
+    // Listen for device theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (currentTheme === THEMES.DEVICE) {
+        applyTheme(THEMES.DEVICE);
+      }
+    });
 
     // ===== TEXT ROTATION LOGIC =====
     function rotateText() {
@@ -658,30 +1067,42 @@
       const transitions = ['', 'blur', 'glitch'];
       const currentTransition = transitions[transitionType % transitions.length];
       
-      // Fade out current text and letters
-      rotatingTextEl.classList.add('fade-out');
+      // Get current option to check if we need to fade out A and M
+      const currentOption = textOptions[currentIndex];
+      
+      // Fade out current text and A/M if they're visible
+      rotatingTextEl?.classList.add('fade-out');
+      if (currentOption.showLetters) {
+        letterAEl?.classList.add('fade-out');
+        letterMEl?.classList.add('fade-out');
+      }
       if (currentTransition) {
-        rotatingTextEl.classList.add(currentTransition);
+        rotatingTextEl?.classList.add(currentTransition);
       }
       
       setTimeout(() => {
         // Move to next text option
-        currentIndex = (currentIndex + 1) % textOptions.length;
-        const currentOption = textOptions[currentIndex];
+        const nextIndex = (currentIndex + 1) % textOptions.length;
+        currentIndex = nextIndex;
+        const newOption = textOptions[currentIndex];
+        
+        // Update background image with theme-appropriate image (synchronized with text)
+        const imageToUse = getCurrentImage(newOption);
+        updateBackgroundImage(imageToUse);
         
         // Update text content
-        rotatingTextEl.textContent = currentOption.text;
+        if (rotatingTextEl) rotatingTextEl.textContent = newOption.text;
         
         // Add smaller class for long company name
-        if (currentOption.text === 'Siryus Creative Media Ltd') {
-          rotatingTextEl.classList.add('smaller');
+        if (newOption.text === 'Siryus Creative Media Ltd') {
+          rotatingTextEl?.classList.add('smaller');
         } else {
-          rotatingTextEl.classList.remove('smaller');
+          rotatingTextEl?.classList.remove('smaller');
         }
         
         // Update subtitle content with typewriter effect
-        if (currentOption.subtitle) {
-          subtitleEl.textContent = currentOption.subtitle;
+        if (newOption.subtitle && subtitleEl) {
+          subtitleEl.textContent = newOption.subtitle;
           subtitleEl.classList.remove('typewriter');
           // Trigger reflow to restart animation
           void subtitleEl.offsetWidth;
@@ -689,28 +1110,32 @@
         }
         
         // Show/hide A, M letters and subtitle based on current text
-        if (currentOption.showLetters) {
-          letterAEl.classList.remove('hidden');
-          letterMEl.classList.remove('hidden');
-          subtitleEl.classList.remove('hidden');
+        if (newOption.showLetters) {
+          letterAEl?.classList.remove('hidden', 'fade-out');
+          letterMEl?.classList.remove('hidden', 'fade-out');
+          letterAEl?.classList.add('fade-in');
+          letterMEl?.classList.add('fade-in');
+          subtitleEl?.classList.remove('hidden');
         } else {
-          letterAEl.classList.add('hidden');
-          letterMEl.classList.add('hidden');
-          subtitleEl.classList.remove('hidden');
+          letterAEl?.classList.add('hidden');
+          letterMEl?.classList.add('hidden');
+          subtitleEl?.classList.remove('hidden');
         }
         
         // Fade in new text
-        rotatingTextEl.classList.remove('fade-out', 'blur', 'glitch');
-        rotatingTextEl.classList.add('fade-in');
+        rotatingTextEl?.classList.remove('fade-out', 'blur', 'glitch');
+        rotatingTextEl?.classList.add('fade-in');
         if (currentTransition) {
-          rotatingTextEl.classList.add(currentTransition);
+          rotatingTextEl?.classList.add(currentTransition);
         }
         
         // Move to next transition type for next rotation
         transitionType++;
         
         setTimeout(() => {
-          rotatingTextEl.classList.remove('fade-in', 'blur', 'glitch');
+          rotatingTextEl?.classList.remove('fade-in', 'blur', 'glitch');
+          letterAEl?.classList.remove('fade-in');
+          letterMEl?.classList.remove('fade-in');
         }, FADE_DURATION);
       }, FADE_DURATION);
     }
