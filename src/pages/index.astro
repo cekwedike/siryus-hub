@@ -9,11 +9,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Siryus Hub - Loading</title>
+  <title>Siryus Hub - Creative Collective | Marketing | Management</title>
+  <meta name="description" content="Welcome to Siryus Hub - Your digital creative space. Explore Siryus A.M, Siryus Hub, Siryus Creative Media Ltd, and Siryus Community.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Siryus Hub - Creative Collective">
+  <meta property="og:description" content="Welcome to Siryus Hub - Your digital creative space for creativity, marketing, and community.">
+  <meta property="og:image" content="/images/logo/dark/siryus-logo-dark.png">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Siryus Hub - Creative Collective">
+  <meta name="twitter:description" content="Welcome to Siryus Hub - Your digital creative space for creativity, marketing, and community.">
+  <meta name="twitter:image" content="/images/logo/dark/siryus-logo-dark.png">
+  
+  <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="/images/logo/dark/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/dark/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/dark/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/dark/apple-touch-icon.png">
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/images/background/siryus-am.png" as="image">
+  <link rel="preload" href="/images/logo/dark/siryus-logo-dark.png" as="image">
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=Tagesschrift&display=swap" rel="stylesheet">
@@ -144,6 +165,14 @@
       <span class="click-text">Click To Enter</span>
       <div class="pulse-ring"></div>
     </div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Accessibility: Live region for screen readers -->
+    <div class="sr-only" role="status" aria-live="polite" aria-atomic="true" id="brandAnnouncement"></div>
   </div>
 
   <style>
@@ -821,6 +850,44 @@
       z-index: 1;
     }
 
+    /* ===== PROGRESS BAR ===== */
+    .progress-bar-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 101;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #D1DF4B, #D5DD85);
+      width: 0%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px rgba(209, 223, 75, 0.5);
+    }
+
+    body.light-theme .progress-bar {
+      background: linear-gradient(90deg, #4BA6DF, #85D5DD);
+      box-shadow: 0 0 10px rgba(75, 166, 223, 0.5);
+    }
+
+    /* ===== ACCESSIBILITY ===== */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
     /* ===== ANIMATIONS ===== */
     @keyframes float {
       0%, 100% {
@@ -1205,12 +1272,16 @@
     const letterMEl = document.getElementById('letterM');
     const subtitleEl = document.getElementById('subtitleText');
     const themeButtons = document.querySelectorAll('.theme-btn');
+    const progressBar = document.getElementById('progressBar');
+    const brandAnnouncement = document.getElementById('brandAnnouncement');
 
     // ===== STATE =====
     let currentIndex = 0;
     let rotationInterval: ReturnType<typeof setInterval>;
     let autoTransitionTimeout: ReturnType<typeof setTimeout>;
     let hasTransitioned = false;
+    let startTime = Date.now();
+    let progressInterval: ReturnType<typeof setInterval>;
     let transitionType = 0; // 0 = 3D flip, 1 = blur, 2 = glitch
     let currentLayer = 'before'; // Track which pseudo-element is active
 
@@ -1362,6 +1433,11 @@
           subtitleEl?.classList.remove('hidden');
         }
         
+        // 6. Announce brand change to screen readers
+        if (brandAnnouncement) {
+          brandAnnouncement.textContent = `Now showing: ${newOption.text}. ${newOption.subtitle}`;
+        }
+        
         // Small delay to ensure DOM updates, then fade everything in together
         requestAnimationFrame(() => {
           // Fade in text
@@ -1403,16 +1479,43 @@
 
       // Clear all intervals and timeouts
       clearInterval(rotationInterval);
+      clearInterval(progressInterval);
       clearTimeout(autoTransitionTimeout);
+      
+      // Save skip preference
+      const skipCount = parseInt(localStorage.getItem('splashSkipCount') || '0');
+      localStorage.setItem('splashSkipCount', String(skipCount + 1));
 
-      // Add exit animation
-      document.body.style.transition = 'opacity 0.5s ease-out';
+      // Enhanced exit animation with particle dispersion effect
+      document.body.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
       document.body.style.opacity = '0';
+      document.body.style.transform = 'scale(0.95)';
 
       // Navigate to home after fade out
       setTimeout(() => {
         window.location.href = '/home';
-      }, 500);
+      }, 800);
+    }
+    
+    // ===== PROGRESS BAR =====
+    function updateProgress() {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min((elapsed / TRANSITION_DELAY) * 100, 100);
+      if (progressBar) {
+        progressBar.style.width = `${progress}%`;
+      }
+    }
+    
+    // ===== CHECK SKIP PREFERENCE =====
+    function checkSkipPreference() {
+      const skipCount = parseInt(localStorage.getItem('splashSkipCount') || '0');
+      if (skipCount >= 3) {
+        const skipPrompt = confirm('You\'ve skipped the splash screen 3 times. Would you like to skip it automatically next time?');
+        if (skipPrompt) {
+          localStorage.setItem('autoSkipSplash', 'true');
+        }
+        localStorage.setItem('splashSkipCount', '0');
+      }
     }
 
     // ===== SKIP FUNCTIONALITY =====
@@ -1432,11 +1535,29 @@
 
     // ===== INITIALIZATION =====
     function init() {
+      // Check if user wants to auto-skip
+      const autoSkip = localStorage.getItem('autoSkipSplash');
+      if (autoSkip === 'true') {
+        const userWantsToView = confirm('Skip splash screen automatically? (You can change this by clearing your browser data)');
+        if (!userWantsToView) {
+          localStorage.removeItem('autoSkipSplash');
+        } else {
+          transitionToHome();
+          return;
+        }
+      }
+      
       // Start text rotation
       rotationInterval = setInterval(rotateText, TEXT_DISPLAY_DURATION);
       
-      // Set up auto-transition after 10 seconds
-      autoTransitionTimeout = setTimeout(transitionToHome, TRANSITION_DELAY);
+      // Start progress bar
+      progressInterval = setInterval(updateProgress, 100);
+      
+      // Set up auto-transition
+      autoTransitionTimeout = setTimeout(() => {
+        checkSkipPreference();
+        transitionToHome();
+      }, TRANSITION_DELAY);
       
       // Set up skip functionality
       setupSkipListeners();
@@ -1444,6 +1565,11 @@
       // Make body focusable for keyboard accessibility
       document.body.setAttribute('tabindex', '0');
       document.body.focus();
+      
+      // Initial accessibility announcement
+      if (brandAnnouncement) {
+        brandAnnouncement.textContent = 'Welcome to Siryus Hub. Currently showing: SIRYUS A.M. Creative Collective, Marketing, Management';
+      }
     }
 
     // Start everything when DOM is ready
