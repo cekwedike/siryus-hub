@@ -1,0 +1,557 @@
+---
+// Section 2: SIRYUS HUB - Platform Features
+// Full-screen section showcasing the hub's capabilities
+---
+
+<section class="siryus-hub-section" id="siryus-hub" data-section="2">
+  <div class="hub-container">
+    <!-- Section Header -->
+    <div class="hub-header parallax-normal">
+      <div class="section-label">02 — DISCOVER</div>
+      <h2 class="hub-title">
+        <span class="title-line">SIRYUS HUB:</span>
+        <span class="title-line highlight">YOUR CREATIVE COMMAND CENTER</span>
+      </h2>
+      <p class="hub-intro">
+        One platform. Infinite possibilities. Manage projects, collaborate with your team, 
+        and bring your creative vision to life—all in one place.
+      </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="features-grid">
+      <!-- Feature Card 1 -->
+      <div class="feature-card parallax-slow" data-feature="1">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="8" width="32" height="32" rx="4" stroke="#D1DF4B" stroke-width="2"/>
+            <path d="M16 24H32M24 16V32" stroke="#D1DF4B" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Project Management</h3>
+        <p class="feature-description">
+          Organize your creative projects with intuitive tools. Track progress, 
+          manage timelines, and keep everything running smoothly.
+        </p>
+      </div>
+
+      <!-- Feature Card 2 -->
+      <div class="feature-card parallax-slow" data-feature="2">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="6" stroke="#D1DF4B" stroke-width="2"/>
+            <circle cx="32" cy="16" r="6" stroke="#D1DF4B" stroke-width="2"/>
+            <circle cx="24" cy="32" r="6" stroke="#D1DF4B" stroke-width="2"/>
+            <line x1="20" y1="20" x2="16" y2="28" stroke="#D1DF4B" stroke-width="2"/>
+            <line x1="28" y1="20" x2="32" y2="28" stroke="#D1DF4B" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Team Collaboration</h3>
+        <p class="feature-description">
+          Work seamlessly with your creative team. Share files, give feedback, 
+          and collaborate in real-time from anywhere.
+        </p>
+      </div>
+
+      <!-- Feature Card 3 -->
+      <div class="feature-card parallax-slow" data-feature="3">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 32L24 8L40 32H8Z" stroke="#D1DF4B" stroke-width="2"/>
+            <path d="M24 40C24 36 28 32 32 32C36 32 40 36 40 40" stroke="#D1DF4B" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Asset Library</h3>
+        <p class="feature-description">
+          Store and organize all your creative assets in one secure location. 
+          Quick access to your files whenever you need them.
+        </p>
+      </div>
+
+      <!-- Feature Card 4 -->
+      <div class="feature-card parallax-slow" data-feature="4">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="12" width="32" height="24" rx="2" stroke="#D1DF4B" stroke-width="2"/>
+            <path d="M8 20H40M16 16V12M32 16V12" stroke="#D1DF4B" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Smart Scheduling</h3>
+        <p class="feature-description">
+          Plan shoots, meetings, and deadlines with intelligent scheduling tools 
+          that sync with your team's availability.
+        </p>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="hub-cta parallax-fast">
+      <div class="cta-content">
+        <h3 class="cta-title">Ready to Transform Your Workflow?</h3>
+        <p class="cta-text">Join independent creators who are making magic with Siryus Hub.</p>
+      </div>
+      <a href="#" class="cta-button primary">
+        <span>Explore Siryus Hub</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Background Decorative Elements -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+  </div>
+</section>
+
+<style>
+  .siryus-hub-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1B1B1E;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 50px;
+  }
+
+  .hub-container {
+    max-width: 1600px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Section Header */
+  .hub-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .section-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #D1DF4B;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  .hub-title {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    color: #F5F9E9;
+    line-height: 1.2;
+    margin: 0 0 32px;
+    letter-spacing: -0.02em;
+  }
+
+  .hub-title .title-line {
+    display: block;
+  }
+
+  .hub-title .highlight {
+    color: #D1DF4B;
+    text-shadow: 0 0 40px rgba(209, 223, 75, 0.3);
+  }
+
+  .hub-intro {
+    font-size: 20px;
+    line-height: 1.7;
+    color: #949BA0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+    margin-bottom: 80px;
+  }
+
+  .feature-card {
+    background: #323836;
+    border: 1px solid rgba(245, 249, 233, 0.1);
+    border-radius: 12px;
+    padding: 40px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(209, 223, 75, 0.05) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(209, 223, 75, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                0 0 60px rgba(209, 223, 75, 0.1);
+  }
+
+  .feature-card:hover::before {
+    opacity: 1;
+  }
+
+  .feature-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(209, 223, 75, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    transition: all 0.4s ease;
+  }
+
+  .feature-card:hover .feature-icon {
+    background: rgba(209, 223, 75, 0.2);
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .feature-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #F5F9E9;
+    margin: 0 0 16px;
+  }
+
+  .feature-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #949BA0;
+    margin: 0;
+  }
+
+  /* CTA Section */
+  .hub-cta {
+    background: linear-gradient(135deg, rgba(209, 223, 75, 0.1) 0%, rgba(50, 56, 54, 0.5) 100%);
+    border: 2px solid rgba(209, 223, 75, 0.3);
+    border-radius: 16px;
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hub-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(209, 223, 75, 0.1) 0%, transparent 70%);
+    animation: rotate-glow 20s linear infinite;
+  }
+
+  @keyframes rotate-glow {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .cta-content {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #F5F9E9;
+    margin: 0 0 16px;
+  }
+
+  .cta-text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #949BA0;
+    margin: 0;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #D1DF4B;
+    color: #1B1B1E;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 18px 36px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid #D1DF4B;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-button:hover {
+    background: #D5DD85;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(209, 223, 75, 0.3);
+  }
+
+  .cta-button svg {
+    stroke: currentColor;
+    transition: transform 0.3s ease;
+  }
+
+  .cta-button:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Background Decorative Elements */
+  .bg-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(209, 223, 75, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(209, 223, 75, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  .bg-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.3;
+    z-index: 0;
+    animation: float-glow 8s ease-in-out infinite;
+  }
+
+  .bg-glow-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(209, 223, 75, 0.2);
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .bg-glow-2 {
+    width: 500px;
+    height: 500px;
+    background: rgba(209, 223, 75, 0.15);
+    bottom: 10%;
+    right: 10%;
+    animation-delay: 4s;
+  }
+
+  @keyframes float-glow {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(30px, -30px);
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .hub-cta {
+      padding: 50px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .siryus-hub-section {
+      padding: 100px 40px;
+    }
+
+    .hub-header {
+      margin-bottom: 60px;
+    }
+
+    .features-grid {
+      margin-bottom: 60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .siryus-hub-section {
+      padding: 80px 20px;
+    }
+
+    .hub-title {
+      font-size: clamp(28px, 8vw, 48px);
+    }
+
+    .hub-intro {
+      font-size: 18px;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .feature-card {
+      padding: 32px;
+    }
+
+    .hub-cta {
+      flex-direction: column;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: 26px;
+    }
+
+    .cta-text {
+      font-size: 16px;
+    }
+
+    .cta-button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .bg-glow {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .feature-card {
+      padding: 24px;
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 20px;
+    }
+
+    .feature-icon svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .feature-title {
+      font-size: 20px;
+    }
+
+    .feature-description {
+      font-size: 15px;
+    }
+
+    .hub-cta {
+      padding: 32px 24px;
+    }
+
+    .cta-title {
+      font-size: 22px;
+    }
+
+    .cta-button {
+      padding: 16px 28px;
+      font-size: 16px;
+    }
+  }
+
+  /* Parallax Classes */
+  .parallax-slow {
+    transition: transform 0.5s ease-out;
+  }
+
+  .parallax-normal {
+    transition: transform 0.3s ease-out;
+  }
+
+  .parallax-fast {
+    transition: transform 0.2s ease-out;
+  }
+
+  /* Light Theme */
+  :global(body.light-theme) .siryus-hub-section {
+    background: #F5F9E9;
+  }
+
+  :global(body.light-theme) .hub-title,
+  :global(body.light-theme) .cta-title {
+    color: #1B1B1E;
+  }
+
+  :global(body.light-theme) .hub-intro,
+  :global(body.light-theme) .cta-text,
+  :global(body.light-theme) .feature-description {
+    color: #5A5A5D;
+  }
+
+  :global(body.light-theme) .feature-card {
+    background: #FFFFFF;
+    border-color: rgba(27, 27, 30, 0.1);
+  }
+
+  :global(body.light-theme) .feature-title {
+    color: #1B1B1E;
+  }
+
+  :global(body.light-theme) .hub-cta {
+    background: linear-gradient(135deg, rgba(209, 223, 75, 0.2) 0%, rgba(255, 255, 255, 0.8) 100%);
+    border-color: rgba(209, 223, 75, 0.4);
+  }
+
+  :global(body.light-theme) .bg-grid {
+    background-image: 
+      linear-gradient(rgba(27, 27, 30, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(27, 27, 30, 0.05) 1px, transparent 1px);
+  }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .feature-card,
+    .feature-icon,
+    .cta-button,
+    .bg-glow {
+      animation: none;
+      transition: none;
+    }
+
+    .parallax-slow,
+    .parallax-normal,
+    .parallax-fast {
+      transition: none;
+    }
+
+    .hub-cta::before {
+      animation: none;
+    }
+  }
+</style>

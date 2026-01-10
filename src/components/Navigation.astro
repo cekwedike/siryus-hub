@@ -1,0 +1,262 @@
+---
+// Navigation Component - Top navigation bar for Siryus Hub
+// Fixed position with logo, menu links, and hamburger toggle
+---
+
+<nav class="top-nav">
+  <div class="nav-container">
+    <!-- Logo -->
+    <div class="nav-logo">
+      <a href="/">
+        <img src="/images/logo/dark/siryus-logo-dark.png" alt="Siryus A.M" class="logo-img" />
+      </a>
+    </div>
+
+    <!-- Center Navigation Links -->
+    <ul class="nav-links">
+      <li><a href="#about" class="nav-link">ABOUT</a></li>
+      <li><a href="#reels" class="nav-link">REELS</a></li>
+      <li><a href="#community" class="nav-link">COMMUNITY</a></li>
+      <li><a href="#blog" class="nav-link">BLOG</a></li>
+      <li><a href="#brief" class="nav-link">BRIEF</a></li>
+      <li><a href="#hybrid" class="nav-link">HYBRID</a></li>
+    </ul>
+
+    <!-- Right Side - Discover Magic & Hamburger -->
+    <div class="nav-right">
+      <span class="discover-text">DISCOVER MAGIC</span>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
+        <div class="hamburger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: rgba(27, 27, 30, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(245, 249, 233, 0.1);
+  }
+
+  .nav-container {
+    max-width: 1920px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+  }
+
+  /* Logo */
+  .nav-logo {
+    flex-shrink: 0;
+  }
+
+  .logo-img {
+    height: 50px;
+    width: auto;
+    transition: transform 0.3s ease;
+  }
+
+  .logo-img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Center Navigation Links */
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    color: #F5F9E9;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #D1DF4B;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #D1DF4B;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Right Side */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .discover-text {
+    color: #F5F9E9;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Hamburger Button */
+  .hamburger-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(245, 249, 233, 0.2);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .hamburger-btn:hover {
+    border-color: #D1DF4B;
+    transform: scale(1.05);
+  }
+
+  .hamburger-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hamburger-icon span {
+    width: 20px;
+    height: 2px;
+    background: #F5F9E9;
+    transition: all 0.3s ease;
+  }
+
+  .hamburger-btn:hover .hamburger-icon span {
+    background: #D1DF4B;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .nav-links {
+      gap: 24px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-container {
+      padding: 0 20px;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .discover-text {
+      display: none;
+    }
+
+    .logo-img {
+      height: 40px;
+    }
+
+    .hamburger-btn {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .top-nav {
+      height: 70px;
+    }
+
+    .nav-container {
+      padding: 0 15px;
+    }
+
+    .logo-img {
+      height: 35px;
+    }
+
+    .hamburger-btn {
+      width: 40px;
+      height: 40px;
+    }
+
+    .hamburger-icon span {
+      width: 18px;
+    }
+  }
+
+  /* Light Theme */
+  :global(body.light-theme) .main-nav {
+    background: rgba(245, 249, 233, 0.98);
+    border-bottom-color: rgba(27, 27, 30, 0.1);
+  }
+
+  :global(body.light-theme) .nav-link {
+    color: #1B1B1E;
+  }
+
+  :global(body.light-theme) .nav-link:hover {
+    color: #D1DF4B;
+  }
+
+  :global(body.light-theme) .discover-btn {
+    background: #D1DF4B;
+    color: #1B1B1E;
+    border-color: #D1DF4B;
+  }
+
+  :global(body.light-theme) .discover-btn:hover {
+    background: #323836;
+    color: #F5F9E9;
+    border-color: #323836;
+  }
+
+  :global(body.light-theme) .hamburger-btn {
+    background: transparent;
+    border-color: rgba(27, 27, 30, 0.2);
+  }
+
+  :global(body.light-theme) .hamburger-btn:hover {
+    background: rgba(209, 223, 75, 0.1);
+    border-color: #D1DF4B;
+  }
+
+  :global(body.light-theme) .hamburger-line {
+    background: #1B1B1E;
+  }
+</style>

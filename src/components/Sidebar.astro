@@ -1,0 +1,486 @@
+---
+// Sidebar Menu Component - Sliding menu from right side
+// Includes navigation with numbers, social links, and branding
+---
+
+<aside class="sidebar" id="sidebar">
+  <!-- Backdrop Overlay -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- Sidebar Content -->
+  <div class="sidebar-content">
+    <!-- Close Button -->
+    <button class="close-btn" id="closeBtn" aria-label="Close menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Top Section: Logo -->
+    <div class="sidebar-logo">
+      <img src="/images/logo/dark/siryus-logo-dark.png" alt="Siryus A.M" />
+    </div>
+
+    <!-- Main Navigation Menu -->
+    <nav class="sidebar-nav">
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/" class="menu-item active">
+            <span class="menu-text">HOME</span>
+            <span class="menu-number">01</span>
+          </a>
+        </li>
+        <li>
+          <a href="#about" class="menu-item">
+            <span class="menu-text">ABOUT</span>
+            <span class="menu-number">02</span>
+          </a>
+        </li>
+        <li>
+          <a href="#reels" class="menu-item">
+            <span class="menu-text">REELS</span>
+            <span class="menu-number">03</span>
+          </a>
+        </li>
+        <li>
+          <a href="#community" class="menu-item">
+            <span class="menu-text">COMMUNITY</span>
+            <span class="menu-number">04</span>
+          </a>
+        </li>
+        <li>
+          <a href="#blog" class="menu-item">
+            <span class="menu-text">BLOG</span>
+            <span class="menu-number">05</span>
+          </a>
+        </li>
+        <li>
+          <a href="#brief" class="menu-item">
+            <span class="menu-text">BRIEF</span>
+            <span class="menu-number">06</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Bottom Section -->
+    <div class="sidebar-bottom">
+      <!-- Scroll Prompt -->
+      <div class="scroll-prompt">
+        <span>Scroll to experience magic</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </div>
+
+      <!-- Social Links -->
+      <div class="social-links">
+        <a href="https://instagram.com/siryusam" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+        <a href="https://x.com/siryusam" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://linkedin.com/company/siryusam" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+      </div>
+
+      <!-- Character Illustration -->
+      <div class="sidebar-character">
+        <svg width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Stick figure with H -->
+          <circle cx="15" cy="15" r="8" stroke="#D1DF4B" stroke-width="2" fill="none"/>
+          <line x1="15" y1="23" x2="15" y2="45" stroke="#D1DF4B" stroke-width="2"/>
+          <line x1="15" y1="30" x2="5" y2="40" stroke="#D1DF4B" stroke-width="2"/>
+          <line x1="15" y1="30" x2="25" y2="40" stroke="#D1DF4B" stroke-width="2"/>
+          <line x1="15" y1="45" x2="5" y2="55" stroke="#D1DF4B" stroke-width="2"/>
+          <line x1="15" y1="45" x2="25" y2="55" stroke="#D1DF4B" stroke-width="2"/>
+          <!-- Curved line -->
+          <path d="M 30 60 Q 60 40 90 55" stroke="#D1DF4B" stroke-width="2" fill="none"/>
+          <!-- Large H -->
+          <text x="85" y="45" font-size="32" font-weight="900" fill="#D1DF4B" font-family="Arial, sans-serif">H</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<style>
+  /* Sidebar Container */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100vh;
+    z-index: 2000;
+    overflow: hidden;
+    transition: width 0s 0.4s;
+  }
+
+  .sidebar.open {
+    width: 100%;
+    transition: width 0s;
+  }
+
+  /* Backdrop */
+  .sidebar-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .sidebar.open .sidebar-backdrop {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* Sidebar Content */
+  .sidebar-content {
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 45%;
+    max-width: 600px;
+    height: 100%;
+    background: #1B1B1E;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    overflow-y: auto;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sidebar.open .sidebar-content {
+    right: 0;
+  }
+
+  /* Close Button */
+  .close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(245, 249, 233, 0.2);
+    background: transparent;
+    color: #F5F9E9;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .close-btn:hover {
+    border-color: #D1DF4B;
+    color: #D1DF4B;
+    transform: rotate(90deg);
+  }
+
+  /* Logo */
+  .sidebar-logo {
+    margin-bottom: 60px;
+  }
+
+  .sidebar-logo img {
+    height: 60px;
+    width: auto;
+  }
+
+  /* Navigation Menu */
+  .sidebar-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .sidebar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar-menu li {
+    margin-bottom: 32px;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 8px 0;
+  }
+
+  .menu-text {
+    font-size: 48px;
+    font-weight: 900;
+    color: #F5F9E9;
+    letter-spacing: -0.02em;
+    transition: all 0.3s ease;
+  }
+
+  .menu-number {
+    font-size: 18px;
+    font-weight: 500;
+    color: #949BA0;
+    border: 2px solid rgba(245, 249, 233, 0.2);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .menu-item:hover .menu-text,
+  .menu-item.active .menu-text {
+    color: #D1DF4B;
+    transform: translateX(10px);
+  }
+
+  .menu-item:hover .menu-number,
+  .menu-item.active .menu-number {
+    border-color: #D1DF4B;
+    color: #D1DF4B;
+  }
+
+  /* Bottom Section */
+  .sidebar-bottom {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(245, 249, 233, 0.1);
+  }
+
+  .scroll-prompt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #949BA0;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .scroll-prompt svg {
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(5px);
+    }
+  }
+
+  /* Social Links */
+  .social-links {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .social-links a {
+    color: #F5F9E9;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border: 2px solid rgba(245, 249, 233, 0.2);
+    border-radius: 50px;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+  }
+
+  .social-links a:hover {
+    border-color: #D1DF4B;
+    color: #D1DF4B;
+  }
+
+  /* Character Illustration */
+  .sidebar-character {
+    margin-top: 20px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .sidebar-content {
+      width: 55%;
+    }
+
+    .menu-text {
+      font-size: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sidebar-content {
+      width: 70%;
+      padding: 30px;
+    }
+
+    .menu-text {
+      font-size: 36px;
+    }
+
+    .sidebar-menu li {
+      margin-bottom: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sidebar-content {
+      width: 85%;
+      padding: 20px;
+      right: -100%;
+    }
+
+    .close-btn {
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .sidebar-logo {
+      margin-bottom: 40px;
+    }
+
+    .sidebar-logo img {
+      height: 45px;
+    }
+
+    .menu-text {
+      font-size: 28px;
+    }
+
+    .menu-number {
+      width: 36px;
+      height: 36px;
+      font-size: 14px;
+    }
+
+    .social-links {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .social-links a {
+      display: inline-block;
+      width: fit-content;
+    }
+  }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .sidebar-content,
+    .sidebar-backdrop,
+    .menu-item,
+    .close-btn {
+      transition: none;
+    }
+
+    .scroll-prompt svg {
+      animation: none;
+    }
+  }
+
+  /* Light Theme */
+  :global(body.light-theme) .sidebar-menu {
+    background: #F5F9E9;
+  }
+
+  :global(body.light-theme) .sidebar-backdrop {
+    background: rgba(27, 27, 30, 0.6);
+  }
+
+  :global(body.light-theme) .menu-item a {
+    color: #1B1B1E;
+  }
+
+  :global(body.light-theme) .menu-item:hover a {
+    color: #D1DF4B;
+  }
+
+  :global(body.light-theme) .menu-item.active a {
+    color: #D1DF4B;
+  }
+
+  :global(body.light-theme) .menu-number {
+    color: #949BA0;
+  }
+
+  :global(body.light-theme) .close-btn {
+    border-color: rgba(27, 27, 30, 0.2);
+  }
+
+  :global(body.light-theme) .close-btn:hover {
+    background: rgba(209, 223, 75, 0.2);
+    border-color: #D1DF4B;
+  }
+
+  :global(body.light-theme) .close-icon {
+    stroke: #1B1B1E;
+  }
+
+  :global(body.light-theme) .scroll-prompt {
+    color: #5A5A5D;
+  }
+
+  :global(body.light-theme) .social-link {
+    color: #5A5A5D;
+  }
+
+  :global(body.light-theme) .social-link:hover {
+    color: #D1DF4B;
+  }
+</style>
+
+<script>
+  // Sidebar toggle functionality
+  const sidebar = document.getElementById('sidebar');
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const backdrop = document.getElementById('sidebarBackdrop');
+
+  function openSidebar() {
+    sidebar?.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSidebar() {
+    sidebar?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Event listeners
+  hamburgerBtn?.addEventListener('click', openSidebar);
+  closeBtn?.addEventListener('click', closeSidebar);
+  backdrop?.addEventListener('click', closeSidebar);
+
+  // Close sidebar on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar?.classList.contains('open')) {
+      closeSidebar();
+    }
+  });
+
+  // Close sidebar when clicking menu items
+  const menuItems = document.querySelectorAll('.menu-item');
+  menuItems.forEach(item => {
+    item.addEventListener('click', () => {
+      closeSidebar();
+    });
+  });
+</script>

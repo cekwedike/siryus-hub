@@ -1,6 +1,11 @@
 ---
-// This is a placeholder home page
-// Replace this with your actual home page content
+// Home Page - Main homepage with full-screen parallax sections
+import Navigation from '../components/Navigation.astro';
+import Sidebar from '../components/Sidebar.astro';
+import HeroSection from '../components/HeroSection.astro';
+import SiryusHubSection from '../components/SiryusHubSection.astro';
+import CreativeMediaSection from '../components/CreativeMediaSection.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <!DOCTYPE html>
@@ -8,24 +13,517 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Siryus Hub - Home</title>
-  <script>
-    // Redirect to splash screen if page is reloaded
-    (function() {
-      const navEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-      if (navEntry && navEntry.type === 'reload') {
-        window.location.href = '/';
-      }
-    })();
-  </script>
+  <title>Siryus Hub - Where Ideas Become Reality</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Siryus Hub: Your creative command center. Manage projects, collaborate with your team, and bring your vision to life with Siryus A.M creative production services.">
+  <meta name="keywords" content="creative platform, project management, video production, photography, motion graphics, content creation">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Siryus Hub - Where Ideas Become Reality">
+  <meta property="og:description" content="A collaboration between art and tech. We're misfits making magic.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://siryushub.com">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- Preload Critical Assets -->
+  <link rel="preload" href="/siryus-hub-logo.svg" as="image">
+  
+  <!-- Aeonik Font -->
+  <style>
+    @font-face {
+      font-family: 'Aeonik';
+      src: url('/fonts/Aeonik-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    @font-face {
+      font-family: 'Aeonik';
+      src: url('/fonts/Aeonik-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    @font-face {
+      font-family: 'Aeonik';
+      src: url('/fonts/Aeonik-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    @font-face {
+      font-family: 'Aeonik';
+      src: url('/fonts/Aeonik-Black.woff2') format('woff2');
+      font-weight: 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
 </head>
 <body>
-  <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #0a0a0a; color: white; font-family: sans-serif;">
-    <div style="text-align: center;">
-      <h1 style="font-size: 3rem; margin-bottom: 1rem;">Welcome to Siryus Hub</h1>
-      <p style="font-size: 1.2rem; opacity: 0.8;">This is your home page</p>
-      <a href="/splash" style="display: inline-block; margin-top: 2rem; padding: 1rem 2rem; background: #4F46E5; color: white; text-decoration: none; border-radius: 8px;">View Splash Screen</a>
-    </div>
-  </div>
+  <!-- Navigation -->
+  <Navigation />
+  
+  <!-- Sidebar Menu -->
+  <Sidebar />
+  
+  <!-- Main Content -->
+  <main class="main-content" id="main-content">
+    <!-- Section 1: Hero -->
+    <HeroSection />
+    
+    <!-- Section 2: Siryus Hub -->
+    <SiryusHubSection />
+    
+    <!-- Section 3: Creative Media -->
+    <CreativeMediaSection />
+  </main>
+  
+  <!-- Footer -->
+  <Footer />
+
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Brand Colors */
+      --color-primary: #D1DF4B;
+      --color-primary-light: #D5DD85;
+      --color-background: #1B1B1E;
+      --color-elevated: #323836;
+      --color-text-primary: #F5F9E9;
+      --color-text-muted: #949BA0;
+      
+      /* Typography */
+      --font-family: 'Aeonik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      
+      /* Spacing (8pt Grid) */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: var(--color-background);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Smooth Scrolling Container */
+    @supports (scroll-behavior: smooth) {
+      html {
+        scroll-behavior: smooth;
+      }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1B1B1E;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #323836;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D1DF4B;
+    }
+
+    /* Selection */
+    ::selection {
+      background: rgba(209, 223, 75, 0.3);
+      color: #F5F9E9;
+    }
+
+    /* Focus Styles */
+    *:focus-visible {
+      outline: 2px solid #D1DF4B;
+      outline-offset: 2px;
+    }
+
+    /* Parallax Optimization */
+    [class*="parallax-"] {
+      will-change: transform;
+      backface-visibility: hidden;
+      perspective: 1000px;
+    }
+
+    /* Light Theme Styles */
+    body.light-theme {
+      --color-background: #F5F9E9;
+      --color-elevated: #FFFFFF;
+      --color-text-primary: #1B1B1E;
+      --color-text-muted: #5A5A5D;
+      background: var(--color-background);
+      color: var(--color-text-primary);
+    }
+
+    body.light-theme section {
+      background: var(--color-background);
+    }
+
+    body.light-theme ::-webkit-scrollbar-track {
+      background: #F5F9E9;
+    }
+
+    body.light-theme ::-webkit-scrollbar-thumb {
+      background: #D1DF4B;
+    }
+
+    body.light-theme ::-webkit-scrollbar-thumb:hover {
+      background: #323836;
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+      
+      [class*="parallax-"] {
+        transform: none !important;
+        will-change: auto !important;
+      }
+    }
+
+    /* Loading State */
+    body.loading {
+      overflow: hidden;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+    }
+  </style>
+
+  <script>
+    // ===== THEME SYSTEM =====
+    const THEMES = {
+      DARK: 'dark',
+      LIGHT: 'light',
+      DEVICE: 'device'
+    };
+
+    let currentTheme = localStorage.getItem('theme') || THEMES.DARK;
+
+    function getDeviceTheme() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEMES.DARK : THEMES.LIGHT;
+    }
+
+    function applyTheme(theme: string): void {
+      const effectiveTheme = theme === THEMES.DEVICE ? getDeviceTheme() : theme;
+      
+      if (effectiveTheme === THEMES.LIGHT) {
+        document.body.classList.add('light-theme');
+      } else {
+        document.body.classList.remove('light-theme');
+      }
+      
+      // Update active buttons in footer
+      const themeButtons = document.querySelectorAll('.theme-btn-footer');
+      themeButtons.forEach(btn => {
+        if ((btn as HTMLElement).dataset.theme === theme) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    // Initialize theme on page load
+    function initTheme() {
+      applyTheme(currentTheme);
+      
+      // Theme button click handlers
+      const themeButtons = document.querySelectorAll('.theme-btn-footer');
+      themeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const theme = (btn as HTMLElement).dataset.theme;
+          if (theme) {
+            currentTheme = theme;
+            localStorage.setItem('theme', currentTheme);
+            applyTheme(currentTheme);
+          }
+        });
+      });
+      
+      // Listen for device theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (currentTheme === THEMES.DEVICE) {
+          applyTheme(THEMES.DEVICE);
+        }
+      });
+    }
+
+    // ===== PARALLAX SCROLLING =====
+    // Enhanced Parallax Scrolling Effect
+    function initParallax() {
+      const parallaxElements = document.querySelectorAll('[class*="parallax-"]');
+      
+      // Store element data for performance
+      const elementData = Array.from(parallaxElements).map(element => ({
+        element: element as HTMLElement,
+        isSlow: element.classList.contains('parallax-slow'),
+        isNormal: element.classList.contains('parallax-normal'),
+        isFast: element.classList.contains('parallax-fast')
+      }));
+      
+      function updateParallax() {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const scrollProgress = scrollY / (document.documentElement.scrollHeight - windowHeight);
+        
+        elementData.forEach(({ element, isSlow, isNormal, isFast }) => {
+          const rect = element.getBoundingClientRect();
+          
+          // Check if element is in viewport with buffer
+          if (rect.top < windowHeight + 200 && rect.bottom > -200) {
+            // Calculate element's position relative to viewport center
+            const elementCenter = rect.top + rect.height / 2;
+            const viewportCenter = windowHeight / 2;
+            const distanceFromCenter = elementCenter - viewportCenter;
+            
+            // Apply different parallax speeds based on class
+            let translateY = 0;
+            let scale = 1;
+            
+            if (isSlow) {
+              // Slow elements move less, creating depth
+              translateY = distanceFromCenter * 0.15;
+            } else if (isNormal) {
+              // Normal elements move moderately
+              translateY = distanceFromCenter * 0.08;
+            } else if (isFast) {
+              // Fast elements move more, appear closer
+              translateY = distanceFromCenter * 0.04;
+              scale = 1 + (Math.abs(distanceFromCenter) / windowHeight) * 0.02;
+            }
+            
+            // Apply smooth transform with hardware acceleration
+            element.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+            element.style.willChange = 'transform';
+          }
+        });
+      }
+      
+      // Use requestAnimationFrame for smooth 60fps animations
+      let ticking = false;
+      
+      function requestTick() {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateParallax();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+      
+      window.addEventListener('scroll', requestTick, { passive: true });
+      
+      // Initial call
+      updateParallax();
+      
+      // Update on resize
+      let resizeTimeout: number | undefined;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = window.setTimeout(() => {
+          updateParallax();
+        }, 150);
+      }, { passive: true });
+    }
+
+    // Smooth Scroll to Sections
+    function initSmoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
+          const href = this.getAttribute('href');
+          
+          // Ignore empty hash or null
+          if (!href || href === '#') return;
+          
+          e.preventDefault();
+          
+          const targetId = href.substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            const offsetTop = targetElement.offsetTop - 80; // Account for fixed nav
+            
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    }
+
+    // Intersection Observer for Section Animations
+    function initSectionAnimations() {
+      const sections = document.querySelectorAll('section[data-section]');
+      
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+      
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    }
+
+    // Active Nav Link
+    function updateActiveNavLink() {
+      const sections = document.querySelectorAll('section[id]');
+      const scrollY = window.scrollY + 100;
+      
+      sections.forEach(section => {
+        const sectionTop = (section as HTMLElement).offsetTop;
+        const sectionHeight = (section as HTMLElement).offsetHeight;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+          // Update sidebar menu items if needed
+          document.querySelectorAll('.menu-item').forEach(item => {
+            const link = item.querySelector('a');
+            if (link && link.getAttribute('href') === `#${sectionId}`) {
+              item.classList.add('active');
+            } else {
+              item.classList.remove('active');
+            }
+          });
+        }
+      });
+    }
+
+    // Newsletter Form Handler
+    function initNewsletterForm() {
+      const form = document.querySelector('.newsletter-form');
+      
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          const input = form.querySelector('.newsletter-input') as HTMLInputElement;
+          if (!input) return;
+          
+          const email = input.value;
+          
+          // TODO: Implement newsletter subscription API call
+          console.log('Newsletter subscription:', email);
+          
+          // Show success message (placeholder)
+          alert('Thank you for subscribing!');
+          input.value = '';
+        });
+      }
+    }
+
+    // Page Load Animation
+    function initPageLoad() {
+      document.body.classList.add('loading');
+      
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.body.classList.remove('loading');
+        }, 300);
+      });
+    }
+
+    // Initialize all features
+    function init() {
+      initTheme();
+      initPageLoad();
+      initParallax();
+      initSmoothScroll();
+      initSectionAnimations();
+      initNewsletterForm();
+      
+      // Update active nav on scroll
+      window.addEventListener('scroll', () => {
+        updateActiveNavLink();
+      });
+      
+      // Initial call
+      updateActiveNavLink();
+    }
+
+    // Run on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    // Handle resize
+    let resizeTimer: number | undefined;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        // Re-calculate parallax positions
+        const parallaxElements = document.querySelectorAll('[class*="parallax-"]');
+        parallaxElements.forEach(element => {
+          (element as HTMLElement).style.transform = 'translateY(0)';
+        });
+      }, 250);
+    });
+  </script>
 </body>
 </html>
