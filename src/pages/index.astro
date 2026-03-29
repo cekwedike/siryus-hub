@@ -1,8 +1,8 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '../styles/splash.css';
 // Siryus Hub - Loading/Splash Screen
-// This page displays for 10 seconds before auto-transitioning to home
-// Users can skip by clicking or pressing any key
+// Auto-advances after a short delay; users can skip via click or Enter
 ---
 
 <!DOCTYPE html>
@@ -10,6 +10,7 @@ import '../styles/splash.css';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <ClientRouter />
   <title>Siryus Hub - Creative Collective | Marketing | Management</title>
   <meta name="description" content="Welcome to Siryus Hub - Your digital creative space. Explore SIRYUS A.M, Siryus Hub, Siryus Creative Media Ltd, and Siryus Community.">
   
@@ -33,21 +34,20 @@ import '../styles/splash.css';
   
   <!-- Preload critical resources -->
   <link rel="preload" href="/images/background/siryus-am.png" as="image">
-  <link rel="preload" href="/images/logo/dark/siryus-logo-dark.png" as="image">
   
-  <!-- Fonts -->
+  <!-- Fonts: Unbounded for wordmark + UI -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=Tagesschrift&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Logo Placeholder (Top Left) -->
-  <div class="logo-placeholder">
-    <img src="/images/logo/dark/siryus-logo-dark.png" alt="SIRYUS A.M logo" class="logo-image logo-dark" />
-    <img src="/images/logo/light/siryus-logo-light.png" alt="SIRYUS A.M logo" class="logo-image logo-light" />
-  </div>
+  <!-- Text wordmark (top left) -->
+  <a href="/home" class="splash-wordmark" data-splash-interactive aria-label="SIRYUS — go to home">
+    <span class="splash-wordmark__text">SIRYUS</span>
+  </a>
 
-  <!-- Theme Toggle (Top Right) -->
+  <!-- Theme + sound (Top Right) — data-splash-interactive excludes from “click to skip” -->
+  <div class="top-right-controls" data-splash-interactive>
   <div class="theme-toggle-container">
     <div class="theme-toggle-pill">
       <button class="theme-btn" data-theme="device" aria-label="Device theme">
@@ -77,9 +77,20 @@ import '../styles/splash.css';
       </button>
     </div>
   </div>
+  <button type="button" class="sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Enable short transition sound (off by default)" title="Transition sound">
+    <span class="sound-toggle-icon sound-off" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    </span>
+    <span class="sound-toggle-icon sound-on" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+    </span>
+  </button>
+  </div>
 
   <!-- Main Content Container -->
   <div class="splash-container">
+    <div class="mesh-gradient" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
     <!-- Background Animated Elements -->
     <div class="particles-container">
       <!-- Circular particles -->
@@ -144,27 +155,28 @@ import '../styles/splash.css';
     <!-- Gradient Overlay -->
     <div class="gradient-overlay"></div>
 
-    <!-- Center Content Area (Vertical Stack: A - SIRYUS - M) -->
+    <!-- Hero: text-only headline (no floating A/M) -->
     <div class="center-content">
-      <!-- Large A Letter (Top) - Only visible when "SIRYUS" is shown -->
-      <div class="large-letter letter-a" id="letterA">A</div>
-
-      <!-- Middle Text Rotation Area -->
-      <div class="text-rotation-container">
-        <div class="rotating-text" id="rotatingText">SIRYUS A.M</div>
+      <p class="hero-eyebrow" aria-hidden="true">Independent creatives · Arts & culture</p>
+      <div class="hero-panel">
+        <div class="text-rotation-container">
+          <h1 class="rotating-text" id="rotatingText">
+            <span class="logo-word">SIRYUS</span><span class="logo-suffix"> A.M</span>
+          </h1>
+        </div>
+        <p class="subtitle-text" id="subtitleText">Creative Collective | Marketing | Management</p>
       </div>
-
-      <!-- Subtitle Text (Between rotating text and M) -->
-      <div class="subtitle-text" id="subtitleText">Creative Collective | Marketing | Management</div>
-
-      <!-- Large M Letter (Bottom) - Only visible when "SIRYUS A.M" is shown -->
-      <div class="large-letter letter-m" id="letterM">M</div>
     </div>
 
-    <!-- Click to Enter Text -->
+    <!-- Continue CTA -->
     <div class="click-to-enter">
-      <span class="click-text">Click To Enter</span>
-      <div class="pulse-ring"></div>
+      <p class="click-text">
+        Click anywhere to continue
+        <span class="click-text-sep">·</span>
+        <kbd class="kbd-hint">Enter</kbd>
+      </p>
+      <p class="click-sub">Continues automatically</p>
+      <div class="pulse-ring" aria-hidden="true"></div>
     </div>
     
     <!-- Progress Bar -->

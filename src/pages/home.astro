@@ -1,5 +1,6 @@
 ---
 // Home Page - Main homepage with full-screen parallax sections
+import { ClientRouter } from 'astro:transitions';
 import Navigation from '../components/Navigation.astro';
 import Sidebar from '../components/Sidebar.astro';
 import HeroSection from '../components/HeroSection.astro';
@@ -13,6 +14,7 @@ import Footer from '../components/Footer.astro';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <ClientRouter />
   <title>Siryus Hub - Where Ideas Become Reality</title>
   
   <!-- SEO Meta Tags -->

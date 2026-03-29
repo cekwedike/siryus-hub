@@ -1,0 +1,20 @@
+/* Shared brand tokens: marketing pages + parallax home */
+:root {
+  --brand-bg-deep: #121214;
+  --brand-bg-base: #1b1b1e;
+  --brand-bg-warm: #1e1c18;
+  --brand-surface: #2a2e2c;
+  --brand-surface-border: rgba(209, 223, 75, 0.12);
+  --brand-text: #f5f9e9;
+  --brand-muted: #949ba0;
+  --brand-accent: #d1df4b;
+  --brand-accent-hover: #dde67a;
+  --brand-accent-secondary: #c4a35a;
+  --brand-gradient-page: radial-gradient(
+      ellipse 120% 80% at 50% -20%,
+      rgba(209, 223, 75, 0.07) 0%,
+      transparent 55%
+    ),
+    radial-gradient(ellipse 80% 50% at 100% 50%, rgba(196, 163, 90, 0.06) 0%, transparent 45%),
+    linear-gradient(180deg, var(--brand-bg-warm) 0%, var(--brand-bg-base) 35%, var(--brand-bg-deep) 100%);
+}

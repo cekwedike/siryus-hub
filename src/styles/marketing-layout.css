@@ -1,10 +1,13 @@
 /* Shared layout for marketing and legal pages */
+@import './brand-tokens.css';
+
 :root {
-  --ml-bg: #1b1b1e;
-  --ml-surface: #323836;
-  --ml-text: #f5f9e9;
-  --ml-muted: #949ba0;
-  --ml-accent: #d1df4b;
+  --ml-bg: var(--brand-bg-base);
+  --ml-surface: var(--brand-surface);
+  --ml-text: var(--brand-text);
+  --ml-muted: var(--brand-muted);
+  --ml-accent: var(--brand-accent);
+  --ml-accent-2: var(--brand-accent-secondary);
   --ml-max: 42rem;
 }
 
@@ -23,7 +26,8 @@ body.marketing-body {
     'Segoe UI',
     Roboto,
     sans-serif;
-  background: var(--ml-bg);
+  background: var(--brand-gradient-page);
+  background-color: var(--ml-bg);
   color: var(--ml-text);
   line-height: 1.6;
 }
@@ -65,7 +69,7 @@ body.marketing-body {
 }
 
 .marketing-main a:hover {
-  color: #d5dd85;
+  color: var(--brand-accent-hover);
 }
 
 .marketing-lede {
