@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const routes = [
+  { href: '/', label: 'Splash (entry)' },
+  { href: '/home', label: 'Home' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/services', label: 'Services' },
+  { href: '/artists', label: 'Artists' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/privacy-policy', label: 'Privacy Policy' },
+  { href: '/terms-of-use', label: 'Terms of Use' },
+  { href: '/cookie-policy', label: 'Cookie Policy' },
+  { href: '/faq', label: 'FAQ' },
+];
+---
+
+<BaseLayout
+  title="Sitemap"
+  description="HTML sitemap of siryushub.com pages."
+>
+  <h1>Sitemap</h1>
+  <p class="marketing-lede">Main pages on this site. An XML sitemap is also generated at build time for search engines.</p>
+
+  <ul class="sitemap-list">
+    {routes.map(({ href, label }) => (
+      <li>
+        <a href={href}>{label}</a>
+        <span class="sitemap-path">{href}</span>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
+
+<style>
+  .sitemap-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+  }
+
+  .sitemap-list li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(245, 249, 233, 0.08);
+  }
+
+  .sitemap-path {
+    font-size: 0.85rem;
+    color: #949ba0;
+  }
+</style>

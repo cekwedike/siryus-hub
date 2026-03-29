@@ -1,0 +1,74 @@
+---
+const links = [
+  { href: '/home', label: 'Home' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/services', label: 'Services' },
+  { href: '/artists', label: 'Artists' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<header class="simple-nav">
+  <div class="simple-nav-inner">
+    <a href="/home" class="simple-nav-brand">Siryus Hub</a>
+    <nav class="simple-nav-links" aria-label="Primary">
+      {links.map(({ href, label }) => (
+        <a href={href} class="simple-nav-link">{label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .simple-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(27, 27, 30, 0.95);
+    border-bottom: 1px solid rgba(245, 249, 233, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .simple-nav-inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+  }
+
+  .simple-nav-brand {
+    font-weight: 700;
+    color: #f5f9e9;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .simple-nav-brand:hover {
+    color: #d1df4b;
+  }
+
+  .simple-nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: center;
+  }
+
+  .simple-nav-link {
+    color: #949ba0;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .simple-nav-link:hover {
+    color: #d1df4b;
+  }
+</style>

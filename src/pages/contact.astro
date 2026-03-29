@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact Siryus Hub and SIRYUS A.M for inquiries, collaborations, and support."
+>
+  <h1>Contact</h1>
+  <p class="marketing-lede">
+    Reach out for management, marketing, partnerships, or general questions. We read every message and respond as soon as
+    we can.
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <a href="mailto:management@siryushub.com">management@siryushub.com</a>
+  </p>
+
+  <h2>Send a message</h2>
+  <form id="contact-form" class="contact-form" novalidate>
+    <label class="contact-label">
+      Name
+      <input type="text" name="name" autocomplete="name" class="contact-input" placeholder="Your name" required />
+    </label>
+    <label class="contact-label">
+      Email
+      <input type="email" name="email" autocomplete="email" class="contact-input" placeholder="you@example.com" required />
+    </label>
+    <label class="contact-label">
+      Message
+      <textarea name="message" class="contact-textarea" rows="5" placeholder="How can we help?" required></textarea>
+    </label>
+    <p class="contact-note">
+      Submitting opens your email app with a draft. For embedded forms, connect a backend or form provider in production.
+    </p>
+    <button type="submit" class="contact-submit">Send via email</button>
+  </form>
+</BaseLayout>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 28rem;
+    margin-top: 1rem;
+  }
+
+  .contact-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #f5f9e9;
+  }
+
+  .contact-input,
+  .contact-textarea {
+    padding: 0.65rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid rgba(245, 249, 233, 0.2);
+    background: #323836;
+    color: #f5f9e9;
+    font: inherit;
+    resize: vertical;
+  }
+
+  .contact-input:focus,
+  .contact-textarea:focus {
+    outline: 2px solid #d1df4b;
+    outline-offset: 2px;
+  }
+
+  .contact-note {
+    font-size: 0.85rem;
+    color: #949ba0;
+    margin: 0;
+  }
+
+  .contact-submit {
+    align-self: flex-start;
+    padding: 0.65rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    background: #d1df4b;
+    color: #1b1b1e;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .contact-submit:hover {
+    background: #d5dd85;
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!(form instanceof HTMLFormElement)) return;
+    const fd = new FormData(form);
+    const name = String(fd.get('name') ?? '').trim();
+    const email = String(fd.get('email') ?? '').trim();
+    const message = String(fd.get('message') ?? '').trim();
+    const subject = encodeURIComponent(`Siryus Hub inquiry from ${name}`);
+    const body = encodeURIComponent(`From: ${name} <${email}>\n\n${message}`);
+    window.location.href = `mailto:management@siryushub.com?subject=${subject}&body=${body}`;
+  });
+</script>

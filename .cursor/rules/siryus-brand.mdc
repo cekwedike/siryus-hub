@@ -1,0 +1,15 @@
+---
+description: Siryus franchise naming (SIRYUS A.M vs Siryus Hub)
+globs: "**/*.{astro,md,ts,js,css}"
+---
+
+# Brand strings
+
+- Use **SIRYUS A.M** (all caps SIRYUS) for the artist management acronym in user-facing copy, alt text, and metadata.
+- Keep **Siryus** (sentence case) for **Siryus Hub**, **Siryus Creative Media Ltd**, **Siryus Community**, and similar product or company names.
+- Do not write “Siryus A.M” for the management brand.
+
+# File size
+
+- No source file under `src/` should exceed **1500** lines. Split styles, scripts, or components instead.
+- Run `npm run lint:max-lines` before merging substantive changes.

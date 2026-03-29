@@ -1350,9 +1350,9 @@ This README synthesizes information from these detailed documents in `/docs`:
 
 ## Project Status
 
-**Current Phase:** Ready for development  
-**Completion:** 0% (Documentation complete, implementation pending)  
-**Next Steps:** Begin Phase 1 (Project Setup & Environment)
+**Current Phase:** Core frontend in progress (splash + homepage live; routes and CMS pending)  
+**Completion:** Documentation complete; initial implementation includes Astro static site with splash at `/` ([`src/pages/index.astro`](../src/pages/index.astro)), main marketing page at `/home` ([`src/pages/home.astro`](../src/pages/home.astro)), and shared components under [`src/components/`](../src/components/).  
+**Next Steps:** Expand routes (legal pages, services, blog, contact), shared `BaseLayout`, headless CMS integration, and deployment hardening per the roadmap sections above.
 
 ---
 

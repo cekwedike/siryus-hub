@@ -16,7 +16,7 @@ import Footer from '../components/Footer.astro';
   <title>Siryus Hub - Where Ideas Become Reality</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Siryus Hub: Your creative command center. Manage projects, collaborate with your team, and bring your vision to life with Siryus A.M creative production services.">
+  <meta name="description" content="Siryus Hub: Your creative command center. Manage projects, collaborate with your team, and bring your vision to life with SIRYUS A.M creative production services.">
   <meta name="keywords" content="creative platform, project management, video production, photography, motion graphics, content creation">
   
   <!-- Open Graph -->
@@ -371,10 +371,10 @@ import Footer from '../components/Footer.astro';
       updateParallax();
       
       // Update on resize
-      let resizeTimeout: number | undefined;
+      let resizeTimeout: ReturnType<typeof globalThis.setTimeout> | undefined;
       window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = window.setTimeout(() => {
+        if (resizeTimeout !== undefined) globalThis.clearTimeout(resizeTimeout);
+        resizeTimeout = globalThis.setTimeout(() => {
           updateParallax();
         }, 150);
       }, { passive: true });
@@ -513,10 +513,10 @@ import Footer from '../components/Footer.astro';
     }
 
     // Handle resize
-    let resizeTimer: number | undefined;
+    let resizeTimer: ReturnType<typeof globalThis.setTimeout> | undefined;
     window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
+      if (resizeTimer !== undefined) globalThis.clearTimeout(resizeTimer);
+      resizeTimer = globalThis.setTimeout(() => {
         // Re-calculate parallax positions
         const parallaxElements = document.querySelectorAll('[class*="parallax-"]');
         parallaxElements.forEach(element => {

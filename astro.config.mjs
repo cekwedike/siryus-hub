@@ -1,10 +1,11 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // Your Astro configuration
-  site: 'https://siryushub.com', // Update with your actual domain
+  site: 'https://www.siryushub.com',
   output: 'static',
+  integrations: [sitemap()],
   build: {
     inlineStylesheets: 'auto',
   },

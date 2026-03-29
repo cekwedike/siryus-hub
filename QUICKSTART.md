@@ -83,7 +83,7 @@ Look for these hex codes in the CSS and replace:
 <div class="logo-box">SIRYUS A.M</div>
 
 <!-- After -->
-<img src="/logo.svg" alt="Siryus A.M Logo" style="width: 180px; height: auto;" />
+<img src="/logo.svg" alt="SIRYUS A.M logo" style="width: 180px; height: auto;" />
 ```
 
 ---

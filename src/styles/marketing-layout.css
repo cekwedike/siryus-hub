@@ -1,0 +1,90 @@
+/* Shared layout for marketing and legal pages */
+:root {
+  --ml-bg: #1b1b1e;
+  --ml-surface: #323836;
+  --ml-text: #f5f9e9;
+  --ml-muted: #949ba0;
+  --ml-accent: #d1df4b;
+  --ml-max: 42rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body.marketing-body {
+  margin: 0;
+  min-height: 100vh;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  background: var(--ml-bg);
+  color: var(--ml-text);
+  line-height: 1.6;
+}
+
+.marketing-main {
+  max-width: var(--ml-max);
+  margin: 0 auto;
+  padding: 6rem 1.25rem 4rem;
+}
+
+.marketing-main h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  margin: 0 0 1rem;
+  line-height: 1.2;
+}
+
+.marketing-main h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+}
+
+.marketing-main p {
+  margin: 0 0 1rem;
+  color: var(--ml-muted);
+}
+
+.marketing-main ul {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  color: var(--ml-muted);
+}
+
+.marketing-main a {
+  color: var(--ml-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.marketing-main a:hover {
+  color: #d5dd85;
+}
+
+.marketing-lede {
+  font-size: 1.05rem;
+  color: var(--ml-text);
+  margin-bottom: 1.5rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--ml-accent);
+  color: #1b1b1e;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}

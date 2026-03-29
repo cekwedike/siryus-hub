@@ -27,13 +27,17 @@ A modern, animated loading/splash screen for the Siryus Hub website built with A
 ```
 siryus-hub/
 ├── src/
-│   └── pages/
-│       ├── splash.astro    # Main splash screen component
-│       └── index.astro     # Home page (placeholder)
-├── public/                 # Static assets (add logo here)
-├── astro.config.mjs        # Astro configuration
-├── package.json            # Dependencies
-└── tsconfig.json           # TypeScript configuration
+│   ├── pages/
+│   │   ├── index.astro     # Splash / entry at `/` (redirects to `/home`)
+│   │   └── home.astro      # Main marketing homepage at `/home`
+│   ├── components/         # Shared sections (nav, hero, footer, etc.)
+│   ├── styles/             # Extracted global/splash styles (if present)
+│   └── scripts/            # Extracted client scripts (if present)
+├── public/                 # Static assets (images, fonts, favicons)
+├── docs/                   # Full site specification and roadmap
+├── astro.config.mjs
+├── package.json
+└── tsconfig.json
 ```
 
 ## 🚀 Getting Started
@@ -77,11 +81,11 @@ Or with pnpm:
 pnpm dev
 ```
 
-3. **View the splash screen:**
+3. **View the site:**
 
 Open your browser and navigate to:
-- Splash screen: `http://localhost:4321/splash`
-- Home page: `http://localhost:4321/`
+- Splash (entry): `http://localhost:4321/` (auto-advances or skip to `/home`)
+- Main homepage: `http://localhost:4321/home`
 
 4. **Build for production:**
 
@@ -97,31 +101,16 @@ npm run preview
 
 ## 🎯 Usage
 
-### Setting Splash as Landing Page
+### Entry flow
 
-To make the splash screen your landing page, you have two options:
-
-**Option 1: Rename files**
-- Rename `splash.astro` to a temporary name
-- Rename `index.astro` to `home.astro`
-- Rename `splash.astro` back to `index.astro`
-
-**Option 2: Add redirect in index.astro**
-
-Replace the content of `index.astro` with:
-
-```astro
----
-return Astro.redirect('/splash');
----
-```
+The splash experience lives at **`/`** ([`src/pages/index.astro`](src/pages/index.astro)). It transitions to **`/home`** ([`src/pages/home.astro`](src/pages/home.astro)) after a delay or when the user skips. To use the marketing page as the root URL instead, you can swap routes (e.g. move the splash to `/splash` and promote `home.astro` to `index.astro`) or add a server redirect in your host configuration.
 
 ### Customizing the Logo
 
-The logo placeholder is located at the top-left corner. To replace it:
+The logo appears at the top-left of the splash screen. To replace it:
 
 1. Add your logo image to the `public/` folder (e.g., `public/logo.svg`)
-2. In `splash.astro`, replace this section:
+2. In `index.astro`, replace or adjust the logo markup in the `.logo-placeholder` section:
 
 ```html
 <div class="logo-placeholder">
@@ -133,7 +122,7 @@ With:
 
 ```html
 <div class="logo-placeholder">
-  <img src="/logo.svg" alt="Siryus A.M Logo" class="logo-image" />
+  <img src="/logo.svg" alt="SIRYUS A.M logo" class="logo-image" />
 </div>
 ```
 
@@ -148,7 +137,7 @@ With:
 
 ### Adjusting Timing
 
-In the `<script>` section of `splash.astro`, you can modify:
+In the `<script>` section of `index.astro` (or the extracted splash script module), you can modify:
 
 ```javascript
 const TRANSITION_DELAY = 10000; // Change this value (in milliseconds)
@@ -157,18 +146,10 @@ const TEXT_DISPLAY_DURATION = 2500; // Time each text shows
 
 ### Changing the Destination URL
 
-By default, the splash screen redirects to `/` (home). To change this:
-
-Find this line in the `transitionToHome()` function:
+By default, the splash screen redirects to **`/home`**. To change this, find `transitionToHome()` and set:
 
 ```javascript
-window.location.href = '/'; // Change to your desired route
-```
-
-Change it to:
-
-```javascript
-window.location.href = '/home'; // Or any other route
+window.location.href = '/home'; // Your desired route
 ```
 
 ### Modifying Text Rotation
@@ -269,8 +250,11 @@ The splash screen includes:
 
 ## 📦 Dependencies
 
-- **Astro**: ^4.0.0 - Modern static site builder
-- **Google Fonts (Inter)**: For typography (loaded via CDN)
+- **Astro** (^6.x): Static site generator
+- **@astrojs/sitemap**: XML sitemap generation for SEO
+- **Google Fonts**: Loaded via CDN on the splash page; Aeonik (local) on `/home`
+
+Run `npm run lint:max-lines` to ensure no file under `src/` exceeds 1500 lines.
 
 ## 🔮 Future Enhancements
 
