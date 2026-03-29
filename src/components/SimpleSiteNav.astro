@@ -1,8 +1,10 @@
 ---
+import BrandWordmark from './BrandWordmark.astro';
 const links = [
   { href: '/home', label: 'Home' },
   { href: '/blog', label: 'Blog' },
   { href: '/services', label: 'Services' },
+  { href: '/siryus-am', label: 'SIRYUS A.M' },
   { href: '/artists', label: 'Artists' },
   { href: '/projects', label: 'Projects' },
   { href: '/contact', label: 'Contact' },
@@ -11,7 +13,7 @@ const links = [
 
 <header class="simple-nav">
   <div class="simple-nav-inner">
-    <a href="/home" class="simple-nav-brand">Siryus Hub</a>
+    <BrandWordmark variant="marketing" href="/home" />
     <nav class="simple-nav-links" aria-label="Primary">
       {links.map(({ href, label }) => (
         <a href={href} class="simple-nav-link">{label}</a>

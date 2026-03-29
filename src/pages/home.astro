@@ -4,9 +4,9 @@ import { ClientRouter } from 'astro:transitions';
 import Navigation from '../components/Navigation.astro';
 import Sidebar from '../components/Sidebar.astro';
 import HeroSection from '../components/HeroSection.astro';
-import SiryusHubSection from '../components/SiryusHubSection.astro';
-import CreativeMediaSection from '../components/CreativeMediaSection.astro';
+import ExploreSection from '../components/ExploreSection.astro';
 import Footer from '../components/Footer.astro';
+import '../styles/brand-tokens.css';
 ---
 
 <!DOCTYPE html>
@@ -29,10 +29,11 @@ import Footer from '../components/Footer.astro';
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Preload Critical Assets -->
-  <link rel="preload" href="/siryus-hub-logo.svg" as="image">
-  
   <!-- Aeonik Font -->
   <style>
     @font-face {
@@ -77,14 +78,8 @@ import Footer from '../components/Footer.astro';
   
   <!-- Main Content -->
   <main class="main-content" id="main-content">
-    <!-- Section 1: Hero -->
     <HeroSection />
-    
-    <!-- Section 2: Siryus Hub -->
-    <SiryusHubSection />
-    
-    <!-- Section 3: Creative Media -->
-    <CreativeMediaSection />
+    <ExploreSection />
   </main>
   
   <!-- Footer -->
@@ -102,7 +97,7 @@ import Footer from '../components/Footer.astro';
       /* Brand Colors */
       --color-primary: #D1DF4B;
       --color-primary-light: #D5DD85;
-      --color-background: #1B1B1E;
+      --color-background: #050505;
       --color-elevated: #323836;
       --color-text-primary: #F5F9E9;
       --color-text-muted: #949BA0;
@@ -127,7 +122,8 @@ import Footer from '../components/Footer.astro';
 
     body {
       font-family: var(--font-family);
-      background: var(--color-background);
+      background: var(--brand-gradient-page);
+      background-color: var(--brand-bg-base, var(--color-background));
       color: var(--color-text-primary);
       line-height: 1.6;
       overflow-x: hidden;
@@ -153,7 +149,7 @@ import Footer from '../components/Footer.astro';
     }
 
     ::-webkit-scrollbar-track {
-      background: #1B1B1E;
+      background: #050505;
     }
 
     ::-webkit-scrollbar-thumb {
@@ -303,60 +299,43 @@ import Footer from '../components/Footer.astro';
       });
     }
 
-    // ===== PARALLAX SCROLLING =====
-    // Enhanced Parallax Scrolling Effect
+    // ===== PARALLAX (damped, section-relative) =====
     function initParallax() {
       const parallaxElements = document.querySelectorAll('[class*="parallax-"]');
-      
-      // Store element data for performance
-      const elementData = Array.from(parallaxElements).map(element => ({
+      const elementData = Array.from(parallaxElements).map((element) => ({
         element: element as HTMLElement,
         isSlow: element.classList.contains('parallax-slow'),
         isNormal: element.classList.contains('parallax-normal'),
-        isFast: element.classList.contains('parallax-fast')
+        isFast: element.classList.contains('parallax-fast'),
       }));
-      
+
       function updateParallax() {
         const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const scrollProgress = scrollY / (document.documentElement.scrollHeight - windowHeight);
-        
+        const vh = window.innerHeight;
+
         elementData.forEach(({ element, isSlow, isNormal, isFast }) => {
-          const rect = element.getBoundingClientRect();
-          
-          // Check if element is in viewport with buffer
-          if (rect.top < windowHeight + 200 && rect.bottom > -200) {
-            // Calculate element's position relative to viewport center
-            const elementCenter = rect.top + rect.height / 2;
-            const viewportCenter = windowHeight / 2;
-            const distanceFromCenter = elementCenter - viewportCenter;
-            
-            // Apply different parallax speeds based on class
-            let translateY = 0;
-            let scale = 1;
-            
-            if (isSlow) {
-              // Slow elements move less, creating depth
-              translateY = distanceFromCenter * 0.15;
-            } else if (isNormal) {
-              // Normal elements move moderately
-              translateY = distanceFromCenter * 0.08;
-            } else if (isFast) {
-              // Fast elements move more, appear closer
-              translateY = distanceFromCenter * 0.04;
-              scale = 1 + (Math.abs(distanceFromCenter) / windowHeight) * 0.02;
-            }
-            
-            // Apply smooth transform with hardware acceleration
-            element.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
-            element.style.willChange = 'transform';
+          const section = element.closest('section');
+          if (!section) {
+            element.style.transform = '';
+            return;
           }
+          const rect = section.getBoundingClientRect();
+          if (rect.bottom < -80 || rect.top > vh + 80) {
+            element.style.transform = '';
+            return;
+          }
+          const sec = section as HTMLElement;
+          let factor = 0.018;
+          if (isSlow) factor = 0.028;
+          if (isNormal) factor = 0.022;
+          if (isFast) factor = 0.014;
+          const y = (scrollY - sec.offsetTop) * factor;
+          const clamped = Math.max(-28, Math.min(28, y));
+          element.style.transform = `translate3d(0, ${clamped}px, 0)`;
         });
       }
-      
-      // Use requestAnimationFrame for smooth 60fps animations
+
       let ticking = false;
-      
       function requestTick() {
         if (!ticking) {
           window.requestAnimationFrame(() => {
@@ -366,20 +345,19 @@ import Footer from '../components/Footer.astro';
           ticking = true;
         }
       }
-      
+
       window.addEventListener('scroll', requestTick, { passive: true });
-      
-      // Initial call
       updateParallax();
-      
-      // Update on resize
+
       let resizeTimeout: ReturnType<typeof globalThis.setTimeout> | undefined;
-      window.addEventListener('resize', () => {
-        if (resizeTimeout !== undefined) globalThis.clearTimeout(resizeTimeout);
-        resizeTimeout = globalThis.setTimeout(() => {
-          updateParallax();
-        }, 150);
-      }, { passive: true });
+      window.addEventListener(
+        'resize',
+        () => {
+          if (resizeTimeout !== undefined) globalThis.clearTimeout(resizeTimeout);
+          resizeTimeout = globalThis.setTimeout(() => updateParallax(), 150);
+        },
+        { passive: true }
+      );
     }
 
     // Smooth Scroll to Sections

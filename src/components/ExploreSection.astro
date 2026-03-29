@@ -1,0 +1,81 @@
+---
+const cards = [
+  { href: '/about', title: 'About', blurb: 'Who we are, what we stand for, and how we work with creatives.', img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80&auto=format&fit=crop', alt: 'Team collaboration' },
+  { href: '/reels', title: 'Reels', blurb: 'Motion, film, and showreel energy.', img: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80&auto=format&fit=crop', alt: 'Camera and production' },
+  { href: '/community', title: 'Community', blurb: 'Connect with artists and makers.', img: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80&auto=format&fit=crop', alt: 'People together' },
+  { href: '/blog', title: 'Blog', blurb: 'Ideas, process, and industry notes.', img: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80&auto=format&fit=crop', alt: 'Writing' },
+  { href: '/brief', title: 'Brief', blurb: 'How to start a project with us.', img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80&auto=format&fit=crop', alt: 'Planning' },
+  { href: '/hybrid', title: 'Hybrid', blurb: 'Art plus tech: the mix we live in.', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80&auto=format&fit=crop', alt: 'Technology abstract' },
+];
+---
+
+<section class="explore" id="explore" aria-labelledby="explore-heading">
+  <div class="explore-inner">
+    <h2 id="explore-heading" class="explore-title">Explore</h2>
+    <p class="explore-lede">Each area has its own page.</p>
+    <ul class="explore-grid">
+      {cards.map((c) => (
+        <li>
+          <a href={c.href} class="explore-card">
+            <div class="explore-card__media">
+              <img src={c.img} alt="" width="800" height="500" loading="lazy" decoding="async" />
+            </div>
+            <div class="explore-card__body">
+              <span class="explore-card__title">{c.title}</span>
+              <span class="explore-card__blurb">{c.blurb}</span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .explore {
+    padding: 5rem 1.5rem 6rem;
+    background: var(--brand-bg-deep, #020202);
+    border-top: 1px solid rgba(245, 249, 233, 0.06);
+  }
+  .explore-inner { max-width: 1200px; margin: 0 auto; }
+  .explore-title {
+    font-family: 'Aeonik', sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f5f9e9;
+    margin: 0 0 0.5rem;
+  }
+  .explore-lede { color: #949ba0; margin: 0 0 2.5rem; max-width: 36rem; font-size: 1.05rem; }
+  .explore-grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .explore-card {
+    display: flex; flex-direction: column; height: 100%;
+    text-decoration: none;
+    border-radius: 14px; overflow: hidden;
+    background: var(--brand-surface, #141414);
+    border: 1px solid rgba(245, 249, 233, 0.08);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .explore-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(209, 223, 75, 0.35);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  }
+  .explore-card__media { aspect-ratio: 16 / 10; overflow: hidden; background: #0a0a0a; }
+  .explore-card__media img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.4s ease;
+  }
+  .explore-card:hover .explore-card__media img { transform: scale(1.05); }
+  .explore-card__body { padding: 1.15rem 1.25rem 1.35rem; display: flex; flex-direction: column; gap: 0.35rem; }
+  .explore-card__title {
+    font-weight: 800; font-size: 0.95rem; letter-spacing: 0.12em; text-transform: uppercase; color: #d1df4b;
+  }
+  .explore-card__blurb { font-size: 0.9rem; line-height: 1.45; color: #b8bdc4; }
+</style>

@@ -1,4 +1,5 @@
 ---
+import BrandWordmark from './BrandWordmark.astro';
 const year = new Date().getFullYear();
 ---
 
@@ -6,7 +7,7 @@ const year = new Date().getFullYear();
   <div class="site-footer-legal-inner">
     <div class="site-footer-legal-grid">
       <div>
-        <p class="site-footer-title">Siryus Hub</p>
+        <div class="site-footer-wordmark"><BrandWordmark variant="footer" href="/home" /></div>
         <p class="site-footer-muted">
           Empowering independent creatives through SIRYUS A.M and the wider Siryus ecosystem.
         </p>
@@ -36,7 +37,7 @@ const year = new Date().getFullYear();
   .site-footer-legal {
     margin-top: auto;
     border-top: 1px solid rgba(245, 249, 233, 0.1);
-    background: #141416;
+    background: var(--brand-bg-deep, #141416);
     padding: 2.5rem 1.25rem 2rem;
   }
 
@@ -55,6 +56,10 @@ const year = new Date().getFullYear();
     .site-footer-legal-grid {
       grid-template-columns: repeat(3, 1fr);
     }
+  }
+
+  .site-footer-wordmark {
+    margin-bottom: 0.75rem;
   }
 
   .site-footer-title {

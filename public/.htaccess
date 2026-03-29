@@ -1,0 +1,9 @@
+# Apache (e.g. Hostinger): legacy URLs → new structure
+RewriteEngine On
+RewriteRule ^contact-page-siryus$ /contact [R=301,L]
+RewriteRule ^siryus-blog$ /blog [R=301,L]
+RewriteRule ^artists-siryus-hub$ /artists [R=301,L]
+RewriteRule ^siryus-hub-projects$ /projects [R=301,L]
+RewriteRule ^services-independent-creatives$ /services [R=301,L,NE]
+RewriteRule ^max-prodigy$ /artists/max-prodigy [R=301,L]
+RewriteRule ^hidaya-morgan$ /artists/hidaya-morgan [R=301,L]

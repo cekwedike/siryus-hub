@@ -1,4 +1,5 @@
 ---
+import BrandWordmark from './BrandWordmark.astro';
 // Navigation Component - Top navigation bar for Siryus Hub
 // Fixed position with logo, menu links, and hamburger toggle
 ---
@@ -7,19 +8,17 @@
   <div class="nav-container">
     <!-- Logo -->
     <div class="nav-logo">
-      <a href="/home">
-        <img src="/images/logo/dark/siryus-logo-dark.png" alt="SIRYUS A.M" class="logo-img" />
-      </a>
+      <BrandWordmark variant="nav" href="/home" />
     </div>
 
     <!-- Center Navigation Links -->
     <ul class="nav-links">
-      <li><a href="/home#about" class="nav-link">ABOUT</a></li>
-      <li><a href="/home#reels" class="nav-link">REELS</a></li>
-      <li><a href="/home#community" class="nav-link">COMMUNITY</a></li>
+      <li><a href="/about" class="nav-link">ABOUT</a></li>
+      <li><a href="/reels" class="nav-link">REELS</a></li>
+      <li><a href="/community" class="nav-link">COMMUNITY</a></li>
       <li><a href="/blog" class="nav-link">BLOG</a></li>
-      <li><a href="/home#brief" class="nav-link">BRIEF</a></li>
-      <li><a href="/home#hybrid" class="nav-link">HYBRID</a></li>
+      <li><a href="/brief" class="nav-link">BRIEF</a></li>
+      <li><a href="/hybrid" class="nav-link">HYBRID</a></li>
     </ul>
 
     <!-- Right Side - Discover Magic & Hamburger -->
@@ -43,7 +42,7 @@
     left: 0;
     width: 100%;
     height: 80px;
-    background: rgba(27, 27, 30, 0.95);
+    background: rgba(5, 5, 5, 0.92);
     backdrop-filter: blur(10px);
     z-index: 1000;
     border-bottom: 1px solid rgba(245, 249, 233, 0.1);
@@ -64,15 +63,6 @@
     flex-shrink: 0;
   }
 
-  .logo-img {
-    height: 50px;
-    width: auto;
-    transition: transform 0.3s ease;
-  }
-
-  .logo-img:hover {
-    transform: scale(1.05);
-  }
 
   /* Center Navigation Links */
   .nav-links {
@@ -187,10 +177,6 @@
       display: none;
     }
 
-    .logo-img {
-      height: 40px;
-    }
-
     .hamburger-btn {
       width: 44px;
       height: 44px;
@@ -204,10 +190,6 @@
 
     .nav-container {
       padding: 0 15px;
-    }
-
-    .logo-img {
-      height: 35px;
     }
 
     .hamburger-btn {

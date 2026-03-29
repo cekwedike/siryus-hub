@@ -1,4 +1,7 @@
 ---
+/**
+ * SIRYUS text logo only. No underline (removed decorative accent line).
+ */
 interface Props {
   href?: string;
   variant?: 'nav' | 'sidebar' | 'footer' | 'marketing';
@@ -8,30 +11,65 @@ interface Props {
 const {
   href = '/home',
   variant = 'nav',
-  ariaLabel = 'Siryus Hub — home',
+  ariaLabel = 'SIRYUS, go to home',
 } = Astro.props;
 ---
 
 <a href={href} class={"brand-wordmark brand-wordmark--" + variant} aria-label={ariaLabel}>
-  <span class="brand-wordmark__stack">
-    <span class="brand-wordmark__primary">SIRYUS</span>
-    {variant === 'marketing' && <span class="brand-wordmark__suffix">Hub</span>}
-  </span>
+  <span class="brand-wordmark__primary">SIRYUS</span>
 </a>
 
 <style>
-  .brand-wordmark { display: inline-block; text-decoration: none; color: inherit; transition: transform 0.25s ease; }
-  .brand-wordmark:hover { transform: scale(1.02); }
-  .brand-wordmark__stack { display: inline-flex; flex-direction: column; align-items: flex-start; }
-  .brand-wordmark__primary { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 800; letter-spacing: 0.28em; color: #f5f9e9; border-bottom: 2px solid rgba(209, 223, 75, 0.55); padding-bottom: 0.2rem; line-height: 1.1; transition: color 0.2s ease, border-color 0.2s ease, letter-spacing 0.25s ease; }
-  .brand-wordmark:hover .brand-wordmark__primary { color: #d1df4b; border-color: #d1df4b; letter-spacing: 0.32em; }
-  .brand-wordmark__suffix { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 600; font-size: 0.62em; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(209, 223, 75, 0.95); margin-top: 0.15rem; padding-left: 0.05em; }
-  .brand-wordmark--nav .brand-wordmark__stack { flex-direction: row; align-items: baseline; }
-  .brand-wordmark--nav .brand-wordmark__primary { font-size: clamp(0.78rem, 1.1vw, 0.95rem); letter-spacing: 0.32em; padding-bottom: 0.25rem; }
-  .brand-wordmark--sidebar .brand-wordmark__primary { font-size: clamp(1rem, 1.5vw, 1.15rem); letter-spacing: 0.3em; }
-  .brand-wordmark--footer .brand-wordmark__primary { font-size: clamp(1.1rem, 2vw, 1.35rem); letter-spacing: 0.26em; }
-  .brand-wordmark--marketing .brand-wordmark__primary { font-size: clamp(0.85rem, 1.5vw, 1rem); letter-spacing: 0.28em; }
-  :global(body.light-theme) .brand-wordmark__primary { color: #1b1b1e; border-bottom-color: rgba(27, 27, 30, 0.35); }
-  :global(body.light-theme) .brand-wordmark:hover .brand-wordmark__primary { color: #3d4510; border-color: #d1df4b; }
-  :global(body.light-theme) .brand-wordmark__suffix { color: #5c6b12; }
+  .brand-wordmark {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, color 0.2s ease;
+  }
+
+  .brand-wordmark:hover {
+    transform: scale(1.02);
+  }
+
+  .brand-wordmark__primary {
+    font-family: 'Unbounded', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    color: #f5f9e9;
+    line-height: 1.1;
+    transition: color 0.2s ease, letter-spacing 0.25s ease;
+  }
+
+  .brand-wordmark:hover .brand-wordmark__primary {
+    color: #d1df4b;
+    letter-spacing: 0.3em;
+  }
+
+  .brand-wordmark--nav .brand-wordmark__primary {
+    font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+    letter-spacing: 0.32em;
+  }
+
+  .brand-wordmark--sidebar .brand-wordmark__primary {
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    letter-spacing: 0.3em;
+  }
+
+  .brand-wordmark--footer .brand-wordmark__primary {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    letter-spacing: 0.26em;
+  }
+
+  .brand-wordmark--marketing .brand-wordmark__primary {
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    letter-spacing: 0.28em;
+  }
+
+  :global(body.light-theme) .brand-wordmark__primary {
+    color: #1b1b1e;
+  }
+
+  :global(body.light-theme) .brand-wordmark:hover .brand-wordmark__primary {
+    color: #3d4510;
+  }
 </style>

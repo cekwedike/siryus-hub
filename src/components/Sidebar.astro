@@ -1,4 +1,5 @@
 ---
+import BrandWordmark from './BrandWordmark.astro';
 // Sidebar Menu Component - Sliding menu from right side
 // Includes navigation with numbers, social links, and branding
 ---
@@ -19,7 +20,7 @@
 
     <!-- Top Section: Logo -->
     <div class="sidebar-logo">
-      <img src="/images/logo/dark/siryus-logo-dark.png" alt="SIRYUS A.M" />
+      <BrandWordmark variant="sidebar" href="/home" />
     </div>
 
     <!-- Main Navigation Menu -->
@@ -32,19 +33,19 @@
           </a>
         </li>
         <li>
-          <a href="/home#about" class="menu-item">
+          <a href="/about" class="menu-item">
             <span class="menu-text">ABOUT</span>
             <span class="menu-number">02</span>
           </a>
         </li>
         <li>
-          <a href="/home#reels" class="menu-item">
+          <a href="/reels" class="menu-item">
             <span class="menu-text">REELS</span>
             <span class="menu-number">03</span>
           </a>
         </li>
         <li>
-          <a href="/home#community" class="menu-item">
+          <a href="/community" class="menu-item">
             <span class="menu-text">COMMUNITY</span>
             <span class="menu-number">04</span>
           </a>
@@ -56,9 +57,15 @@
           </a>
         </li>
         <li>
-          <a href="/home#brief" class="menu-item">
+          <a href="/brief" class="menu-item">
             <span class="menu-text">BRIEF</span>
             <span class="menu-number">06</span>
+          </a>
+        </li>
+        <li>
+          <a href="/hybrid" class="menu-item">
+            <span class="menu-text">HYBRID</span>
+            <span class="menu-number">07</span>
           </a>
         </li>
       </ul>
@@ -146,7 +153,7 @@
     width: 45%;
     max-width: 600px;
     height: 100%;
-    background: #1B1B1E;
+    background: #080808;
     display: flex;
     flex-direction: column;
     padding: 40px;

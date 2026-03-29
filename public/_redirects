@@ -1,0 +1,8 @@
+# Legacy Hostinger / builder URLs → canonical routes (301)
+/contact-page-siryus    /contact    301
+/siryus-blog             /blog       301
+/artists-siryus-hub      /artists    301
+/siryus-hub-projects     /projects   301
+/services-independent-creatives  /services  301
+/max-prodigy             /artists/max-prodigy   301
+/hidaya-morgan           /artists/hidaya-morgan 301
