@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import '../styles/splash.css';
+import '../styles/morphism.css';
 // Siryus Hub - Loading/Splash Screen
 // Auto-advances after a short delay; users can skip via click or Enter
 ---
@@ -42,11 +43,11 @@ import '../styles/splash.css';
 </head>
 <body>
   <!-- Text wordmark (top left) -->
-  <a href="/home" class="splash-wordmark" data-splash-interactive aria-label="SIRYUS — go to home">
+  <a href="/home" class="splash-wordmark" data-splash-interactive aria-label="SIRYUS, go to home">
     <span class="splash-wordmark__text">SIRYUS</span>
   </a>
 
-  <!-- Theme + sound (Top Right) — data-splash-interactive excludes from “click to skip” -->
+  <!-- Theme + sound (Top Right) - data-splash-interactive excludes from "click to skip" -->
   <div class="top-right-controls" data-splash-interactive>
   <div class="theme-toggle-container">
     <div class="theme-toggle-pill">
@@ -158,7 +159,7 @@ import '../styles/splash.css';
     <!-- Hero: text-only headline (no floating A/M) -->
     <div class="center-content">
       <p class="hero-eyebrow" aria-hidden="true">Independent creatives · Arts & culture</p>
-      <div class="hero-panel">
+      <div class="hero-panel morph-hero-glass-panel">
         <div class="text-rotation-container">
           <h1 class="rotating-text" id="rotatingText">
             <span class="logo-word">SIRYUS</span><span class="logo-suffix"> A.M</span>

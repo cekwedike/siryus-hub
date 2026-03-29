@@ -1,0 +1,157 @@
+@import './brand-tokens.css';
+
+:root {
+  --morph-glass-bg: rgba(255, 255, 255, 0.055);
+  --morph-glass-border: rgba(255, 255, 255, 0.12);
+  --morph-glass-border-soft: rgba(255, 255, 255, 0.07);
+  --morph-glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --morph-neu-bg: #0e0e0e;
+  --morph-neu-shadow-dark: rgba(0, 0, 0, 0.55);
+  --morph-neu-shadow-light: rgba(255, 255, 255, 0.04);
+  --morph-clay-shadow: rgba(0, 0, 0, 0.45);
+}
+
+.nav-glass {
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.94) 0%, rgba(5, 5, 5, 0.9) 100%);
+  backdrop-filter: blur(22px) saturate(1.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+  border-bottom: 1px solid var(--morph-glass-border-soft);
+  box-shadow: var(--morph-glass-inset), 0 4px 24px rgba(0, 0, 0, 0.45);
+}
+
+.morph-surface--glass {
+  padding: 2.25rem 1.75rem 2.75rem;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(1.25);
+  -webkit-backdrop-filter: blur(20px) saturate(1.25);
+  border: 1px solid var(--morph-glass-border);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), var(--morph-glass-inset);
+}
+
+@media (min-width: 640px) {
+  .morph-surface--glass { padding: 2.5rem 2rem 3rem; }
+}
+
+.morph-clay-card {
+  border-radius: 20px;
+  background: linear-gradient(165deg, rgba(28, 28, 30, 0.95) 0%, rgba(12, 12, 14, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 10px 10px 22px var(--morph-clay-shadow), -4px -4px 14px rgba(255, 255, 255, 0.02), inset 0 2px 0 rgba(255, 255, 255, 0.07), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.morph-clay-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(209, 223, 75, 0.25);
+  box-shadow: 14px 18px 36px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.09);
+}
+
+.morph-neu-stack {
+  padding: 1.5rem;
+  border-radius: 20px;
+  background: var(--morph-neu-bg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 8px 8px 18px var(--morph-neu-shadow-dark), -6px -6px 18px var(--morph-neu-shadow-light), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.morph-neu-input, .morph-neu-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  border: none;
+  background: #0a0a0a;
+  color: #f5f9e9;
+  font: inherit;
+  box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.55), inset -4px -4px 10px rgba(255, 255, 255, 0.03);
+}
+
+.morph-neu-input:focus, .morph-neu-textarea:focus {
+  outline: none;
+  box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.55), inset -4px -4px 10px rgba(255, 255, 255, 0.04), 0 0 0 2px rgba(209, 223, 75, 0.35);
+}
+
+.morph-neu-btn {
+  padding: 0.7rem 1.35rem;
+  border-radius: 14px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(145deg, #d1df4b 0%, #b8c940 100%);
+  color: #0a0a0a;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.35), -2px -2px 8px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.morph-neu-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+
+.morph-skeuo-frame {
+  position: relative;
+  border-radius: 12px;
+  padding: 4px;
+  background: linear-gradient(145deg, #3a3a3a 0%, #151515 45%, #0a0a0a 100%);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.morph-skeuo-frame img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+
+.morph-footer-glass {
+  background: linear-gradient(180deg, rgba(6, 6, 6, 0.97) 0%, rgba(3, 3, 3, 0.99) 100%);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border-top: 1px solid var(--morph-glass-border-soft);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.morph-hero-glass-panel {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.morph-hero-clay-cta {
+  border-radius: 14px;
+  background: linear-gradient(165deg, #d1df4b 0%, #b8c940 100%);
+  color: #0a0a0a !important;
+  border: none;
+  box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.35), -2px -2px 8px rgba(255, 255, 255, 0.15), inset 0 2px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Light theme: frosted chrome bars + readable surfaces */
+body.light-theme .nav-glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 249, 246, 0.92) 100%);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  border-bottom: 1px solid rgba(27, 27, 30, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .morph-surface--glass {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(27, 27, 30, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+body.light-theme .morph-clay-card {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.96) 0%, rgba(245, 246, 243, 0.98) 100%);
+  border: 1px solid rgba(27, 27, 30, 0.1);
+  box-shadow: 8px 10px 24px rgba(0, 0, 0, 0.08), -2px -2px 12px rgba(255, 255, 255, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+body.light-theme .morph-clay-card:hover {
+  border-color: rgba(209, 223, 75, 0.45);
+  box-shadow: 12px 14px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+body.light-theme .morph-footer-glass {
+  background: linear-gradient(180deg, rgba(250, 250, 248, 0.97) 0%, rgba(240, 241, 240, 0.99) 100%);
+  border-top: 1px solid rgba(27, 27, 30, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+body.light-theme .morph-skeuo-frame {
+  background: linear-gradient(145deg, #e8e8e6 0%, #d4d4d0 45%, #c8c8c4 100%);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+}

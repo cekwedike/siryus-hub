@@ -1,10 +1,11 @@
 ---
+import '../styles/morphism.css';
 import BrandWordmark from './BrandWordmark.astro';
 // Navigation Component - Top navigation bar for Siryus Hub
 // Fixed position with logo, menu links, and hamburger toggle
 ---
 
-<nav class="top-nav">
+<nav class="top-nav nav-glass">
   <div class="nav-container">
     <!-- Logo -->
     <div class="nav-logo">
@@ -42,10 +43,7 @@ import BrandWordmark from './BrandWordmark.astro';
     left: 0;
     width: 100%;
     height: 80px;
-    background: rgba(5, 5, 5, 0.92);
-    backdrop-filter: blur(10px);
     z-index: 1000;
-    border-bottom: 1px solid rgba(245, 249, 233, 0.1);
   }
 
   .nav-container {
@@ -202,43 +200,42 @@ import BrandWordmark from './BrandWordmark.astro';
     }
   }
 
-  /* Light Theme */
-  :global(body.light-theme) .main-nav {
-    background: rgba(245, 249, 233, 0.98);
-    border-bottom-color: rgba(27, 27, 30, 0.1);
+  /* Light Theme — matches .top-nav.nav-glass (not .main-nav) */
+  :global(body.light-theme) .top-nav.nav-glass {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 249, 246, 0.92) 100%);
+    backdrop-filter: blur(22px) saturate(1.2);
+    -webkit-backdrop-filter: blur(22px) saturate(1.2);
+    border-bottom: 1px solid rgba(27, 27, 30, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 24px rgba(0, 0, 0, 0.06);
   }
 
   :global(body.light-theme) .nav-link {
-    color: #1B1B1E;
+    color: #1b1b1e;
   }
 
   :global(body.light-theme) .nav-link:hover {
-    color: #D1DF4B;
+    color: #4a5200;
   }
 
-  :global(body.light-theme) .discover-btn {
-    background: #D1DF4B;
-    color: #1B1B1E;
-    border-color: #D1DF4B;
-  }
-
-  :global(body.light-theme) .discover-btn:hover {
-    background: #323836;
-    color: #F5F9E9;
-    border-color: #323836;
+  :global(body.light-theme) .discover-text {
+    color: #1b1b1e;
   }
 
   :global(body.light-theme) .hamburger-btn {
     background: transparent;
-    border-color: rgba(27, 27, 30, 0.2);
+    border-color: rgba(27, 27, 30, 0.22);
   }
 
   :global(body.light-theme) .hamburger-btn:hover {
-    background: rgba(209, 223, 75, 0.1);
-    border-color: #D1DF4B;
+    background: rgba(209, 223, 75, 0.15);
+    border-color: #b8c940;
   }
 
-  :global(body.light-theme) .hamburger-line {
-    background: #1B1B1E;
+  :global(body.light-theme) .hamburger-icon span {
+    background: #1b1b1e;
+  }
+
+  :global(body.light-theme) .hamburger-btn:hover .hamburger-icon span {
+    background: #3d4500;
   }
 </style>

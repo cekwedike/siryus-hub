@@ -1,5 +1,6 @@
----
+﻿---
 import '../styles/marketing-layout.css';
+import '../styles/morphism.css';
 import SimpleSiteNav from '../components/SimpleSiteNav.astro';
 import SiteFooterLegal from '../components/SiteFooterLegal.astro';
 
@@ -41,7 +42,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <a href="#main-content" class="skip-link">Skip to content</a>
     <SimpleSiteNav />
     <main id="main-content" class="marketing-main">
-      <slot />
+      <div class="morph-surface morph-surface--glass">
+        <slot />
+      </div>
     </main>
     <SiteFooterLegal />
   </body>

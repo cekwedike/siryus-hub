@@ -18,23 +18,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </p>
 
   <h2>Send a message</h2>
-  <form id="contact-form" class="contact-form" novalidate>
+  <form id="contact-form" class="contact-form morph-neu-stack" novalidate>
     <label class="contact-label">
       Name
-      <input type="text" name="name" autocomplete="name" class="contact-input" placeholder="Your name" required />
+      <input type="text" name="name" autocomplete="name" class="contact-input morph-neu-input" placeholder="Your name" required />
     </label>
     <label class="contact-label">
       Email
-      <input type="email" name="email" autocomplete="email" class="contact-input" placeholder="you@example.com" required />
+      <input type="email" name="email" autocomplete="email" class="contact-input morph-neu-input" placeholder="you@example.com" required />
     </label>
     <label class="contact-label">
       Message
-      <textarea name="message" class="contact-textarea" rows="5" placeholder="How can we help?" required></textarea>
+      <textarea name="message" class="contact-textarea morph-neu-textarea" rows="5" placeholder="How can we help?" required></textarea>
     </label>
     <p class="contact-note">
       Submitting opens your email app with a draft. For embedded forms, connect a backend or form provider in production.
     </p>
-    <button type="submit" class="contact-submit">Send via email</button>
+    <button type="submit" class="contact-submit morph-neu-btn">Send via email</button>
   </form>
 </BaseLayout>
 
@@ -58,19 +58,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .contact-input,
   .contact-textarea {
-    padding: 0.65rem 0.75rem;
-    border-radius: 6px;
-    border: 1px solid rgba(245, 249, 233, 0.2);
-    background: #323836;
-    color: #f5f9e9;
-    font: inherit;
-    resize: vertical;
+    padding: 0;
   }
 
   .contact-input:focus,
   .contact-textarea:focus {
-    outline: 2px solid #d1df4b;
-    outline-offset: 2px;
+    outline: none;
   }
 
   .contact-note {
@@ -81,18 +74,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .contact-submit {
     align-self: flex-start;
-    padding: 0.65rem 1.25rem;
-    border: none;
-    border-radius: 6px;
-    background: #d1df4b;
-    color: #1b1b1e;
-    font-weight: 700;
-    cursor: pointer;
   }
 
-  .contact-submit:hover {
-    background: #d5dd85;
-  }
+
 </style>
 
 <script>

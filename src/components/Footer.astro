@@ -4,7 +4,7 @@ import BrandWordmark from './BrandWordmark.astro';
 // Includes company info, links, contact, social media, newsletter
 ---
 
-<footer class="site-footer" id="contact">
+<footer class="site-footer morph-footer-glass" id="contact">
   <div class="footer-container">
     <!-- Footer Top -->
     <div class="footer-top">
@@ -202,8 +202,6 @@ import BrandWordmark from './BrandWordmark.astro';
 
 <style>
   .site-footer {
-    background: #050505;
-    border-top: 1px solid rgba(245, 249, 233, 0.1);
     padding: 80px 50px 40px;
     position: relative;
   }
@@ -606,10 +604,9 @@ import BrandWordmark from './BrandWordmark.astro';
     }
   }
 
-  /* Light Theme */
+  /* Light Theme — base surface from morphism.css (.morph-footer-glass) */
   :global(body.light-theme) .site-footer {
-    background: #F5F9E9;
-    border-top-color: rgba(27, 27, 30, 0.1);
+    border-top-color: rgba(27, 27, 30, 0.08);
   }
 
   :global(body.light-theme) .column-title,

@@ -7,6 +7,7 @@ import HeroSection from '../components/HeroSection.astro';
 import ExploreSection from '../components/ExploreSection.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/brand-tokens.css';
+import '../styles/morphism.css';
 ---
 
 <!DOCTYPE html>
@@ -33,7 +34,6 @@ import '../styles/brand-tokens.css';
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Preload Critical Assets -->
   <!-- Aeonik Font -->
   <style>
     @font-face {
@@ -180,31 +180,7 @@ import '../styles/brand-tokens.css';
       perspective: 1000px;
     }
 
-    /* Light Theme Styles */
-    body.light-theme {
-      --color-background: #F5F9E9;
-      --color-elevated: #FFFFFF;
-      --color-text-primary: #1B1B1E;
-      --color-text-muted: #5A5A5D;
-      background: var(--color-background);
-      color: var(--color-text-primary);
-    }
-
-    body.light-theme section {
-      background: var(--color-background);
-    }
-
-    body.light-theme ::-webkit-scrollbar-track {
-      background: #F5F9E9;
-    }
-
-    body.light-theme ::-webkit-scrollbar-thumb {
-      background: #D1DF4B;
-    }
-
-    body.light-theme ::-webkit-scrollbar-thumb:hover {
-      background: #323836;
-    }
+    /* Light Theme Styles — global so body/sections in child components match */
 
     /* Accessibility */
     @media (prefers-reduced-motion: reduce) {
@@ -237,6 +213,39 @@ import '../styles/brand-tokens.css';
         background: white;
         color: black;
       }
+    }
+  </style>
+
+  <style is:global>
+    body.light-theme {
+      --color-background: #f8f9f6;
+      --color-elevated: #ffffff;
+      --color-text-primary: #1b1b1e;
+      --color-text-muted: #5a5a5d;
+      background: linear-gradient(180deg, #fefefe 0%, #f4f5f2 45%, #eceee9 100%);
+      color: var(--color-text-primary);
+    }
+
+    body.light-theme .hero-section,
+    body.light-theme .explore {
+      background: transparent;
+    }
+
+    body.light-theme ::-webkit-scrollbar-track {
+      background: #f0f1ee;
+    }
+
+    body.light-theme ::-webkit-scrollbar-thumb {
+      background: #c4c9bc;
+    }
+
+    body.light-theme ::-webkit-scrollbar-thumb:hover {
+      background: #8a9178;
+    }
+
+    body.light-theme ::selection {
+      background: rgba(209, 223, 75, 0.35);
+      color: #1b1b1e;
     }
   </style>
 
@@ -310,7 +319,6 @@ import '../styles/brand-tokens.css';
       }));
 
       function updateParallax() {
-        const scrollY = window.scrollY;
         const vh = window.innerHeight;
 
         elementData.forEach(({ element, isSlow, isNormal, isFast }) => {
@@ -324,12 +332,13 @@ import '../styles/brand-tokens.css';
             element.style.transform = '';
             return;
           }
-          const sec = section as HTMLElement;
-          let factor = 0.018;
-          if (isSlow) factor = 0.028;
-          if (isNormal) factor = 0.022;
-          if (isFast) factor = 0.014;
-          const y = (scrollY - sec.offsetTop) * factor;
+          const centerY = rect.top + rect.height / 2;
+          const norm = (centerY - vh / 2) / vh;
+          let mult = 0.14;
+          if (isSlow) mult = 0.2;
+          if (isNormal) mult = 0.17;
+          if (isFast) mult = 0.11;
+          const y = -norm * 40 * mult;
           const clamped = Math.max(-28, Math.min(28, y));
           element.style.transform = `translate3d(0, ${clamped}px, 0)`;
         });

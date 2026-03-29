@@ -89,22 +89,6 @@ import BrandWordmark from './BrandWordmark.astro';
         <a href="https://linkedin.com/company/siryusam" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
       </div>
 
-      <!-- Character Illustration -->
-      <div class="sidebar-character">
-        <svg width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Stick figure with H -->
-          <circle cx="15" cy="15" r="8" stroke="#D1DF4B" stroke-width="2" fill="none"/>
-          <line x1="15" y1="23" x2="15" y2="45" stroke="#D1DF4B" stroke-width="2"/>
-          <line x1="15" y1="30" x2="5" y2="40" stroke="#D1DF4B" stroke-width="2"/>
-          <line x1="15" y1="30" x2="25" y2="40" stroke="#D1DF4B" stroke-width="2"/>
-          <line x1="15" y1="45" x2="5" y2="55" stroke="#D1DF4B" stroke-width="2"/>
-          <line x1="15" y1="45" x2="25" y2="55" stroke="#D1DF4B" stroke-width="2"/>
-          <!-- Curved line -->
-          <path d="M 30 60 Q 60 40 90 55" stroke="#D1DF4B" stroke-width="2" fill="none"/>
-          <!-- Large H -->
-          <text x="85" y="45" font-size="32" font-weight="900" fill="#D1DF4B" font-family="Arial, sans-serif">H</text>
-        </svg>
-      </div>
     </div>
   </div>
 </aside>
@@ -315,11 +299,6 @@ import BrandWordmark from './BrandWordmark.astro';
     color: #D1DF4B;
   }
 
-  /* Character Illustration */
-  .sidebar-character {
-    margin-top: 20px;
-  }
-
   /* Responsive Design */
   @media (max-width: 1024px) {
     .sidebar-content {
@@ -403,54 +382,66 @@ import BrandWordmark from './BrandWordmark.astro';
     }
   }
 
-  /* Light Theme */
-  :global(body.light-theme) .sidebar-menu {
-    background: #F5F9E9;
+  /* Light Theme — frosted panel + readable type (anchors use .menu-item, not .menu-item a) */
+  :global(body.light-theme) .sidebar-content {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(22px) saturate(1.2);
+    -webkit-backdrop-filter: blur(22px) saturate(1.2);
+    border-left: 1px solid rgba(27, 27, 30, 0.08);
+    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.08);
   }
 
   :global(body.light-theme) .sidebar-backdrop {
-    background: rgba(27, 27, 30, 0.6);
+    background: rgba(27, 27, 30, 0.45);
   }
 
-  :global(body.light-theme) .menu-item a {
-    color: #1B1B1E;
+  :global(body.light-theme) .menu-text {
+    color: #1b1b1e;
   }
 
-  :global(body.light-theme) .menu-item:hover a {
-    color: #D1DF4B;
-  }
-
-  :global(body.light-theme) .menu-item.active a {
-    color: #D1DF4B;
+  :global(body.light-theme) .menu-item:hover .menu-text,
+  :global(body.light-theme) .menu-item.active .menu-text {
+    color: #4a5200;
   }
 
   :global(body.light-theme) .menu-number {
-    color: #949BA0;
+    color: #5a5a5d;
+    border-color: rgba(27, 27, 30, 0.18);
+  }
+
+  :global(body.light-theme) .menu-item:hover .menu-number,
+  :global(body.light-theme) .menu-item.active .menu-number {
+    color: #3d4500;
+    border-color: rgba(209, 223, 75, 0.65);
   }
 
   :global(body.light-theme) .close-btn {
-    border-color: rgba(27, 27, 30, 0.2);
+    color: #1b1b1e;
+    border-color: rgba(27, 27, 30, 0.22);
   }
 
   :global(body.light-theme) .close-btn:hover {
-    background: rgba(209, 223, 75, 0.2);
-    border-color: #D1DF4B;
-  }
-
-  :global(body.light-theme) .close-icon {
-    stroke: #1B1B1E;
+    background: rgba(209, 223, 75, 0.18);
+    border-color: #b8c940;
+    color: #1b1b1e;
   }
 
   :global(body.light-theme) .scroll-prompt {
-    color: #5A5A5D;
+    color: #5a5a5d;
   }
 
-  :global(body.light-theme) .social-link {
-    color: #5A5A5D;
+  :global(body.light-theme) .social-links a {
+    color: #1b1b1e;
+    border-color: rgba(27, 27, 30, 0.2);
   }
 
-  :global(body.light-theme) .social-link:hover {
-    color: #D1DF4B;
+  :global(body.light-theme) .social-links a:hover {
+    color: #3d4500;
+    border-color: rgba(209, 223, 75, 0.7);
+  }
+
+  :global(body.light-theme) .sidebar-bottom {
+    border-top-color: rgba(27, 27, 30, 0.1);
   }
 </style>
 

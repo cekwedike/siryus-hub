@@ -11,7 +11,7 @@ const links = [
 ];
 ---
 
-<header class="simple-nav">
+<header class="simple-nav nav-glass">
   <div class="simple-nav-inner">
     <BrandWordmark variant="marketing" href="/home" />
     <nav class="simple-nav-links" aria-label="Primary">
@@ -27,9 +27,6 @@ const links = [
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(27, 27, 30, 0.95);
-    border-bottom: 1px solid rgba(245, 249, 233, 0.1);
-    backdrop-filter: blur(10px);
   }
 
   .simple-nav-inner {
@@ -72,5 +69,13 @@ const links = [
 
   .simple-nav-link:hover {
     color: #d1df4b;
+  }
+
+  :global(body.light-theme) .simple-nav-link {
+    color: #5a5a5d;
+  }
+
+  :global(body.light-theme) .simple-nav-link:hover {
+    color: #3d4500;
   }
 </style>
