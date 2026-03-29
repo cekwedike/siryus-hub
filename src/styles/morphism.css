@@ -11,40 +11,58 @@
   --morph-clay-shadow: rgba(0, 0, 0, 0.45);
 }
 
+/* Glassmorphism — strong frost + edge light (visible on dark pages) */
 .nav-glass {
-  background: linear-gradient(180deg, rgba(8, 8, 8, 0.94) 0%, rgba(5, 5, 5, 0.9) 100%);
-  backdrop-filter: blur(22px) saturate(1.35);
-  -webkit-backdrop-filter: blur(22px) saturate(1.35);
-  border-bottom: 1px solid var(--morph-glass-border-soft);
-  box-shadow: var(--morph-glass-inset), 0 4px 24px rgba(0, 0, 0, 0.45);
+  background: linear-gradient(
+    180deg,
+    rgba(18, 18, 20, 0.78) 0%,
+    rgba(6, 6, 8, 0.88) 100%
+  );
+  backdrop-filter: blur(32px) saturate(1.65);
+  -webkit-backdrop-filter: blur(32px) saturate(1.65);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 8px 32px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.35);
 }
 
 .morph-surface--glass {
   padding: 2.25rem 1.75rem 2.75rem;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px) saturate(1.25);
-  -webkit-backdrop-filter: blur(20px) saturate(1.25);
-  border: 1px solid var(--morph-glass-border);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), var(--morph-glass-inset);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 @media (min-width: 640px) {
   .morph-surface--glass { padding: 2.5rem 2rem 3rem; }
 }
 
+/* Claymorphism — puffy 3D cards */
 .morph-clay-card {
-  border-radius: 20px;
-  background: linear-gradient(165deg, rgba(28, 28, 30, 0.95) 0%, rgba(12, 12, 14, 0.98) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 10px 10px 22px var(--morph-clay-shadow), -4px -4px 14px rgba(255, 255, 255, 0.02), inset 0 2px 0 rgba(255, 255, 255, 0.07), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  border-radius: 24px;
+  background: linear-gradient(165deg, rgba(34, 34, 38, 0.98) 0%, rgba(14, 14, 16, 1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    14px 18px 36px rgba(0, 0, 0, 0.55),
+    -6px -8px 24px rgba(255, 255, 255, 0.04),
+    inset 0 3px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .morph-clay-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(209, 223, 75, 0.25);
-  box-shadow: 14px 18px 36px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.09);
+  transform: translateY(-8px) scale(1.01);
+  border-color: rgba(209, 223, 75, 0.45);
+  box-shadow:
+    18px 24px 48px rgba(0, 0, 0, 0.6),
+    -4px -4px 20px rgba(209, 223, 75, 0.08),
+    inset 0 3px 0 rgba(255, 255, 255, 0.14);
 }
 
 .morph-neu-stack {
@@ -85,30 +103,88 @@
 
 .morph-neu-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
 
+/* Neumorphism row (footer newsletter) */
+.morph-neu-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.morph-neu-btn--icon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+}
+
+.morph-neu-toggle-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: inset 4px 4px 12px rgba(0, 0, 0, 0.45), inset -3px -3px 10px rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.morph-neu-chip {
+  background: #141416 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.morph-neu-chip:hover {
+  color: #d1df4b;
+  box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(209, 223, 75, 0.25);
+}
+
+.morph-neu-chip.active {
+  background: linear-gradient(145deg, #d1df4b 0%, #b8c940 100%) !important;
+  border-color: transparent !important;
+  color: #1b1b1e !important;
+  box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Skeuomorphism — metallic “device” frame */
 .morph-skeuo-frame {
   position: relative;
-  border-radius: 12px;
-  padding: 4px;
-  background: linear-gradient(145deg, #3a3a3a 0%, #151515 45%, #0a0a0a 100%);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 14px;
+  padding: 5px;
+  background: linear-gradient(145deg, #4a4a4c 0%, #1f1f22 38%, #0c0c0e 100%);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.65),
+    inset 0 2px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 .morph-skeuo-frame img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
 
 .morph-footer-glass {
-  background: linear-gradient(180deg, rgba(6, 6, 6, 0.97) 0%, rgba(3, 3, 3, 0.99) 100%);
-  backdrop-filter: blur(16px) saturate(1.2);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
-  border-top: 1px solid var(--morph-glass-border-soft);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background: linear-gradient(180deg, rgba(10, 10, 12, 0.92) 0%, rgba(2, 2, 4, 0.97) 100%);
+  backdrop-filter: blur(28px) saturate(1.45);
+  -webkit-backdrop-filter: blur(28px) saturate(1.45);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .morph-hero-glass-panel {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(16px) saturate(1.2);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px) saturate(1.45);
+  -webkit-backdrop-filter: blur(24px) saturate(1.45);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 20px 56px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .morph-hero-clay-cta {
@@ -121,11 +197,11 @@
 
 /* Light theme: frosted chrome bars + readable surfaces */
 body.light-theme .nav-glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 249, 246, 0.92) 100%);
-  backdrop-filter: blur(22px) saturate(1.2);
-  -webkit-backdrop-filter: blur(22px) saturate(1.2);
-  border-bottom: 1px solid rgba(27, 27, 30, 0.1);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 24px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(245, 246, 243, 0.88) 100%);
+  backdrop-filter: blur(32px) saturate(1.4);
+  -webkit-backdrop-filter: blur(32px) saturate(1.4);
+  border-bottom: 1px solid rgba(27, 27, 30, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 6px 28px rgba(0, 0, 0, 0.08);
 }
 
 body.light-theme .morph-surface--glass {
@@ -143,6 +219,22 @@ body.light-theme .morph-clay-card {
 body.light-theme .morph-clay-card:hover {
   border-color: rgba(209, 223, 75, 0.45);
   box-shadow: 12px 14px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+body.light-theme .morph-neu-toggle-row {
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.08), inset -2px -2px 8px rgba(255, 255, 255, 0.9);
+  border-color: rgba(27, 27, 30, 0.08);
+}
+
+body.light-theme .morph-neu-chip {
+  background: #f0f1ee !important;
+  border-color: rgba(27, 27, 30, 0.12) !important;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+body.light-theme .morph-neu-chip.active {
+  background: linear-gradient(145deg, #d1df4b 0%, #b8c940 100%) !important;
 }
 
 body.light-theme .morph-footer-glass {
