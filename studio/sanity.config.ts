@@ -6,8 +6,8 @@ import { schemaTypes } from './schemaTypes'
 export default defineConfig({
   name: 'default',
   title: 'siryus-hub',
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'your_project_id_here',
-  dataset: process.env.SANITY_STUDIO_DATASET || 'production',
+  projectId: 'h16wl0pr',  
+  dataset: 'production',  
   plugins: [structureTool(), visionTool()],
   schema: {
     types: schemaTypes,
