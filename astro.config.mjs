@@ -1,7 +1,6 @@
-import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
+import { defineConfig } from 'astro/config'
+import sitemap from '@astrojs/sitemap'
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://www.siryushub.com',
   output: 'static',
@@ -9,4 +8,10 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
   },
-});
+  vite: {
+    define: {
+      'process.env.PUBLIC_SANITY_PROJECT_ID': JSON.stringify(process.env.PUBLIC_SANITY_PROJECT_ID),
+      'process.env.PUBLIC_SANITY_DATASET': JSON.stringify(process.env.PUBLIC_SANITY_DATASET),
+    },
+  },
+})

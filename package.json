@@ -7,16 +7,23 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "astro check",
     "astro": "astro",
-    "lint:max-lines": "node scripts/check-line-length.mjs"
+    "lint:max-lines": "node scripts/check-line-length.mjs",
+    "studio": "cd studio && sanity dev"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@sanity/client": "^7.20.0",
+    "@sanity/image-url": "^2.1.0",
     "astro": "^6.1.1"
   },
   "devDependencies": {
-    "@astrojs/sitemap": "^3.7.2"
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/sitemap": "^3.7.2",
+    "@sanity/vision": "^5.18.0",
+    "sanity": "^5.18.0"
   }
 }
