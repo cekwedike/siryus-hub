@@ -15,7 +15,7 @@
       >
         Latest From Siryus
       </h2>
-      <a href="/blog" class="latest__view-all">
+      <a href="/projects" class="latest__view-all">
         View all
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -270,7 +270,7 @@
     display: grid;
     grid-template-columns: 1.6fr 1fr 1fr;
     gap: var(--space-5);
-    align-items: start;
+    align-items: stretch;
   }
 
   .latest-card {
@@ -281,6 +281,8 @@
     transition: all var(--transition-base);
     display: flex;
     flex-direction: column;
+    min-height: 0;
+    height: 100%;
   }
 
   .latest-card:hover {
@@ -338,6 +340,7 @@
     flex-direction: column;
     gap: var(--space-3);
     flex: 1;
+    min-height: 0;
   }
 
   .latest-card__meta {
@@ -379,7 +382,8 @@
     line-height: 1.7;
     color: var(--brand-text-muted);
     margin: 0;
-    flex: 1;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 
   .latest-card__link {
@@ -390,7 +394,8 @@
     text-decoration: none;
     font-size: var(--text-sm);
     font-weight: 700;
-    margin-top: var(--space-2);
+    margin-top: auto;
+    padding-top: var(--space-2);
     transition: gap var(--transition-base);
   }
 
