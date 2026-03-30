@@ -1,81 +1,147 @@
 ---
 import BrandWordmark from './BrandWordmark.astro';
-const links = [
-  { href: '/home', label: 'Home' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/services', label: 'Services' },
-  { href: '/siryus-am', label: 'SIRYUS A.M' },
-  { href: '/artists', label: 'Artists' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/contact', label: 'Contact' },
-];
 ---
 
-<header class="simple-nav nav-glass">
-  <div class="simple-nav-inner">
-    <BrandWordmark variant="marketing" href="/home" />
-    <nav class="simple-nav-links" aria-label="Primary">
-      {links.map(({ href, label }) => (
-        <a href={href} class="simple-nav-link">{label}</a>
-      ))}
-    </nav>
+<nav class="simple-nav nav-glass" aria-label="Main navigation">
+  <div class="simple-nav__container">
+    <BrandWordmark variant="nav" href="/home" />
+
+    <ul class="simple-nav__links" role="list">
+      <li><a href="/about" class="simple-nav__link">About</a></li>
+      <li>
+        <a href="/services" class="simple-nav__link">Services</a>
+      </li>
+      <li>
+        <a href="/siryus-am" class="simple-nav__link">SIRYUS A.M</a>
+      </li>
+      <li>
+        <a href="/artists" class="simple-nav__link">Artists</a>
+      </li>
+      <li><a href="/blog" class="simple-nav__link">Blog</a></li>
+    </ul>
+
+    <a href="/contact" class="simple-nav__cta">Work with us</a>
   </div>
-</header>
+</nav>
 
 <style>
   .simple-nav {
     position: sticky;
     top: 0;
-    z-index: 50;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    z-index: var(--z-nav);
   }
 
-  .simple-nav-inner {
-    max-width: 72rem;
+  .simple-nav__container {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0.75rem 1.25rem;
+    height: 100%;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem 1rem;
+    padding: 0 var(--space-8);
+    gap: var(--space-8);
   }
 
-  .simple-nav-brand {
-    font-weight: 700;
-    color: #f5f9e9;
-    text-decoration: none;
-    letter-spacing: 0.02em;
-  }
-
-  .simple-nav-brand:hover {
-    color: #d1df4b;
-  }
-
-  .simple-nav-links {
+  .simple-nav__links {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    align-items: center;
+    gap: var(--space-8);
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
-  .simple-nav-link {
-    color: #949ba0;
+  .simple-nav__link {
+    color: var(--brand-text);
     text-decoration: none;
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
     font-weight: 500;
-    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    transition: color var(--transition-base);
+    position: relative;
+  }
+
+  .simple-nav__link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--brand-accent);
+    transition: width var(--transition-base);
+  }
+
+  .simple-nav__link:hover {
+    color: var(--brand-accent);
+  }
+
+  .simple-nav__link:hover::after {
+    width: 100%;
+  }
+
+  .simple-nav__cta {
+    flex-shrink: 0;
+    color: var(--brand-accent);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    font-weight: 700;
+    font-size: var(--text-sm);
     letter-spacing: 0.04em;
+    border: 1px solid var(--brand-accent);
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+    white-space: nowrap;
   }
 
-  .simple-nav-link:hover {
-    color: #d1df4b;
+  .simple-nav__cta:visited {
+    color: var(--brand-accent);
   }
 
-  :global(body.light-theme) .simple-nav-link {
-    color: #5a5a5d;
+  .simple-nav__cta:visited:hover {
+    color: #0a0a0a;
   }
 
-  :global(body.light-theme) .simple-nav-link:hover {
-    color: #3d4500;
+  .simple-nav__cta:hover {
+    background: var(--brand-accent);
+    color: #0a0a0a;
+  }
+
+  @media (max-width: 768px) {
+    .simple-nav__links {
+      display: none;
+    }
+
+    .simple-nav__container {
+      padding: 0 var(--space-5);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .simple-nav {
+      height: 64px;
+    }
+
+    .simple-nav__cta {
+      display: none;
+    }
+  }
+
+  :global(body.light-theme) .simple-nav.nav-glass {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(248, 249, 246, 0.92) 100%
+    );
+    backdrop-filter: blur(22px) saturate(1.2);
+    -webkit-backdrop-filter: blur(22px) saturate(1.2);
+    border-bottom: 1px solid rgba(27, 27, 30, 0.1);
+  }
+
+  :global(body.light-theme) .simple-nav__link {
+    color: var(--brand-text);
   }
 </style>

@@ -1,31 +1,32 @@
 ---
 import '../styles/morphism.css';
 import BrandWordmark from './BrandWordmark.astro';
-// Navigation Component - Top navigation bar for Siryus Hub
-// Fixed position with logo, menu links, and hamburger toggle
 ---
 
-<nav class="top-nav nav-glass">
+<nav class="top-nav nav-glass" aria-label="Main navigation">
   <div class="nav-container">
-    <!-- Logo -->
     <div class="nav-logo">
       <BrandWordmark variant="nav" href="/home" />
     </div>
 
-    <!-- Center Navigation Links -->
-    <ul class="nav-links">
-      <li><a href="/about" class="nav-link">ABOUT</a></li>
-      <li><a href="/reels" class="nav-link">REELS</a></li>
-      <li><a href="/community" class="nav-link">COMMUNITY</a></li>
-      <li><a href="/blog" class="nav-link">BLOG</a></li>
-      <li><a href="/services" class="nav-link">SERVICES</a></li>
+    <ul class="nav-links" role="list">
+      <li><a href="/about" class="nav-link">About</a></li>
+      <li><a href="/services" class="nav-link">Services</a></li>
+      <li><a href="/siryus-am" class="nav-link">SIRYUS A.M</a></li>
+      <li><a href="/artists" class="nav-link">Artists</a></li>
+      <li><a href="/blog" class="nav-link">Blog</a></li>
     </ul>
 
-    <!-- Right Side - Discover Magic & Hamburger -->
     <div class="nav-right">
-      <span class="discover-text">DISCOVER MAGIC</span>
-      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
-        <div class="hamburger-icon">
+      <a href="/contact" class="nav-cta">Work with us</a>
+      <button
+        class="hamburger-btn"
+        id="hamburgerBtn"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="sidebar"
+      >
+        <div class="hamburger-icon" aria-hidden="true">
           <span></span>
           <span></span>
           <span></span>
@@ -42,7 +43,7 @@ import BrandWordmark from './BrandWordmark.astro';
     left: 0;
     width: 100%;
     height: 80px;
-    z-index: 1000;
+    z-index: var(--z-nav);
   }
 
   .nav-container {
@@ -52,85 +53,103 @@ import BrandWordmark from './BrandWordmark.astro';
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 50px;
+    padding: 0 var(--space-12);
   }
 
-  /* Logo */
   .nav-logo {
     flex-shrink: 0;
   }
 
-
-  /* Center Navigation Links */
   .nav-links {
     display: flex;
-    gap: 40px;
+    gap: var(--space-10);
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
   .nav-link {
-    color: #F5F9E9;
+    color: var(--brand-text);
     text-decoration: none;
     font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.05em;
-    transition: color 0.3s ease;
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
+    transition: color var(--transition-base);
     position: relative;
   }
 
   .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -4px;
     left: 0;
     width: 0;
     height: 2px;
-    background: #D1DF4B;
-    transition: width 0.3s ease;
+    background: var(--brand-accent);
+    transition: width var(--transition-base);
   }
 
   .nav-link:hover {
-    color: #D1DF4B;
+    color: var(--brand-accent);
   }
 
-  .nav-link:hover::after {
+  .nav-link:hover::after,
+  .nav-link[aria-current="page"]::after {
     width: 100%;
   }
 
-  /* Right Side */
+  .nav-link[aria-current="page"] {
+    color: var(--brand-accent);
+  }
+
   .nav-right {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: var(--space-6);
   }
 
-  .discover-text {
-    color: #F5F9E9;
+  .nav-cta {
+    color: var(--brand-accent);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
     font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.05em;
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
+    border: 1px solid var(--brand-accent);
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
   }
 
-  /* Hamburger Button */
+  .nav-cta:visited {
+    color: var(--brand-accent);
+  }
+
+  .nav-cta:visited:hover {
+    color: #0a0a0a;
+  }
+
+  .nav-cta:hover {
+    background: var(--brand-accent);
+    color: #0a0a0a;
+  }
+
   .hamburger-btn {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: 2px solid rgba(245, 249, 233, 0.2);
+    border: 1px solid rgba(245, 249, 233, 0.2);
     background: transparent;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
     padding: 0;
   }
 
   .hamburger-btn:hover {
-    border-color: #D1DF4B;
-    transform: scale(1.05);
+    border-color: var(--brand-accent);
   }
 
   .hamburger-icon {
@@ -142,41 +161,44 @@ import BrandWordmark from './BrandWordmark.astro';
   .hamburger-icon span {
     width: 20px;
     height: 2px;
-    background: #F5F9E9;
-    transition: all 0.3s ease;
+    background: var(--brand-text);
+    transition: all var(--transition-base);
+    display: block;
   }
 
   .hamburger-btn:hover .hamburger-icon span {
-    background: #D1DF4B;
+    background: var(--brand-accent);
   }
 
-  /* Responsive Design */
+  .hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
   @media (max-width: 1024px) {
     .nav-links {
-      gap: 24px;
-    }
-
-    .nav-link {
-      font-size: 13px;
+      gap: var(--space-6);
     }
   }
 
   @media (max-width: 768px) {
     .nav-container {
-      padding: 0 20px;
+      padding: 0 var(--space-5);
     }
 
     .nav-links {
       display: none;
     }
 
-    .discover-text {
+    .nav-cta {
       display: none;
-    }
-
-    .hamburger-btn {
-      width: 44px;
-      height: 44px;
     }
   }
 
@@ -184,57 +206,57 @@ import BrandWordmark from './BrandWordmark.astro';
     .top-nav {
       height: 70px;
     }
-
-    .nav-container {
-      padding: 0 15px;
-    }
-
-    .hamburger-btn {
-      width: 40px;
-      height: 40px;
-    }
-
-    .hamburger-icon span {
-      width: 18px;
-    }
   }
 
-  /* Light Theme — matches .top-nav.nav-glass (not .main-nav) */
   :global(body.light-theme) .top-nav.nav-glass {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 249, 246, 0.92) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(248, 249, 246, 0.92) 100%
+    );
     backdrop-filter: blur(22px) saturate(1.2);
     -webkit-backdrop-filter: blur(22px) saturate(1.2);
     border-bottom: 1px solid rgba(27, 27, 30, 0.1);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 24px rgba(0, 0, 0, 0.06);
   }
 
   :global(body.light-theme) .nav-link {
-    color: #1b1b1e;
-  }
-
-  :global(body.light-theme) .nav-link:hover {
-    color: #4a5200;
-  }
-
-  :global(body.light-theme) .discover-text {
-    color: #1b1b1e;
-  }
-
-  :global(body.light-theme) .hamburger-btn {
-    background: transparent;
-    border-color: rgba(27, 27, 30, 0.22);
-  }
-
-  :global(body.light-theme) .hamburger-btn:hover {
-    background: rgba(209, 223, 75, 0.15);
-    border-color: #b8c940;
+    color: var(--brand-text);
   }
 
   :global(body.light-theme) .hamburger-icon span {
-    background: #1b1b1e;
-  }
-
-  :global(body.light-theme) .hamburger-btn:hover .hamburger-icon span {
-    background: #3d4500;
+    background: var(--brand-text);
   }
 </style>
+
+<script>
+  const btn = document.getElementById('hamburgerBtn');
+
+  function openSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar || !btn) return;
+    sidebar.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar || !btn) return;
+    sidebar.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  btn?.addEventListener('click', () => {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    if (isOpen) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeSidebar();
+  });
+</script>

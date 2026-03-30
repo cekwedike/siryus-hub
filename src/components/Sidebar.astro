@@ -1,478 +1,295 @@
 ---
-import BrandWordmark from './BrandWordmark.astro';
-// Sidebar Menu Component - Sliding menu from right side
-// Includes navigation with numbers, social links, and branding
 ---
 
-<aside class="sidebar" id="sidebar">
-  <!-- Backdrop Overlay -->
-  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<aside
+  id="sidebar"
+  class="sidebar"
+  aria-label="Site menu"
+  aria-hidden="true"
+>
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
 
-  <!-- Sidebar Content -->
-  <div class="sidebar-content">
-    <!-- Close Button -->
-    <button class="close-btn" id="closeBtn" aria-label="Close menu">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </button>
-
-    <!-- Top Section: Logo -->
-    <div class="sidebar-logo">
-      <BrandWordmark variant="sidebar" href="/home" />
+  <div class="sidebar-panel">
+    <div class="sidebar-header">
+      <span class="sidebar-wordmark">SIRYUS</span>
+      <button
+        class="sidebar-close"
+        id="sidebarClose"
+        aria-label="Close menu"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
     </div>
 
-    <!-- Main Navigation Menu -->
-    <nav class="sidebar-nav">
-      <ul class="sidebar-menu">
+    <nav class="sidebar-nav" aria-label="Sidebar navigation">
+      <ul class="sidebar-links" role="list">
         <li>
-          <a href="/home" class="menu-item active">
-            <span class="menu-text">HOME</span>
-            <span class="menu-number">01</span>
+          <a href="/home" class="sidebar-link">
+            <span class="sidebar-link__num">01</span>
+            <span class="sidebar-link__label">Home</span>
           </a>
         </li>
         <li>
-          <a href="/about" class="menu-item">
-            <span class="menu-text">ABOUT</span>
-            <span class="menu-number">02</span>
+          <a href="/about" class="sidebar-link">
+            <span class="sidebar-link__num">02</span>
+            <span class="sidebar-link__label">About</span>
           </a>
         </li>
         <li>
-          <a href="/reels" class="menu-item">
-            <span class="menu-text">REELS</span>
-            <span class="menu-number">03</span>
+          <a href="/siryus-am" class="sidebar-link">
+            <span class="sidebar-link__num">03</span>
+            <span class="sidebar-link__label">SIRYUS A.M</span>
           </a>
         </li>
         <li>
-          <a href="/community" class="menu-item">
-            <span class="menu-text">COMMUNITY</span>
-            <span class="menu-number">04</span>
+          <a href="/artists" class="sidebar-link">
+            <span class="sidebar-link__num">04</span>
+            <span class="sidebar-link__label">Artists</span>
           </a>
         </li>
         <li>
-          <a href="/blog" class="menu-item">
-            <span class="menu-text">BLOG</span>
-            <span class="menu-number">05</span>
+          <a href="/services" class="sidebar-link">
+            <span class="sidebar-link__num">05</span>
+            <span class="sidebar-link__label">Services</span>
           </a>
         </li>
         <li>
-          <a href="/services" class="menu-item">
-            <span class="menu-text">SERVICES</span>
-            <span class="menu-number">06</span>
+          <a href="/community" class="sidebar-link">
+            <span class="sidebar-link__num">06</span>
+            <span class="sidebar-link__label">Community</span>
+          </a>
+        </li>
+        <li>
+          <a href="/blog" class="sidebar-link">
+            <span class="sidebar-link__num">07</span>
+            <span class="sidebar-link__label">Blog</span>
+          </a>
+        </li>
+        <li>
+          <a href="/projects" class="sidebar-link">
+            <span class="sidebar-link__num">08</span>
+            <span class="sidebar-link__label">Projects</span>
+          </a>
+        </li>
+        <li>
+          <a href="/reels" class="sidebar-link">
+            <span class="sidebar-link__num">09</span>
+            <span class="sidebar-link__label">Reels</span>
+          </a>
+        </li>
+        <li>
+          <a href="/contact" class="sidebar-link">
+            <span class="sidebar-link__num">10</span>
+            <span class="sidebar-link__label">Contact</span>
           </a>
         </li>
       </ul>
     </nav>
 
-    <!-- Bottom Section -->
-    <div class="sidebar-bottom">
-      <!-- Scroll Prompt -->
-      <div class="scroll-prompt">
-        <span>Scroll to experience magic</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <polyline points="19 12 12 19 5 12"></polyline>
-        </svg>
-      </div>
-
-      <!-- Social Links -->
-      <div class="social-links">
-        <a href="https://instagram.com/siryusam" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
-        <a href="https://x.com/siryusam" target="_blank" rel="noopener noreferrer">X</a>
-        <a href="https://linkedin.com/company/siryusam" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
-      </div>
-
+    <div class="sidebar-footer">
+      <a href="mailto:management@siryushub.com" class="sidebar-email">
+        management@siryushub.com
+      </a>
+      <p class="sidebar-legal">
+        &copy; {new Date().getFullYear()} Siryus Creative Media Ltd
+      </p>
     </div>
   </div>
 </aside>
 
 <style>
-  /* Sidebar Container */
   .sidebar {
     position: fixed;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 100vh;
-    z-index: 2000;
-    overflow: hidden;
-    transition: width 0s 0.4s;
-  }
-
-  .sidebar.open {
-    width: 100%;
-    transition: width 0s;
-  }
-
-  /* Backdrop */
-  .sidebar-backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    opacity: 0;
+    inset: 0;
+    z-index: var(--z-sidebar);
     pointer-events: none;
-    transition: opacity 0.4s ease;
   }
 
-  .sidebar.open .sidebar-backdrop {
-    opacity: 1;
+  .sidebar.is-open {
     pointer-events: all;
   }
 
-  /* Sidebar Content */
-  .sidebar-content {
+  .sidebar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity var(--transition-slow);
+    backdrop-filter: blur(4px);
+  }
+
+  .sidebar.is-open .sidebar-overlay {
+    opacity: 1;
+  }
+
+  .sidebar-panel {
     position: absolute;
     top: 0;
-    right: -100%;
-    width: 45%;
-    max-width: 600px;
+    right: 0;
+    width: min(420px, 100vw);
     height: 100%;
-    background: #080808;
+    background: #0a0a0a;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     flex-direction: column;
-    padding: 40px;
+    padding: var(--space-8);
+    transform: translateX(100%);
+    transition: transform var(--transition-slow);
     overflow-y: auto;
-    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .sidebar.open .sidebar-content {
-    right: 0;
+  .sidebar.is-open .sidebar-panel {
+    transform: translateX(0);
   }
 
-  /* Close Button */
-  .close-btn {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    width: 48px;
-    height: 48px;
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-12);
+  }
+
+  .sidebar-wordmark {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 900;
+    color: var(--brand-accent);
+    letter-spacing: 0.08em;
+  }
+
+  .sidebar-close {
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    border: 2px solid rgba(245, 249, 233, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     background: transparent;
-    color: #F5F9E9;
+    color: var(--brand-text);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 10;
+    transition: all var(--transition-base);
   }
 
-  .close-btn:hover {
-    border-color: #D1DF4B;
-    color: #D1DF4B;
-    transform: rotate(90deg);
+  .sidebar-close:hover {
+    border-color: var(--brand-accent);
+    color: var(--brand-accent);
   }
 
-  /* Logo */
-  .sidebar-logo {
-    margin-bottom: 60px;
-  }
-
-  .sidebar-logo img {
-    height: 60px;
-    width: auto;
-  }
-
-  /* Navigation Menu */
   .sidebar-nav {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 
-  .sidebar-menu {
+  .sidebar-links {
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-
-  .sidebar-menu li {
-    margin-bottom: 32px;
-  }
-
-  .menu-item {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
     text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 8px 0;
+    padding: var(--space-4) var(--space-3);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+    border: 1px solid transparent;
   }
 
-  .menu-text {
-    font-size: 48px;
-    font-weight: 900;
-    color: #F5F9E9;
-    letter-spacing: -0.02em;
-    transition: all 0.3s ease;
+  .sidebar-link:hover {
+    background: rgba(209, 223, 75, 0.06);
+    border-color: rgba(209, 223, 75, 0.15);
   }
 
-  .menu-number {
-    font-size: 18px;
+  .sidebar-link__num {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
     font-weight: 500;
-    color: #949BA0;
-    border: 2px solid rgba(245, 249, 233, 0.2);
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
+    color: var(--brand-text-muted);
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+    transition: color var(--transition-base);
+  }
+
+  .sidebar-link__label {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--brand-text);
+    letter-spacing: -0.01em;
+    transition: color var(--transition-base);
+  }
+
+  .sidebar-link:hover .sidebar-link__num {
+    color: var(--brand-accent);
+  }
+
+  .sidebar-link:hover .sidebar-link__label {
+    color: var(--brand-accent);
+  }
+
+  .sidebar-footer {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+    flex-direction: column;
+    gap: var(--space-2);
   }
 
-  .menu-item:hover .menu-text,
-  .menu-item.active .menu-text {
-    color: #D1DF4B;
-    transform: translateX(10px);
-  }
-
-  .menu-item:hover .menu-number,
-  .menu-item.active .menu-number {
-    border-color: #D1DF4B;
-    color: #D1DF4B;
-  }
-
-  /* Bottom Section */
-  .sidebar-bottom {
-    margin-top: 40px;
-    padding-top: 40px;
-    border-top: 1px solid rgba(245, 249, 233, 0.1);
-  }
-
-  .scroll-prompt {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #949BA0;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 24px;
-  }
-
-  .scroll-prompt svg {
-    animation: bounce 2s infinite;
-  }
-
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(5px);
-    }
-  }
-
-  /* Social Links */
-  .social-links {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 32px;
-  }
-
-  .social-links a {
-    color: #F5F9E9;
+  .sidebar-email {
+    color: var(--brand-text-muted);
+    font-size: var(--text-sm);
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    border: 2px solid rgba(245, 249, 233, 0.2);
-    border-radius: 50px;
-    padding: 8px 16px;
-    transition: all 0.3s ease;
+    transition: color var(--transition-base);
   }
 
-  .social-links a:hover {
-    border-color: #D1DF4B;
-    color: #D1DF4B;
+  .sidebar-email:hover {
+    color: var(--brand-accent);
   }
 
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .sidebar-content {
-      width: 55%;
-    }
-
-    .menu-text {
-      font-size: 40px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .sidebar-content {
-      width: 70%;
-      padding: 30px;
-    }
-
-    .menu-text {
-      font-size: 36px;
-    }
-
-    .sidebar-menu li {
-      margin-bottom: 24px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .sidebar-content {
-      width: 85%;
-      padding: 20px;
-      right: -100%;
-    }
-
-    .close-btn {
-      top: 20px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-    }
-
-    .sidebar-logo {
-      margin-bottom: 40px;
-    }
-
-    .sidebar-logo img {
-      height: 45px;
-    }
-
-    .menu-text {
-      font-size: 28px;
-    }
-
-    .menu-number {
-      width: 36px;
-      height: 36px;
-      font-size: 14px;
-    }
-
-    .social-links {
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .social-links a {
-      display: inline-block;
-      width: fit-content;
-    }
-  }
-
-  /* Accessibility */
-  @media (prefers-reduced-motion: reduce) {
-    .sidebar-content,
-    .sidebar-backdrop,
-    .menu-item,
-    .close-btn {
-      transition: none;
-    }
-
-    .scroll-prompt svg {
-      animation: none;
-    }
-  }
-
-  /* Light Theme — frosted panel + readable type (anchors use .menu-item, not .menu-item a) */
-  :global(body.light-theme) .sidebar-content {
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(22px) saturate(1.2);
-    -webkit-backdrop-filter: blur(22px) saturate(1.2);
-    border-left: 1px solid rgba(27, 27, 30, 0.08);
-    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.08);
-  }
-
-  :global(body.light-theme) .sidebar-backdrop {
-    background: rgba(27, 27, 30, 0.45);
-  }
-
-  :global(body.light-theme) .menu-text {
-    color: #1b1b1e;
-  }
-
-  :global(body.light-theme) .menu-item:hover .menu-text,
-  :global(body.light-theme) .menu-item.active .menu-text {
-    color: #4a5200;
-  }
-
-  :global(body.light-theme) .menu-number {
-    color: #5a5a5d;
-    border-color: rgba(27, 27, 30, 0.18);
-  }
-
-  :global(body.light-theme) .menu-item:hover .menu-number,
-  :global(body.light-theme) .menu-item.active .menu-number {
-    color: #3d4500;
-    border-color: rgba(209, 223, 75, 0.65);
-  }
-
-  :global(body.light-theme) .close-btn {
-    color: #1b1b1e;
-    border-color: rgba(27, 27, 30, 0.22);
-  }
-
-  :global(body.light-theme) .close-btn:hover {
-    background: rgba(209, 223, 75, 0.18);
-    border-color: #b8c940;
-    color: #1b1b1e;
-  }
-
-  :global(body.light-theme) .scroll-prompt {
-    color: #5a5a5d;
-  }
-
-  :global(body.light-theme) .social-links a {
-    color: #1b1b1e;
-    border-color: rgba(27, 27, 30, 0.2);
-  }
-
-  :global(body.light-theme) .social-links a:hover {
-    color: #3d4500;
-    border-color: rgba(209, 223, 75, 0.7);
-  }
-
-  :global(body.light-theme) .sidebar-bottom {
-    border-top-color: rgba(27, 27, 30, 0.1);
+  .sidebar-legal {
+    color: var(--brand-text-faint);
+    font-size: var(--text-xs);
+    margin: 0;
   }
 </style>
 
 <script>
-  // Sidebar toggle functionality
+  const overlay = document.getElementById('sidebarOverlay');
+  const closeBtn = document.getElementById('sidebarClose');
   const sidebar = document.getElementById('sidebar');
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const closeBtn = document.getElementById('closeBtn');
-  const backdrop = document.getElementById('sidebarBackdrop');
-
-  function openSidebar() {
-    sidebar?.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
+  const hamburger = document.getElementById('hamburgerBtn');
 
   function closeSidebar() {
-    sidebar?.classList.remove('open');
+    if (!sidebar || !hamburger) return;
+    sidebar.classList.remove('is-open');
+    sidebar.setAttribute('aria-hidden', 'true');
+    hamburger.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
 
-  // Event listeners
-  hamburgerBtn?.addEventListener('click', openSidebar);
+  overlay?.addEventListener('click', closeSidebar);
   closeBtn?.addEventListener('click', closeSidebar);
-  backdrop?.addEventListener('click', closeSidebar);
 
-  // Close sidebar on escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && sidebar?.classList.contains('open')) {
-      closeSidebar();
-    }
-  });
-
-  // Close sidebar when clicking menu items
-  const menuItems = document.querySelectorAll('.menu-item');
-  menuItems.forEach(item => {
-    item.addEventListener('click', () => {
-      closeSidebar();
-    });
+  sidebar?.querySelectorAll('.sidebar-link').forEach((link) => {
+    link.addEventListener('click', closeSidebar);
   });
 </script>
