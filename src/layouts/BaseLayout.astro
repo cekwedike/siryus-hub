@@ -1,4 +1,4 @@
-﻿---
+---
 import '../styles/marketing-layout.css';
 import '../styles/morphism.css';
 import SimpleSiteNav from '../components/SimpleSiteNav.astro';
@@ -7,15 +7,56 @@ import SiteFooterLegal from '../components/SiteFooterLegal.astro';
 interface Props {
   title: string;
   description?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  noIndex?: boolean;
+  schema?: object;
 }
 
 const {
   title,
-  description = 'Siryus Hub supports independent creatives through SIRYUS A.M, community, and resources.',
+  description = 'Siryus Hub is the creative home of Siryus Creative Media Ltd. We offer artist management, content marketing, and community for independent creatives.',
+  canonical,
+  ogImage = '/images/og-default.png',
+  ogType = 'website',
+  noIndex = false,
+  schema,
 } = Astro.props;
 
-const pageTitle = title.includes('|') ? title : `${title} | Siryus Hub`;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const pageTitle = title.includes('|')
+  ? title
+  : `${title} | Siryus Hub`;
+
+const canonicalURL = canonical
+  ? new URL(canonical, Astro.site).href
+  : new URL(Astro.url.pathname, Astro.site).href;
+
+const ogImageURL = ogImage.startsWith('http')
+  ? ogImage
+  : new URL(ogImage, Astro.site).href;
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Siryus Creative Media Ltd',
+  alternateName: 'Siryus Hub',
+  url: 'https://www.siryushub.com',
+  logo: 'https://www.siryushub.com/images/logo/dark/siryus-logo-dark.png',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'management@siryushub.com',
+    contactType: 'customer service',
+  },
+  sameAs: [],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Kigali',
+    addressCountry: 'RW',
+  },
+};
+
+const finalSchema = schema || organizationSchema;
 ---
 
 <!DOCTYPE html>
@@ -23,29 +64,106 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    <link rel="canonical" href={canonicalURL} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Siryus Hub" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Favicons -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/images/logo/dark/favicon.ico"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/logo/dark/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/logo/dark/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/logo/dark/apple-touch-icon.png"
+    />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD Schema -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(finalSchema)}
+    />
   </head>
   <body class="marketing-body">
-    <a href="#main-content" class="skip-link">Skip to content</a>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <SimpleSiteNav />
     <main id="main-content" class="marketing-main">
-      <div class="morph-surface morph-surface--glass">
-        <slot />
-      </div>
+      <slot />
     </main>
     <SiteFooterLegal />
+
+    <script>
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') {
+        document.body.classList.add('light-theme');
+      }
+    </script>
   </body>
 </html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: var(--space-4);
+    background: var(--brand-accent);
+    color: #0a0a0a;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    text-decoration: none;
+    z-index: var(--z-modal);
+    transition: top var(--transition-fast);
+  }
+
+  .skip-link:focus {
+    top: var(--space-4);
+  }
+</style>
