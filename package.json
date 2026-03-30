@@ -18,12 +18,14 @@
   "dependencies": {
     "@sanity/client": "^7.20.0",
     "@sanity/image-url": "^2.1.0",
-    "astro": "^6.1.1"
+    "astro": "^6.1.1",
+    "three": "^0.183.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/sitemap": "^3.7.2",
     "@sanity/vision": "^5.18.0",
+    "@types/three": "^0.183.1",
     "sanity": "^5.18.0"
   }
 }

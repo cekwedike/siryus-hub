@@ -1,5 +1,3 @@
-import { navigate } from 'astro:transitions/client';
-
 // ===== CONFIGURATION =====
 const TRANSITION_DELAY = 28000;
 const TEXT_DISPLAY_DURATION = 9000;
@@ -7,35 +5,33 @@ const TEXT_DISPLAY_DURATION_REDUCED = 12000;
 const FADE_DURATION = 1500;
 const FADE_DURATION_REDUCED = 800;
 
-const STORAGE_SOUND = 'splashSoundEnabled';
-
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const textOptions = [
   {
     text: 'SIRYUS A.M',
-    subtitle: 'Creative Collective | Marketing | Management',
+    subtitle: 'Artist Management. Creative Production.',
     imageDark: '/images/background/siryus-am.png',
     imageLight: '/images/background/siryus-am-light.png',
   },
   {
     text: 'SIRYUS HUB',
-    subtitle: 'Your Digital Creative Space',
+    subtitle: 'The Platform. Drops, Tools, Stories.',
     imageDark: '/images/background/siryus-hub.jpg',
     imageLight: '/images/background/siryus-hub.jpg',
   },
   {
-    text: 'Siryus Creative Media Ltd',
-    subtitle: 'Where Creativity Meets Strategy',
-    imageDark: '/images/background/siryus-creative-media.png',
-    imageLight: '/images/background/siryus-creative-media-light.png',
-  },
-  {
-    text: 'Siryus Community',
-    subtitle: 'Building Connections & Creativity',
+    text: 'SIRYUS COMMUNITY',
+    subtitle: 'Meet People. Start Things. Keep Moving.',
     imageDark: '/images/background/siryus-community.jpg',
     imageLight: '/images/background/siryus-community.jpg',
+  },
+  {
+    text: 'SIRYUS CREATIVE',
+    subtitle: 'Art Meets Strategy. Always.',
+    imageDark: '/images/background/siryus-creative-media.png',
+    imageLight: '/images/background/siryus-creative-media-light.png',
   },
 ];
 
@@ -44,7 +40,6 @@ const subtitleEl = document.getElementById('subtitleText');
 const themeButtons = document.querySelectorAll('.theme-btn');
 const progressBar = document.getElementById('progressBar');
 const brandAnnouncement = document.getElementById('brandAnnouncement');
-const soundToggle = document.getElementById('soundToggle');
 
 let currentIndex = 0;
 let rotationInterval: ReturnType<typeof setInterval>;
@@ -62,6 +57,15 @@ const THEMES = {
 };
 
 let currentTheme = localStorage.getItem('theme') || THEMES.DEVICE;
+
+function navigateToHome() {
+  if (hasTransitioned) return;
+  hasTransitioned = true;
+  clearInterval(rotationInterval);
+  clearInterval(progressInterval);
+  clearTimeout(autoTransitionTimeout);
+  window.location.href = '/home';
+}
 
 function getFadeDuration(): number {
   return prefersReducedMotion() ? FADE_DURATION_REDUCED : FADE_DURATION;
@@ -153,47 +157,6 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () 
   }
 });
 
-function syncSoundToggle(): void {
-  const on = localStorage.getItem(STORAGE_SOUND) === 'true';
-  soundToggle?.setAttribute('aria-pressed', on ? 'true' : 'false');
-  soundToggle?.classList.toggle('sound-enabled', on);
-}
-
-function playExitChime(): void {
-  if (localStorage.getItem(STORAGE_SOUND) !== 'true') return;
-  try {
-    const AC =
-      window.AudioContext ||
-      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    const ctx = new AC();
-    ctx.resume().then(() => {
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'sine';
-      o.connect(g);
-      g.connect(ctx.destination);
-      const t0 = ctx.currentTime;
-      o.frequency.setValueAtTime(523.25, t0);
-      o.frequency.exponentialRampToValueAtTime(1046.5, t0 + 0.12);
-      g.gain.setValueAtTime(0.06, t0);
-      g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.22);
-      o.start(t0);
-      o.stop(t0 + 0.23);
-    });
-  } catch {
-    /* ignore */
-  }
-}
-
-soundToggle?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const next = localStorage.getItem(STORAGE_SOUND) !== 'true';
-  localStorage.setItem(STORAGE_SOUND, next ? 'true' : 'false');
-  syncSoundToggle();
-});
-
-syncSoundToggle();
-
 function rotateText() {
   const transitions = getTransitionVariants();
   const currentTransition = transitions[transitionType % transitions.length];
@@ -215,7 +178,7 @@ function rotateText() {
 
     setRotatingHeadline(newOption.text);
 
-    if (newOption.text === 'Siryus Creative Media Ltd') {
+    if (newOption.text === 'SIRYUS COMMUNITY' || newOption.text === 'SIRYUS CREATIVE') {
       rotatingTextEl?.classList.add('smaller');
     } else {
       rotatingTextEl?.classList.remove('smaller');
@@ -245,30 +208,6 @@ function rotateText() {
   }, fd);
 }
 
-function transitionToHome() {
-  if (hasTransitioned) return;
-  hasTransitioned = true;
-
-  clearInterval(rotationInterval);
-  clearInterval(progressInterval);
-  clearTimeout(autoTransitionTimeout);
-
-  const skipCount = parseInt(localStorage.getItem('splashSkipCount') || '0');
-  localStorage.setItem('splashSkipCount', String(skipCount + 1));
-
-  playExitChime();
-
-  document.body.style.transition = 'opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1), transform 0.75s cubic-bezier(0.33, 1, 0.68, 1)';
-  document.body.style.opacity = '0';
-  document.body.style.transform = 'scale(0.98)';
-
-  globalThis.setTimeout(() => {
-    void navigate('/home').catch(() => {
-      window.location.href = '/home';
-    });
-  }, 750);
-}
-
 function updateProgress() {
   const elapsed = Date.now() - startTime;
   const progress = Math.min((elapsed / TRANSITION_DELAY) * 100, 100);
@@ -277,32 +216,18 @@ function updateProgress() {
   }
 }
 
-function checkSkipPreference() {
-  const skipCount = parseInt(localStorage.getItem('splashSkipCount') || '0');
-  if (skipCount >= 3) {
-    const skipPrompt = confirm(
-      "You've skipped the splash screen a few times. Skip it automatically next visit?",
-    );
-    if (skipPrompt) {
-      localStorage.setItem('autoSkipSplash', 'true');
-    }
-    localStorage.setItem('splashSkipCount', '0');
-  }
-}
-
 function setupSkipListeners() {
-  document.body.addEventListener('click', (e) => {
-    const el = e.target as HTMLElement;
-    if (el.closest('[data-splash-interactive]')) return;
-    transitionToHome();
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('[data-splash-interactive]')) return;
+    navigateToHome();
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === ' ' || e.key === 'Enter') {
-      const el = e.target as HTMLElement;
-      if (el.closest('[data-splash-interactive]')) return;
-      e.preventDefault();
-      transitionToHome();
+    if (e.key === 'Enter' || e.key === ' ') {
+      const target = e.target as HTMLElement;
+      if (target.closest('[data-splash-interactive]')) return;
+      navigateToHome();
     }
   });
 }
@@ -314,23 +239,11 @@ function init() {
 
   setRotatingHeadline(textOptions[0].text);
 
-  const autoSkip = localStorage.getItem('autoSkipSplash');
-  if (autoSkip === 'true') {
-    const userWantsToView = confirm('Skip splash screen automatically? (Clear site data to change this.)');
-    if (!userWantsToView) {
-      localStorage.removeItem('autoSkipSplash');
-    } else {
-      transitionToHome();
-      return;
-    }
-  }
-
   const textInterval = prefersReducedMotion() ? TEXT_DISPLAY_DURATION_REDUCED : TEXT_DISPLAY_DURATION;
   rotationInterval = globalThis.setInterval(rotateText, textInterval);
   progressInterval = globalThis.setInterval(updateProgress, 100);
   autoTransitionTimeout = globalThis.setTimeout(() => {
-    checkSkipPreference();
-    transitionToHome();
+    navigateToHome();
   }, TRANSITION_DELAY);
 
   setupSkipListeners();
@@ -340,7 +253,7 @@ function init() {
 
   if (brandAnnouncement) {
     brandAnnouncement.textContent =
-      'Welcome to Siryus Hub. Currently showing: SIRYUS A.M. Creative Collective, Marketing, Management';
+      'Welcome to Siryus Hub. Showing SIRYUS A.M. Artist Management. Creative Production.';
   }
 }
 

@@ -1,103 +1,90 @@
 ---
-import BrandWordmark from './BrandWordmark.astro';
-const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer-legal morph-footer-glass">
-  <div class="site-footer-legal-inner">
-    <div class="site-footer-legal-grid">
-      <div>
-        <div class="site-footer-wordmark"><BrandWordmark variant="footer" href="/home" /></div>
-        <p class="site-footer-muted">
-          Empowering independent creatives through SIRYUS A.M and the wider Siryus ecosystem.
-        </p>
-      </div>
-      <div>
-        <p class="site-footer-title">Support</p>
-        <a href="mailto:management@siryushub.com" class="site-footer-link">management@siryushub.com</a>
-      </div>
-      <div>
-        <p class="site-footer-title">Legal</p>
-        <nav class="site-footer-nav" aria-label="Legal">
-          <a href="/privacy-policy" class="site-footer-link">Privacy Policy</a>
-          <a href="/terms-of-use" class="site-footer-link">Terms of Use</a>
-          <a href="/cookie-policy" class="site-footer-link">Cookie Policy</a>
-          <a href="/faq" class="site-footer-link">FAQ</a>
-          <a href="/sitemap" class="site-footer-link">Sitemap</a>
-        </nav>
-      </div>
-    </div>
-    <p class="site-footer-copy">
-      &copy; {year} Siryus Creative Media Ltd. All rights reserved.
+<footer class="legal-footer" aria-label="Page footer">
+  <div class="legal-footer__inner">
+    <p class="legal-footer__copy">
+      &copy; {new Date().getFullYear()} Siryus Creative Media Ltd.
+      All rights reserved.
     </p>
+    <nav class="legal-footer__nav" aria-label="Legal navigation">
+      <a href="/privacy-policy" class="legal-footer__link">
+        Privacy Policy
+      </a>
+      <a href="/terms-of-use" class="legal-footer__link">
+        Terms of Use
+      </a>
+      <a href="/cookie-policy" class="legal-footer__link">
+        Cookie Policy
+      </a>
+      <a href="/contact" class="legal-footer__link">Contact</a>
+    </nav>
   </div>
 </footer>
 
 <style>
-  .site-footer-legal {
-    margin-top: auto;
-    padding: 2.5rem 1.25rem 2rem;
+  .legal-footer {
+    background: var(--brand-bg-deep);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: var(--space-6) 0;
   }
 
-  .site-footer-legal-inner {
-    max-width: 72rem;
+  .legal-footer__inner {
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 var(--space-8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    flex-wrap: wrap;
   }
 
-  .site-footer-legal-grid {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: 1fr;
+  .legal-footer__copy {
+    color: var(--brand-text-faint);
+    font-size: var(--text-xs);
+    margin: 0;
   }
 
-  @media (min-width: 640px) {
-    .site-footer-legal-grid {
-      grid-template-columns: repeat(3, 1fr);
+  .legal-footer__nav {
+    display: flex;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .legal-footer__link {
+    color: var(--brand-text-faint);
+    font-size: var(--text-xs);
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+
+  .legal-footer__link:hover {
+    color: var(--brand-accent);
+  }
+
+  .legal-footer__link:visited {
+    color: var(--brand-text-faint);
+  }
+
+  .legal-footer__link:visited:hover {
+    color: var(--brand-accent);
+  }
+
+  @media (max-width: 600px) {
+    .legal-footer__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0 var(--space-5);
+    }
+
+    .legal-footer__nav {
+      gap: var(--space-4);
     }
   }
 
-  .site-footer-wordmark {
-    margin-bottom: 0.75rem;
-  }
-
-  .site-footer-title {
-    margin: 0 0 0.5rem;
-    font-weight: 700;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #f5f9e9;
-  }
-
-  .site-footer-muted {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #949ba0;
-    line-height: 1.5;
-  }
-
-  .site-footer-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .site-footer-link {
-    color: #d1df4b;
-    text-decoration: none;
-    font-size: 0.9rem;
-  }
-
-  .site-footer-link:hover {
-    text-decoration: underline;
-    color: #d5dd85;
-  }
-
-  .site-footer-copy {
-    margin: 2rem 0 0;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(245, 249, 233, 0.08);
-    font-size: 0.8rem;
-    color: #949ba0;
+  :global(body.light-theme) .legal-footer {
+    background: #f0f1ee;
+    border-top-color: rgba(0, 0, 0, 0.08);
   }
 </style>

@@ -3,35 +3,37 @@ import '../styles/morphism.css';
 import BrandWordmark from './BrandWordmark.astro';
 ---
 
-<nav class="top-nav nav-glass" aria-label="Main navigation">
-  <div class="nav-container">
-    <div class="nav-logo">
-      <BrandWordmark variant="nav" href="/home" />
-    </div>
+<nav class="top-nav" aria-label="Main navigation">
+  <div class="top-nav__pill">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <BrandWordmark variant="nav" href="/home" />
+      </div>
 
-    <ul class="nav-links" role="list">
-      <li><a href="/about" class="nav-link">About</a></li>
-      <li><a href="/services" class="nav-link">Services</a></li>
-      <li><a href="/siryus-am" class="nav-link">SIRYUS A.M</a></li>
-      <li><a href="/artists" class="nav-link">Artists</a></li>
-      <li><a href="/blog" class="nav-link">Blog</a></li>
-    </ul>
+      <ul class="nav-links" role="list">
+        <li><a href="/about" class="nav-link">About</a></li>
+        <li><a href="/services" class="nav-link">Services</a></li>
+        <li><a href="/siryus-am" class="nav-link">SIRYUS A.M</a></li>
+        <li><a href="/artists" class="nav-link">Artists</a></li>
+        <li><a href="/blog" class="nav-link">Blog</a></li>
+      </ul>
 
-    <div class="nav-right">
-      <a href="/contact" class="nav-cta">Work with us</a>
-      <button
-        class="hamburger-btn"
-        id="hamburgerBtn"
-        aria-label="Open menu"
-        aria-expanded="false"
-        aria-controls="sidebar"
-      >
-        <div class="hamburger-icon" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </button>
+      <div class="nav-right">
+        <a href="/contact" class="nav-cta">Work with us</a>
+        <button
+          class="hamburger-btn"
+          id="hamburgerBtn"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="sidebar"
+        >
+          <div class="hamburger-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </div>
     </div>
   </div>
 </nav>
@@ -41,19 +43,59 @@ import BrandWordmark from './BrandWordmark.astro';
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 80px;
+    right: 0;
     z-index: var(--z-nav);
+    display: flex;
+    justify-content: center;
+    padding: var(--space-4) var(--space-5) 0;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .top-nav__pill {
+    pointer-events: auto;
+    width: 100%;
+    max-width: min(1120px, calc(100vw - var(--space-5) * 2));
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(
+      165deg,
+      rgba(22, 22, 26, 0.82) 0%,
+      rgba(8, 8, 10, 0.92) 100%
+    );
+    backdrop-filter: blur(38px) saturate(1.75);
+    -webkit-backdrop-filter: blur(38px) saturate(1.75);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.13),
+      0 14px 44px rgba(0, 0, 0, 0.48),
+      0 0 0 1px rgba(0, 0, 0, 0.38);
+    transition:
+      transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.38s ease,
+      backdrop-filter 0.38s ease,
+      -webkit-backdrop-filter 0.38s ease,
+      border-color 0.38s ease;
+  }
+
+  .top-nav__pill.is-scrolled {
+    transform: scale(0.982);
+    border-color: rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(48px) saturate(1.9);
+    -webkit-backdrop-filter: blur(48px) saturate(1.9);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 10px 36px rgba(0, 0, 0, 0.52),
+      0 0 0 1px rgba(0, 0, 0, 0.42);
   }
 
   .nav-container {
-    max-width: 1920px;
+    max-width: none;
     margin: 0 auto;
-    height: 100%;
+    min-height: 58px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 var(--space-12);
+    padding: 0 var(--space-6);
   }
 
   .nav-logo {
@@ -189,8 +231,17 @@ import BrandWordmark from './BrandWordmark.astro';
   }
 
   @media (max-width: 768px) {
+    .top-nav {
+      padding: var(--space-3) var(--space-4) 0;
+    }
+
+    .top-nav__pill {
+      max-width: calc(100vw - var(--space-4) * 2);
+    }
+
     .nav-container {
-      padding: 0 var(--space-5);
+      padding: 0 var(--space-4);
+      min-height: 54px;
     }
 
     .nav-links {
@@ -203,20 +254,30 @@ import BrandWordmark from './BrandWordmark.astro';
   }
 
   @media (max-width: 480px) {
-    .top-nav {
-      height: 70px;
+    .nav-container {
+      min-height: 50px;
     }
   }
 
-  :global(body.light-theme) .top-nav.nav-glass {
+  :global(body.light-theme) .top-nav__pill {
+    border-color: rgba(27, 27, 30, 0.14);
     background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.94) 0%,
-      rgba(248, 249, 246, 0.92) 100%
+      165deg,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(248, 249, 246, 0.94) 100%
     );
-    backdrop-filter: blur(22px) saturate(1.2);
-    -webkit-backdrop-filter: blur(22px) saturate(1.2);
-    border-bottom: 1px solid rgba(27, 27, 30, 0.1);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 12px 36px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(0, 0, 0, 0.06);
+  }
+
+  :global(body.light-theme) .top-nav__pill.is-scrolled {
+    border-color: rgba(27, 27, 30, 0.12);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 10px 32px rgba(0, 0, 0, 0.12),
+      0 0 0 1px rgba(0, 0, 0, 0.07);
   }
 
   :global(body.light-theme) .nav-link {
@@ -259,4 +320,25 @@ import BrandWordmark from './BrandWordmark.astro';
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeSidebar();
   });
+
+  function initNavScroll() {
+    const pill = document.querySelector('.top-nav__pill');
+    if (!pill) return;
+
+    const onScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop;
+      pill.classList.toggle('is-scrolled', y > 24);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavScroll, {
+      once: true,
+    });
+  } else {
+    initNavScroll();
+  }
 </script>

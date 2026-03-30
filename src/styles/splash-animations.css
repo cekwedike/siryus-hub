@@ -678,11 +678,6 @@
         gap: 2px;
       }
 
-      .sound-toggle {
-        width: 40px;
-        height: 40px;
-      }
-
       .theme-btn {
         width: 34px;
         height: 34px;
@@ -768,11 +763,6 @@
       .theme-toggle-pill {
         padding: 4px;
         gap: 2px;
-      }
-
-      .sound-toggle {
-        width: 38px;
-        height: 38px;
       }
 
       .theme-btn {
@@ -893,8 +883,11 @@
       outline-offset: -3px;
     }
 
-    .sound-toggle:focus-visible {
-      outline: 2px solid rgba(209, 223, 75, 0.9);
-      outline-offset: 3px;
-    }
+body.light-theme .particle {
+  background: rgba(60, 70, 0, 0.15) !important;
+}
+
+body.light-theme .icon-particle {
+  color: rgba(60, 70, 0, 0.2) !important;
+}
   

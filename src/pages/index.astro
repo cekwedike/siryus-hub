@@ -1,101 +1,193 @@
 ---
 import { ClientRouter } from 'astro:transitions';
-import '../styles/splash-base.css';
 import '../styles/splash-animations.css';
-import '../styles/morphism.css';
-// Siryus Hub - Loading/Splash Screen
-// Auto-advances after a short delay; users can skip via click or Enter
+import '../styles/splash-base.css';
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <ClientRouter />
-  <title>Siryus Hub - Creative Collective | Marketing | Management</title>
-  <meta name="description" content="Welcome to Siryus Hub - Your digital creative space. Explore SIRYUS A.M, Siryus Hub, Siryus Creative Media Ltd, and Siryus Community.">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Siryus Hub - Creative Collective">
-  <meta property="og:description" content="Welcome to Siryus Hub - Your digital creative space for creativity, marketing, and community.">
-  <meta property="og:image" content="/images/logo/dark/siryus-logo-dark.png">
-  
+
+  <title>Siryus Hub - Where Creatives Come to Build</title>
+  <meta
+    name="description"
+    content="Siryus Hub is the creative home of Siryus Creative Media Ltd. Artist management, content marketing, and a community for independent creatives across Africa and beyond."
+  />
+  <meta name="robots" content="noindex" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:title"
+    content="Siryus Hub - Where Creatives Come to Build"
+  />
+  <meta
+    property="og:description"
+    content="Artist management, creative production, and community for independent creatives."
+  />
+  <meta
+    property="og:image"
+    content="/images/logo/dark/siryus-logo-dark.png"
+  />
+
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Siryus Hub - Creative Collective">
-  <meta name="twitter:description" content="Welcome to Siryus Hub - Your digital creative space for creativity, marketing, and community.">
-  <meta name="twitter:image" content="/images/logo/dark/siryus-logo-dark.png">
-  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:title"
+    content="Siryus Hub - Where Creatives Come to Build"
+  />
+  <meta
+    name="twitter:description"
+    content="Artist management, creative production, and community for independent creatives."
+  />
+  <meta
+    name="twitter:image"
+    content="/images/logo/dark/siryus-logo-dark.png"
+  />
+
   <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="/images/logo/dark/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/dark/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/dark/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/dark/apple-touch-icon.png">
-  
-  <!-- Preload critical resources -->
-  <link rel="preload" href="/images/background/siryus-am.png" as="image">
-  
-  <!-- Fonts: Unbounded for wordmark + UI -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="/images/logo/dark/favicon.ico"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/images/logo/dark/favicon-32x32.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/images/logo/dark/favicon-16x16.png"
+  />
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="/images/logo/dark/apple-touch-icon.png"
+  />
+
+  <!-- Preload critical image -->
+  <link
+    rel="preload"
+    href="/images/background/siryus-am.png"
+    as="image"
+  />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
 </head>
+
 <body>
-  <!-- Text wordmark (top left) -->
-  <a href="/home" class="splash-wordmark" data-splash-interactive aria-label="SIRYUS, go to home">
+  <!-- Wordmark top left -->
+  <a
+    href="/home"
+    class="splash-wordmark"
+    data-splash-interactive
+    aria-label="SIRYUS - go to home"
+  >
     <span class="splash-wordmark__text">SIRYUS</span>
   </a>
 
-  <!-- Theme + sound (Top Right) - data-splash-interactive excludes from "click to skip" -->
+  <!-- Controls top right -->
   <div class="top-right-controls" data-splash-interactive>
-  <div class="theme-toggle-container">
-    <div class="theme-toggle-pill">
-      <button class="theme-btn" data-theme="device" aria-label="Device theme">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-          <line x1="8" y1="21" x2="16" y2="21"></line>
-          <line x1="12" y1="17" x2="12" y2="21"></line>
-        </svg>
-      </button>
-      <button class="theme-btn" data-theme="light" aria-label="Light theme">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-      </button>
-      <button class="theme-btn" data-theme="dark" aria-label="Dark theme">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-      </button>
+    <div class="theme-toggle-container">
+      <div class="theme-toggle-pill">
+        <button
+          class="theme-btn"
+          data-theme="device"
+          aria-label="Use device theme"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+        </button>
+        <button
+          class="theme-btn"
+          data-theme="light"
+          aria-label="Light theme"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <button
+          class="theme-btn"
+          data-theme="dark"
+          aria-label="Dark theme"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
-  <button type="button" class="sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Enable short transition sound (off by default)" title="Transition sound">
-    <span class="sound-toggle-icon sound-off" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-    </span>
-    <span class="sound-toggle-icon sound-on" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-    </span>
-  </button>
-  </div>
 
-  <!-- Main Content Container -->
+  <!-- Main splash container -->
   <div class="splash-container">
     <div class="mesh-gradient" aria-hidden="true"></div>
     <div class="noise-overlay" aria-hidden="true"></div>
-    <!-- Background Animated Elements -->
-    <div class="particles-container">
-      <!-- Circular particles -->
+
+    <!-- Particles -->
+    <div class="particles-container" aria-hidden="true">
       <div class="particle particle-1"></div>
       <div class="particle particle-2"></div>
       <div class="particle particle-3"></div>
@@ -108,87 +200,142 @@ import '../styles/morphism.css';
       <div class="particle particle-10"></div>
       <div class="particle particle-11"></div>
       <div class="particle particle-12"></div>
-      
-      <!-- Music & Dance Icon Particles -->
+
       <div class="icon-particle music-note-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4
+            1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"
+          />
         </svg>
       </div>
       <div class="icon-particle music-note-2">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4
+            1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"
+          />
         </svg>
       </div>
       <div class="icon-particle headphones">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 3c-4.97 0-9 4.03-9 9v7c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-2c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-7c0-4.97-4.03-9-9-9z"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 3c-4.97 0-9 4.03-9 9v7c0 1.1.9 2 2 2h2c1.1
+            0 2-.9 2-2v-4c0-1.1-.9-2-2-2H5v-1c0-3.87 3.13-7
+            7-7s7 3.13 7 7v1h-2c-1.1 0-2 .9-2 2v4c0 1.1.9 2
+            2 2h2c1.1 0 2-.9 2-2v-7c0-4.97-4.03-9-9-9z"
+          />
         </svg>
       </div>
       <div class="icon-particle microphone">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
-          <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
-        </svg>
-      </div>
-      <div class="icon-particle piano">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19 3H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 12h-1v-4h1v4zm3 0h-1v-4h1v4zm-6 0H8v-4h1v4z"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9
+            3.34 9 5v6c0 1.66 1.34 3 3 3z"
+          />
+          <path
+            d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53
+            2.61 6.43 6 6.92V21h2v-3.08c3.39-.49
+            6-3.39 6-6.92h-2z"
+          />
         </svg>
       </div>
       <div class="icon-particle music-note-3">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-        </svg>
-      </div>
-      <div class="icon-particle dance">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="13.5" cy="6.5" r="2.5"/>
-          <path d="M18.5 14.5l-2.5-2.5V7.5h-2v5.5l3 3h2.5v-1.5h-1zm-10 0l-2.5-2.5V7.5h-2v5.5l3 3h2.5v-1.5h-1zm7-8l1.5-1.5-1.5-1.5-1.5 1.5 1.5 1.5z"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4
+            1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"
+          />
         </svg>
       </div>
       <div class="icon-particle guitar">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12.5 2C9.47 2 7 4.47 7 7.5c0 1.62.7 3.07 1.81 4.07L3 17.38V21h3.62l5.81-5.81c1 1.11 2.45 1.81 4.07 1.81 3.03 0 5.5-2.47 5.5-5.5S19.53 2 16.5 2h-4zM15 13c-1.66 0-3-1.34-3-3h2c0 .55.45 1 1 1s1-.45 1-1h2c0 1.66-1.34 3-3 3z"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M12.5 2C9.47 2 7 4.47 7 7.5c0 1.62.7 3.07 1.81
+            4.07L3 17.38V21h3.62l5.81-5.81c1 1.11 2.45 1.81
+            4.07 1.81 3.03 0 5.5-2.47 5.5-5.5S19.53 2
+            16.5 2h-4zM15 13c-1.66 0-3-1.34-3-3h2c0
+            .55.45 1 1 1s1-.45 1-1h2c0 1.66-1.34 3-3 3z"
+          />
         </svg>
       </div>
     </div>
 
-    <!-- Gradient Overlay -->
-    <div class="gradient-overlay"></div>
+    <div class="gradient-overlay" aria-hidden="true"></div>
 
-    <!-- Hero: text-only headline (no floating A/M) -->
+    <!-- Hero content -->
     <div class="center-content">
-      <p class="hero-eyebrow" aria-hidden="true">Independent creatives · Arts & culture</p>
+      <p class="hero-eyebrow" aria-hidden="true">
+        Independent creatives &middot; Arts and culture
+      </p>
       <div class="hero-panel morph-hero-glass-panel">
         <div class="text-rotation-container">
           <h1 class="rotating-text" id="rotatingText">
             <span class="logo-word">SIRYUS</span><span class="logo-suffix"> A.M</span>
           </h1>
         </div>
-        <p class="subtitle-text" id="subtitleText">Creative Collective | Marketing | Management</p>
+        <p class="subtitle-text" id="subtitleText">
+          Artist Management. Creative Production.
+        </p>
       </div>
     </div>
 
-    <!-- Continue CTA -->
+    <!-- Enter CTA -->
     <div class="click-to-enter">
       <p class="click-text">
-        Click anywhere to continue
-        <span class="click-text-sep">·</span>
+        Click anywhere to enter
+        <span class="click-text-sep">&middot;</span>
         <kbd class="kbd-hint">Enter</kbd>
       </p>
       <p class="click-sub">Continues automatically</p>
       <div class="pulse-ring" aria-hidden="true"></div>
     </div>
-    
-    <!-- Progress Bar -->
-    <div class="progress-bar-container">
+
+    <!-- Progress bar -->
+    <div class="progress-bar-container" aria-hidden="true">
       <div class="progress-bar" id="progressBar"></div>
     </div>
-    
-    <!-- Accessibility: Live region for screen readers -->
-    <div class="sr-only" role="status" aria-live="polite" aria-atomic="true" id="brandAnnouncement"></div>
+
+    <!-- Screen reader announcement -->
+    <div
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      id="brandAnnouncement"
+    ></div>
   </div>
+
   <script src="../scripts/splash.ts"></script>
 </body>
 </html>
