@@ -19,7 +19,7 @@ import BrandWordmark from './BrandWordmark.astro';
       </ul>
 
       <div class="nav-right">
-        <a href="/contact" class="nav-cta">Work with us</a>
+        <a href="/contact" class="nav-cta">Work With Us</a>
         <button
           class="hamburger-btn"
           id="hamburgerBtn"
@@ -127,12 +127,12 @@ import BrandWordmark from './BrandWordmark.astro';
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--brand-accent);
+    background: var(--brand-accent-ink);
     transition: width var(--transition-base);
   }
 
   .nav-link:hover {
-    color: var(--brand-accent);
+    color: var(--brand-accent-ink-hover);
   }
 
   .nav-link:hover::after,
@@ -141,7 +141,7 @@ import BrandWordmark from './BrandWordmark.astro';
   }
 
   .nav-link[aria-current="page"] {
-    color: var(--brand-accent);
+    color: var(--brand-accent-ink);
   }
 
   .nav-right {
@@ -151,20 +151,20 @@ import BrandWordmark from './BrandWordmark.astro';
   }
 
   .nav-cta {
-    color: var(--brand-accent);
+    color: var(--brand-accent-ink);
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
     font-weight: 700;
     font-size: var(--text-sm);
     letter-spacing: 0.04em;
-    border: 1px solid var(--brand-accent);
+    border: 1px solid var(--brand-accent-ink);
     padding: var(--space-2) var(--space-5);
     border-radius: var(--radius-full);
     transition: all var(--transition-base);
   }
 
   .nav-cta:visited {
-    color: var(--brand-accent);
+    color: var(--brand-accent-ink);
   }
 
   .nav-cta:visited:hover {
@@ -191,7 +191,7 @@ import BrandWordmark from './BrandWordmark.astro';
   }
 
   .hamburger-btn:hover {
-    border-color: var(--brand-accent);
+    border-color: var(--brand-accent-ink);
   }
 
   .hamburger-icon {
@@ -209,7 +209,7 @@ import BrandWordmark from './BrandWordmark.astro';
   }
 
   .hamburger-btn:hover .hamburger-icon span {
-    background: var(--brand-accent);
+    background: var(--brand-accent-ink);
   }
 
   .hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(1) {

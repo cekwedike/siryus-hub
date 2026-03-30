@@ -63,13 +63,13 @@ body.marketing-body {
 }
 
 .marketing-main a {
-  color: var(--ml-accent);
+  color: var(--brand-accent-ink);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 .marketing-main a:hover {
-  color: var(--brand-accent-hover);
+  color: var(--brand-accent-ink-hover);
 }
 
 .marketing-lede {

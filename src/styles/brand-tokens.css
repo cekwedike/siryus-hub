@@ -16,6 +16,9 @@
   /* Accent */
   --brand-accent: #d1df4b;
   --brand-accent-hover: #e3eb7a;
+  /* Text, outlines, and links on page surfaces (not on lime fills) */
+  --brand-accent-ink: #d1df4b;
+  --brand-accent-ink-hover: #e3eb7a;
   --brand-accent-dim: rgba(209, 223, 75, 0.15);
   --brand-accent-secondary: #b8924a;
 
@@ -117,6 +120,9 @@ body.light-theme {
   --brand-text: #1b1b1e;
   --brand-text-muted: #5a5a5d;
   --brand-text-faint: #9a9a9d;
+  /* Lime on white is low contrast; keep fills on --brand-accent, use ink for text */
+  --brand-accent-ink: #3d4700;
+  --brand-accent-ink-hover: #4f5c12;
   --brand-gradient-page: linear-gradient(
     180deg,
     #fefefe 0%,
