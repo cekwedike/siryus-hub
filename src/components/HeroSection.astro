@@ -1,14 +1,19 @@
+---
+import HeroSpline from './HeroSpline.tsx';
+---
+
 <section
   class="hero-section"
   id="hero"
   data-section="1"
   aria-labelledby="hero-heading"
 >
-  <div
-    class="hero-three-host"
-    id="heroThreeHost"
-    aria-hidden="true"
-  ></div>
+  <div class="hero-spline">
+    <HeroSpline client:media="(min-width: 769px)" />
+  </div>
+
+  <!-- Mobile: static image fallback -->
+  <div class="hero-mobile-bg" aria-hidden="true"></div>
 
   <div class="hero-overlay" aria-hidden="true"></div>
 
@@ -58,7 +63,7 @@
 
       <div class="hero-meta hero-meta--animate">
         <span class="hero-meta__loc">
-          Kigali &middot; Nigeria &middot; Worldwide
+          Rwanda &middot; Nigeria &middot; Worldwide
         </span>
         <span class="hero-meta__tag">WE CREATE MAGIC</span>
       </div>
@@ -109,31 +114,101 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: stretch;
     min-height: 100vh;
-    padding-bottom: var(--space-20);
-    padding-top: 140px;
+    padding-bottom: var(--space-12);
+    padding-top: 88px;
     overflow: hidden;
     background: var(--brand-bg-base);
     isolation: isolate;
   }
 
-  .hero-three-host {
+  .hero-section::before {
+    content: '';
     position: absolute;
-    inset: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: min(32vh, 220px);
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(5, 5, 5, 0.5) 0%,
+      transparent 20%
+    );
+  }
+
+  .hero-spline {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 65%;
     z-index: 1;
-    width: 100%;
-    height: 100%;
     overflow: hidden;
     pointer-events: none;
   }
 
-  .hero-three-host :global(canvas) {
+  .hero-spline :global(> div) {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+  }
+
+  .hero-spline :global(canvas) {
     display: block;
     width: 100% !important;
     height: 100% !important;
-    max-width: 100%;
-    vertical-align: top;
+  }
+
+  /* Multiply hid the dark scene on light backgrounds; keep it visible */
+  :global(body.light-theme) .hero-spline {
+    opacity: 1;
+    mix-blend-mode: normal;
+  }
+
+  /* Mobile fallback - hidden on desktop */
+  .hero-mobile-bg {
+    display: none;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background:
+      linear-gradient(
+        135deg,
+        #0a0a0a 0%,
+        #111111 40%,
+        #0d0d08 100%
+      );
+    z-index: 1;
+  }
+
+  .hero-mobile-bg::after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    right: 0;
+    width: min(400px, 85vw);
+    height: min(400px, 85vw);
+    background: radial-gradient(
+      circle,
+      rgba(209, 223, 75, 0.12) 0%,
+      transparent 65%
+    );
+    pointer-events: none;
+  }
+
+  /* Switch at 768px: hide Spline, show fallback */
+  @media (max-width: 768px) {
+    .hero-spline {
+      display: none;
+    }
+
+    .hero-mobile-bg {
+      display: block;
+    }
   }
 
   .hero-overlay {
@@ -142,10 +217,11 @@
     z-index: 2;
     pointer-events: none;
     background: linear-gradient(
-      105deg,
-      rgba(5, 5, 5, 0.85) 0%,
-      rgba(5, 5, 5, 0.6) 40%,
-      transparent 70%
+      to right,
+      rgba(5, 5, 5, 0.88) 0%,
+      rgba(5, 5, 5, 0.65) 40%,
+      rgba(5, 5, 5, 0.15) 70%,
+      transparent 100%
     );
   }
 
@@ -155,11 +231,11 @@
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
-    align-self: stretch;
-    flex: 1;
+    align-self: center;
+    flex: 0 1 auto;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     min-height: 0;
     padding-left: var(--space-12);
     padding-right: var(--space-12);
@@ -170,10 +246,8 @@
     z-index: 10;
     max-width: 680px;
     width: 100%;
-    padding: var(--space-16) var(--space-12);
-    margin-top: auto;
-    margin-right: auto;
-    margin-left: 0;
+    padding: var(--space-8) var(--space-12);
+    margin: 0 auto 0 0;
     box-sizing: border-box;
   }
 
@@ -403,23 +477,25 @@
 
   .hero-scroll {
     position: absolute;
-    bottom: var(--space-10);
-    right: var(--space-10);
-    z-index: 11;
+    bottom: var(--space-8);
+    left: 50%;
+    right: auto;
+    z-index: 10;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-2);
-    color: rgba(245, 249, 233, 0.55);
+    color: var(--brand-text-muted);
     font-size: var(--text-xs);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-decoration: none;
     text-transform: uppercase;
     transition: color var(--transition-base);
   }
 
   .hero-scroll:visited {
-    color: rgba(245, 249, 233, 0.55);
+    color: var(--brand-text-muted);
   }
 
   .hero-scroll:hover {
@@ -443,10 +519,6 @@
 
     .hero-content {
       padding: var(--space-12) var(--space-8);
-    }
-
-    .hero-scroll {
-      display: none;
     }
   }
 
@@ -513,10 +585,19 @@
 
   :global(body.light-theme) .hero-overlay {
     background: linear-gradient(
-      105deg,
-      rgba(240, 241, 238, 0.82) 0%,
-      rgba(240, 241, 238, 0.55) 40%,
-      transparent 70%
+      to right,
+      rgba(240, 241, 238, 0.92) 0%,
+      rgba(240, 241, 238, 0.72) 40%,
+      rgba(240, 241, 238, 0.3) 70%,
+      transparent 100%
+    );
+  }
+
+  :global(body.light-theme) .hero-section::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(240, 241, 238, 0.55) 0%,
+      transparent 20%
     );
   }
 
@@ -571,28 +652,3 @@
     color: #6a6d72;
   }
 </style>
-
-<script>
-  import { initHeroThree } from '../scripts/hero-three';
-
-  function setupHeroThree() {
-    const host = document.getElementById('heroThreeHost');
-    if (!host) return;
-
-    const teardown = initHeroThree(host);
-
-    const onBeforeSwap = () => {
-      teardown();
-      document.removeEventListener('astro:before-swap', onBeforeSwap);
-    };
-    document.addEventListener('astro:before-swap', onBeforeSwap);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupHeroThree, {
-      once: true,
-    });
-  } else {
-    setupHeroThree();
-  }
-</script>

@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar.astro';
 import HeroSection from '../components/HeroSection.astro';
 import ExploreSection from '../components/ExploreSection.astro';
 import Footer from '../components/Footer.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 import '../styles/brand-tokens.css';
 import '../styles/morphism.css';
 ---
@@ -138,6 +139,7 @@ import '../styles/morphism.css';
     .main-content {
       position: relative;
       z-index: 1;
+      overflow-x: hidden;
     }
 
     /* Smooth Scrolling Container */
@@ -254,64 +256,6 @@ import '../styles/morphism.css';
   </style>
 
   <script>
-    // ===== THEME SYSTEM =====
-    const THEMES = {
-      DARK: 'dark',
-      LIGHT: 'light',
-      DEVICE: 'device'
-    };
-
-    let currentTheme = localStorage.getItem('theme') || THEMES.DARK;
-
-    function getDeviceTheme() {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEMES.DARK : THEMES.LIGHT;
-    }
-
-    function applyTheme(theme: string): void {
-      const effectiveTheme = theme === THEMES.DEVICE ? getDeviceTheme() : theme;
-      
-      if (effectiveTheme === THEMES.LIGHT) {
-        document.body.classList.add('light-theme');
-      } else {
-        document.body.classList.remove('light-theme');
-      }
-      
-      // Update active buttons in footer
-      const themeButtons = document.querySelectorAll('.theme-btn-footer');
-      themeButtons.forEach(btn => {
-        if ((btn as HTMLElement).dataset.theme === theme) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-    }
-
-    // Initialize theme on page load
-    function initTheme() {
-      applyTheme(currentTheme);
-      
-      // Theme button click handlers
-      const themeButtons = document.querySelectorAll('.theme-btn-footer');
-      themeButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const theme = (btn as HTMLElement).dataset.theme;
-          if (theme) {
-            currentTheme = theme;
-            localStorage.setItem('theme', currentTheme);
-            applyTheme(currentTheme);
-          }
-        });
-      });
-      
-      // Listen for device theme changes
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        if (currentTheme === THEMES.DEVICE) {
-          applyTheme(THEMES.DEVICE);
-        }
-      });
-    }
-
     // ===== PARALLAX (damped, section-relative) =====
     function initParallax() {
       const parallaxElements = document.querySelectorAll('[class*="parallax-"]');
@@ -482,7 +426,6 @@ import '../styles/morphism.css';
 
     // Initialize all features
     function init() {
-      initTheme();
       initPageLoad();
       initParallax();
       initSmoothScroll();
@@ -518,5 +461,7 @@ import '../styles/morphism.css';
       }, 250);
     });
   </script>
+
+  <ThemeToggle />
 </body>
 </html>

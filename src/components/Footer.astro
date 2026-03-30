@@ -590,47 +590,14 @@ import BrandWordmark from './BrandWordmark.astro';
     }
   });
 
-  const themeButtons = document.querySelectorAll('.theme-btn-footer');
-  const THEMES = { DARK: 'dark', LIGHT: 'light', DEVICE: 'device' };
-
-  function getDeviceTheme() {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? THEMES.DARK
-      : THEMES.LIGHT;
-  }
-
-  function applyTheme(theme) {
-    const effective =
-      theme === THEMES.DEVICE ? getDeviceTheme() : theme;
-    if (effective === THEMES.LIGHT) {
-      document.body.classList.add('light-theme');
-    } else {
-      document.body.classList.remove('light-theme');
-    }
-    themeButtons.forEach((btn) => {
-      if (btn.getAttribute('data-theme') === theme) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-    localStorage.setItem('theme', theme);
-  }
-
-  const saved = localStorage.getItem('theme') || THEMES.DARK;
-  applyTheme(saved);
-
-  themeButtons.forEach((btn) => {
+  document.querySelectorAll('.theme-btn-footer').forEach((btn) => {
     btn.addEventListener('click', () => {
       const theme = btn.getAttribute('data-theme');
-      if (theme) applyTheme(theme);
+      if (theme) {
+        window.dispatchEvent(
+          new CustomEvent('theme-change', { detail: theme })
+        );
+      }
     });
   });
-
-  window
-    .matchMedia('(prefers-color-scheme: dark)')
-    .addEventListener('change', () => {
-      const current = localStorage.getItem('theme') || THEMES.DARK;
-      if (current === THEMES.DEVICE) applyTheme(THEMES.DEVICE);
-    });
 </script>

@@ -270,6 +270,40 @@
     font-size: var(--text-xs);
     margin: 0;
   }
+
+  :global(body.light-theme) .sidebar-overlay {
+    background: rgba(245, 246, 242, 0.78);
+  }
+
+  :global(body.light-theme) .sidebar-panel {
+    background: #f4f5f2;
+    border-left-color: rgba(0, 0, 0, 0.08);
+  }
+
+  :global(body.light-theme) .sidebar-close {
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #1b1b1e;
+  }
+
+  :global(body.light-theme) .sidebar-link__label {
+    color: #1b1b1e;
+  }
+
+  :global(body.light-theme) .sidebar-link__num {
+    color: var(--brand-text-muted);
+  }
+
+  :global(body.light-theme) .sidebar-footer {
+    border-top-color: rgba(0, 0, 0, 0.1);
+  }
+
+  :global(body.light-theme) .sidebar-email {
+    color: var(--brand-text-muted);
+  }
+
+  :global(body.light-theme) .sidebar-legal {
+    color: var(--brand-text-muted);
+  }
 </style>
 
 <script>
