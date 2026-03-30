@@ -4,6 +4,7 @@ import { ClientRouter } from 'astro:transitions';
 import Navigation from '../components/Navigation.astro';
 import Sidebar from '../components/Sidebar.astro';
 import HeroSection from '../components/HeroSection.astro';
+import SiryusHubSection from '../components/SiryusHubSection.astro';
 import ExploreSection from '../components/ExploreSection.astro';
 import Footer from '../components/Footer.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
@@ -16,11 +17,6 @@ import '../styles/morphism.css';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script
-    type="module"
-    is:inline
-    src="https://unpkg.com/@splinetool/viewer@1.12.73/build/spline-viewer.js"
-  ></script>
   <ClientRouter />
   <title>Siryus Hub - Where Ideas Become Reality</title>
   
@@ -39,41 +35,6 @@ import '../styles/morphism.css';
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <!-- Aeonik Font -->
-  <style>
-    @font-face {
-      font-family: 'Aeonik';
-      src: url('/fonts/Aeonik-Regular.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    
-    @font-face {
-      font-family: 'Aeonik';
-      src: url('/fonts/Aeonik-Medium.woff2') format('woff2');
-      font-weight: 500;
-      font-style: normal;
-      font-display: swap;
-    }
-    
-    @font-face {
-      font-family: 'Aeonik';
-      src: url('/fonts/Aeonik-Bold.woff2') format('woff2');
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
-    
-    @font-face {
-      font-family: 'Aeonik';
-      src: url('/fonts/Aeonik-Black.woff2') format('woff2');
-      font-weight: 900;
-      font-style: normal;
-      font-display: swap;
-    }
-  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -85,6 +46,7 @@ import '../styles/morphism.css';
   <!-- Main Content -->
   <main class="main-content" id="main-content">
     <HeroSection />
+    <SiryusHubSection />
     <ExploreSection />
   </main>
   
@@ -108,9 +70,6 @@ import '../styles/morphism.css';
       --color-text-primary: #F5F9E9;
       --color-text-muted: #949BA0;
       
-      /* Typography */
-      --font-family: 'Aeonik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      
       /* Spacing (8pt Grid) */
       --space-xs: 4px;
       --space-sm: 8px;
@@ -129,7 +88,7 @@ import '../styles/morphism.css';
     }
 
     body {
-      font-family: var(--font-family);
+      font-family: var(--font-body);
       background: var(--brand-gradient-page);
       background-color: var(--brand-bg-base, var(--color-background));
       color: var(--color-text-primary);
@@ -229,11 +188,11 @@ import '../styles/morphism.css';
 
   <style is:global>
     body.light-theme {
-      --color-background: #f8f9f6;
+      --color-background: #f5f4f0;
       --color-elevated: #ffffff;
       --color-text-primary: #1b1b1e;
       --color-text-muted: #5a5a5d;
-      background: linear-gradient(180deg, #fefefe 0%, #f4f5f2 45%, #eceee9 100%);
+      background: linear-gradient(180deg, #fcfcfa 0%, #f5f4f0 42%, #ebe9e2 100%);
       color: var(--color-text-primary);
     }
 
