@@ -139,7 +139,7 @@ body.light-theme .project-detail-hero .project-detail-pill {
 .project-detail-reg__closed-copy {
   margin: 0;
   max-width: 56rem;
-  color: var(--brand-text-muted);
+  color: var(--brand-text);
   font-size: var(--text-base);
   line-height: 1.55;
 }
@@ -173,15 +173,17 @@ body.light-theme .project-detail-reg--closed {
   margin: 0 auto;
 }
 
-/* Portable text sits inside .blog-post-body; outer .project-body shares styles with Indiba fallback */
-.marketing-main .project-detail-page .project-body > .blog-post-body {
+/* Blog post body: strip inner .blog-post-body max-width so .project-body controls width */
+.marketing-main .blog-page .project-body > .blog-post-body {
   max-width: none;
   margin: 0;
   padding: 0;
   width: 100%;
 }
 
-.marketing-main .project-detail-page .project-body {
+/* Portable Text / HTML: project pages and blog posts */
+.marketing-main .project-detail-page .project-body,
+.marketing-main .blog-page .project-body {
   max-width: 720px;
   margin: 0 auto;
   display: flex;
@@ -189,103 +191,73 @@ body.light-theme .project-detail-reg--closed {
   gap: var(--space-5);
 }
 
-.marketing-main .project-detail-page .project-body p {
+.marketing-main .project-detail-page .project-body :is(h1, h2, h3, h4),
+.marketing-main .blog-page .project-body :is(h1, h2, h3, h4) {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--brand-accent);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: var(--space-6) 0 var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border-left: none;
+  padding-left: 0;
+}
+
+.marketing-main .project-detail-page .project-body :is(h1, h2, h3, h4)::before,
+.marketing-main .blog-page .project-body :is(h1, h2, h3, h4)::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 3px;
+  background: var(--brand-accent);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+}
+
+.marketing-main .project-detail-page .project-body :is(h3),
+.marketing-main .blog-page .project-body :is(h3) {
+  font-weight: 700;
+  margin: var(--space-5) 0 var(--space-2);
+}
+
+.marketing-main .project-detail-page .project-body h2,
+.marketing-main .blog-page .project-body h2 {
+  font-size: var(--text-xl);
+}
+
+.marketing-main .project-detail-page .project-body h3,
+.marketing-main .blog-page .project-body h3 {
+  font-size: var(--text-lg);
+}
+
+.marketing-main .project-detail-page .project-body p,
+.marketing-main .blog-page .project-body p {
   font-size: var(--text-base);
   line-height: 1.9;
-  color: var(--brand-text-muted);
+  color: var(--brand-text);
   margin: 0;
 }
 
-.marketing-main .project-detail-page .project-body h2 {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 800;
-  color: var(--brand-accent);
-  letter-spacing: -0.01em;
-  margin: var(--space-6) 0 var(--space-2);
-  line-height: 1.2;
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.marketing-main .project-detail-page .project-body h2::before {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 3px;
-  background: var(--brand-accent);
-  border-radius: 2px;
-  flex-shrink: 0;
-  margin-bottom: 2px;
-}
-
-/* Portable Text (blog.css) targets .blog-post-body h2/h3 with white text and a left border; override on project pages */
-.marketing-main .project-detail-page .project-body .blog-post-body h2 {
-  color: var(--brand-accent);
-  border-left: none;
-  padding-left: 0;
-  margin: var(--space-6) 0 var(--space-2);
-  font-size: var(--text-xl);
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.marketing-main .project-detail-page .project-body .blog-post-body h2::before {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 3px;
-  background: var(--brand-accent);
-  border-radius: 2px;
-  flex-shrink: 0;
-  margin-bottom: 2px;
-}
-
-.marketing-main .project-detail-page .project-body .blog-post-body h3 {
-  color: var(--brand-accent);
-  border-left: none;
-  padding-left: 0;
-  margin: var(--space-5) 0 var(--space-2);
-  font-size: var(--text-lg);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
-body.light-theme .marketing-main .project-detail-page .project-body .blog-post-body h2,
-body.light-theme .marketing-main .project-detail-page .project-body .blog-post-body h3 {
-  color: #3d4700;
-}
-
-body.light-theme .marketing-main .project-detail-page .project-body .blog-post-body h2::before {
-  background: #3d4700;
-}
-
-.marketing-main .project-detail-page .project-body h3 {
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 700;
-  color: var(--brand-accent);
-  letter-spacing: -0.01em;
-  margin: var(--space-5) 0 var(--space-2);
-}
-
-.marketing-main .project-detail-page .project-body strong {
+.marketing-main .project-detail-page .project-body strong,
+.marketing-main .blog-page .project-body strong {
   color: var(--brand-text);
   font-weight: 700;
 }
 
-.marketing-main .project-detail-page .project-body em {
+.marketing-main .project-detail-page .project-body em,
+.marketing-main .blog-page .project-body em {
   color: var(--brand-accent);
   font-style: italic;
 }
 
 .marketing-main .project-detail-page .project-body ul,
-.marketing-main .project-detail-page .project-body ol {
+.marketing-main .project-detail-page .project-body ol,
+.marketing-main .blog-page .project-body ul,
+.marketing-main .blog-page .project-body ol {
   padding-left: var(--space-6);
   display: flex;
   flex-direction: column;
@@ -294,22 +266,27 @@ body.light-theme .marketing-main .project-detail-page .project-body .blog-post-b
 }
 
 .marketing-main .project-detail-page .project-body ul li,
-.marketing-main .project-detail-page .project-body ol li {
+.marketing-main .project-detail-page .project-body ol li,
+.marketing-main .blog-page .project-body ul li,
+.marketing-main .blog-page .project-body ol li {
   font-size: var(--text-base);
   line-height: 1.75;
-  color: var(--brand-text-muted);
+  color: var(--brand-text);
 }
 
-.marketing-main .project-detail-page .project-body ul li::marker {
+.marketing-main .project-detail-page .project-body ul li::marker,
+.marketing-main .blog-page .project-body ul li::marker {
   color: var(--brand-accent);
 }
 
-.marketing-main .project-detail-page .project-body ol li::marker {
+.marketing-main .project-detail-page .project-body ol li::marker,
+.marketing-main .blog-page .project-body ol li::marker {
   color: var(--brand-accent);
   font-weight: 700;
 }
 
-.marketing-main .project-detail-page .project-body blockquote {
+.marketing-main .project-detail-page .project-body blockquote,
+.marketing-main .blog-page .project-body blockquote {
   border-left: 3px solid var(--brand-accent);
   padding: var(--space-4) var(--space-6);
   margin: 0;
@@ -317,40 +294,42 @@ body.light-theme .marketing-main .project-detail-page .project-body .blog-post-b
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
-.marketing-main .project-detail-page .project-body blockquote p {
+.marketing-main .project-detail-page .project-body blockquote p,
+.marketing-main .blog-page .project-body blockquote p {
   font-size: var(--text-lg);
   font-style: italic;
   color: var(--brand-text);
 }
 
-.marketing-main .project-detail-page .project-body a {
+.marketing-main .project-detail-page .project-body a,
+.marketing-main .blog-page .project-body a {
   color: var(--brand-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-.marketing-main .project-detail-page .project-body a:hover {
+.marketing-main .project-detail-page .project-body a:hover,
+.marketing-main .blog-page .project-body a:hover {
   color: var(--brand-accent-hover);
 }
 
-body.light-theme .marketing-main .project-detail-page .project-body p {
-  color: var(--brand-text-muted);
-}
-
-body.light-theme .marketing-main .project-detail-page .project-body h2,
-body.light-theme .marketing-main .project-detail-page .project-body h3 {
+body.light-theme .marketing-main .project-detail-page .project-body :is(h1, h2, h3, h4),
+body.light-theme .marketing-main .blog-page .project-body :is(h1, h2, h3, h4) {
   color: #3d4700;
 }
 
-body.light-theme .marketing-main .project-detail-page .project-body h2::before {
+body.light-theme .marketing-main .project-detail-page .project-body :is(h1, h2, h3, h4)::before,
+body.light-theme .marketing-main .blog-page .project-body :is(h1, h2, h3, h4)::before {
   background: #3d4700;
 }
 
-body.light-theme .marketing-main .project-detail-page .project-body strong {
+body.light-theme .marketing-main .project-detail-page .project-body strong,
+body.light-theme .marketing-main .blog-page .project-body strong {
   color: var(--brand-text);
 }
 
-body.light-theme .marketing-main .project-detail-page .project-body blockquote {
+body.light-theme .marketing-main .project-detail-page .project-body blockquote,
+body.light-theme .marketing-main .blog-page .project-body blockquote {
   background: rgba(60, 70, 0, 0.05);
 }
 
@@ -387,22 +366,65 @@ body.light-theme .project-detail-about__heading::before {
 }
 
 @media (max-width: 768px) {
-  .marketing-main .project-detail-page .project-body h2 {
+  .marketing-main .project-detail-page .project-body h2,
+  .marketing-main .blog-page .project-body h2 {
     font-size: var(--text-xl);
     font-weight: 800;
   }
 
-  .marketing-main .project-detail-page .project-body h3 {
+  .marketing-main .project-detail-page .project-body h3,
+  .marketing-main .blog-page .project-body h3 {
     font-size: var(--text-lg);
     font-weight: 700;
   }
 }
 
-/* Gallery */
+/* Gallery: same column as .project-body (no project-detail-bleed — that + max-width caused misalignment) */
 .project-gallery {
-  max-width: 960px;
+  position: relative;
+  padding: var(--space-12) var(--space-5) var(--space-10);
+  padding-left: max(var(--space-5), env(safe-area-inset-left));
+  padding-right: max(var(--space-5), env(safe-area-inset-right));
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.project-gallery::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(12rem, 50vw);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(209, 223, 75, 0.2),
+    var(--brand-accent),
+    rgba(209, 223, 75, 0.2),
+    transparent
+  );
+}
+
+body.light-theme .project-gallery {
+  border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .project-gallery::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(61, 71, 0, 0.2),
+    #3d4700,
+    rgba(61, 71, 0, 0.2),
+    transparent
+  );
+}
+
+.project-gallery__inner {
+  max-width: 720px;
   margin: 0 auto;
-  padding: var(--space-10) var(--space-8);
 }
 
 .project-section-heading {
@@ -431,16 +453,60 @@ body.light-theme .project-section-heading::before {
   background: #3d4700;
 }
 
-.project-gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-4);
+/* Horizontal scroll-snap carousel (left to right as more images are added) */
+.project-gallery__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--space-4);
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(209, 223, 75, 0.35) rgba(255, 255, 255, 0.06);
+  padding-bottom: var(--space-3);
+  outline: none;
+  /* Avoid horizontal page overflow on narrow viewports */
+  max-width: 100%;
+  min-width: 0;
+}
+
+.project-gallery__viewport:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 4px;
+}
+
+.project-gallery__viewport::-webkit-scrollbar {
+  height: 8px;
+}
+
+.project-gallery__viewport::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+}
+
+.project-gallery__viewport::-webkit-scrollbar-thumb {
+  background: rgba(209, 223, 75, 0.25);
+  border-radius: 4px;
+}
+
+.project-gallery__track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: var(--space-3);
+  width: max-content;
+  min-height: 0;
 }
 
 .project-gallery__item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  width: min(240px, calc(100vw - 3rem));
+  height: 135px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  aspect-ratio: 16 / 9;
   background: var(--brand-surface);
 }
 
@@ -449,20 +515,59 @@ body.light-theme .project-section-heading::before {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
+  transition: transform 0.35s ease;
 }
 
 .project-gallery__item:hover .project-gallery__img {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 @media (max-width: 768px) {
-  .project-gallery__grid {
-    grid-template-columns: 1fr;
+  .project-gallery {
+    padding: var(--space-10) var(--space-5) var(--space-8);
+    padding-left: max(var(--space-5), env(safe-area-inset-left));
+    padding-right: max(var(--space-5), env(safe-area-inset-right));
   }
 
+  .project-section-heading {
+    font-size: clamp(1.25rem, 4.5vw, var(--text-2xl));
+    margin-bottom: var(--space-6);
+  }
+
+  .project-gallery__viewport {
+    scroll-padding-inline: max(var(--space-5), env(safe-area-inset-left));
+  }
+
+  .project-gallery__item {
+    width: min(220px, calc(100vw - 2.75rem));
+    height: 124px;
+  }
+}
+
+@media (max-width: 480px) {
   .project-gallery {
-    padding: var(--space-8) var(--space-5);
+    padding: var(--space-8) var(--space-4) var(--space-6);
+    padding-left: max(var(--space-4), env(safe-area-inset-left));
+    padding-right: max(var(--space-4), env(safe-area-inset-right));
+  }
+
+  .project-gallery__viewport {
+    scroll-padding-inline: max(var(--space-4), env(safe-area-inset-left));
+  }
+
+  .project-gallery__item {
+    width: min(200px, calc(100vw - 2.25rem));
+    height: 112px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-gallery__img {
+    transition: none;
+  }
+
+  .project-gallery__item:hover .project-gallery__img {
+    transform: none;
   }
 }
 

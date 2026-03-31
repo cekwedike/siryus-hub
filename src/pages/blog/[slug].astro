@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/blog.css';
+import '../../styles/project-detail.css';
 import { urlFor } from '../../lib/sanity';
 import { getAllPosts, getPostBySlug, type BlogPostSummary } from '../../lib/queries';
 import { portableTextToBlogHtml } from '../../lib/portableTextHtml';
@@ -154,10 +155,11 @@ if (post.coverImage) {
     </section>
 
     <section class="blog-bleed blog-post-body-wrap" aria-label="Article body">
-      <div
-        class="blog-post-body"
-        set:html={bodyHtml}
-      />
+      <div class="blog-inner">
+        <div class="project-body">
+          <div class="blog-post-body" set:html={bodyHtml} />
+        </div>
+      </div>
     </section>
 
     <footer class="blog-bleed blog-post-footer">

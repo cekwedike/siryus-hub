@@ -214,9 +214,7 @@ if (project.coverImage) {
         {useIndibaBodyFallback ? (
           <IndibaProjectBodyFallback />
         ) : (
-          <div class="project-body">
-            <div class="blog-post-body" set:html={aboutHtml} />
-          </div>
+          <div class="project-body" set:html={aboutHtml} />
         )}
       </div>
     </section>
@@ -225,30 +223,40 @@ if (project.coverImage) {
       project.galleryImages &&
       project.galleryImages.length > 0 &&
       project.galleryImages.some((img) => galleryItemSrc(img)) ? (
-        <section class="project-gallery project-detail-bleed" aria-labelledby="gallery-heading">
-          <h2 id="gallery-heading" class="project-section-heading">
-            Project Gallery
-          </h2>
-          <div class="project-gallery__grid">
-            {project.galleryImages.map((img: ProjectSanityImageDeref) => {
-              const src = galleryItemSrc(img);
-              if (!src) return null;
-              const alt =
-                typeof img.alt === 'string' && img.alt.trim().length > 0
-                  ? img.alt.trim()
-                  : project.title;
-              return (
-                <div class="project-gallery__item">
-                  <img
-                    src={src}
-                    alt={alt}
-                    class="project-gallery__img"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              );
-            })}
+        <section class="project-gallery" aria-labelledby="gallery-heading">
+          <div class="project-gallery__inner">
+            <h2 id="gallery-heading" class="project-section-heading">
+              Project Gallery
+            </h2>
+            <div
+              class="project-gallery__viewport"
+              tabindex="0"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="Project gallery photos. Scroll horizontally to see more."
+            >
+              <div class="project-gallery__track">
+                {project.galleryImages.map((img: ProjectSanityImageDeref) => {
+                  const src = galleryItemSrc(img);
+                  if (!src) return null;
+                  const alt =
+                    typeof img.alt === 'string' && img.alt.trim().length > 0
+                      ? img.alt.trim()
+                      : project.title;
+                  return (
+                    <div class="project-gallery__item">
+                      <img
+                        src={src}
+                        alt={alt}
+                        class="project-gallery__img"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </section>
       ) : null

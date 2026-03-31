@@ -720,6 +720,42 @@ import WindDecorButton from './WindDecorButton.astro';
     background: rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.1);
   }
+
+  :global(body.light-theme) .footer-tagline,
+  :global(body.light-theme) .footer-newsletter__text {
+    color: #0a0a0a;
+  }
+
+  :global(body.light-theme) .footer-bottom__copy,
+  :global(body.light-theme) .footer-bottom__location,
+  :global(body.light-theme) .footer-bottom__theme-label {
+    color: #0a0a0a;
+  }
+
+  :global(body.light-theme) .footer-theme-btn {
+    color: #0a0a0a;
+  }
+
+  :global(body.light-theme) .footer-newsletter__input.morph-neu-input {
+    background: #ffffff !important;
+    color: #0a0a0a !important;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow:
+      inset 2px 2px 8px rgba(0, 0, 0, 0.05),
+      inset -1px -1px 6px rgba(255, 255, 255, 0.9) !important;
+  }
+
+  :global(body.light-theme) .footer-newsletter__input.morph-neu-input::placeholder {
+    color: rgba(10, 10, 10, 0.45);
+  }
+
+  :global(body.light-theme) .footer-newsletter__input.morph-neu-input:focus {
+    outline: none;
+    box-shadow:
+      inset 2px 2px 8px rgba(0, 0, 0, 0.05),
+      inset -1px -1px 6px rgba(255, 255, 255, 0.9),
+      0 0 0 2px rgba(209, 223, 75, 0.45) !important;
+  }
 </style>
 
 <script is:inline>
@@ -728,6 +764,19 @@ import WindDecorButton from './WindDecorButton.astro';
 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
+    const emailInput = document.getElementById('footerEmail');
+    if (!(emailInput instanceof HTMLInputElement)) return;
+    if (!emailInput.checkValidity()) {
+      emailInput.reportValidity();
+      return;
+    }
+    const addr = emailInput.value.trim();
+    const subject = encodeURIComponent('Newsletter signup');
+    const body = encodeURIComponent(
+      'Please add this address to the Siryus newsletter list: ' + addr
+    );
+    window.location.href =
+      'mailto:management@siryushub.com?subject=' + subject + '&body=' + body;
     if (success) {
       success.classList.add('is-visible');
     }

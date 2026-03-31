@@ -98,7 +98,7 @@ import WindDecorButton from '../components/WindDecorButton.astro';
                 </select>
               </label>
 
-              <WindDecorButton type="submit" class="contact-form__submit" splash={false}>
+              <WindDecorButton type="submit" class="contact-form__submit">
                 Send Message
               </WindDecorButton>
             </form>
@@ -136,10 +136,42 @@ import WindDecorButton from '../components/WindDecorButton.astro';
 
             <h4 class="contact-aside__subheading">Find us online</h4>
             <ul class="contact-aside__social" role="list">
-              <li><a href="#">Instagram</a></li>
-              <li><a href="#">Twitter / X</a></li>
-              <li><a href="#">YouTube</a></li>
-              <li><a href="#">Spotify</a></li>
+              <li>
+                <a
+                  class="contact-aside__social-link"
+                  href="https://www.instagram.com/siryus.am"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Instagram</a
+                >
+              </li>
+              <li>
+                <a
+                  class="contact-aside__social-link"
+                  href="https://x.com/siryus_am"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Twitter / X</a
+                >
+              </li>
+              <li>
+                <a
+                  class="contact-aside__social-link"
+                  href="https://www.youtube.com/@siryus-am?sub_confirmation=1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >YouTube</a
+                >
+              </li>
+              <li>
+                <a
+                  class="contact-aside__social-link"
+                  href="https://open.spotify.com/artist/2EG2NnuWqrFQauR3T8Jfpo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Spotify</a
+                >
+              </li>
             </ul>
             <p class="contact-aside__note">
               We are most active on Instagram. If you want a faster response that is the best place to reach us.
@@ -301,9 +333,19 @@ import WindDecorButton from '../components/WindDecorButton.astro';
     color: var(--brand-text);
   }
 
-  .contact-field__input,
+  .contact-field__input.morph-neu-input {
+    padding: var(--space-4) var(--space-4);
+    min-height: 48px;
+    line-height: 1.5;
+    box-sizing: border-box;
+  }
+
   .contact-field__textarea {
-    padding: 0;
+    min-height: 160px;
+    resize: vertical;
+    padding: var(--space-4);
+    line-height: 1.6;
+    box-sizing: border-box;
   }
 
   .contact-field__select {
@@ -318,14 +360,27 @@ import WindDecorButton from '../components/WindDecorButton.astro';
     background-position: right 0.75rem center;
   }
 
-  .contact-field__textarea {
-    resize: vertical;
-    min-height: 8rem;
-  }
-
-  .contact-form__submit {
+  /* WindDecorButton: match site CTAs (pill, weight, splashes, hover lift) */
+  .contact-form :global(.contact-form__submit.wind-decor-btn) {
     align-self: flex-start;
     margin-top: var(--space-2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-full);
+    font-weight: 800;
+    font-size: var(--text-base);
+    letter-spacing: 0.02em;
+    border-width: 2px;
+    transition:
+      transform var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .contact-form :global(.contact-form__submit.wind-decor-btn:not(.wind-decor-btn--secondary):hover) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(209, 223, 75, 0.35);
   }
 
   .contact-success {
@@ -389,14 +444,15 @@ import WindDecorButton from '../components/WindDecorButton.astro';
   }
 
   .contact-aside__link {
-    color: var(--brand-accent-ink);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    font-size: var(--text-base);
+    color: var(--brand-text);
+    text-decoration: none;
+    transition: color var(--transition-base);
     word-break: break-word;
   }
 
   .contact-aside__link:hover {
-    color: var(--brand-accent-ink-hover);
+    color: var(--brand-accent);
   }
 
   .contact-aside__social {
@@ -408,15 +464,16 @@ import WindDecorButton from '../components/WindDecorButton.astro';
     gap: var(--space-3);
   }
 
-  .contact-aside__social a {
-    color: var(--brand-accent-ink);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  .contact-aside__social-link {
+    color: var(--brand-text);
+    text-decoration: none;
+    transition: color var(--transition-base);
     font-weight: 600;
+    font-size: var(--text-base);
   }
 
-  .contact-aside__social a:hover {
-    color: var(--brand-accent-ink-hover);
+  .contact-aside__social-link:hover {
+    color: var(--brand-accent);
   }
 
   .contact-aside__note {
@@ -608,6 +665,16 @@ import WindDecorButton from '../components/WindDecorButton.astro';
     background: rgba(0, 0, 0, 0.03);
   }
 
+  :global(body.light-theme) .contact-form :global(.contact-form__submit.wind-decor-btn:not(.wind-decor-btn--secondary)) {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  :global(body.light-theme) .contact-form :global(.contact-form__submit.wind-decor-btn:not(.wind-decor-btn--secondary):hover) {
+    box-shadow:
+      0 10px 28px rgba(209, 223, 75, 0.3),
+      0 0 0 1px rgba(209, 223, 75, 0.12);
+  }
+
   @media (max-width: 768px) {
     .contact-split__grid {
       grid-template-columns: 1fr;
@@ -628,13 +695,13 @@ import WindDecorButton from '../components/WindDecorButton.astro';
     }
 
     .contact-field__textarea {
-      min-height: 10rem;
+      min-height: 160px;
     }
 
-    .contact-form__submit {
+    .contact-form :global(.contact-form__submit.wind-decor-btn) {
       align-self: stretch;
       width: 100%;
-      min-height: 44px;
+      min-height: 48px;
       justify-content: center;
     }
   }

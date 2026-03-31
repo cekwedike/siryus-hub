@@ -6,75 +6,213 @@ import '../styles/faq-page.css';
 
 const pageTitle = 'FAQ - Siryus Creative Media Ltd';
 const pageDescription =
-  'Common questions about SIRYUS A.M artist management, Siryus brand marketing services, and how to work with Siryus Creative Media Ltd in Kigali and beyond.';
+  'Answers about SIRYUS A.M artist management, services and marketing, projects and community, and working with Siryus Creative Media Ltd.';
 
-const artistColumn = [
+const columnSiryusAM = [
   {
     id: 'faq-am-1',
     q: 'How do I get management from SIRYUS A.M?',
-    a: 'Reach out through our contact page and tell us about yourself, your music and where you are in your career. We review every submission and respond to those we feel aligned with. We do not take on everyone but we do read everything.',
+    a:
+      'Reach out through our contact page and tell us about yourself, your music and where you are in your career. We review every submission and respond to those we feel genuinely aligned with. We do not take on everyone but we do read everything.',
   },
   {
     id: 'faq-am-2',
     q: 'How many artists do you manage at once?',
-    a: 'We keep our roster intentionally small. That is the point. Every artist we work with gets real time and real attention, not a slot in a crowded calendar.',
+    a:
+      'We keep our roster intentionally small. Every artist we work with gets real time and real attention, not a slot in a crowded calendar. That is the whole point.',
   },
   {
     id: 'faq-am-3',
-    q: 'Do you work with artists outside Nigeria and Rwanda?',
-    a: 'Yes. Geography is not a barrier if the fit is right. We work with independent artists across Africa and beyond.',
+    q: 'What does artist management actually involve?',
+    a:
+      'Strategy, release planning, brand building, industry relationships, day to day support and deal review. It is a real partnership, not just an email signature.',
   },
   {
     id: 'faq-am-4',
     q: 'Do you work with new or unsigned artists?',
-    a: 'Yes and we prefer it. Building the right foundation from the start is easier than correcting a bad one later. If you are early in your career and serious about it, we want to hear from you.',
+    a:
+      'Yes and we prefer it. Building the right foundation from the start is easier than correcting a bad one later. If you are early in your career and serious about it, we want to hear from you.',
   },
   {
     id: 'faq-am-5',
-    q: 'What does management actually involve?',
-    a: 'Strategy, release planning, brand building, industry relationships, day to day support and deal review. It is a real partnership, not just an email signature.',
+    q: 'Do you work with artists outside Nigeria and Rwanda?',
+    a:
+      'Yes. Geography is not a barrier if the fit is right. We work with independent artists across Africa and beyond.',
   },
   {
     id: 'faq-am-6',
     q: 'Do you take a percentage?',
-    a: 'Management agreements are discussed on a case by case basis. Reach out and we can have that conversation directly.',
+    a:
+      'Management agreements are discussed on a case by case basis. Reach out and we can have that conversation directly.',
+  },
+  {
+    id: 'faq-am-7',
+    q: 'What genres do you work with?',
+    a:
+      'We have worked across hip hop, R&B, afrogospel, afropop, soul and more. Genre is less important to us than the quality of the work and the seriousness of the artist behind it.',
+  },
+  {
+    id: 'faq-am-8',
+    q: 'How is SIRYUS A.M different from a traditional management company?',
+    a:
+      'We are a creative collective and management company at the same time. We do not just manage from a distance. We are involved in the creative process, the strategy and the execution. Artists who come through us get a team, not just a manager.',
   },
 ];
 
-const servicesColumn = [
+const columnServices = [
   {
-    id: 'faq-sg-1',
+    id: 'faq-sv-1',
     q: 'What marketing services do you offer?',
-    a: 'Content strategy, social media management, email marketing, copywriting, motion graphics and campaign planning. We work with brands that want to grow without sounding like everyone else.',
+    a:
+      'Content strategy, social media management, email marketing, copywriting, motion graphics and full campaign planning. We work with brands that want to grow without sounding like everyone else.',
   },
   {
-    id: 'faq-sg-2',
+    id: 'faq-sv-2',
     q: 'Do you work with brands outside the music industry?',
-    a: 'Yes. If you have a brand that needs real creative marketing and you are serious about building an audience, we are open to that conversation regardless of your industry.',
+    a:
+      'Yes. If you have a brand that needs real creative marketing and you are serious about building an audience, we are open to that conversation regardless of your industry.',
   },
   {
-    id: 'faq-sg-3',
+    id: 'faq-sv-3',
     q: 'How long does a typical campaign take?',
-    a: 'That depends entirely on the scope. A single release campaign might run four to six weeks. A full brand marketing retainer is an ongoing engagement. We scope everything before we start so there are no surprises.',
+    a:
+      'That depends entirely on the scope. A single release campaign might run four to six weeks. A full brand marketing retainer is an ongoing engagement. We scope everything before we start so there are no surprises.',
   },
   {
-    id: 'faq-sg-4',
-    q: 'How quickly do you respond to enquiries?',
-    a: 'We aim for 48 hours on every message. If your project is time sensitive, say so in your message and we will prioritise it.',
+    id: 'faq-sv-4',
+    q: 'Can you handle social media fully or just consulting?',
+    a:
+      'Both. We can take over your social media completely including content creation, scheduling and community management. We also offer strategy and consulting if you have your own team executing.',
   },
   {
-    id: 'faq-sg-5',
-    q: 'Where are you based?',
-    a: 'We are incorporated in Nigeria and operate out of Kigali, Rwanda. We work with clients and artists across Africa and internationally.',
+    id: 'faq-sv-5',
+    q: 'Do you do music video production?',
+    a:
+      'Yes. Creative production is one of our core service lines. Music videos, brand films, photography and motion graphics for artists and brands.',
   },
   {
-    id: 'faq-sg-6',
-    q: 'How do I know if we are a good fit?',
-    a: 'Read the about page and the services page. If what we say there resonates with what you are building, reach out. If it does not, we are probably not the right match and that is fine.',
+    id: 'faq-sv-6',
+    q: 'Can you help with music distribution?',
+    a:
+      'Yes. We help independent artists get their music to global platforms, navigate distribution options and set up their royalty and revenue streams correctly.',
+  },
+  {
+    id: 'faq-sv-7',
+    q: 'What is your pricing structure?',
+    a:
+      'We do not publish fixed rates because every engagement is scoped based on what is actually needed. Reach out and tell us what you are working on and we will give you a clear picture of what it looks like.',
+  },
+  {
+    id: 'faq-sv-8',
+    q: 'Do you write copy and content for brands?',
+    a:
+      'Yes. Copywriting and brand messaging is part of what we do. Website copy, email sequences, social captions, press releases and anything else a brand needs to communicate clearly.',
   },
 ];
 
-const allFaq = [...artistColumn, ...servicesColumn];
+const columnProjects = [
+  {
+    id: 'faq-pr-1',
+    q: 'What is the Indiba Project Series?',
+    a:
+      'It is our music incubator program. Each edition brings together a curated group of independent artists for collaborative recording, mentorship and a structured release campaign. The output is a collaborative album co-owned by the artists and SIRYUS A.M. Facilitators from the first cohort included Eddie Hatitye, Julz Ossom, Marlon Grigsby, Bob Ngene and Kofi Black.',
+  },
+  {
+    id: 'faq-pr-2',
+    q: 'How do I apply for the Indiba Project Series?',
+    a:
+      'Applications open at the start of each new edition. When the next cohort opens, the application link will appear on the Indiba project page. Follow us on Instagram at siryus.am to be the first to know.',
+  },
+  {
+    id: 'faq-pr-3',
+    q: 'What is Acoustic Rwanda?',
+    a:
+      'A live music series spotlighting raw unplugged performances from independent artists in intimate venues across Kigali and Rwanda. It is currently in pre-production. If you want to perform or host a session, reach out.',
+  },
+  {
+    id: 'faq-pr-4',
+    q: 'What is The Abditory Sessions?',
+    a:
+      'A long-form content series featuring extended conversations with independent artists about their journey, craft and career. It is currently in production. Follow us for updates on when the first episode drops.',
+  },
+  {
+    id: 'faq-pr-5',
+    q: 'What is the Siryus community?',
+    a:
+      'A space for independent artists, marketers and creative entrepreneurs to connect, share work and grow together. No gatekeeping. No noise. Follow us on Instagram to be part of the conversation.',
+  },
+  {
+    id: 'faq-pr-6',
+    q: 'Who are the artists on the SIRYUS A.M roster?',
+    a:
+      'Our current roster includes Max Prodigy, Hidaya Morgan, Jlinez and Winny Ezeme. We are selective about who we sign. Visit the artists page to learn more about each of them.',
+  },
+  {
+    id: 'faq-pr-7',
+    q: 'What is Indiba Volume album projects?',
+    a:
+      'They are collaborative albums produced at the end of each Indiba Project Series cohort. Each volume features participating artists and is co-owned by the artists and SIRYUS A.M. They represent the real output of what happens when independent artists are given structure, mentorship and a professional release strategy.',
+  },
+];
+
+const columnWorking = [
+  {
+    id: 'faq-wu-1',
+    q: 'How quickly do you respond to enquiries?',
+    a:
+      'We aim to respond to every message within 48 hours. If your project is time sensitive, say so in your message and we will prioritise it.',
+  },
+  {
+    id: 'faq-wu-2',
+    q: 'Where are you based?',
+    a:
+      'We are incorporated in Nigeria and operate out of Kigali, Rwanda. We work with artists and brands across Africa and internationally.',
+  },
+  {
+    id: 'faq-wu-3',
+    q: 'How do I know if we are a good fit?',
+    a:
+      'Read the about page and the services page. If what we stand for resonates with what you are building, reach out. If it does not, we are probably not the right match and that is completely fine.',
+  },
+  {
+    id: 'faq-wu-4',
+    q: 'Do you sign NDAs before discussing projects?',
+    a:
+      'We treat everything shared with us in confidence. If you need a formal NDA before a conversation, let us know when you reach out.',
+  },
+  {
+    id: 'faq-wu-5',
+    q: 'Can I collaborate with Siryus as a producer or creative?',
+    a:
+      'Yes. We are always open to working with producers, videographers, photographers, designers and other creatives who align with our values. Reach out and introduce yourself.',
+  },
+  {
+    id: 'faq-wu-6',
+    q: 'Do you offer mentorship outside of Indiba?',
+    a:
+      'Mentorship is built into several of our programs including the Indiba Project Series and our community initiatives. For one on one mentorship outside of these programs, reach out and let us know what you are looking for.',
+  },
+  {
+    id: 'faq-wu-7',
+    q: 'Are you open to press and interview requests?',
+    a:
+      'Yes. For press enquiries about SIRYUS A.M, our artists or our projects contact management@siryushub.com and include the publication, platform and your deadline.',
+  },
+  {
+    id: 'faq-wu-8',
+    q: 'How can I stay updated on everything Siryus is doing?',
+    a:
+      'Follow us on Instagram at siryus.am. Subscribe to our newsletter from the footer of this site. And check the blog regularly for updates, insights and news from the Siryus world.',
+  },
+];
+
+const allFaq = [
+  ...columnSiryusAM,
+  ...columnServices,
+  ...columnProjects,
+  ...columnWorking,
+];
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -121,41 +259,81 @@ const faqSchema = {
     <section class="faq-inner faq-section" aria-labelledby="faq-acc-heading">
       <h2 id="faq-acc-heading" class="visually-hidden">Frequently asked questions</h2>
       <div class="faq-columns">
-        <div class="faq-col faq-reveal">
-          <h3 class="faq-col__heading">SIRYUS A.M</h3>
-          {
-            artistColumn.map((item) => (
-              <div class="faq-item">
-                <input type="checkbox" id={item.id} class="faq-input" />
-                <label for={item.id} class="faq-trigger">
-                  {item.q}
-                </label>
-                <div class="faq-answer">
-                  <div class="faq-answer__inner">
-                    <p>{item.a}</p>
+        <div class="faq-columns__stack">
+          <div class="faq-col faq-reveal">
+            <h3 class="faq-col__heading">SIRYUS A.M (artist management)</h3>
+            {
+              columnSiryusAM.map((item) => (
+                <div class="faq-item">
+                  <input type="checkbox" id={item.id} class="faq-input" />
+                  <label for={item.id} class="faq-trigger">
+                    {item.q}
+                  </label>
+                  <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                      <p>{item.a}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
-          }
+              ))
+            }
+          </div>
+          <div class="faq-col faq-reveal">
+            <h3 class="faq-col__heading">Services and Marketing</h3>
+            {
+              columnServices.map((item) => (
+                <div class="faq-item">
+                  <input type="checkbox" id={item.id} class="faq-input" />
+                  <label for={item.id} class="faq-trigger">
+                    {item.q}
+                  </label>
+                  <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                      <p>{item.a}</p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
         </div>
-        <div class="faq-col faq-reveal">
-          <h3 class="faq-col__heading">Services and General</h3>
-          {
-            servicesColumn.map((item) => (
-              <div class="faq-item">
-                <input type="checkbox" id={item.id} class="faq-input" />
-                <label for={item.id} class="faq-trigger">
-                  {item.q}
-                </label>
-                <div class="faq-answer">
-                  <div class="faq-answer__inner">
-                    <p>{item.a}</p>
+        <div class="faq-columns__stack">
+          <div class="faq-col faq-reveal">
+            <h3 class="faq-col__heading">Our Projects and Community</h3>
+            {
+              columnProjects.map((item) => (
+                <div class="faq-item">
+                  <input type="checkbox" id={item.id} class="faq-input" />
+                  <label for={item.id} class="faq-trigger">
+                    {item.q}
+                  </label>
+                  <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                      <p>{item.a}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
-          }
+              ))
+            }
+          </div>
+          <div class="faq-col faq-reveal">
+            <h3 class="faq-col__heading">Working With Us</h3>
+            {
+              columnWorking.map((item) => (
+                <div class="faq-item">
+                  <input type="checkbox" id={item.id} class="faq-input" />
+                  <label for={item.id} class="faq-trigger">
+                    {item.q}
+                  </label>
+                  <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                      <p>{item.a}</p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
     </section>
