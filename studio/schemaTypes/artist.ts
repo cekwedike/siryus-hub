@@ -56,6 +56,7 @@ export default defineType({
       name: 'photo',
       title: 'Photo',
       type: 'image',
+      readOnly: false,
       options: { hotspot: true },
       fields: [
         defineField({

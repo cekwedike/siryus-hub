@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&display=swap');
+@import './wind-decor-button.css';
 
 :root {
   /* Core backgrounds */
@@ -23,6 +24,8 @@
   --brand-accent-ink-hover: #e3eb7a;
   --brand-accent-dim: rgba(209, 223, 75, 0.15);
   --brand-accent-secondary: #b8924a;
+  /* Text on filled accent (lime) — buttons, pills */
+  --brand-on-accent-text: #0f1210;
 
   /* Status */
   --brand-success: #4bdf7a;
@@ -119,12 +122,14 @@ body.light-theme {
   --brand-bg-elevated: #ffffff;
   --brand-surface: #ffffff;
   --brand-surface-border: rgba(0, 0, 0, 0.08);
-  --brand-text: #1b1b1e;
-  --brand-text-muted: #5a5a5d;
-  --brand-text-faint: #9a9a9d;
+  /* Body copy + secondary text: black (no grey) */
+  --brand-text: #0a0a0a;
+  --brand-text-muted: #0a0a0a;
+  --brand-text-faint: #0a0a0a;
   /* Lime on white is low contrast; keep fills on --brand-accent, use ink for text */
   --brand-accent-ink: #3d4700;
   --brand-accent-ink-hover: #4f5c12;
+  --brand-on-accent-text: #3d4700;
   --brand-gradient-page: linear-gradient(
     180deg,
     #fcfcfa 0%,
@@ -133,8 +138,8 @@ body.light-theme {
   );
   --color-background: #f5f4f0;
   --color-elevated: #ffffff;
-  --color-text-primary: #1b1b1e;
-  --color-text-muted: #5a5a5d;
+  --color-text-primary: #0a0a0a;
+  --color-text-muted: #0a0a0a;
 }
 
 /* Reduced motion */
@@ -143,5 +148,69 @@ body.light-theme {
     --transition-fast: 0ms;
     --transition-base: 0ms;
     --transition-slow: 0ms;
+  }
+}
+
+/* --- Global mobile spacing and typography (marketing site) --- */
+@media (max-width: 768px) {
+  .brand-arms,
+  .latest {
+    padding-top: var(--space-12) !important;
+    padding-bottom: var(--space-12) !important;
+  }
+
+  .site-footer {
+    padding-top: var(--space-10);
+  }
+
+  .brand-arms__inner,
+  .latest__inner,
+  .footer-inner {
+    padding-left: var(--space-5) !important;
+    padding-right: var(--space-5) !important;
+  }
+
+  .marketing-main h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .marketing-main h2 {
+    font-size: clamp(1.25rem, 4vw, 1.65rem);
+  }
+
+  .marketing-main h3 {
+    font-size: clamp(1.1rem, 3.2vw, 1.45rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-arms__inner,
+  .latest__inner,
+  .footer-inner,
+  .about-inner,
+  .services-inner,
+  .contact-inner,
+  .artists-inner,
+  .blog-inner,
+  .projects-inner,
+  .faq-inner,
+  .studio-inner {
+    padding-left: var(--space-4) !important;
+    padding-right: var(--space-4) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero__warm-glow,
+  .community-hero__clay,
+  .community-hero__clay--a,
+  .community-hero__clay--b,
+  .siryus-am-hero__orbs,
+  .faq-hero__mesh,
+  .projects-hero__mesh,
+  .blog-hero__glow {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
   }
 }

@@ -9,7 +9,7 @@ Redirect 301 /siryus-blog /blog
 Redirect 301 /services-independent-creatives /services
 Redirect 301 /contact-page-siryus /contact
 Redirect 301 /siryus-hub-projects /projects
-Redirect 301 /indiba-project-series /indiba-project-series
+Redirect 301 /indiba-project-series /projects/indiba-project-series
 Redirect 301 /kickstart-your-career-as-a-creative /blog
 Redirect 301 /monetizing-creativity-earn-living-passion /blog
 Redirect 301 /essential-tools-for-creative-professionals /blog

@@ -245,7 +245,15 @@ const projectListFields = `
   year,
   status,
   artist,
-  featured
+  featured,
+  excerpt,
+  projectType,
+  longDescription,
+  galleryImages,
+  registrationOpen,
+  registrationUrl,
+  registrationButtonText,
+  registrationClosedText
 `
 
 const projectFullFields = `
@@ -271,6 +279,14 @@ export interface ProjectSummary {
   status: string
   artist: string | null
   featured: boolean | null
+  excerpt: string | null
+  projectType: string | null
+  longDescription: PortableTextBlock[] | null
+  galleryImages: SanityImageSource[] | null
+  registrationOpen: boolean | null
+  registrationUrl: string | null
+  registrationButtonText: string | null
+  registrationClosedText: string | null
 }
 
 export interface ProjectDetail extends ProjectSummary {
@@ -299,6 +315,45 @@ export async function getProjectBySlug(slug: string): Promise<ProjectDetail | nu
 export async function getFeaturedProjects(): Promise<ProjectSummary[]> {
   try {
     const rows = await sanityClient.fetch<ProjectSummary[]>(featuredProjectsQuery)
+    return Array.isArray(rows) ? rows : []
+  } catch {
+    return []
+  }
+}
+
+export interface TeamMemberSlug {
+  current: string
+}
+
+export interface TeamMember {
+  _id: string
+  name: string
+  slug: TeamMemberSlug
+  role: string
+  responsibilities: string
+  photo: SanityImageSource | null
+  initials: string
+  order: number
+  founder: boolean
+}
+
+const teamMemberFields = `
+  _id,
+  name,
+  slug,
+  role,
+  responsibilities,
+  photo,
+  initials,
+  order,
+  founder
+`
+
+const allTeamMembersQuery = `*[_type == "teamMember" && active == true] | order(founder desc, order asc) { ${teamMemberFields} }`
+
+export async function getAllTeamMembers(): Promise<TeamMember[]> {
+  try {
+    const rows = await sanityClient.fetch<TeamMember[]>(allTeamMembersQuery)
     return Array.isArray(rows) ? rows : []
   } catch {
     return []

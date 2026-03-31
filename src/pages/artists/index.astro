@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import WindDecorButton from '../../components/WindDecorButton.astro';
 import '../../styles/artist-pages.css';
 import '../../styles/artist-experience.css';
 import { urlFor } from '../../lib/sanity';
@@ -85,7 +86,7 @@ const artists = await getAllArtists();
         <p class="artists-index-cta__copy">
           If you are an independent artist serious about your career, we want to hear from you.
         </p>
-        <a href="/contact" class="artists-index-cta__btn">Work With Us</a>
+        <WindDecorButton href="/contact" class="artists-index-cta__btn">Work With Us</WindDecorButton>
       </div>
     </section>
   </div>

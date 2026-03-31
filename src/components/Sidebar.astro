@@ -1,4 +1,5 @@
 ---
+import WindDecorButton from './WindDecorButton.astro';
 ---
 
 <aside
@@ -162,9 +163,9 @@
     </nav>
 
     <div class="sidebar-footer">
-      <a href="/contact" class="sidebar-cta">
+      <WindDecorButton href="/contact" class="sidebar-cta">
         Work With Us
-      </a>
+      </WindDecorButton>
       <a
         href="mailto:management@siryushub.com"
         class="sidebar-email"
@@ -378,26 +379,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--brand-accent);
-    color: #0a0a0a;
-    text-decoration: none;
+    width: 100%;
     font-weight: 800;
     font-size: var(--text-base);
     letter-spacing: 0.02em;
-    padding: var(--space-4) var(--space-6);
-    border-radius: var(--radius-full);
-    transition: all var(--transition-base);
-    border: 2px solid var(--brand-accent);
-  }
-
-  .sidebar-cta:hover {
-    background: var(--brand-accent-hover);
-    border-color: var(--brand-accent-hover);
-    transform: translateY(-1px);
-  }
-
-  .sidebar-cta:visited {
-    color: #0a0a0a;
+    padding: var(--space-4) var(--space-6) !important;
+    border-radius: var(--radius-full) !important;
   }
 
   .sidebar-email {
@@ -469,6 +456,13 @@
 
   :global(body.light-theme) .sidebar-legal {
     color: var(--brand-text-faint);
+  }
+
+  @media (max-width: 768px) {
+    .sidebar-panel {
+      width: 100vw;
+      max-width: 100vw;
+    }
   }
 </style>
 

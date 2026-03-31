@@ -1,61 +1,17 @@
 ---
+import WindDecorButton from '../components/WindDecorButton.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/projects-page.css';
 import { urlFor } from '../lib/sanity';
-import { getAllProjects, type ProjectSummary } from '../lib/queries';
+import { getAllProjects } from '../lib/queries';
+import { FALLBACK_PROJECTS } from '../lib/projectFallbacks';
 
-const pageTitle = 'Projects - Creative Work by Siryus';
+const pageTitle = 'Our Initiatives | Siryus Creative Media';
 const pageDescription =
-  'Campaigns, productions and creative projects from Siryus Creative Media Ltd. Release campaigns, artist development and brand marketing from Kigali to the world.';
+  'Programs and projects we build and run under the Siryus Creative Media umbrella. Artist development, live events and content from Kigali to the world.';
 
 const fromSanity = await getAllProjects();
-
-const fallbackProjects: ProjectSummary[] = [
-  {
-    _id: 'fallback-1',
-    title: 'Nobody - Max Prodigy feat. Juuru',
-    slug: { current: 'nobody-max-prodigy-feat-juuru' },
-    category: 'Release Campaign',
-    description:
-      "Full social media and content rollout for Max Prodigy's latest single. Strategy, content calendar, visual direction and platform distribution.",
-    coverImage: null,
-    tags: ['Artist Management', 'Social Media', 'Content Strategy'],
-    year: '2025',
-    status: 'Completed',
-    artist: null,
-    featured: false,
-  },
-  {
-    _id: 'fallback-2',
-    title: 'Tarama - SIRYUS A.M Collective',
-    slug: { current: 'tarama-siryus-am-collective' },
-    category: 'Creative Production',
-    description:
-      'A collaborative music project featuring Max Prodigy, Hidaya Morgan, Aine Arsene, Chriss D and Couronne. Production, distribution and rollout managed by SIRYUS A.M.',
-    coverImage: null,
-    tags: ['Creative Production', 'Distribution', 'Artist Collaboration'],
-    year: '2024',
-    status: 'Completed',
-    artist: null,
-    featured: false,
-  },
-  {
-    _id: 'fallback-3',
-    title: 'The Indiba Project Series',
-    slug: { current: 'the-indiba-project-series' },
-    category: 'Artist Development',
-    description:
-      'An ongoing creative initiative under SIRYUS A.M designed to unlock and amplify emerging sounds across Africa.',
-    coverImage: null,
-    tags: ['Artist Development', 'Creative Direction', 'Pan-African'],
-    year: 'Ongoing',
-    status: 'Active',
-    artist: null,
-    featured: false,
-  },
-];
-
-const projects = fromSanity.length > 0 ? fromSanity : fallbackProjects;
+const projects = fromSanity.length > 0 ? fromSanity : FALLBACK_PROJECTS;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} canonical="https://www.siryushub.com/projects">
@@ -76,17 +32,16 @@ const projects = fromSanity.length > 0 ? fromSanity : fallbackProjects;
       <div class="projects-hero__mesh" aria-hidden="true"></div>
       <div class="projects-inner">
         <header class="projects-hero__intro">
-          <span class="projects-hero__label">Our Work</span>
-          <h1 id="projects-hero-heading" class="projects-hero__title">Projects We Are Proud Of.</h1>
+          <h1 id="projects-hero-heading" class="projects-hero__title">Our Initiatives.</h1>
           <p class="projects-hero__sub">
-            From release campaigns to brand strategy. Here is a look at what we have been building.
+            These are the programs and projects we build and run under the Siryus Creative Media umbrella. Not client work. Our own.
           </p>
         </header>
       </div>
     </section>
 
     <section class="projects-inner projects-grid-section" aria-labelledby="projects-grid-heading">
-      <h2 id="projects-grid-heading" class="visually-hidden">Selected projects</h2>
+      <h2 id="projects-grid-heading" class="visually-hidden">Siryus initiatives</h2>
       <div class="projects-grid">
         {
           projects.map((project) => {
@@ -94,8 +49,10 @@ const projects = fromSanity.length > 0 ? fromSanity : fallbackProjects;
               ? urlFor(project.coverImage).width(960).height(540).fit('crop').auto('format').url()
               : '';
             const tags = Array.isArray(project.tags) ? project.tags.filter(Boolean) : [];
+            const href = `/projects/${project.slug.current}`;
+            const cardCopy = project.excerpt?.trim() || project.description;
             return (
-              <article class="project-card project-card--surface projects-reveal">
+              <a class="project-card project-card--surface project-card--link projects-reveal" href={href} data-astro-prefetch>
                 {coverUrl ? (
                   <img
                     class="project-card__cover"
@@ -109,7 +66,7 @@ const projects = fromSanity.length > 0 ? fromSanity : fallbackProjects;
                 ) : null}
                 <span class="project-card__cat">{project.category}</span>
                 <h3 class="project-card__title">{project.title}</h3>
-                <p class="project-card__desc">{project.description}</p>
+                <p class="project-card__desc">{cardCopy}</p>
                 <div class="project-card__tags" role="list">
                   {tags.map((tag) => (
                     <span class="project-card__tag" role="listitem">
@@ -125,7 +82,8 @@ const projects = fromSanity.length > 0 ? fromSanity : fallbackProjects;
                     <strong>Status:</strong> {project.status}
                   </span>
                 </div>
-              </article>
+                <span class="project-card__learn-more">Learn more</span>
+              </a>
             );
           })
         }
@@ -138,7 +96,7 @@ const projects = fromSanity.length > 0 ? fromSanity : fallbackProjects;
         <p class="projects-cta__copy">
           Whether it is a release campaign, a brand activation or a creative production, let us talk about what you are building.
         </p>
-        <a href="/contact" class="projects-cta__btn">Work With Us</a>
+        <WindDecorButton href="/contact" class="projects-cta__btn">Work With Us</WindDecorButton>
       </div>
     </section>
   </div>

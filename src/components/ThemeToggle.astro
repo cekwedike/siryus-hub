@@ -97,6 +97,36 @@ import '../styles/brand-tokens.css';
     pointer-events: auto;
   }
 
+  @media (max-width: 768px) and (min-width: 481px) {
+    .theme-toggle {
+      top: auto;
+      bottom: 24px;
+      right: 12px;
+      transform: none;
+    }
+
+    .theme-toggle__island {
+      padding: 5px;
+      gap: 4px;
+    }
+
+    .theme-toggle__btn {
+      width: 32px;
+      height: 32px;
+    }
+
+    .theme-toggle__btn svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .theme-toggle {
+      display: none;
+    }
+  }
+
   .theme-toggle__island {
     display: flex;
     flex-direction: column;
@@ -139,7 +169,7 @@ import '../styles/brand-tokens.css';
   }
 
   :global(body.light-theme) .theme-toggle__btn {
-    color: rgba(20, 22, 24, 0.72);
+    color: #0a0a0a;
   }
 
   .theme-toggle__btn:hover {
@@ -149,7 +179,7 @@ import '../styles/brand-tokens.css';
 
   :global(body.light-theme) .theme-toggle__btn:hover {
     background: rgba(61, 71, 0, 0.12);
-    color: #1b1b1e;
+    color: #0a0a0a;
   }
 
   .theme-toggle__btn.active {
@@ -162,26 +192,6 @@ import '../styles/brand-tokens.css';
     color: #0a0a0a;
   }
 
-  @media (max-width: 480px) {
-    .theme-toggle {
-      right: 12px;
-    }
-
-    .theme-toggle__btn {
-      width: 38px;
-      height: 38px;
-    }
-
-    .theme-toggle__btn svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .theme-toggle__island {
-      padding: 6px;
-      gap: 4px;
-    }
-  }
 </style>
 
 <script is:inline>

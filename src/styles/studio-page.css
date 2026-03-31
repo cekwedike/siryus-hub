@@ -210,8 +210,6 @@
 
 .studio-featured__cta {
   margin-top: var(--space-2);
-  appearance: none;
-  border: none;
   cursor: pointer;
   font-family: var(--font-display);
   font-size: var(--text-sm);
@@ -219,13 +217,10 @@
   letter-spacing: 0.04em;
   padding: var(--space-4) var(--space-8);
   border-radius: var(--radius-full);
-  background: var(--brand-accent);
-  color: #0a0a0a;
-  transition: transform var(--transition-base), background var(--transition-base);
+  transition: transform var(--transition-base);
 }
 
 .studio-featured__cta:hover {
-  background: var(--brand-accent-hover);
   transform: translateY(-2px);
 }
 
@@ -570,20 +565,7 @@ body.light-theme .studio-card__body {
   text-transform: none;
   padding: var(--space-3) var(--space-10);
   border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: transparent;
-  color: var(--brand-text-muted);
   cursor: pointer;
-  transition:
-    border-color var(--transition-base),
-    color var(--transition-base),
-    background var(--transition-base);
-}
-
-.studio-load-more:hover {
-  border-color: var(--brand-accent-ink);
-  color: var(--brand-accent-ink-hover);
-  background: rgba(209, 223, 75, 0.06);
 }
 
 .studio-solo-note {
@@ -649,20 +631,12 @@ body.light-theme .studio-card__body {
   justify-content: center;
   padding: var(--space-4) var(--space-8);
   border-radius: var(--radius-full);
-  background: transparent;
-  color: var(--brand-accent-ink);
   font-weight: 800;
   text-decoration: none;
-  border: 2px solid rgba(209, 223, 75, 0.45);
-  transition:
-    background var(--transition-base),
-    border-color var(--transition-base),
-    transform var(--transition-base);
+  transition: transform var(--transition-base);
 }
 
 .studio-cta__btn:hover {
-  background: rgba(209, 223, 75, 0.1);
-  border-color: var(--brand-accent);
   transform: translateY(-2px);
 }
 

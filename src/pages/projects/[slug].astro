@@ -1,0 +1,277 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WindDecorButton from '../../components/WindDecorButton.astro';
+import '../../styles/blog.css';
+import '../../styles/project-detail.css';
+import type { SanityImageSource } from '@sanity/image-url';
+import { urlFor } from '../../lib/sanity';
+import { getAllProjects, getProjectBySlug, type ProjectDetail, type ProjectSummary } from '../../lib/queries';
+import { FALLBACK_PROJECTS, projectMetaDescription } from '../../lib/projectFallbacks';
+import { portableTextToBlogHtml } from '../../lib/portableTextHtml';
+
+export async function getStaticPaths() {
+  const fromSanity = await getAllProjects();
+  const slugs = new Set<string>();
+  for (const p of fromSanity) {
+    const s = p.slug?.current?.trim();
+    if (s) slugs.add(s);
+  }
+  for (const p of FALLBACK_PROJECTS) {
+    const s = p.slug?.current?.trim();
+    if (s) slugs.add(s);
+  }
+  return Array.from(slugs).map((slug) => ({ params: { slug } }));
+}
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function plainDescriptionToHtml(text: string): string {
+  const parts = text.split(/\n\s*\n/).filter((p) => p.trim());
+  return parts.length
+    ? parts.map((p) => `<p>${escapeHtml(p.trim())}</p>`).join('')
+    : `<p>${escapeHtml(text.trim())}</p>`;
+}
+
+const { slug } = Astro.params;
+const fromCms = slug ? await getProjectBySlug(slug) : null;
+const fallback = slug ? FALLBACK_PROJECTS.find((p) => p.slug.current === slug) : undefined;
+const project: ProjectDetail | null = fromCms ?? fallback ?? null;
+
+if (!project?.slug?.current) {
+  return Astro.redirect('/projects');
+}
+
+const canonicalUrl = `https://www.siryushub.com/projects/${project.slug.current}`;
+const pageTitle = `${project.title} | Siryus Creative Media`;
+const pageDescription = projectMetaDescription(project);
+
+let ogImagePath = '/images/og-default.png';
+if (project.coverImage) {
+  try {
+    ogImagePath = urlFor(project.coverImage).width(1200).height(630).url();
+  } catch {
+    ogImagePath = '/images/og-default.png';
+  }
+}
+
+const bodyHtmlFromLong = portableTextToBlogHtml(project.longDescription ?? []);
+const aboutHtml =
+  bodyHtmlFromLong.trim().length > 0 ? bodyHtmlFromLong : plainDescriptionToHtml(project.description);
+
+let heroBgStyle = '';
+if (project.coverImage) {
+  try {
+    heroBgStyle = `background-image:url(${urlFor(project.coverImage).width(1920).height(1080).fit('crop').auto('format').url()})`;
+  } catch {
+    heroBgStyle = '';
+  }
+}
+
+const regOpen = project.registrationOpen === true;
+const regUrl = project.registrationUrl?.trim();
+const regBtnText = (project.registrationButtonText?.trim() || 'Apply Now').trim();
+const closedMsg =
+  project.registrationClosedText?.trim() ||
+  'This is not currently open. Check back soon.';
+
+const poolAll = await getAllProjects();
+const pool: ProjectSummary[] = poolAll.length > 0 ? poolAll : FALLBACK_PROJECTS;
+const related = pool.filter((p) => p.slug.current !== project.slug.current).slice(0, 2);
+
+function galleryUrl(img: unknown, w: number, h: number): string | null {
+  if (!img || typeof img !== 'object') return null;
+  try {
+    return urlFor(img as SanityImageSource).width(w).height(h).fit('crop').auto('format').url();
+  } catch {
+    return null;
+  }
+}
+
+function relatedCover(p: ProjectSummary): string | null {
+  if (!p.coverImage) return null;
+  try {
+    return urlFor(p.coverImage).width(640).height(360).fit('crop').auto('format').url();
+  } catch {
+    return null;
+  }
+}
+
+const creativeWorkSchema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: project.title,
+  description: pageDescription,
+  url: canonicalUrl,
+  creator: {
+    '@type': 'Organization',
+    name: 'Siryus Creative Media Ltd',
+  },
+};
+if (project.coverImage) {
+  try {
+    creativeWorkSchema.image = urlFor(project.coverImage).width(1200).height(630).url();
+  } catch {
+    /* omit */
+  }
+}
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={canonicalUrl}
+  ogImage={ogImagePath}
+  ogType="article"
+  schema={creativeWorkSchema}
+>
+  <article class="project-detail-page">
+    <section class="project-detail-hero project-detail-bleed" aria-labelledby="project-title">
+      <div
+        class:list={['project-detail-hero__bg', { 'project-detail-hero__bg--gradient': !heroBgStyle }]}
+        style={heroBgStyle ? heroBgStyle : undefined}
+        aria-hidden="true"
+      />
+      <div class="project-detail-hero__overlay" aria-hidden="true" />
+      <div class="project-detail-inner project-detail-hero__content">
+        <span class="project-detail-hero__badge">{project.category}</span>
+        <h1 id="project-title" class="project-detail-hero__title">{project.title}</h1>
+        <div class="project-detail-hero__badges">
+          <span class="project-detail-pill">{project.year}</span>
+          <span class="project-detail-pill">{project.status}</span>
+        </div>
+      </div>
+    </section>
+
+    {
+      regOpen ? (
+        <section class="project-detail-reg project-detail-reg--open project-detail-bleed" aria-label="Registration">
+          <div class="project-detail-reg__row">
+            <p class="project-detail-reg__lead">Applications are open</p>
+            {regUrl ? (
+              <WindDecorButton
+                href={regUrl}
+                class="project-detail-reg__btn"
+                variant="secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {regBtnText}
+              </WindDecorButton>
+            ) : null}
+          </div>
+        </section>
+      ) : (
+        <section class="project-detail-reg project-detail-reg--closed project-detail-bleed" aria-label="Registration status">
+          <div class="project-detail-reg__row">
+            <p class="project-detail-reg__closed-copy">{closedMsg}</p>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="project-detail-about project-detail-bleed blog-post-body-wrap" aria-labelledby="about-heading">
+      <div class="project-detail-about__inner">
+        <h2 id="about-heading" class="project-detail-about__heading">About this project</h2>
+        <div class="blog-post-body" set:html={aboutHtml} />
+      </div>
+    </section>
+
+    {
+      Array.isArray(project.galleryImages) && project.galleryImages.length > 0 ? (
+        <section class="project-detail-gallery project-detail-bleed" aria-labelledby="gallery-heading">
+          <h2 id="gallery-heading" class="visually-hidden">Project gallery</h2>
+          <div class="project-detail-gallery__grid">
+            {project.galleryImages.map((img) => {
+              const src = galleryUrl(img, 960, 540);
+              if (!src) return null;
+              const alt =
+                typeof (img as { alt?: string })?.alt === 'string'
+                  ? (img as { alt: string }).alt.trim()
+                  : `Gallery image for ${project.title}`;
+              return (
+                <figure class="project-detail-gallery__figure">
+                  <img src={src} alt={alt} width="960" height="540" loading="lazy" decoding="async" />
+                </figure>
+              );
+            })}
+          </div>
+        </section>
+      ) : null
+    }
+
+    <section class="project-detail-strip project-detail-bleed" aria-label="Project details">
+      <div class="project-detail-strip__row">
+        <span class="project-detail-pill">{project.category}</span>
+        <span class="project-detail-pill">{project.year}</span>
+        <span class="project-detail-pill">{project.status}</span>
+        {project.projectType ? <span class="project-detail-pill">{project.projectType}</span> : null}
+      </div>
+    </section>
+
+    {
+      related.length > 0 ? (
+        <section class="project-detail-related project-detail-bleed" aria-labelledby="related-heading">
+          <h2 id="related-heading" class="project-detail-related__title">
+            Other Siryus Initiatives
+          </h2>
+          <div class="project-detail-related__grid">
+            {related.map((p) => {
+              const href = `/projects/${p.slug.current}`;
+              const thumb = relatedCover(p);
+              return (
+                <a class="project-detail-related-card" href={href} data-astro-prefetch>
+                  <div class="project-detail-related-card__thumb">
+                    {thumb ? (
+                      <img
+                        src={thumb}
+                        alt={`Cover for ${p.title}`}
+                        width="640"
+                        height="360"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : null}
+                  </div>
+                  <span class="project-detail-related-card__cat">{p.category}</span>
+                  <h3 class="project-detail-related-card__title">{p.title}</h3>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      ) : null
+    }
+
+    <section class="project-detail-cta project-detail-bleed" aria-labelledby="cta-heading">
+      <div class="project-detail-cta__inner">
+        <h2 id="cta-heading" class="project-detail-cta__title">
+          Want to Be Part of What We Build?
+        </h2>
+        <p class="project-detail-cta__copy">
+          Whether you are an artist, a collaborator, or a creative who wants in, reach out.
+        </p>
+        <WindDecorButton href="/contact" class="projects-cta__btn">Get In Touch</WindDecorButton>
+      </div>
+    </section>
+  </article>
+
+  <style is:global>
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</BaseLayout>

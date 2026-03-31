@@ -144,6 +144,11 @@
     border-color var(--transition-base);
 }
 
+.project-card--link {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* Flat editorial surface — replaces heavy clay + lime category pill */
 .project-card--surface {
   background: linear-gradient(165deg, rgba(20, 20, 24, 0.92) 0%, rgba(8, 8, 10, 0.98) 100%);
@@ -238,6 +243,18 @@ body.light-theme .project-card__tag {
   font-weight: 700;
 }
 
+.project-card__learn-more {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 800;
+  color: var(--brand-accent);
+  letter-spacing: 0.02em;
+}
+
+.project-card--link:hover .project-card__learn-more {
+  color: var(--brand-accent-hover);
+}
+
 /* Bottom CTA — dark band + accent button (matches FAQ), not a full-width lime slab */
 .projects-cta {
   padding: var(--space-16) var(--space-5);
@@ -272,18 +289,12 @@ body.light-theme .project-card__tag {
   justify-content: center;
   padding: var(--space-4) var(--space-8);
   border-radius: var(--radius-full);
-  background: var(--brand-accent);
-  color: #0a0a0a;
   font-weight: 800;
   text-decoration: none;
-  border: 2px solid var(--brand-accent);
-  transition:
-    background var(--transition-base),
-    transform var(--transition-base);
+  transition: transform var(--transition-base);
 }
 
 .projects-cta__btn:hover {
-  background: var(--brand-accent-hover);
   transform: translateY(-2px);
 }
 

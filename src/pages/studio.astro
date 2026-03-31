@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import WindDecorButton from '../components/WindDecorButton.astro';
 import '../styles/morphism.css';
 import '../styles/studio-page.css';
 import { urlFor } from '../lib/sanity';
@@ -130,9 +131,10 @@ const featuredAlt = featured ? thumbAlt(featured) || featured.title : '';
               {featured.description ? <p class="studio-featured__desc">{featured.description}</p> : null}
               {featured.artist ? <p class="studio-featured__artist">{featured.artist}</p> : null}
               <span class:list={['studio-featured__platform', platformClass(featured.platform)]}>{featured.platform}</span>
-              <button
+              <WindDecorButton
                 type="button"
                 class="studio-featured__cta studio-modal-trigger"
+                splash={false}
                 data-title={featured.title}
                 data-platform={featured.platform}
                 data-embed-url={featured.embedUrl}
@@ -140,7 +142,7 @@ const featuredAlt = featured ? thumbAlt(featured) || featured.title : '';
                 data-thumb-url={featuredImg ?? ''}
               >
                 Watch Now
-              </button>
+              </WindDecorButton>
             </div>
           </div>
         </section>
@@ -232,9 +234,14 @@ const featuredAlt = featured ? thumbAlt(featured) || featured.title : '';
             </div>
             {showLoadMore ? (
               <div class="studio-load-more-wrap">
-                <button type="button" class="studio-load-more" id="studio-load-more">
+                <WindDecorButton
+                  type="button"
+                  variant="secondary"
+                  class="studio-load-more"
+                  id="studio-load-more"
+                >
                   Load more videos
-                </button>
+                </WindDecorButton>
               </div>
             ) : null}
           </section>
@@ -264,9 +271,9 @@ const featuredAlt = featured ? thumbAlt(featured) || featured.title : '';
         <p class="studio-cta__copy">
           If you are an artist or brand we work with, reach out and we will add your content to The Studio.
         </p>
-        <a href="/contact" class="studio-cta__btn">
+        <WindDecorButton href="/contact" variant="secondary" class="studio-cta__btn">
           Get In Touch
-        </a>
+        </WindDecorButton>
       </div>
     </section>
   </div>

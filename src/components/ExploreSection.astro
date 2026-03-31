@@ -1,5 +1,5 @@
 ---
-
+import WindDecorButton from './WindDecorButton.astro';
 ---
 
 <section
@@ -15,7 +15,7 @@
       >
         Latest From Siryus
       </h2>
-      <a href="/projects" class="latest__view-all">
+      <WindDecorButton href="/projects" variant="secondary" class="latest__view-all" splash={false}>
         View all
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
-      </a>
+      </WindDecorButton>
     </div>
 
     <div class="latest__grid">
@@ -248,18 +248,14 @@
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    color: var(--brand-accent);
     text-decoration: none;
     font-size: var(--text-sm);
     font-weight: 700;
     letter-spacing: 0.02em;
     white-space: nowrap;
     flex-shrink: 0;
+    padding: var(--space-2) var(--space-4);
     transition: gap var(--transition-base);
-  }
-
-  .latest__view-all:visited {
-    color: var(--brand-accent);
   }
 
   .latest__view-all:hover {
@@ -419,7 +415,7 @@
 
   @media (max-width: 768px) {
     .latest {
-      padding: var(--space-16) 0;
+      padding: var(--space-12) 0;
     }
 
     .latest__inner {
@@ -430,8 +426,21 @@
       grid-template-columns: 1fr;
     }
 
+    .latest-card {
+      width: 100%;
+      max-width: 100%;
+    }
+
     .latest-card--wide {
       grid-column: auto;
+    }
+
+    .latest-card__media {
+      aspect-ratio: 16 / 9;
+    }
+
+    .latest-card--wide .latest-card__media {
+      aspect-ratio: 16 / 9;
     }
   }
 
@@ -456,7 +465,7 @@
       #f0f1ee 0%,
       #e8e9e5 100%
     );
-    color: rgba(0, 0, 0, 0.15);
+    color: rgba(0, 0, 0, 0.55);
   }
 
   :global(body.light-theme) .latest-card__media-placeholder--accent {
@@ -465,7 +474,7 @@
       rgba(209, 223, 75, 0.15) 0%,
       #f0f1ee 100%
     );
-    color: rgba(80, 100, 0, 0.35);
+    color: rgba(0, 0, 0, 0.55);
   }
 
   :global(body.light-theme) .latest-card__media-placeholder--gold {
@@ -474,7 +483,7 @@
       rgba(184, 146, 74, 0.15) 0%,
       #f0f1ee 100%
     );
-    color: rgba(140, 100, 30, 0.4);
+    color: rgba(0, 0, 0, 0.55);
   }
 
   :global(body.light-theme) .latest-card__heading {

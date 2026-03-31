@@ -1,6 +1,5 @@
 ---
-// Section 3: CREATIVE MEDIA - SIRYUS A.M Services
-// Full-screen section showcasing creative production capabilities
+import WindDecorButton from './WindDecorButton.astro';
 ---
 
 <section class="creative-media-section" id="creative-media" data-section="3">
@@ -170,21 +169,12 @@
         and brands bring their boldest ideas to life.
       </p>
       <div class="cta-buttons">
-        <a href="#" class="cta-button primary">
-          <span>View Portfolio</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21 15 16 10 5 21"></polyline>
-          </svg>
-        </a>
-        <a href="#" class="cta-button secondary">
-          <span>Start a Project</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
-        </a>
+        <WindDecorButton href="/projects" class="cta-button primary" splash={false}>
+          View Portfolio
+        </WindDecorButton>
+        <WindDecorButton href="/contact" variant="secondary" class="cta-button secondary">
+          Start a Project
+        </WindDecorButton>
       </div>
     </div>
 
@@ -448,33 +438,11 @@
     font-weight: 700;
     font-size: 16px;
     padding: 16px 32px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    transition: transform 0.3s ease;
   }
 
-  .cta-button.primary {
-    background: #D1DF4B;
-    color: #1B1B1E;
-    border-color: #D1DF4B;
-  }
-
-  .cta-button.primary:hover {
-    background: #D5DD85;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(209, 223, 75, 0.3);
-  }
-
-  .cta-button.secondary {
-    background: transparent;
-    color: #F5F9E9;
-    border-color: #F5F9E9;
-  }
-
-  .cta-button.secondary:hover {
-    background: rgba(245, 249, 233, 0.1);
-    border-color: #D1DF4B;
-    color: #D1DF4B;
+  .cta-button:hover {
     transform: translateY(-2px);
   }
 
@@ -715,7 +683,7 @@
   :global(body.light-theme) .portfolio-text,
   :global(body.light-theme) .service-description,
   :global(body.light-theme) .service-features li {
-    color: #5A5A5D;
+    color: #0a0a0a;
   }
 
   :global(body.light-theme) .service-card {
@@ -735,15 +703,6 @@
   :global(body.light-theme) .bg-pattern {
     background-image: 
       radial-gradient(circle, rgba(27, 27, 30, 0.08) 1px, transparent 1px);
-  }
-
-  :global(body.light-theme) .cta-button.secondary {
-    color: #1B1B1E;
-    border-color: #1B1B1E;
-  }
-
-  :global(body.light-theme) .cta-button.secondary:hover {
-    background: rgba(27, 27, 30, 0.1);
   }
 
   /* Accessibility */

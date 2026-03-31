@@ -241,18 +241,12 @@ body.light-theme .faq-item {
   justify-content: center;
   padding: var(--space-4) var(--space-8);
   border-radius: var(--radius-full);
-  background: var(--brand-accent);
-  color: #0a0a0a;
   font-weight: 800;
   text-decoration: none;
-  border: 2px solid var(--brand-accent);
-  transition:
-    background var(--transition-base),
-    transform var(--transition-base);
+  transition: transform var(--transition-base);
 }
 
 .faq-cta__btn:hover {
-  background: var(--brand-accent-hover);
   transform: translateY(-2px);
 }
 

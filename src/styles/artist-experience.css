@@ -683,6 +683,33 @@ body.light-theme .artists-index-card--lift:hover {
   }
 }
 
+@media (max-width: 768px) {
+  .artist-profile-hero.artist-hero-v2 {
+    min-height: 0;
+    padding: var(--space-10) 0 var(--space-10);
+    display: block;
+  }
+
+  .artist-hero-v2__grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .artist-profile-portrait-frame {
+    order: -1;
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 auto;
+    animation: none;
+  }
+
+  .artist-hero-v2-stagger {
+    order: 1;
+    width: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .artist-hero-v2__mesh,
   .artist-hero-v2__orb,

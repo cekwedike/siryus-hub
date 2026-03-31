@@ -53,6 +53,7 @@ export default defineType({
       name: 'coverImage',
       title: 'Cover Image',
       type: 'image',
+      readOnly: false,
       options: { hotspot: true },
       fields: [
         defineField({
@@ -117,6 +118,7 @@ export default defineType({
         },
         {
           type: 'image',
+          readOnly: false,
           options: { hotspot: true },
           fields: [
             defineField({

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import WindDecorButton from '../components/WindDecorButton.astro';
 ---
 
 <BaseLayout
@@ -97,7 +98,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </select>
               </label>
 
-              <button type="submit" class="contact-form__submit morph-neu-btn">Send Message</button>
+              <WindDecorButton type="submit" class="contact-form__submit" splash={false}>
+                Send Message
+              </WindDecorButton>
             </form>
           </div>
 
@@ -540,7 +543,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   :global(body.light-theme) .contact-field {
-    color: #1b1b1e;
+    color: #0a0a0a;
   }
 
   :global(body.light-theme) .contact-form.morph-neu-stack,
@@ -556,7 +559,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   :global(body.light-theme) .contact-field__input.morph-neu-input,
   :global(body.light-theme) .contact-field__textarea.morph-neu-textarea {
     background: #f0f1ee !important;
-    color: #1b1b1e !important;
+    color: #0a0a0a !important;
     box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.07), inset -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
   }
 
@@ -570,7 +573,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   :global(body.light-theme) .contact-field__select {
     background-color: #f0f1ee !important;
-    color: #1b1b1e !important;
+    color: #0a0a0a !important;
     box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.07), inset -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
   }
 
@@ -605,7 +608,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     background: rgba(0, 0, 0, 0.03);
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     .contact-split__grid {
       grid-template-columns: 1fr;
       gap: var(--space-10);
@@ -613,6 +616,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .contact-split__aside {
       position: static;
+      align-self: stretch;
+    }
+
+    .contact-field__input,
+    .contact-field__textarea,
+    .contact-field__select {
+      width: 100%;
+      min-height: 44px;
+      box-sizing: border-box;
+    }
+
+    .contact-field__textarea {
+      min-height: 10rem;
+    }
+
+    .contact-form__submit {
+      align-self: stretch;
+      width: 100%;
+      min-height: 44px;
+      justify-content: center;
     }
   }
 

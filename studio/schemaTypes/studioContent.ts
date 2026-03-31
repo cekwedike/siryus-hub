@@ -64,6 +64,7 @@ export default defineType({
       name: 'thumbnail',
       title: 'Thumbnail',
       type: 'image',
+      readOnly: false,
       options: { hotspot: true },
       fields: [
         defineField({

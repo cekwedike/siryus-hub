@@ -50,6 +50,13 @@ const {
     letter-spacing: 0.32em;
   }
 
+  @media (max-width: 768px) {
+    .brand-wordmark--nav .brand-wordmark__primary {
+      font-size: clamp(0.68rem, 3.2vw, 0.82rem);
+      letter-spacing: 0.28em;
+    }
+  }
+
   .brand-wordmark--sidebar .brand-wordmark__primary {
     font-size: clamp(1rem, 1.5vw, 1.15rem);
     letter-spacing: 0.3em;
@@ -66,6 +73,6 @@ const {
   }
 
   :global(body.light-theme) .brand-wordmark__primary {
-    color: #1b1b1e;
+    color: #0a0a0a;
   }
 </style>

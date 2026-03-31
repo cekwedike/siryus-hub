@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import WindDecorButton from '../components/WindDecorButton.astro';
 ---
 
 <BaseLayout
@@ -40,8 +41,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             like.
           </p>
           <div class="siryus-am-hero__actions">
-            <a href="/artists" class="siryus-am-btn siryus-am-btn--secondary">See our roster</a>
-            <a href="/contact" class="siryus-am-btn siryus-am-btn--primary">Work With Us</a>
+            <WindDecorButton href="/artists" variant="secondary" class="siryus-am-btn siryus-am-btn--secondary">
+              See our roster
+            </WindDecorButton>
+            <WindDecorButton href="/contact" class="siryus-am-btn siryus-am-btn--primary">Work With Us</WindDecorButton>
           </div>
         </div>
       </div>
@@ -281,7 +284,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <p class="siryus-am-cta-band__copy">
           We take on a limited number of artists each year. If you think we are the right fit, reach out and let us talk.
         </p>
-        <a href="/contact" class="siryus-am-cta-band__btn">Get In Touch</a>
+        <WindDecorButton href="/contact" class="siryus-am-cta-band__btn">Get In Touch</WindDecorButton>
       </div>
     </section>
   </div>
@@ -568,34 +571,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     text-decoration: none;
     border-radius: var(--radius-md);
     padding: var(--space-3) var(--space-6);
-    transition:
-      transform var(--transition-fast),
-      background var(--transition-fast),
-      border-color var(--transition-fast),
-      color var(--transition-fast);
+    transition: transform var(--transition-fast);
   }
 
-  .siryus-am-btn--primary {
-    background: linear-gradient(165deg, var(--brand-accent) 0%, #b8c940 100%);
-    color: #0a0a0a;
-    border: 1px solid transparent;
-    box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.35);
-  }
-
-  .siryus-am-btn--primary:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.04);
-  }
-
-  .siryus-am-btn--secondary {
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--brand-text);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-  }
-
+  .siryus-am-btn--primary:hover,
   .siryus-am-btn--secondary:hover {
-    border-color: rgba(209, 223, 75, 0.45);
-    color: var(--brand-accent);
+    transform: translateY(-2px);
   }
 
   /* Pitch */
@@ -956,19 +937,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-size: var(--text-sm);
     font-weight: 800;
     text-decoration: none;
-    color: #0a0a0a;
-    background: var(--brand-accent);
-    border: 2px solid var(--brand-accent);
     border-radius: var(--radius-full);
     padding: var(--space-4) var(--space-8);
-    transition:
-      transform var(--transition-fast),
-      background var(--transition-fast);
+    transition: transform var(--transition-fast);
   }
 
   .siryus-am-cta-band__btn:hover {
     transform: translateY(-2px);
-    background: var(--brand-accent-hover);
   }
 
   /* Light theme */
@@ -995,16 +970,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       rgba(209, 223, 75, 0.08) 40%,
       transparent 70%
     );
-  }
-
-  :global(body.light-theme) .siryus-am-btn--secondary {
-    background: rgba(255, 255, 255, 0.85);
-    color: var(--brand-text);
-    border-color: rgba(27, 27, 30, 0.12);
-  }
-
-  :global(body.light-theme) .siryus-am-btn--secondary:hover {
-    border-color: rgba(209, 223, 75, 0.55);
   }
 
   :global(body.light-theme) .siryus-am-pitch,

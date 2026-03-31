@@ -1,6 +1,7 @@
 ---
 import '../styles/morphism.css';
 import BrandWordmark from './BrandWordmark.astro';
+import WindDecorButton from './WindDecorButton.astro';
 ---
 
 <nav class="top-nav" aria-label="Main navigation">
@@ -19,7 +20,9 @@ import BrandWordmark from './BrandWordmark.astro';
       </ul>
 
       <div class="nav-right">
-        <a href="/contact" class="nav-cta">Work With Us</a>
+        <WindDecorButton href="/contact" class="nav-cta simple-nav__cta" splash={false}>
+          Work With Us
+        </WindDecorButton>
         <button
           class="hamburger-btn"
           id="hamburgerBtn"
@@ -151,29 +154,12 @@ import BrandWordmark from './BrandWordmark.astro';
   }
 
   .nav-cta {
-    color: var(--brand-accent-ink);
-    text-decoration: none;
     -webkit-tap-highlight-color: transparent;
-    font-weight: 700;
+    padding: var(--space-2) var(--space-5) !important;
     font-size: var(--text-sm);
+    font-weight: 700;
     letter-spacing: 0.04em;
-    border: 1px solid var(--brand-accent-ink);
-    padding: var(--space-2) var(--space-5);
-    border-radius: var(--radius-full);
-    transition: all var(--transition-base);
-  }
-
-  .nav-cta:visited {
-    color: var(--brand-accent-ink);
-  }
-
-  .nav-cta:visited:hover {
-    color: #0a0a0a;
-  }
-
-  .nav-cta:hover {
-    background: var(--brand-accent);
-    color: #0a0a0a;
+    border-radius: var(--radius-full) !important;
   }
 
   .hamburger-btn {
@@ -233,23 +219,29 @@ import BrandWordmark from './BrandWordmark.astro';
   @media (max-width: 768px) {
     .top-nav {
       padding: var(--space-3) var(--space-4) 0;
+      justify-content: center;
     }
 
     .top-nav__pill {
+      width: fit-content;
       max-width: calc(100vw - var(--space-4) * 2);
+      min-width: 0;
     }
 
     .nav-container {
       padding: 0 var(--space-4);
       min-height: 54px;
+      gap: var(--space-3);
+      justify-content: space-between;
     }
 
     .nav-links {
-      display: none;
+      display: none !important;
     }
 
-    .nav-cta {
-      display: none;
+    .nav-cta,
+    .simple-nav__cta {
+      display: none !important;
     }
   }
 

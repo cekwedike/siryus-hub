@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import WindDecorButton from '../components/WindDecorButton.astro';
 ---
 
 <BaseLayout
@@ -42,9 +43,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <span class="morph-hero-social-ring community-hero__avatar"></span>
               <span class="morph-hero-social-ring community-hero__avatar"></span>
             </div>
-            <a href="mailto:management@siryushub.com?subject=Join%20the%20Siryus%20community" class="community-hero__cta"
-              >Join the community</a
+            <WindDecorButton
+              href="mailto:management@siryushub.com?subject=Join%20the%20Siryus%20community"
+              class="community-hero__cta"
             >
+              Join the community
+            </WindDecorButton>
           </div>
         </div>
       </div>
@@ -135,7 +139,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <p class="community-cta-band__copy">
           You do not need a big following or a finished project. Just show up.
         </p>
-        <a href="/contact" class="community-cta-band__btn">Join Now</a>
+        <WindDecorButton href="/contact" class="community-cta-band__btn">Join Now</WindDecorButton>
       </div>
     </section>
   </div>
@@ -448,21 +452,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-weight: 800;
     letter-spacing: 0.04em;
     text-decoration: none;
-    color: #0a0a0a;
-    background: var(--brand-accent);
-    border: 1px solid var(--brand-accent);
     border-radius: var(--radius-full);
     padding: var(--space-3) var(--space-8);
-    transition:
-      transform var(--transition-fast),
-      filter var(--transition-fast),
-      box-shadow var(--transition-fast);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    transition: transform var(--transition-fast);
   }
 
   .community-hero__cta:hover {
     transform: translateY(-2px);
-    filter: brightness(1.05);
   }
 
   /* What */
@@ -657,18 +653,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-weight: 800;
     letter-spacing: 0.04em;
     text-decoration: none;
-    color: #0a0a0a;
-    background: var(--brand-accent);
-    border: 2px solid var(--brand-accent);
     border-radius: var(--radius-full);
     padding: var(--space-4) var(--space-10);
-    transition:
-      background var(--transition-fast),
-      transform var(--transition-fast);
+    transition: transform var(--transition-fast);
   }
 
   .community-cta-band__btn:hover {
-    background: var(--brand-accent-hover);
     transform: translateY(-2px);
   }
 
@@ -702,8 +692,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-bottom-color: rgba(0, 0, 0, 0.06);
   }
 
-  :global(body.light-theme) .community-hero__avatar {
-    border-color: rgba(27, 27, 30, 0.12);
+  :global(body.light-theme) .community-hero__avatars .community-hero__avatar {
+    border-color: rgba(0, 0, 0, 0.18);
+    background: linear-gradient(
+      135deg,
+      rgba(209, 223, 75, 0.38) 0%,
+      #141416 48%,
+      #0a0a0a 100%
+    );
   }
 
   :global(body.light-theme) .community-cta-band {
@@ -718,6 +714,85 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .community-join__steps {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .community-inner {
+      padding-left: var(--space-4);
+      padding-right: var(--space-4);
+    }
+
+    .community-hero {
+      padding: var(--space-14) 0 var(--space-12);
+    }
+
+    .community-what,
+    .community-who,
+    .community-join,
+    .community-cta-band {
+      padding-top: var(--space-12);
+      padding-bottom: var(--space-12);
+    }
+
+    .community-section-title {
+      margin-bottom: var(--space-8);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .community-page {
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+    }
+
+    .community-inner {
+      padding-left: var(--space-4);
+      padding-right: var(--space-4);
+    }
+
+    .community-hero {
+      padding: var(--space-12) 0 var(--space-10);
+    }
+
+    .community-hero__card {
+      border-radius: 22px;
+      padding: var(--space-5) var(--space-4);
+    }
+
+    .community-hero__sub {
+      font-size: var(--text-base);
+    }
+
+    .community-hero__avatars {
+      gap: var(--space-2);
+      margin-bottom: var(--space-8);
+    }
+
+    .community-hero__avatar {
+      width: 40px;
+      height: 40px;
+    }
+
+    .community-hero__cta {
+      width: 100%;
+      max-width: 20rem;
+      box-sizing: border-box;
+    }
+
+    .community-cta-band__btn {
+      width: 100%;
+      max-width: 18rem;
+      box-sizing: border-box;
+    }
+
+    .community-pillar {
+      padding: var(--space-6);
+    }
+
+    .community-step {
+      padding: var(--space-6);
     }
   }
 

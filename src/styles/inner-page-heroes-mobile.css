@@ -1,0 +1,45 @@
+/* Inner marketing page heroes: shared mobile typography and padding (imported from BaseLayout) */
+
+@media (max-width: 768px) {
+  body.marketing-body .about-hero,
+  body.marketing-body .services-hero,
+  body.marketing-body .siryus-am-hero,
+  body.marketing-body .community-hero,
+  body.marketing-body .contact-hero,
+  body.marketing-body .faq-hero,
+  body.marketing-body .projects-hero,
+  body.marketing-body .studio-page-header,
+  body.marketing-body .blog-hero,
+  body.marketing-body .artists-index-hero {
+    padding: 80px var(--space-6) 40px;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body.marketing-body .about-hero__title,
+  body.marketing-body .services-hero__title,
+  body.marketing-body .siryus-am-hero__title,
+  body.marketing-body .community-hero__title,
+  body.marketing-body .contact-hero__title,
+  body.marketing-body .faq-hero__title,
+  body.marketing-body .projects-hero__title,
+  body.marketing-body .studio-page-header__title,
+  body.marketing-body .blog-hero__title,
+  body.marketing-body .artists-index-hero__title {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+  }
+
+  body.marketing-body .about-hero__sub,
+  body.marketing-body .services-hero__sub,
+  body.marketing-body .siryus-am-hero__sub,
+  body.marketing-body .community-hero__sub,
+  body.marketing-body .contact-hero__sub,
+  body.marketing-body .faq-hero__sub,
+  body.marketing-body .projects-hero__sub,
+  body.marketing-body .studio-page-header__sub,
+  body.marketing-body .blog-hero__sub,
+  body.marketing-body .artists-index-hero__sub {
+    font-size: var(--text-base);
+  }
+}

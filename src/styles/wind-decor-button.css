@@ -1,0 +1,245 @@
+/* Decorative corner splashes + wind hover — loaded after brand-tokens */
+a.wind-decor-btn {
+  text-decoration: none;
+}
+
+.wind-decor-btn {
+  --wd-icon: rgba(15, 18, 16, 0.42);
+  --wd-shadow: rgba(0, 0, 0, 0.22);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 45px;
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--brand-on-accent-text);
+  cursor: pointer;
+  border: 1px solid var(--brand-accent);
+  border-radius: var(--radius-sm);
+  background: var(--brand-accent);
+  /* box-shadow instead of filter — filter() composites the whole control and can dull label text inside frosted panels */
+  box-shadow: 0 2px 10px var(--wd-shadow);
+  box-sizing: border-box;
+  isolation: isolate;
+  transition:
+    border-color var(--transition-base),
+    color var(--transition-base),
+    background var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.wind-decor-btn__label {
+  position: relative;
+  z-index: 2;
+  color: inherit;
+}
+
+.wind-decor-btn:hover {
+  border-color: color-mix(in srgb, var(--brand-accent) 82%, #000);
+  background: linear-gradient(
+    85deg,
+    var(--brand-accent),
+    color-mix(in srgb, var(--brand-accent) 72%, var(--brand-accent-secondary)),
+    var(--brand-accent-hover),
+    color-mix(in srgb, var(--brand-accent) 88%, #fff),
+    var(--brand-accent)
+  );
+  background-size: 220% 220%;
+  animation: wind-decor-shift 2.2s ease-in-out infinite;
+}
+
+.wind-decor-btn:focus-visible {
+  outline: 2px solid var(--brand-on-accent-text);
+  outline-offset: 3px;
+}
+
+/* Secondary: outline pill — no splash icons */
+.wind-decor-btn--secondary {
+  background: rgba(5, 5, 5, 0.35);
+  color: var(--brand-text);
+  border-width: 2px;
+  border-color: rgba(245, 249, 233, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-weight: 700;
+  filter: none;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.wind-decor-btn--secondary:hover {
+  animation: none;
+  background: rgba(12, 12, 14, 0.55);
+  border-color: var(--brand-accent-ink);
+  color: var(--brand-accent-ink-hover);
+  background-size: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.wind-decor-btn--secondary:focus-visible {
+  outline-color: var(--brand-accent-ink);
+}
+
+[data-theme='light'] .wind-decor-btn,
+body.light-theme .wind-decor-btn {
+  --wd-icon: rgba(0, 0, 0, 0.42);
+  --wd-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Light: primary — clearer edge + readable label */
+[data-theme='light'] .wind-decor-btn:not(.wind-decor-btn--secondary),
+body.light-theme .wind-decor-btn:not(.wind-decor-btn--secondary) {
+  color: var(--brand-on-accent-text);
+  background-color: var(--brand-accent);
+  border-color: color-mix(in srgb, var(--brand-accent) 65%, #2a3000);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='light'] .wind-decor-btn:not(.wind-decor-btn--secondary):hover,
+body.light-theme .wind-decor-btn:not(.wind-decor-btn--secondary):hover {
+  border-color: color-mix(in srgb, var(--brand-accent-hover) 70%, #1a1f00);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.45) inset,
+    0 8px 28px rgba(209, 223, 75, 0.35),
+    0 0 0 1px rgba(61, 71, 0, 0.08);
+}
+
+/* Light: secondary */
+[data-theme='light'] .wind-decor-btn--secondary,
+body.light-theme .wind-decor-btn--secondary {
+  background: #ffffff;
+  color: #0a0a0a;
+  border-color: rgba(27, 27, 30, 0.18);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='light'] .wind-decor-btn--secondary:hover,
+body.light-theme .wind-decor-btn--secondary:hover {
+  border-color: var(--brand-accent-ink);
+  color: var(--brand-accent-ink-hover);
+  background: #fafaf8;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.wind-decor-btn__icon {
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  color: var(--wd-icon);
+  pointer-events: none;
+  transition: all 0.5s ease-in-out;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.28));
+}
+
+.wind-decor-btn__icon svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.wind-decor-btn__icon path {
+  fill: currentColor;
+}
+
+.wind-decor-btn__icon--1 {
+  right: 0;
+  width: 25px;
+  transform-origin: 0 0;
+  transform: rotate(10deg);
+}
+
+.wind-decor-btn__icon--2 {
+  left: 25px;
+  width: 12px;
+  transform-origin: 50% 0;
+  transform: rotate(10deg);
+}
+
+.wind-decor-btn__icon--3 {
+  left: 0;
+  width: 18px;
+  transform-origin: 50% 0;
+  transform: rotate(-5deg);
+}
+
+.wind-decor-btn:hover .wind-decor-btn__icon--1 {
+  animation: wind-decor-slay-1 3s cubic-bezier(0.52, 0, 0.58, 1) infinite;
+  transform: rotate(10deg);
+}
+
+.wind-decor-btn:hover .wind-decor-btn__icon--2 {
+  animation: wind-decor-slay-2 3s cubic-bezier(0.52, 0, 0.58, 1) 1s infinite;
+  transform: rotate(0);
+}
+
+.wind-decor-btn:hover .wind-decor-btn__icon--3 {
+  animation: wind-decor-slay-3 2s cubic-bezier(0.52, 0, 0.58, 1) 1s infinite;
+  transform: rotate(0);
+}
+
+.wind-decor-btn--secondary:hover .wind-decor-btn__icon--1,
+.wind-decor-btn--secondary:hover .wind-decor-btn__icon--2,
+.wind-decor-btn--secondary:hover .wind-decor-btn__icon--3 {
+  animation: none;
+}
+
+@keyframes wind-decor-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes wind-decor-slay-1 {
+  0%,
+  100% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes wind-decor-slay-2 {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes wind-decor-slay-3 {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wind-decor-btn:hover:not(.wind-decor-btn--secondary) {
+    animation: none;
+    background: var(--brand-accent-hover);
+  }
+
+  .wind-decor-btn:hover .wind-decor-btn__icon--1,
+  .wind-decor-btn:hover .wind-decor-btn__icon--2,
+  .wind-decor-btn:hover .wind-decor-btn__icon--3 {
+    animation: none !important;
+  }
+}

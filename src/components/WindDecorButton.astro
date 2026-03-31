@@ -1,0 +1,61 @@
+---
+/**
+ * Brand primary (lime + optional splashes) or secondary outline. Loads brand-tokens (includes wind-decor CSS).
+ */
+import '../styles/brand-tokens.css';
+import WindDecorIcons from './wind-decor/WindDecorIcons.astro';
+import type { HTMLAttributes } from 'astro/types';
+
+const KNOWN = new Set<string>(['href', 'type', 'class', 'variant', 'splash']);
+
+type ButtonAttrs = Omit<HTMLAttributes<'button'>, 'class' | 'type'>;
+type AnchorAttrs = Omit<HTMLAttributes<'a'>, 'class' | 'href'>;
+
+interface Props extends ButtonAttrs, AnchorAttrs {
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  variant?: 'primary' | 'secondary';
+  /** Decorative corner SVGs — primary only */
+  splash?: boolean;
+}
+
+const raw = Astro.props as Props & Record<string, unknown>;
+const {
+  href,
+  type = 'button',
+  class: className = '',
+  variant = 'primary',
+  splash = true,
+} = raw;
+
+const extraAttrs = Object.fromEntries(
+  Object.entries(raw).filter(([k]) => !KNOWN.has(k))
+) as Record<string, string | boolean | undefined>;
+
+const cls = [
+  'wind-decor-btn',
+  variant === 'secondary' ? 'wind-decor-btn--secondary' : '',
+  className,
+].filter(Boolean).join(' ');
+
+const showSplash = variant === 'primary' && splash;
+---
+
+{
+  href ? (
+    <a href={href} class={cls} {...extraAttrs}>
+      <span class="wind-decor-btn__label">
+        <slot />
+      </span>
+      {showSplash ? <WindDecorIcons /> : null}
+    </a>
+  ) : (
+    <button type={type} class={cls} {...extraAttrs}>
+      <span class="wind-decor-btn__label">
+        <slot />
+      </span>
+      {showSplash ? <WindDecorIcons /> : null}
+    </button>
+  )
+}

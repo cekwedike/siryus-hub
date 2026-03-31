@@ -328,17 +328,11 @@ body.light-theme .marketing-main .artists-index-card p.artists-index-card__line 
   text-decoration: none;
   border-radius: var(--radius-full);
   padding: var(--space-4) var(--space-8);
-  background: var(--brand-accent);
-  color: #0a0a0a;
-  border: 2px solid var(--brand-accent);
-  transition:
-    transform var(--transition-fast),
-    background var(--transition-fast);
+  transition: transform var(--transition-fast);
 }
 
 .artists-index-cta__btn:hover {
   transform: translateY(-2px);
-  background: var(--brand-accent-hover);
 }
 
 /* Profile: dark hero */
@@ -637,6 +631,25 @@ body.light-theme .marketing-main .artists-index-card p.artists-index-card__line 
   border-color: rgba(209, 223, 75, 0.55);
   color: var(--brand-accent);
   background: rgba(209, 223, 75, 0.08);
+}
+
+@media (max-width: 768px) {
+  .artist-profile-portrait {
+    aspect-ratio: 4 / 3;
+  }
+
+  .artist-platforms__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .artist-platform-btn {
+    justify-content: center;
+    min-height: 44px;
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 .artist-platform-btn svg {
