@@ -195,6 +195,92 @@
   box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.35), -2px -2px 8px rgba(255, 255, 255, 0.15), inset 0 2px 0 rgba(255, 255, 255, 0.35);
 }
 
+/* Editorial hero: neu “manuscript” plate + soft inner well */
+.morph-hero-manuscript {
+  border-radius: 28px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: linear-gradient(165deg, rgba(28, 28, 32, 0.94) 0%, rgba(12, 12, 14, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow:
+    14px 22px 44px rgba(0, 0, 0, 0.55),
+    -6px -8px 24px rgba(255, 255, 255, 0.03),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(22px) saturate(1.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+}
+
+.morph-hero-manuscript__well {
+  border-radius: 18px;
+  padding: 0.25rem 0;
+  box-shadow:
+    inset 5px 6px 14px rgba(0, 0, 0, 0.45),
+    inset -3px -3px 12px rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Services-style frosted credential chips */
+.morph-hero-glass-chip {
+  border-radius: 20px;
+  padding: var(--space-5) var(--space-6);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(28px) saturate(1.55);
+  -webkit-backdrop-filter: blur(28px) saturate(1.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Cinematic: glass stage panel (taller blur, harder edge) */
+.morph-hero-stage {
+  border-radius: 24px;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  max-width: 52rem;
+  background: linear-gradient(
+    155deg,
+    rgba(18, 18, 22, 0.78) 0%,
+    rgba(6, 6, 8, 0.88) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(32px) saturate(1.6);
+  -webkit-backdrop-filter: blur(32px) saturate(1.6);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+/* Floating glass orb (decorative) */
+.morph-hero-glass-orb {
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 32% 28%,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.04) 42%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    12px 16px 32px rgba(0, 0, 0, 0.45),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -6px 16px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px) saturate(1.2);
+  -webkit-backdrop-filter: blur(8px) saturate(1.2);
+}
+
+/* Community: warm glass ring stack */
+.morph-hero-social-ring {
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(209, 223, 75, 0.15),
+    8px 10px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
 /* Light theme: frosted chrome bars + readable surfaces */
 body.light-theme .nav-glass {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(245, 246, 243, 0.88) 100%);
@@ -246,4 +332,46 @@ body.light-theme .morph-footer-glass {
 body.light-theme .morph-skeuo-frame {
   background: linear-gradient(145deg, #e8e8e6 0%, #d4d4d0 45%, #c8c8c4 100%);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .morph-hero-glass-panel {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(27, 27, 30, 0.1);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+body.light-theme .morph-hero-manuscript {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.92) 0%, rgba(245, 246, 243, 0.96) 100%);
+  border-color: rgba(27, 27, 30, 0.1);
+  box-shadow:
+    10px 16px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .morph-hero-manuscript__well {
+  box-shadow: inset 4px 4px 12px rgba(0, 0, 0, 0.06), inset -2px -2px 8px rgba(255, 255, 255, 0.9);
+  border-color: rgba(27, 27, 30, 0.06);
+}
+
+body.light-theme .morph-hero-glass-chip {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(27, 27, 30, 0.1);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+body.light-theme .morph-hero-stage {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.88) 0%, rgba(248, 248, 246, 0.94) 100%);
+  border-color: rgba(27, 27, 30, 0.1);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+body.light-theme .morph-hero-glass-orb {
+  border-color: rgba(27, 27, 30, 0.12);
+  box-shadow: 8px 10px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+body.light-theme .morph-hero-social-ring {
+  border-color: rgba(27, 27, 30, 0.12);
+  box-shadow: 0 0 0 1px rgba(209, 223, 75, 0.2), 6px 8px 18px rgba(0, 0, 0, 0.08);
 }

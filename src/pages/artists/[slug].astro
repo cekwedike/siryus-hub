@@ -1,0 +1,360 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/artist-pages.css';
+import '../../styles/artist-experience.css';
+import { urlFor } from '../../lib/sanity';
+import { getAllArtists, getArtistBySlug, type ArtistDetail, type ArtistRelease } from '../../lib/queries';
+
+export async function getStaticPaths() {
+  const artists = await getAllArtists();
+  return artists.map((a) => ({
+    params: { slug: a.slug?.current ?? '' },
+  })).filter((p) => p.params.slug.length > 0);
+}
+
+const slug = Astro.params.slug ?? '';
+const artist = slug ? await getArtistBySlug(slug) : null;
+if (!artist) {
+  return Astro.redirect('/artists');
+}
+
+function trimUrl(u: string | null | undefined) {
+  const s = u?.trim();
+  return s && s.length > 0 ? s : '';
+}
+
+function releaseHref(r: ArtistRelease, detail: ArtistDetail) {
+  const spot = trimUrl(r.spotifyUrl);
+  if (spot) return spot;
+  const p = detail.platforms;
+  if (!p) return '';
+  return (
+    trimUrl(p.spotify) ||
+    trimUrl(p.youtube) ||
+    trimUrl(p.appleMusic) ||
+    trimUrl(p.audiomack) ||
+    trimUrl(p.instagram) ||
+    trimUrl(p.tiktok) ||
+    ''
+  );
+}
+
+const genres = Array.isArray(artist.genre) ? artist.genre.filter(Boolean) : [];
+const firstGenre = genres[0] ?? 'Artist';
+const pageTitle = `${artist.name} - ${firstGenre} Artist | SIRYUS A.M`;
+const pageDescription = `${artist.oneLiner} Managed by SIRYUS A.M. Stream on Spotify and more.`;
+const canonicalUrl = `https://www.siryushub.com/artists/${slug}`;
+
+const photoUrl = artist.photo
+  ? urlFor(artist.photo).width(600).height(800).fit('crop').auto('format').url()
+  : '';
+const heroLabel = artist.managementLabel?.trim() || 'SIRYUS A.M Artist';
+
+const sameAs: string[] = [];
+const pl = artist.platforms;
+if (pl) {
+  for (const u of [
+    pl.spotify,
+    pl.youtube,
+    pl.appleMusic,
+    pl.instagram,
+    pl.audiomack,
+    pl.tiktok,
+  ]) {
+    const t = trimUrl(u);
+    if (t) sameAs.push(t);
+  }
+}
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: artist.name,
+  jobTitle: `${firstGenre} Artist`,
+  ...(artist.location
+    ? {
+        homeLocation: {
+          '@type': 'Place',
+          name: artist.location,
+        },
+      }
+    : {}),
+  ...(sameAs.length ? { sameAs } : {}),
+};
+
+type PlatformEntry = { href: string; label: string; icon: 'spotify' | 'youtube' | 'apple' | 'instagram' | 'audiomack' | 'tiktok' };
+
+const platformEntries: PlatformEntry[] = [];
+if (pl) {
+  const push = (href: string | null | undefined, label: string, icon: PlatformEntry['icon']) => {
+    const h = trimUrl(href);
+    if (h) platformEntries.push({ href: h, label, icon });
+  };
+  push(pl.spotify, 'Spotify', 'spotify');
+  push(pl.youtube, 'YouTube', 'youtube');
+  push(pl.appleMusic, 'Apple Music', 'apple');
+  push(pl.instagram, 'Instagram', 'instagram');
+  push(pl.audiomack, 'Audiomack', 'audiomack');
+  push(pl.tiktok, 'TikTok', 'tiktok');
+}
+
+const releases = Array.isArray(artist.releases) ? artist.releases : [];
+const heroHeadingId = `artist-hero-${slug}`;
+const bioHeadingId = `artist-bio-${slug}`;
+const discoHeadingId = `artist-disco-${slug}`;
+const streamHeadingId = `artist-stream-${slug}`;
+const mgmtHeadingId = `artist-mgmt-${slug}`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonical={canonicalUrl} schema={personSchema}>
+  <div class="artists-page-root">
+    <section
+      class="artists-bleed artist-profile-hero artist-hero-v2 artist-reveal"
+      aria-labelledby={heroHeadingId}
+    >
+      <div class="artist-hero-v2__bg" aria-hidden="true">
+        <div class="artist-hero-v2__mesh"></div>
+        <div class="artist-hero-v2__orb artist-hero-v2__orb--a"></div>
+        <div class="artist-hero-v2__orb artist-hero-v2__orb--b"></div>
+        <div class="artist-hero-v2__grain"></div>
+      </div>
+      <div class="artist-profile-hero__glow" aria-hidden="true"></div>
+      <div class="artists-inner artist-profile-hero__grid artist-hero-v2__grid">
+        <div class="artist-hero-v2-stagger">
+          <span class="artist-profile-hero__label">{heroLabel}</span>
+          <h1 id={heroHeadingId} class="artist-profile-hero__name artist-hero-v2__name">{artist.name}</h1>
+          <p class="artist-hero-v2__oneLiner">{artist.oneLiner}</p>
+          {
+            artist.location?.trim() || genres.length > 0 ? (
+              <div class="artist-hero-v2__meta-row">
+                {artist.location?.trim() ? (
+                  <span class="artist-hero-v2__loc">{artist.location}</span>
+                ) : null}
+                {artist.location?.trim() && genres.length > 0 ? (
+                  <span class="artist-hero-v2__meta-divider" aria-hidden="true"></span>
+                ) : null}
+                {genres.length > 0 ? (
+                  <ul class="artist-profile-hero__tags artist-hero-v2__tags" role="list">
+                    {genres.map((g) => (
+                      <li>
+                        <span class="artist-profile-hero__tag">{g}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ) : null
+          }
+        </div>
+        <div class="artist-profile-portrait-frame" data-artist-tilt>
+          <div class={`artist-profile-portrait${photoUrl ? '' : ' has-error'}`}>
+            {photoUrl ? (
+              <img
+                class="artist-profile-portrait__img"
+                src={photoUrl}
+                alt={artist.name}
+                width="600"
+                height="800"
+                loading="eager"
+                decoding="async"
+              />
+            ) : null}
+            <div class="artist-profile-portrait__placeholder" aria-hidden="true"></div>
+            <div class="artist-profile-portrait__overlay" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="artists-bleed artist-bio artist-bio--v2 artist-reveal" aria-labelledby={bioHeadingId}>
+      <div class="artists-inner">
+        <h2 id={bioHeadingId} class="artist-section-title">About {artist.name}</h2>
+        <div class="artist-bio__grid">
+          <p>{artist.bioParagraph1}</p>
+          <p>{artist.bioParagraph2}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="artists-bleed artist-disco artist-disco--v2 artist-reveal" aria-labelledby={discoHeadingId}>
+      <div class="artists-inner">
+        <h2 id={discoHeadingId} class="artist-section-title">Releases</h2>
+        <div class="artist-disco__row">
+          {
+            releases.map((r, i) => {
+              const href = releaseHref(r, artist);
+              const inner = (
+                <>
+                  <span class="artist-disco-card__index">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span class="artist-disco-card__title">{r.title}</span>
+                  {r.year ? <span class="artist-disco-card__year">{r.year}</span> : null}
+                  <span class="artist-disco-card__stream">Stream</span>
+                </>
+              );
+              const cardClass = 'morph-clay-card artist-disco-card artist-disco-card--glow';
+              return href ? (
+                <a href={href} class={cardClass} target="_blank" rel="noopener noreferrer" data-disco-glow>
+                  {inner}
+                </a>
+              ) : (
+                <div class={`${cardClass} artist-disco-card--static`}>{inner}</div>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="artists-bleed artist-platforms artist-platforms--v2 artist-reveal" aria-labelledby={streamHeadingId}>
+      <div class="artists-inner">
+        <h2 id={streamHeadingId} class="artist-section-title">Stream {artist.name}</h2>
+        <div class="artist-platforms__grid">
+          {
+            platformEntries.map((entry) => (
+              <a class="artist-platform-btn artist-platform-btn--glass" href={entry.href} target="_blank" rel="noopener noreferrer">
+                {entry.icon === 'spotify' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.4 8.16 4.92 9.96c-.6.3-1.38-.12-1.68-.72-.3-.601.12-1.381.72-1.681 3.96-1.8 11.28-1.56 15.721 1.92.539.42.6 1.199.18 1.739-.42.54-1.2.6-1.74.18z" />
+                  </svg>
+                )}
+                {entry.icon === 'youtube' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                )}
+                {entry.icon === 'apple' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                  </svg>
+                )}
+                {entry.icon === 'instagram' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  </svg>
+                )}
+                {entry.icon === 'audiomack' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                    <path d="M9 18V5l12-2v13" />
+                    <circle cx="6" cy="18" r="3" />
+                    <circle cx="18" cy="16" r="3" />
+                  </svg>
+                )}
+                {entry.icon === 'tiktok' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.65 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                  </svg>
+                )}
+                {entry.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="artists-bleed artist-mgmt artist-mgmt--v2 artist-reveal" aria-labelledby={mgmtHeadingId}>
+      <div class="artists-inner">
+        <h2 id={mgmtHeadingId} class="visually-hidden">Management</h2>
+        <p class="artist-mgmt__text"><strong>Represented by SIRYUS A.M</strong></p>
+        <p class="artist-mgmt__text">
+          For bookings and features:
+          <a href="mailto:management@siryushub.com">management@siryushub.com</a>
+        </p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll('.artist-profile-portrait__img').forEach(function (img) {
+      var wrap = img.closest('.artist-profile-portrait');
+      function markLoaded() {
+        if (wrap) wrap.classList.add('has-loaded');
+      }
+      function markError() {
+        if (wrap) {
+          wrap.classList.add('has-error');
+          wrap.classList.remove('has-loaded');
+        }
+      }
+      if (img.complete && img.naturalHeight > 0) {
+        markLoaded();
+      } else {
+        img.addEventListener('load', markLoaded);
+        img.addEventListener('error', markError);
+      }
+    });
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.artist-reveal');
+    if (reduce) {
+      els.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+    } else {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -28px 0px' }
+      );
+      els.forEach(function (el) {
+        io.observe(el);
+      });
+    }
+
+    if (!reduce) {
+      var tilt = document.querySelector('[data-artist-tilt]');
+      if (tilt) {
+        var port = tilt.querySelector('.artist-profile-portrait');
+        tilt.addEventListener('mousemove', function (e) {
+          if (!port) return;
+          var r = tilt.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - 0.5;
+          var y = (e.clientY - r.top) / r.height - 0.5;
+          port.style.transform =
+            'rotateY(' + (x * 9).toFixed(2) + 'deg) rotateX(' + (-y * 7).toFixed(2) + 'deg)';
+        });
+        tilt.addEventListener('mouseleave', function () {
+          if (port) port.style.transform = '';
+        });
+      }
+
+      document.querySelectorAll('[data-disco-glow]').forEach(function (card) {
+        card.addEventListener('mousemove', function (e) {
+          var r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
+          card.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
+        });
+      });
+    }
+  })();
+</script>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .artist-disco-card--static {
+    cursor: default;
+    text-decoration: none;
+    pointer-events: none;
+  }
+</style>

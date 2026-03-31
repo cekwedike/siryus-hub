@@ -290,37 +290,6 @@ import BrandWordmark from './BrandWordmark.astro';
 </style>
 
 <script>
-  const btn = document.getElementById('hamburgerBtn');
-
-  function openSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    if (!sidebar || !btn) return;
-    sidebar.classList.add('is-open');
-    btn.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    if (!sidebar || !btn) return;
-    sidebar.classList.remove('is-open');
-    btn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  btn?.addEventListener('click', () => {
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    if (isOpen) {
-      closeSidebar();
-    } else {
-      openSidebar();
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeSidebar();
-  });
-
   function initNavScroll() {
     const pill = document.querySelector('.top-nav__pill');
     if (!pill) return;

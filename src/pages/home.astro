@@ -18,18 +18,75 @@ import '../styles/morphism.css';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <ClientRouter />
-  <title>Siryus Hub - Where Ideas Become Reality</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Siryus Hub: Your creative command center. Manage projects, collaborate with your team, and bring your vision to life with SIRYUS A.M creative production services.">
-  <meta name="keywords" content="creative platform, project management, video production, photography, motion graphics, content creation">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Siryus Hub - Where Ideas Become Reality">
-  <meta property="og:description" content="A collaboration between art and tech. We're misfits making magic.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://siryushub.com">
-  
+  <title>Siryus Hub - Where Creatives Come to Build</title>
+
+  <meta
+    name="description"
+    content="Artist management, brand marketing and creative production under one roof. Siryus Creative Media Ltd works with independent artists and brands across Africa."
+  />
+  <link rel="canonical" href="https://www.siryushub.com/home" />
+
+  <meta property="og:title" content="Siryus Hub - Where Creatives Come to Build" />
+  <meta
+    property="og:description"
+    content="Artist management, brand marketing and creative production under one roof. Siryus Creative Media Ltd works with independent artists and brands across Africa."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.siryushub.com/home" />
+  <meta
+    property="og:image"
+    content="https://www.siryushub.com/images/logo/dark/siryus-logo-dark.png"
+  />
+  <meta property="og:site_name" content="Siryus Hub" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Siryus Hub - Where Creatives Come to Build" />
+  <meta
+    name="twitter:description"
+    content="Artist management, brand marketing and creative production under one roof. Siryus Creative Media Ltd works with independent artists and brands across Africa."
+  />
+  <meta name="twitter:image" content="https://www.siryushub.com/images/logo/dark/siryus-logo-dark.png" />
+
+  <script is:inline type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Siryus Creative Media Ltd",
+  "alternateName": "SIRYUS A.M",
+  "url": "https://www.siryushub.com",
+  "logo": "https://www.siryushub.com/images/logo/dark/siryus-logo-dark.png",
+  "description": "Artist management, brand marketing and creative production from Kigali, Rwanda.",
+  "email": "management@siryushub.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Kigali",
+    "addressCountry": "RW"
+  },
+  "sameAs": [
+    "https://www.instagram.com/siryus_hq",
+    "https://linktr.ee/siryus_hq"
+  ]
+}
+  </script>
+
+  <script is:inline type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Siryus Hub",
+  "url": "https://www.siryushub.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://www.siryushub.com/blog?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+  </script>
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -155,7 +212,7 @@ import '../styles/morphism.css';
       perspective: 1000px;
     }
 
-    /* Light Theme Styles — global so body/sections in child components match */
+    /* Light Theme Styles - global so body/sections in child components match */
 
     /* Accessibility */
     @media (prefers-reduced-motion: reduce) {

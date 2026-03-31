@@ -1,0 +1,543 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/morphism.css';
+import '../styles/studio-page.css';
+import { urlFor } from '../lib/sanity';
+import { getAllStudioContent, getFeaturedStudioContent } from '../lib/queries';
+import type { StudioContentItem } from '../lib/queries';
+
+const pageTitle = 'The Studio - Music Videos and Creative Work';
+const pageDescription =
+  'The Studio houses visual work from Siryus Creative Media Ltd. Music videos, artist reels, campaign content and behind the scenes from the SIRYUS A.M roster.';
+
+const allItems = await getAllStudioContent();
+const featuredList = await getFeaturedStudioContent();
+const featured = featuredList[0] ?? null;
+
+const gridItems = featured ? allItems.filter((i) => i._id !== featured._id) : [...allItems];
+const hasContent = allItems.length > 0;
+const showLoadMore = gridItems.length > 8;
+
+function thumbSrc(item: StudioContentItem) {
+  if (!item.thumbnail) return null;
+  try {
+    return urlFor(item.thumbnail).width(900).height(560).url();
+  } catch {
+    return null;
+  }
+}
+
+function thumbAlt(item: StudioContentItem) {
+  if (!item.thumbnail || typeof item.thumbnail !== 'object') return '';
+  const alt = (item.thumbnail as { alt?: string }).alt;
+  return typeof alt === 'string' ? alt : '';
+}
+
+function youtubeVideoId(url: string): string | null {
+  try {
+    const u = new URL(url);
+    const h = u.hostname.replace(/^www\./, '');
+    if (h === 'youtu.be') {
+      const id = u.pathname.replace(/^\//, '').split('/')[0];
+      return id || null;
+    }
+    if (h.includes('youtube.com')) {
+      if (u.pathname.startsWith('/shorts/')) {
+        const parts = u.pathname.split('/').filter(Boolean);
+        return parts[1] || null;
+      }
+      return u.searchParams.get('v');
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+function cardImageUrl(item: StudioContentItem): string | null {
+  const fromCms = thumbSrc(item);
+  if (fromCms) return fromCms;
+  if (item.platform === 'YouTube') {
+    const id = youtubeVideoId(item.embedUrl);
+    if (id) return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+  }
+  return null;
+}
+
+function platformClass(platform: string): string {
+  const map: Record<string, string> = {
+    YouTube: 'studio-platform--youtube',
+    Instagram: 'studio-platform--instagram',
+    Vimeo: 'studio-platform--vimeo',
+    TikTok: 'studio-platform--tiktok',
+    Other: 'studio-platform--other',
+  };
+  return map[platform] ?? 'studio-platform--other';
+}
+
+const filterLabels = [
+  'All',
+  'Music Video',
+  'Behind the Scenes',
+  'Live Performance',
+  'Campaign Content',
+  'Artist Reel',
+] as const;
+
+const featuredImg = featured ? cardImageUrl(featured) : null;
+const featuredAlt = featured ? thumbAlt(featured) || featured.title : '';
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonical="https://www.siryushub.com/studio">
+  <div class="studio-page" id="studio-page-root">
+    <section class="studio-bleed studio-page-header studio-reveal" aria-labelledby="studio-hero-heading">
+      <div class="studio-page-header__glow" aria-hidden="true"></div>
+      <div class="studio-page-header__beam" aria-hidden="true"></div>
+      <div class="studio-inner studio-page-header__inner">
+        <span class="studio-page-header__label">The Studio</span>
+        <h1 id="studio-hero-heading" class="studio-page-header__title">This Is Where the Work Lives.</h1>
+        <p class="studio-page-header__sub">
+          Music videos, artist reels, campaign content and behind the scenes moments from the Siryus world.
+        </p>
+      </div>
+    </section>
+
+    {
+      hasContent && featured ? (
+        <section class="studio-inner studio-featured studio-reveal" aria-labelledby="studio-featured-heading">
+          <h2 id="studio-featured-heading" class="visually-hidden">Featured video</h2>
+          <div class="studio-featured__grid">
+            <div class="studio-featured__media">
+              {featuredImg ? (
+                <img src={featuredImg} alt={featuredAlt} width="1280" height="720" loading="eager" decoding="async" />
+              ) : (
+                <div class="studio-featured__placeholder" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64">
+                    <circle cx="12" cy="12" r="10" opacity="0.35"></circle>
+                    <path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none"></path>
+                  </svg>
+                </div>
+              )}
+              <div class="studio-featured__play" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M8 5v14l11-7z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="studio-featured__content">
+              <span class="studio-featured__cat">{featured.category}</span>
+              <h2 class="studio-featured__title">{featured.title}</h2>
+              {featured.description ? <p class="studio-featured__desc">{featured.description}</p> : null}
+              {featured.artist ? <p class="studio-featured__artist">{featured.artist}</p> : null}
+              <span class:list={['studio-featured__platform', platformClass(featured.platform)]}>{featured.platform}</span>
+              <button
+                type="button"
+                class="studio-featured__cta studio-modal-trigger"
+                data-title={featured.title}
+                data-platform={featured.platform}
+                data-embed-url={featured.embedUrl}
+                data-description={featured.description ?? ''}
+                data-thumb-url={featuredImg ?? ''}
+              >
+                Watch Now
+              </button>
+            </div>
+          </div>
+        </section>
+      ) : null
+    }
+
+    {
+      hasContent && gridItems.length > 0 ? (
+        <>
+          <div class="studio-rail studio-reveal" aria-hidden="true"></div>
+
+          <section class="studio-inner studio-toolbar" aria-label="Filter videos by category">
+            <div class="studio-filters-wrap" id="studio-filter-bar" role="group" aria-label="Category filters">
+              {filterLabels.map((label, i) => (
+                <button
+                  type="button"
+                  class:list={['studio-filter-btn', { 'is-active': i === 0 }]}
+                  data-filter={label === 'All' ? 'All' : label}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <section class="studio-inner studio-grid-block" aria-labelledby="studio-library-heading">
+            <div class="studio-library-head">
+              <span class="studio-library-head__eyebrow">Library</span>
+              <h2 id="studio-library-heading" class="studio-library-heading">Browse The Library</h2>
+            </div>
+            <div class="studio-grid" id="studio-grid">
+              {gridItems.map((item, index) => {
+                const imgUrl = cardImageUrl(item);
+                return (
+                <div
+                  class:list={[
+                    'studio-card-wrap',
+                    'studio-reveal',
+                    { 'studio-card-wrap--extra': showLoadMore && index >= 8 },
+                  ]}
+                  data-category={item.category}
+                  data-index={index}
+                >
+                  <button
+                    type="button"
+                    class="studio-card studio-modal-trigger"
+                    data-title={item.title}
+                    data-platform={item.platform}
+                    data-embed-url={item.embedUrl}
+                    data-description={item.description ?? ''}
+                    data-thumb-url={imgUrl ?? ''}
+                  >
+                    <span class="studio-card__inner">
+                      <span class="studio-card__media">
+                        {imgUrl ? (
+                          <img
+                            src={imgUrl}
+                            alt={thumbAlt(item) || item.title}
+                            width="900"
+                            height="506"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : (
+                          <span class="studio-card__placeholder">
+                            <svg class="studio-card__placeholder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                              <circle cx="12" cy="12" r="10" opacity="0.35"></circle>
+                              <path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none"></path>
+                            </svg>
+                          </span>
+                        )}
+                        <span class:list={['studio-card__badge-platform', platformClass(item.platform)]}>{item.platform}</span>
+                        <span class="studio-card__play-hover" aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"></path>
+                          </svg>
+                        </span>
+                      </span>
+                      <span class="studio-card__body">
+                        <span class="studio-card__cat-pill">{item.category}</span>
+                        <span class="studio-card__title">{item.title}</span>
+                        {item.artist ? <span class="studio-card__artist">{item.artist}</span> : null}
+                      </span>
+                    </span>
+                  </button>
+                </div>
+              );
+              })}
+            </div>
+            {showLoadMore ? (
+              <div class="studio-load-more-wrap">
+                <button type="button" class="studio-load-more" id="studio-load-more">
+                  Load more videos
+                </button>
+              </div>
+            ) : null}
+          </section>
+        </>
+      ) : hasContent ? (
+        <section class="studio-inner studio-solo-note studio-reveal" aria-live="polite">
+          <p class="studio-solo-note__text">More from The Studio is on the way.</p>
+        </section>
+      ) : (
+        <section class="studio-inner studio-empty-state studio-reveal" aria-label="No content">
+          <div class="studio-empty-state__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="14" rx="2" opacity="0.4"></rect>
+              <path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none" opacity="0.6"></path>
+            </svg>
+          </div>
+          <p class="studio-empty-state__text">Nothing here yet. Check back soon.</p>
+        </section>
+      )
+    }
+
+    <section class="studio-bleed studio-cta studio-reveal" aria-labelledby="studio-cta-heading">
+      <div class="studio-cta__inner">
+        <h2 id="studio-cta-heading" class="studio-cta__title">
+          Want Your Work Featured Here?
+        </h2>
+        <p class="studio-cta__copy">
+          If you are an artist or brand we work with, reach out and we will add your content to The Studio.
+        </p>
+        <a href="/contact" class="studio-cta__btn">
+          Get In Touch
+        </a>
+      </div>
+    </section>
+  </div>
+
+  {
+    hasContent ? (
+      <div id="studio-modal" class="studio-modal" hidden role="dialog" aria-modal="true" aria-labelledby="studio-modal-title">
+        <div class="studio-modal__backdrop" data-studio-close tabindex="-1"></div>
+        <div class="studio-modal__panel">
+          <button type="button" class="studio-modal__close" data-studio-close aria-label="Close dialog">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <div class="studio-modal__body" id="studio-modal-body"></div>
+        </div>
+      </div>
+    ) : null
+  }
+
+  <script is:inline>
+    (function () {
+      function youtubeEmbedFromUrl(url) {
+        try {
+          var u = new URL(url);
+          var h = u.hostname.replace(/^www\./, '');
+          if (h === 'youtu.be') {
+            var id = u.pathname.replace(/^\//, '').split('/')[0];
+            return id ? 'https://www.youtube.com/embed/' + id : null;
+          }
+          if (h.indexOf('youtube.com') !== -1) {
+            if (u.pathname.indexOf('/shorts/') === 0) {
+              var sid = u.pathname.split('/')[2];
+              return sid ? 'https://www.youtube.com/embed/' + sid : null;
+            }
+            if (u.pathname.indexOf('/embed/') === 0) {
+              return 'https://www.youtube.com' + u.pathname.split('?')[0];
+            }
+            var v = u.searchParams.get('v');
+            return v ? 'https://www.youtube.com/embed/' + v : null;
+          }
+        } catch (e) {}
+        return null;
+      }
+
+      function youtubeEmbedWithAutoplay(url) {
+        var base = youtubeEmbedFromUrl(url);
+        if (!base) return null;
+        return base + (base.indexOf('?') === -1 ? '?' : '&') + 'autoplay=1&rel=0';
+      }
+
+      function openModal(trigger) {
+        var modal = document.getElementById('studio-modal');
+        var body = document.getElementById('studio-modal-body');
+        if (!modal || !body || !trigger) return;
+        var title = trigger.getAttribute('data-title') || '';
+        var platform = trigger.getAttribute('data-platform') || '';
+        var embedUrl = trigger.getAttribute('data-embed-url') || '';
+        var description = trigger.getAttribute('data-description') || '';
+        var thumbUrl = trigger.getAttribute('data-thumb-url') || '';
+        body.innerHTML = '';
+
+        if (platform === 'YouTube') {
+          var y = youtubeEmbedWithAutoplay(embedUrl);
+          if (y) {
+            var h2 = document.createElement('h2');
+            h2.className = 'studio-modal__headline';
+            h2.id = 'studio-modal-title';
+            h2.textContent = title;
+            body.appendChild(h2);
+            if (description) {
+              var d0 = document.createElement('p');
+              d0.className = 'studio-modal__lead';
+              d0.textContent = description;
+              body.appendChild(d0);
+            }
+            var wrap = document.createElement('div');
+            wrap.className = 'studio-modal__embed';
+            var ifr = document.createElement('iframe');
+            ifr.src = y;
+            ifr.title = title;
+            ifr.setAttribute('allowfullscreen', '');
+            ifr.setAttribute(
+              'allow',
+              'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            );
+            wrap.appendChild(ifr);
+            body.appendChild(wrap);
+          } else {
+            body.appendChild(buildFallback(title, embedUrl, 'Watch Now'));
+          }
+        } else if (platform === 'Instagram') {
+          var ig = document.createElement('div');
+          ig.className = 'studio-modal__external-card';
+          if (thumbUrl) {
+            var img = document.createElement('img');
+            img.src = thumbUrl;
+            img.alt = '';
+            img.className = 'studio-modal__thumb';
+            img.width = 1280;
+            img.height = 720;
+            ig.appendChild(img);
+          }
+          var t = document.createElement('h2');
+          t.className = 'studio-modal__ext-title';
+          t.id = 'studio-modal-title';
+          t.textContent = title;
+          ig.appendChild(t);
+          var a2 = document.createElement('a');
+          a2.href = embedUrl;
+          a2.target = '_blank';
+          a2.rel = 'noopener noreferrer';
+          a2.className = 'studio-modal__primary-link';
+          a2.textContent = 'Watch on Instagram';
+          ig.appendChild(a2);
+          var note = document.createElement('p');
+          note.className = 'studio-modal__note';
+          note.textContent = 'Instagram videos cannot be embedded directly.';
+          ig.appendChild(note);
+          body.appendChild(ig);
+        } else {
+          var ot = document.createElement('div');
+          ot.className = 'studio-modal__external-card';
+          if (thumbUrl) {
+            var img2 = document.createElement('img');
+            img2.src = thumbUrl;
+            img2.alt = '';
+            img2.className = 'studio-modal__thumb';
+            ot.appendChild(img2);
+          }
+          var t2 = document.createElement('h2');
+          t2.className = 'studio-modal__ext-title';
+          t2.id = 'studio-modal-title';
+          t2.textContent = title;
+          ot.appendChild(t2);
+          if (description) {
+            var dp = document.createElement('p');
+            dp.className = 'studio-modal__ext-desc';
+            dp.textContent = description;
+            ot.appendChild(dp);
+          }
+          var a3 = document.createElement('a');
+          a3.href = embedUrl;
+          a3.target = '_blank';
+          a3.rel = 'noopener noreferrer';
+          a3.className = 'studio-modal__primary-link';
+          a3.textContent = 'Watch Now';
+          ot.appendChild(a3);
+          body.appendChild(ot);
+        }
+
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+
+      function buildFallback(title, href, label) {
+        var box = document.createElement('div');
+        box.className = 'studio-modal__external-card';
+        var t = document.createElement('h2');
+        t.className = 'studio-modal__ext-title';
+        t.id = 'studio-modal-title';
+        t.textContent = title;
+        box.appendChild(t);
+        var a = document.createElement('a');
+        a.href = href;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'studio-modal__primary-link';
+        a.textContent = label;
+        box.appendChild(a);
+        return box;
+      }
+
+      function closeModal() {
+        var modal = document.getElementById('studio-modal');
+        var body = document.getElementById('studio-modal-body');
+        if (!modal || modal.hidden) return;
+        if (body) body.innerHTML = '';
+        modal.hidden = true;
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('.studio-modal-trigger').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          openModal(btn);
+        });
+      });
+
+      document.querySelectorAll('[data-studio-close]').forEach(function (el) {
+        el.addEventListener('click', closeModal);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeModal();
+      });
+
+      var bar = document.getElementById('studio-filter-bar');
+      if (bar) {
+        bar.querySelectorAll('.studio-filter-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var f = btn.getAttribute('data-filter') || 'All';
+            bar.querySelectorAll('.studio-filter-btn').forEach(function (b) {
+              b.classList.toggle('is-active', b === btn);
+            });
+            document.querySelectorAll('.studio-card-wrap').forEach(function (wrap) {
+              var cat = wrap.getAttribute('data-category') || '';
+              var match = f === 'All' || cat === f;
+              wrap.classList.toggle('is-hidden', !match);
+            });
+            var loadBtn = document.getElementById('studio-load-more');
+            var root = document.getElementById('studio-page-root');
+            if (loadBtn && root) {
+              if (f !== 'All') {
+                loadBtn.hidden = true;
+                root.classList.add('studio-page--show-all');
+              } else {
+                root.classList.remove('studio-page--show-all');
+                var extraNodes = document.querySelectorAll('.studio-card-wrap--extra');
+                loadBtn.hidden = extraNodes.length === 0;
+              }
+            }
+          });
+        });
+      }
+
+      var loadMore = document.getElementById('studio-load-more');
+      var rootEl = document.getElementById('studio-page-root');
+      if (loadMore && rootEl) {
+        loadMore.addEventListener('click', function () {
+          rootEl.classList.add('studio-page--show-all');
+          loadMore.hidden = true;
+        });
+      }
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.studio-reveal');
+      if (reduce) {
+        els.forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      } else {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+        );
+        els.forEach(function (el) {
+          io.observe(el);
+        });
+      }
+    })();
+  </script>
+
+  <style is:global>
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</BaseLayout>

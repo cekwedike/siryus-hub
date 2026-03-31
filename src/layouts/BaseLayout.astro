@@ -2,6 +2,7 @@
 import '../styles/marketing-layout.css';
 import '../styles/morphism.css';
 import SimpleSiteNav from '../components/SimpleSiteNav.astro';
+import Sidebar from '../components/Sidebar.astro';
 import SiteFooterLegal from '../components/SiteFooterLegal.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 
@@ -132,6 +133,7 @@ const finalSchema = schema || organizationSchema;
     />
   </head>
   <body class="marketing-body">
+    <Sidebar />
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <SimpleSiteNav />
     <main id="main-content" class="marketing-main">

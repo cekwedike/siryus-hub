@@ -12,9 +12,9 @@ type HeroSlide = {
 
 const heroSlides: HeroSlide[] = [
   { src: '/images/hero/image-1.webp', alt: '' },
-  { src: '/images/hero/siryus-hub-home.webp', alt: '' },
-  { src: '/images/hero/siryus-violin.webp', alt: '' },
-  { src: '/images/hero/jlinez.webp', alt: '' },
+  { src: '/images/hero/siryus-hub-home.webp', alt: 'Siryus Hub creative workspace scene' },
+  { src: '/images/hero/siryus-violin.webp', alt: 'Violin performance at Siryus Creative Media' },
+  { src: '/images/hero/jlinez.webp', alt: 'Artist Jlinez promotional photo' },
 ];
 
 const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
@@ -42,7 +42,7 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
             src={slide.src}
             {...(slide.srcset ? { srcset: slide.srcset } : {})}
             sizes={heroImgSizes}
-            alt=""
+            alt={slide.alt}
             loading={index === 0 ? 'eager' : 'lazy'}
             decoding={index === 0 ? 'sync' : 'async'}
             fetchpriority={index === 0 ? 'high' : 'low'}
@@ -150,13 +150,13 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
         scrollBtn.onclick = function () {
           var target = document.getElementById('explore');
           if (!target) return;
-          var navHeight = 80;
-          var targetTop =
-            target.getBoundingClientRect().top +
-            window.scrollY -
-            navHeight;
+          var nav = document.querySelector('.top-nav');
+          var navH = nav ? nav.getBoundingClientRect().height : 88;
+          var docTop =
+            target.getBoundingClientRect().top + window.pageYOffset;
+          var y = docTop - navH;
           window.scrollTo({
-            top: targetTop,
+            top: Math.max(0, y),
             behavior: 'smooth',
           });
         };
@@ -544,10 +544,12 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
     z-index: 20;
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
+    justify-content: center;
     padding: var(--space-8);
+    padding-bottom: max(var(--space-8), env(safe-area-inset-bottom, 0px));
     box-sizing: border-box;
     pointer-events: none;
+    width: 100%;
   }
 
   .hero-scroll {

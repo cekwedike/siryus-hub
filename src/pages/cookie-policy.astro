@@ -1,44 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/legal-pages.css';
 ---
 
 <BaseLayout
-  title="Cookie Policy"
-  description="How Siryus Hub uses cookies and similar technologies on siryushub.com."
+  title="Cookie Policy | Siryus Hub"
+  description="How siryushub.com uses cookies and similar technologies."
+  noIndex={true}
 >
-  <h1>Cookie Policy</h1>
-  <p class="marketing-lede">
-    This policy explains how we use cookies and similar technologies when you visit siryushub.com.
-  </p>
+  <div class="legal-page">
+    <h1>Cookie Policy</h1>
 
-  <h2>What are cookies?</h2>
-  <p>
-    Cookies are small text files stored on your device. They help websites remember preferences, keep sessions secure,
-    and understand how pages are used.
-  </p>
+    <h2>What are cookies</h2>
+    <p>Small files stored on your browser that help websites remember your preferences.</p>
 
-  <h2>How we use cookies</h2>
-  <p>We may use cookies for:</p>
-  <ul>
-    <li>Essential site functionality and security</li>
-    <li>Remembering preferences such as language where applicable</li>
-    <li>Measuring traffic and performance if analytics tools are enabled</li>
-  </ul>
+    <h2>What we use</h2>
+    <p>
+      We use a cookie to remember your theme preference (dark or light mode). This is a functional cookie and is not used for tracking or advertising.
+    </p>
 
-  <h2>Your choices</h2>
-  <p>
-    You can control cookies through your browser settings. Blocking some cookies may affect how the site works. Where we
-    use non-essential cookies, we will ask for consent where required by law.
-  </p>
+    <h2>Third party cookies</h2>
+    <p>
+      If we embed content from YouTube or Instagram, those platforms may set their own cookies. We do not control those.
+    </p>
 
-  <h2>Updates</h2>
-  <p>We may update this policy from time to time. The “Last updated” date below will change when we do.</p>
+    <h2>Managing cookies</h2>
+    <p>
+      You can clear cookies in your browser settings at any time. Your theme preference will reset to default if you do.
+    </p>
 
-  <h2>Contact</h2>
-  <p>
-    Questions:
-    <a href="mailto:management@siryushub.com">management@siryushub.com</a>.
-  </p>
-
-  <p><em>Last updated: March 2026.</em></p>
+    <h2>Contact</h2>
+    <p>Questions about our cookie use: management@siryushub.com</p>
+  </div>
 </BaseLayout>

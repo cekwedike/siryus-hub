@@ -3,93 +3,688 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Contact"
-  description="Contact Siryus Hub and SIRYUS A.M for inquiries, collaborations, and support."
+  title="Contact Siryus Creative Media Ltd"
+  description="Reach out to Siryus Creative Media Ltd for artist management, brand marketing or creative production. We respond within two business days (under 48 hours)."
+  canonical="https://www.siryushub.com/contact"
 >
-  <h1>Contact</h1>
-  <p class="marketing-lede">
-    Reach out for management, marketing, partnerships, or general questions. We read every message and respond as soon as
-    we can.
-  </p>
+  <div class="contact-page">
+    <section class="contact-bleed contact-hero" aria-labelledby="contact-hero-heading">
+      <div class="contact-inner contact-hero__inner">
+        <span class="contact-hero__label">Get In Touch</span>
+        <h1 id="contact-hero-heading" class="contact-hero__title">Tell Us What You Are Building.</h1>
+        <p class="contact-hero__sub">
+          Whether you are an artist, a brand, or just someone with an idea, we want to hear from you. No gatekeeping here.
+        </p>
+      </div>
+    </section>
 
-  <p>
-    <strong>Email:</strong>
-    <a href="mailto:management@siryushub.com">management@siryushub.com</a>
-  </p>
+    <section class="contact-bleed contact-split" aria-labelledby="contact-form-heading">
+      <div class="contact-inner contact-split__grid">
+        <div class="contact-split__form">
+          <h2 id="contact-form-heading" class="contact-form__title">Send Us a Message</h2>
 
-  <h2>Send a message</h2>
-  <form id="contact-form" class="contact-form morph-neu-stack" novalidate>
-    <label class="contact-label">
-      Name
-      <input type="text" name="name" autocomplete="name" class="contact-input morph-neu-input" placeholder="Your name" required />
-    </label>
-    <label class="contact-label">
-      Email
-      <input type="email" name="email" autocomplete="email" class="contact-input morph-neu-input" placeholder="you@example.com" required />
-    </label>
-    <label class="contact-label">
-      Message
-      <textarea name="message" class="contact-textarea morph-neu-textarea" rows="5" placeholder="How can we help?" required></textarea>
-    </label>
-    <p class="contact-note">
-      Submitting opens your email app with a draft. For embedded forms, connect a backend or form provider in production.
-    </p>
-    <button type="submit" class="contact-submit morph-neu-btn">Send via email</button>
-  </form>
+          <div id="contact-form-panel" class="contact-form-panel">
+            <form id="contact-form" class="contact-form morph-neu-stack" novalidate>
+              <label class="contact-field">
+                <span class="contact-field__label">Your name</span>
+                <input
+                  type="text"
+                  name="fullName"
+                  autocomplete="name"
+                  class="contact-field__input morph-neu-input"
+                  placeholder="First and last name"
+                  required
+                />
+              </label>
+
+              <label class="contact-field">
+                <span class="contact-field__label">Email address</span>
+                <input
+                  type="email"
+                  name="email"
+                  autocomplete="email"
+                  class="contact-field__input morph-neu-input"
+                  placeholder="your@email.com"
+                  required
+                />
+              </label>
+
+              <label class="contact-field">
+                <span class="contact-field__label">I am a...</span>
+                <select name="describe" class="contact-field__select morph-neu-input" required>
+                  <option value="" disabled selected hidden>Select one</option>
+                  <option value="independent-artist">Independent artist</option>
+                  <option value="band-or-group">Band or group</option>
+                  <option value="brand-or-company">Brand or company</option>
+                  <option value="music-producer">Music producer</option>
+                  <option value="content-creator">Content creator</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
+
+              <label class="contact-field">
+                <span class="contact-field__label">I am interested in...</span>
+                <select name="interest" class="contact-field__select morph-neu-input" required>
+                  <option value="" disabled selected hidden>Select one</option>
+                  <option value="artist-management">Artist management</option>
+                  <option value="brand-marketing">Brand marketing</option>
+                  <option value="creative-production">Creative production</option>
+                  <option value="community">Community</option>
+                  <option value="general-enquiry">General enquiry</option>
+                </select>
+              </label>
+
+              <label class="contact-field">
+                <span class="contact-field__label">Your message</span>
+                <textarea
+                  name="project"
+                  class="contact-field__textarea morph-neu-textarea"
+                  rows="6"
+                  placeholder="Tell us a bit about where you are, what you are working on, and what kind of support you are looking for."
+                  required
+                ></textarea>
+              </label>
+
+              <label class="contact-field">
+                <span class="contact-field__label">How did you find us?</span>
+                <select name="source" class="contact-field__select morph-neu-input">
+                  <option value="" selected>Optional</option>
+                  <option value="social-media">Social media</option>
+                  <option value="google-search">Google search</option>
+                  <option value="referral">Referral from someone</option>
+                  <option value="know-team">I already know the team</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
+
+              <button type="submit" class="contact-form__submit morph-neu-btn">Send Message</button>
+            </form>
+          </div>
+
+          <div id="contact-success" class="contact-success morph-neu-stack" hidden>
+            <div class="contact-success__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <p class="contact-success__text">Your message landed. We will get back to you within 48 hours.</p>
+          </div>
+        </div>
+
+        <aside class="contact-split__aside" aria-label="Direct contact and social links">
+          <div class="contact-aside morph-neu-stack">
+            <h3 class="contact-aside__heading">Prefer to reach out directly?</h3>
+
+            <div class="contact-aside__block">
+              <span class="contact-aside__label">Email</span>
+              <a class="contact-aside__value contact-aside__link" href="mailto:management@siryushub.com">management@siryushub.com</a>
+            </div>
+
+            <div class="contact-aside__block">
+              <span class="contact-aside__label">Based in</span>
+              <span class="contact-aside__value">Kigali, Rwanda</span>
+            </div>
+
+            <div class="contact-aside__block">
+              <span class="contact-aside__label">Response time</span>
+              <span class="contact-aside__value">Within 48 hours</span>
+            </div>
+
+            <h4 class="contact-aside__subheading">Find us online</h4>
+            <ul class="contact-aside__social" role="list">
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">Twitter / X</a></li>
+              <li><a href="#">YouTube</a></li>
+              <li><a href="#">Spotify</a></li>
+            </ul>
+            <p class="contact-aside__note">
+              We are most active on Instagram. If you want a faster response that is the best place to reach us.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="contact-bleed contact-faq contact-faq-reveal" aria-labelledby="contact-faq-heading">
+      <div class="contact-inner">
+        <h2 id="contact-faq-heading" class="contact-faq__title">Quick Answers</h2>
+        <div class="contact-faq__list" role="list">
+          <div class="contact-faq__item" role="listitem">
+            <button type="button" class="contact-faq__trigger" aria-expanded="false" aria-controls="faq-panel-1" id="faq-trigger-1">
+              <span class="contact-faq__question">Do you work with artists outside Africa?</span>
+              <span class="contact-faq__chev" aria-hidden="true"></span>
+            </button>
+            <div id="faq-panel-1" class="contact-faq__panel" role="region" aria-labelledby="faq-trigger-1">
+              <div class="contact-faq__answer">
+                Yes. We are based in Kigali and rooted in Nigeria but our work is not limited by geography. If the fit is
+                right, the location is secondary.
+              </div>
+            </div>
+          </div>
+          <div class="contact-faq__item" role="listitem">
+            <button type="button" class="contact-faq__trigger" aria-expanded="false" aria-controls="faq-panel-2" id="faq-trigger-2">
+              <span class="contact-faq__question">How long does it take to hear back?</span>
+              <span class="contact-faq__chev" aria-hidden="true"></span>
+            </button>
+            <div id="faq-panel-2" class="contact-faq__panel" role="region" aria-labelledby="faq-trigger-2">
+              <div class="contact-faq__answer">
+                We aim to respond to every message within 48 hours. If your project is time sensitive, mention that in your
+                message and we will prioritise it.
+              </div>
+            </div>
+          </div>
+          <div class="contact-faq__item" role="listitem">
+            <button type="button" class="contact-faq__trigger" aria-expanded="false" aria-controls="faq-panel-3" id="faq-trigger-3">
+              <span class="contact-faq__question">Do you work with new or unsigned artists?</span>
+              <span class="contact-faq__chev" aria-hidden="true"></span>
+            </button>
+            <div id="faq-panel-3" class="contact-faq__panel" role="region" aria-labelledby="faq-trigger-3">
+              <div class="contact-faq__answer">
+                Yes. We actually prefer working with artists early. It is easier to build the right foundation from the
+                start than to undo bad habits later.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
 
 <style>
+  .contact-page {
+    margin-left: calc(-1 * var(--about-pad, 1rem));
+    margin-right: calc(-1 * var(--about-pad, 1rem));
+    width: calc(100% + 2 * var(--about-pad, 1rem));
+    max-width: none;
+  }
+
+  .contact-bleed {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  .contact-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+
+  /* Hero */
+  .contact-hero {
+    background: var(--brand-bg-deep);
+    padding: var(--space-16) 0 var(--space-12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .contact-hero__inner {
+    max-width: 720px;
+  }
+
+  .contact-hero__label {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand-accent);
+    border: 1px solid var(--brand-surface-border);
+    background: var(--brand-accent-dim);
+    padding: var(--space-1) var(--space-4);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-5);
+  }
+
+  .contact-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--brand-text);
+    margin: 0 0 var(--space-5);
+  }
+
+  .contact-hero__sub {
+    font-size: var(--text-lg);
+    line-height: 1.65;
+    color: var(--brand-text-muted);
+    margin: 0;
+    max-width: 38rem;
+  }
+
+  /* Two column */
+  .contact-split {
+    padding: var(--space-16) 0;
+    background: transparent;
+  }
+
+  .contact-split__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  .contact-form__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--brand-text);
+    margin: 0 0 var(--space-6);
+  }
+
   .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    max-width: 28rem;
-    margin-top: 1rem;
+    gap: var(--space-5);
   }
 
-  .contact-label {
+  .contact-field {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    font-size: 0.875rem;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
     font-weight: 600;
-    color: #f5f9e9;
+    color: var(--brand-text);
   }
 
-  .contact-input,
-  .contact-textarea {
+  .contact-field__input,
+  .contact-field__textarea {
     padding: 0;
   }
 
-  .contact-input:focus,
-  .contact-textarea:focus {
-    outline: none;
+  .contact-field__select {
+    width: 100%;
+    padding: 0.75rem 2.25rem 0.75rem 1rem;
+    border-radius: 14px;
+    cursor: pointer;
+    appearance: none;
+    background-color: #0a0a0a;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b9098' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
   }
 
-  .contact-note {
-    font-size: 0.85rem;
-    color: #949ba0;
+  .contact-field__textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  .contact-form__submit {
+    align-self: flex-start;
+    margin-top: var(--space-2);
+  }
+
+  .contact-success {
+    text-align: center;
+    padding: var(--space-10) var(--space-6);
+  }
+
+  .contact-success__icon {
+    color: var(--brand-accent);
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-5);
+  }
+
+  .contact-success__text {
+    font-size: var(--text-lg);
+    line-height: 1.55;
+    color: var(--brand-text);
     margin: 0;
   }
 
-  .contact-submit {
-    align-self: flex-start;
+  .contact-split__aside {
+    position: sticky;
+    top: calc(72px + var(--space-6));
+    align-self: start;
   }
 
+  .contact-aside__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 800;
+    color: var(--brand-text);
+    margin: 0 0 var(--space-6);
+  }
 
+  .contact-aside__subheading {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--brand-text);
+    margin: var(--space-8) 0 var(--space-4);
+  }
+
+  .contact-aside__block {
+    margin-bottom: var(--space-5);
+  }
+
+  .contact-aside__label {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--brand-text-muted);
+    margin-bottom: var(--space-1);
+  }
+
+  .contact-aside__value {
+    font-size: var(--text-base);
+    color: var(--brand-text);
+  }
+
+  .contact-aside__link {
+    color: var(--brand-accent-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    word-break: break-word;
+  }
+
+  .contact-aside__link:hover {
+    color: var(--brand-accent-ink-hover);
+  }
+
+  .contact-aside__social {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .contact-aside__social a {
+    color: var(--brand-accent-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 600;
+  }
+
+  .contact-aside__social a:hover {
+    color: var(--brand-accent-ink-hover);
+  }
+
+  .contact-aside__note {
+    font-size: var(--text-sm);
+    line-height: 1.55;
+    color: var(--brand-text-muted);
+    margin: var(--space-5) 0 0;
+  }
+
+  /* FAQ */
+  .contact-faq {
+    padding: var(--space-16) 0 var(--space-20);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .contact-faq__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 800;
+    color: var(--brand-text);
+    margin: 0 0 var(--space-8);
+  }
+
+  .contact-faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 52rem;
+  }
+
+  .contact-faq__item {
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(20, 20, 22, 0.6);
+    overflow: hidden;
+  }
+
+  .contact-faq__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    text-align: left;
+    padding: var(--space-5) var(--space-5);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    color: var(--brand-text);
+  }
+
+  .contact-faq__trigger:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .contact-faq__question {
+    font-weight: 700;
+    font-size: var(--text-base);
+    line-height: 1.4;
+  }
+
+  .contact-faq__chev {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--brand-accent);
+    border-bottom: 2px solid var(--brand-accent);
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+    margin-top: -4px;
+  }
+
+  .contact-faq__item.is-open .contact-faq__chev {
+    transform: rotate(225deg);
+    margin-top: 4px;
+  }
+
+  .contact-faq__panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease;
+  }
+
+  .contact-faq__item.is-open .contact-faq__panel {
+    max-height: 28rem;
+  }
+
+  .contact-faq__answer {
+    padding: 0 var(--space-5) var(--space-5);
+    font-size: var(--text-sm);
+    line-height: 1.65;
+    color: var(--brand-text-muted);
+  }
+
+  .contact-faq-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+  }
+
+  .contact-faq-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Light theme */
+  :global(body.light-theme) .contact-hero {
+    background: #f5f6f3;
+    border-bottom-color: rgba(0, 0, 0, 0.06);
+  }
+
+  :global(body.light-theme) .contact-hero__title,
+  :global(body.light-theme) .contact-form__title,
+  :global(body.light-theme) .contact-aside__heading,
+  :global(body.light-theme) .contact-aside__subheading,
+  :global(body.light-theme) .contact-aside__value,
+  :global(body.light-theme) .contact-faq__title,
+  :global(body.light-theme) .contact-faq__question {
+    color: var(--brand-text);
+  }
+
+  :global(body.light-theme) .contact-field {
+    color: #1b1b1e;
+  }
+
+  :global(body.light-theme) .contact-form.morph-neu-stack,
+  :global(body.light-theme) .contact-success.morph-neu-stack {
+    background: #f5f6f3;
+    border: 1px solid rgba(27, 27, 30, 0.08);
+    box-shadow:
+      6px 6px 14px rgba(0, 0, 0, 0.06),
+      -4px -4px 12px rgba(255, 255, 255, 0.95),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  }
+
+  :global(body.light-theme) .contact-field__input.morph-neu-input,
+  :global(body.light-theme) .contact-field__textarea.morph-neu-textarea {
+    background: #f0f1ee !important;
+    color: #1b1b1e !important;
+    box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.07), inset -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
+  }
+
+  :global(body.light-theme) .contact-field__input.morph-neu-input:focus,
+  :global(body.light-theme) .contact-field__textarea.morph-neu-textarea:focus {
+    box-shadow:
+      inset 4px 4px 10px rgba(0, 0, 0, 0.07),
+      inset -3px -3px 8px rgba(255, 255, 255, 0.95),
+      0 0 0 2px rgba(209, 223, 75, 0.45) !important;
+  }
+
+  :global(body.light-theme) .contact-field__select {
+    background-color: #f0f1ee !important;
+    color: #1b1b1e !important;
+    box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.07), inset -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
+  }
+
+  :global(body.light-theme) .contact-field__select:focus {
+    outline: none;
+    box-shadow:
+      inset 4px 4px 10px rgba(0, 0, 0, 0.07),
+      inset -3px -3px 8px rgba(255, 255, 255, 0.95),
+      0 0 0 2px rgba(209, 223, 75, 0.45) !important;
+  }
+
+  :global(body.light-theme) .contact-aside.morph-neu-stack {
+    background: #f5f6f3;
+    border: 1px solid rgba(27, 27, 30, 0.08);
+    box-shadow:
+      6px 6px 14px rgba(0, 0, 0, 0.06),
+      -4px -4px 12px rgba(255, 255, 255, 0.95),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  }
+
+  :global(body.light-theme) .contact-faq {
+    background: rgba(255, 255, 255, 0.5);
+    border-top-color: rgba(0, 0, 0, 0.06);
+  }
+
+  :global(body.light-theme) .contact-faq__item {
+    border-color: rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  :global(body.light-theme) .contact-faq__trigger:hover {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  @media (max-width: 900px) {
+    .contact-split__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+
+    .contact-split__aside {
+      position: static;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-faq-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .contact-faq__panel {
+      transition: none;
+    }
+  }
 </style>
 
 <script>
+  // TODO: Connect to form backend or Netlify Forms
   const form = document.getElementById('contact-form');
+  const formPanel = document.getElementById('contact-form-panel');
+  const success = document.getElementById('contact-success');
+
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!(form instanceof HTMLFormElement)) return;
-    const fd = new FormData(form);
-    const name = String(fd.get('name') ?? '').trim();
-    const email = String(fd.get('email') ?? '').trim();
-    const message = String(fd.get('message') ?? '').trim();
-    const subject = encodeURIComponent(`Siryus Hub inquiry from ${name}`);
-    const body = encodeURIComponent(`From: ${name} <${email}>\n\n${message}`);
-    window.location.href = `mailto:management@siryushub.com?subject=${subject}&body=${body}`;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    formPanel?.setAttribute('hidden', '');
+    success?.removeAttribute('hidden');
   });
+
+  /* FAQ accordion: smooth max-height via CSS, no external libraries */
+  const faqItems = document.querySelectorAll('.contact-faq__item');
+
+  faqItems.forEach((item) => {
+    const trigger = item.querySelector('.contact-faq__trigger');
+    if (!(trigger instanceof HTMLButtonElement)) return;
+
+    trigger.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+      faqItems.forEach((other) => {
+        if (other === item) return;
+        other.classList.remove('is-open');
+        const t = other.querySelector('.contact-faq__trigger');
+        if (t instanceof HTMLButtonElement) t.setAttribute('aria-expanded', 'false');
+      });
+
+      if (isOpen) {
+        item.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  const faqSection = document.querySelector('.contact-faq-reveal');
+  if (faqSection) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    io.observe(faqSection);
+  }
 </script>

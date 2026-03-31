@@ -1,48 +1,48 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/legal-pages.css';
 ---
 
 <BaseLayout
-  title="Privacy Policy"
-  description="How Siryus Hub and Siryus Creative Media Ltd collect, use, and protect your personal information."
+  title="Privacy Policy | Siryus Hub"
+  description="How Siryus Creative Media Ltd handles personal data for visitors to siryushub.com."
+  noIndex={true}
 >
-  <h1>Privacy Policy</h1>
-  <p class="marketing-lede">
-    This policy describes how we handle personal information when you use siryushub.com and related services operated by
-    Siryus Creative Media Ltd on behalf of Siryus Hub and SIRYUS A.M.
-  </p>
+  <div class="legal-page">
+    <h1>Privacy Policy</h1>
+    <p class="legal-page__meta legal-page__meta--top">Last updated: March 2025</p>
 
-  <h2>Information we collect</h2>
-  <p>
-    We may collect information you provide directly, such as your name, email address, and message content when you use
-    contact or inquiry forms. We may also collect standard technical data, including browser type, device type, and
-    approximate region, to keep the site secure and to understand how it is used.
-  </p>
+    <h2>Who we are</h2>
+    <p>
+      Siryus Creative Media Ltd, incorporated in Nigeria, operating at siryushub.com. Contact: management@siryushub.com
+    </p>
 
-  <h2>How we use information</h2>
-  <p>We use this information to respond to inquiries, provide services, improve our website, and comply with legal obligations.</p>
+    <h2>What data we collect</h2>
+    <p>
+      Name and email when you use our contact form or newsletter signup. No payment data is collected on this site.
+    </p>
 
-  <h2>Cookies and similar technologies</h2>
-  <p>
-    We may use cookies or similar technologies as described in our
-    <a href="/cookie-policy">Cookie Policy</a>. Where required, we will obtain your consent before using non-essential
-    cookies.
-  </p>
+    <h2>How we use your data</h2>
+    <p>
+      To respond to your enquiry, to send newsletter updates if you opted in, and to improve our services. We do not sell your data to third parties.
+    </p>
 
-  <h2>Retention</h2>
-  <p>We retain personal information only as long as needed for the purposes above or as required by law.</p>
+    <h2>Cookies</h2>
+    <p>
+      This site uses minimal cookies for functionality. We do not run advertising cookies or third party tracking.
+    </p>
 
-  <h2>Your rights</h2>
-  <p>
-    Depending on where you live, you may have rights to access, correct, or delete your personal information, or to
-    object to certain processing. Contact us using the details below to make a request.
-  </p>
+    <h2>Your rights</h2>
+    <p>
+      You can request to see, update or delete your data at any time by emailing management@siryushub.com
+    </p>
 
-  <h2>Contact</h2>
-  <p>
-    For privacy questions, email
-    <a href="mailto:management@siryushub.com">management@siryushub.com</a>.
-  </p>
+    <h2>Third party services</h2>
+    <p>
+      This site uses Sanity (content management) and may use analytics tools in the future. These services have their own privacy policies.
+    </p>
 
-  <p><em>Last updated: March 2026.</em></p>
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy. The date at the top of this page reflects the last update.</p>
+  </div>
 </BaseLayout>

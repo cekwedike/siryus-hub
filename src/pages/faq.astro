@@ -1,41 +1,211 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/morphism.css';
+import '../styles/faq-page.css';
+
+const pageTitle = 'FAQ - Siryus Creative Media Ltd';
+const pageDescription =
+  'Common questions about SIRYUS A.M artist management, Siryus brand marketing services, and how to work with Siryus Creative Media Ltd in Kigali and beyond.';
+
+const artistColumn = [
+  {
+    id: 'faq-am-1',
+    q: 'How do I get management from SIRYUS A.M?',
+    a: 'Reach out through our contact page and tell us about yourself, your music and where you are in your career. We review every submission and respond to those we feel aligned with. We do not take on everyone but we do read everything.',
+  },
+  {
+    id: 'faq-am-2',
+    q: 'How many artists do you manage at once?',
+    a: 'We keep our roster intentionally small. That is the point. Every artist we work with gets real time and real attention, not a slot in a crowded calendar.',
+  },
+  {
+    id: 'faq-am-3',
+    q: 'Do you work with artists outside Nigeria and Rwanda?',
+    a: 'Yes. Geography is not a barrier if the fit is right. We work with independent artists across Africa and beyond.',
+  },
+  {
+    id: 'faq-am-4',
+    q: 'Do you work with new or unsigned artists?',
+    a: 'Yes and we prefer it. Building the right foundation from the start is easier than correcting a bad one later. If you are early in your career and serious about it, we want to hear from you.',
+  },
+  {
+    id: 'faq-am-5',
+    q: 'What does management actually involve?',
+    a: 'Strategy, release planning, brand building, industry relationships, day to day support and deal review. It is a real partnership, not just an email signature.',
+  },
+  {
+    id: 'faq-am-6',
+    q: 'Do you take a percentage?',
+    a: 'Management agreements are discussed on a case by case basis. Reach out and we can have that conversation directly.',
+  },
+];
+
+const servicesColumn = [
+  {
+    id: 'faq-sg-1',
+    q: 'What marketing services do you offer?',
+    a: 'Content strategy, social media management, email marketing, copywriting, motion graphics and campaign planning. We work with brands that want to grow without sounding like everyone else.',
+  },
+  {
+    id: 'faq-sg-2',
+    q: 'Do you work with brands outside the music industry?',
+    a: 'Yes. If you have a brand that needs real creative marketing and you are serious about building an audience, we are open to that conversation regardless of your industry.',
+  },
+  {
+    id: 'faq-sg-3',
+    q: 'How long does a typical campaign take?',
+    a: 'That depends entirely on the scope. A single release campaign might run four to six weeks. A full brand marketing retainer is an ongoing engagement. We scope everything before we start so there are no surprises.',
+  },
+  {
+    id: 'faq-sg-4',
+    q: 'How quickly do you respond to enquiries?',
+    a: 'We aim for 48 hours on every message. If your project is time sensitive, say so in your message and we will prioritise it.',
+  },
+  {
+    id: 'faq-sg-5',
+    q: 'Where are you based?',
+    a: 'We are incorporated in Nigeria and operate out of Kigali, Rwanda. We work with clients and artists across Africa and internationally.',
+  },
+  {
+    id: 'faq-sg-6',
+    q: 'How do I know if we are a good fit?',
+    a: 'Read the about page and the services page. If what we say there resonates with what you are building, reach out. If it does not, we are probably not the right match and that is fine.',
+  },
+];
+
+const allFaq = [...artistColumn, ...servicesColumn];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: allFaq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
 ---
 
-<BaseLayout
-  title="Frequently Asked Questions"
-  description="Answers to common questions about Siryus Hub, SIRYUS A.M, services, and community."
->
-  <h1>Frequently asked questions</h1>
-  <p class="marketing-lede">
-    Quick answers about Siryus Hub and SIRYUS A.M. For anything else, use the
-    <a href="/contact">contact page</a>.
-  </p>
+<BaseLayout title={pageTitle} description={pageDescription} canonical="https://www.siryushub.com/faq" schema={faqSchema}>
+  <div class="faq-page">
+    <section class="faq-bleed faq-hero faq-reveal" aria-labelledby="faq-hero-heading">
+      <div class="faq-hero__ambient" aria-hidden="true">
+        <img
+          class="faq-hero__ambient-img"
+          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="faq-hero__ambient-scrim"></div>
+      </div>
+      <div class="faq-hero__mesh" aria-hidden="true"></div>
+      <div class="faq-inner">
+        <div class="morph-hero-glass-panel" style="max-width: 42rem;">
+          <div style="padding: 2rem 1.75rem;">
+            <span class="faq-hero__label">FAQ</span>
+            <h1 id="faq-hero-heading" class="faq-hero__title">Questions We Hear All the Time.</h1>
+            <p class="faq-hero__sub">
+              If your question is not here, reach out directly. We are real people.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <h2>What is Siryus Hub?</h2>
-  <p>
-    Siryus Hub is the digital home for independent creatives connecting with education, marketing, management, and
-    community initiatives led by SIRYUS A.M and Siryus Creative Media Ltd.
-  </p>
+    <section class="faq-inner faq-section" aria-labelledby="faq-acc-heading">
+      <h2 id="faq-acc-heading" class="visually-hidden">Frequently asked questions</h2>
+      <div class="faq-columns">
+        <div class="faq-col faq-reveal">
+          <h3 class="faq-col__heading">SIRYUS A.M</h3>
+          {
+            artistColumn.map((item) => (
+              <div class="faq-item">
+                <input type="checkbox" id={item.id} class="faq-input" />
+                <label for={item.id} class="faq-trigger">
+                  {item.q}
+                </label>
+                <div class="faq-answer">
+                  <div class="faq-answer__inner">
+                    <p>{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <div class="faq-col faq-reveal">
+          <h3 class="faq-col__heading">Services and General</h3>
+          {
+            servicesColumn.map((item) => (
+              <div class="faq-item">
+                <input type="checkbox" id={item.id} class="faq-input" />
+                <label for={item.id} class="faq-trigger">
+                  {item.q}
+                </label>
+                <div class="faq-answer">
+                  <div class="faq-answer__inner">
+                    <p>{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
 
-  <h2>What is SIRYUS A.M?</h2>
-  <p>
-    SIRYUS A.M (SIRYUS Artist Management) focuses on artist management, marketing, and career support for independent
-    creatives.
-  </p>
+    <section class="faq-bleed faq-cta faq-reveal" aria-labelledby="faq-cta-heading">
+      <div class="faq-cta__inner">
+        <h2 id="faq-cta-heading" class="faq-cta__title">Still Have a Question?</h2>
+        <p class="faq-cta__copy">Send us a message. We respond to every serious enquiry.</p>
+        <a href="/contact" class="faq-cta__btn">Contact Us</a>
+      </div>
+    </section>
+  </div>
 
-  <h2>How do I get in touch?</h2>
-  <p>
-    Email
-    <a href="mailto:management@siryushub.com">management@siryushub.com</a>
-    or use the <a href="/contact">contact form</a>.
-  </p>
+  <script is:inline>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.faq-reveal');
+      if (reduce) {
+        els.forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      } else {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+        );
+        els.forEach(function (el) {
+          io.observe(el);
+        });
+      }
+    })();
+  </script>
 
-  <h2>Where can I read legal information?</h2>
-  <p>
-    See our
-    <a href="/privacy-policy">Privacy Policy</a>,
-    <a href="/terms-of-use">Terms of Use</a>, and
-    <a href="/cookie-policy">Cookie Policy</a>.
-  </p>
+  <style is:global>
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
 </BaseLayout>

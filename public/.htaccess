@@ -1,11 +1,25 @@
-# Apache (e.g. Hostinger): legacy URLs → new structure
+Options -MultiViews
 RewriteEngine On
-RewriteRule ^contact-page-siryus$ /contact [R=301,L]
-RewriteRule ^siryus-blog$ /blog [R=301,L]
-RewriteRule ^artists-siryus-hub$ /artists [R=301,L]
-RewriteRule ^siryus-hub-projects$ /projects [R=301,L]
-RewriteRule ^services-independent-creatives$ /services [R=301,L,NE]
-RewriteRule ^max-prodigy$ /artists/max-prodigy [R=301,L]
-RewriteRule ^hidaya-morgan$ /artists/hidaya-morgan [R=301,L]
-RewriteRule ^hybrid/?$ /projects [R=301,L]
-RewriteRule ^brief/?$ /services [R=301,L]
+RewriteBase /
+
+# 301 Redirects from old site URLs
+Redirect 301 /max-prodigy /artists/max-prodigy
+Redirect 301 /hidaya-morgan /artists/hidaya-morgan
+Redirect 301 /siryus-blog /blog
+Redirect 301 /services-independent-creatives /services
+Redirect 301 /contact-page-siryus /contact
+Redirect 301 /siryus-hub-projects /projects
+Redirect 301 /indiba-project-series /indiba-project-series
+Redirect 301 /kickstart-your-career-as-a-creative /blog
+Redirect 301 /monetizing-creativity-earn-living-passion /blog
+Redirect 301 /essential-tools-for-creative-professionals /blog
+Redirect 301 /overcoming-creative-blocks-like-a-pro /blog
+Redirect 301 /networking-in-the-creative-industry /blog
+Redirect 301 /sustainability-african-creative-practices /blog
+
+# Serve existing files and directories first
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route clean URLs to Astro static output
+RewriteRule ^(.*)$ /$1/index.html [L]

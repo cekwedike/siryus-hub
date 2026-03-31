@@ -7,16 +7,21 @@
     "dev:fresh": "node scripts/clear-vite-cache.mjs && astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:check": "astro build && echo Build completed successfully",
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
     "lint:max-lines": "node scripts/check-line-length.mjs",
+    "seed:artists": "node scripts/seed-artists.mjs",
+    "patch:artist-keys": "node scripts/patch-artist-release-keys.mjs",
     "studio": "cd studio && sanity dev"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@portabletext/to-html": "^5.0.2",
+    "@portabletext/types": "^4.0.2",
     "@sanity/client": "^7.20.0",
     "@sanity/image-url": "^2.1.0",
     "astro": "^6.1.1"

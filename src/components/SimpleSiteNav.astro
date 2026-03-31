@@ -1,69 +1,144 @@
 ---
+import '../styles/morphism.css';
 import BrandWordmark from './BrandWordmark.astro';
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+function isCurrent(href: string) {
+  const h = href.replace(/\/$/, '') || '/';
+  if (h === '/') return pathname === '/';
+  return pathname === h || pathname.startsWith(h + '/');
+}
 ---
 
-<nav class="simple-nav nav-glass" aria-label="Main navigation">
-  <div class="simple-nav__container">
-    <BrandWordmark variant="nav" href="/home" />
+<nav class="top-nav simple-site-top-nav" aria-label="Main navigation">
+  <div class="top-nav__pill">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <BrandWordmark variant="nav" href="/home" />
+      </div>
 
-    <ul class="simple-nav__links" role="list">
-      <li><a href="/about" class="simple-nav__link">About</a></li>
-      <li>
-        <a href="/services" class="simple-nav__link">Services</a>
-      </li>
-      <li>
-        <a href="/siryus-am" class="simple-nav__link">SIRYUS A.M</a>
-      </li>
-      <li>
-        <a href="/artists" class="simple-nav__link">Artists</a>
-      </li>
-      <li><a href="/blog" class="simple-nav__link">Blog</a></li>
-    </ul>
+      <ul class="nav-links" role="list">
+        <li>
+          <a href="/about" class="nav-link" aria-current={isCurrent('/about') ? 'page' : undefined}>About</a>
+        </li>
+        <li>
+          <a href="/services" class="nav-link" aria-current={isCurrent('/services') ? 'page' : undefined}>Services</a>
+        </li>
+        <li>
+          <a href="/siryus-am" class="nav-link" aria-current={isCurrent('/siryus-am') ? 'page' : undefined}>SIRYUS A.M</a>
+        </li>
+        <li>
+          <a href="/artists" class="nav-link" aria-current={isCurrent('/artists') ? 'page' : undefined}>Artists</a>
+        </li>
+        <li>
+          <a href="/blog" class="nav-link" aria-current={isCurrent('/blog') ? 'page' : undefined}>Blog</a>
+        </li>
+      </ul>
 
-    <a href="/contact" class="simple-nav__cta">Work With Us</a>
+      <div class="nav-right">
+        <a href="/contact" class="nav-cta">Work With Us</a>
+        <button
+          type="button"
+          class="hamburger-btn"
+          id="hamburgerBtn"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="sidebar"
+        >
+          <div class="hamburger-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </div>
+    </div>
   </div>
 </nav>
 
 <style>
-  .simple-nav {
-    position: sticky;
+  .top-nav {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 72px;
+    right: 0;
     z-index: var(--z-nav);
+    display: flex;
+    justify-content: center;
+    padding: var(--space-4) var(--space-5) 0;
+    background: transparent;
+    pointer-events: none;
   }
 
-  .simple-nav__container {
-    max-width: 1200px;
+  .top-nav__pill {
+    pointer-events: auto;
+    width: 100%;
+    max-width: min(1120px, calc(100vw - var(--space-5) * 2));
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(
+      165deg,
+      rgba(22, 22, 26, 0.82) 0%,
+      rgba(8, 8, 10, 0.92) 100%
+    );
+    backdrop-filter: blur(38px) saturate(1.75);
+    -webkit-backdrop-filter: blur(38px) saturate(1.75);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.13),
+      0 14px 44px rgba(0, 0, 0, 0.48),
+      0 0 0 1px rgba(0, 0, 0, 0.38);
+    transition:
+      transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.38s ease,
+      backdrop-filter 0.38s ease,
+      -webkit-backdrop-filter 0.38s ease,
+      border-color 0.38s ease;
+  }
+
+  .top-nav__pill.is-scrolled {
+    transform: scale(0.982);
+    border-color: rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(48px) saturate(1.9);
+    -webkit-backdrop-filter: blur(48px) saturate(1.9);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 10px 36px rgba(0, 0, 0, 0.52),
+      0 0 0 1px rgba(0, 0, 0, 0.42);
+  }
+
+  .nav-container {
+    max-width: none;
     margin: 0 auto;
-    height: 100%;
+    min-height: 58px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 var(--space-8);
-    gap: var(--space-8);
+    padding: 0 var(--space-6);
   }
 
-  .simple-nav__links {
+  .nav-logo {
+    flex-shrink: 0;
+  }
+
+  .nav-links {
     display: flex;
-    gap: var(--space-8);
+    gap: var(--space-10);
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .simple-nav__link {
+  .nav-link {
     color: var(--brand-text);
     text-decoration: none;
-    font-size: var(--text-sm);
     font-weight: 500;
-    letter-spacing: 0.03em;
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
     transition: color var(--transition-base);
     position: relative;
   }
 
-  .simple-nav__link::after {
+  .nav-link::after {
     content: '';
     position: absolute;
     bottom: -4px;
@@ -74,16 +149,26 @@ import BrandWordmark from './BrandWordmark.astro';
     transition: width var(--transition-base);
   }
 
-  .simple-nav__link:hover {
+  .nav-link:hover {
     color: var(--brand-accent-ink-hover);
   }
 
-  .simple-nav__link:hover::after {
+  .nav-link:hover::after,
+  .nav-link[aria-current='page']::after {
     width: 100%;
   }
 
-  .simple-nav__cta {
-    flex-shrink: 0;
+  .nav-link[aria-current='page'] {
+    color: var(--brand-accent-ink);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .nav-cta {
     color: var(--brand-accent-ink);
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
@@ -94,54 +179,154 @@ import BrandWordmark from './BrandWordmark.astro';
     padding: var(--space-2) var(--space-5);
     border-radius: var(--radius-full);
     transition: all var(--transition-base);
-    white-space: nowrap;
   }
 
-  .simple-nav__cta:visited {
+  .nav-cta:visited {
     color: var(--brand-accent-ink);
   }
 
-  .simple-nav__cta:visited:hover {
+  .nav-cta:visited:hover {
     color: #0a0a0a;
   }
 
-  .simple-nav__cta:hover {
+  .nav-cta:hover {
     background: var(--brand-accent);
     color: #0a0a0a;
   }
 
+  .hamburger-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(245, 249, 233, 0.2);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  .hamburger-btn:hover {
+    border-color: var(--brand-accent-ink);
+  }
+
+  .hamburger-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hamburger-icon span {
+    width: 20px;
+    height: 2px;
+    background: var(--brand-text);
+    transition: all var(--transition-base);
+    display: block;
+  }
+
+  .hamburger-btn:hover .hamburger-icon span {
+    background: var(--brand-accent-ink);
+  }
+
+  .hamburger-btn[aria-expanded='true'] .hamburger-icon span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .hamburger-btn[aria-expanded='true'] .hamburger-icon span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-btn[aria-expanded='true'] .hamburger-icon span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  @media (max-width: 1024px) {
+    .nav-links {
+      gap: var(--space-6);
+    }
+  }
+
   @media (max-width: 768px) {
-    .simple-nav__links {
+    .top-nav {
+      padding: var(--space-3) var(--space-4) 0;
+    }
+
+    .top-nav__pill {
+      max-width: calc(100vw - var(--space-4) * 2);
+    }
+
+    .nav-container {
+      padding: 0 var(--space-4);
+      min-height: 54px;
+    }
+
+    .nav-links {
       display: none;
     }
 
-    .simple-nav__container {
-      padding: 0 var(--space-5);
+    .nav-cta {
+      display: none;
     }
   }
 
   @media (max-width: 480px) {
-    .simple-nav {
-      height: 64px;
-    }
-
-    .simple-nav__cta {
-      display: none;
+    .nav-container {
+      min-height: 50px;
     }
   }
 
-  :global(body.light-theme) .simple-nav.nav-glass {
+  :global(body.light-theme) .top-nav__pill {
+    border-color: rgba(27, 27, 30, 0.14);
     background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.94) 0%,
-      rgba(248, 249, 246, 0.92) 100%
+      165deg,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(248, 249, 246, 0.94) 100%
     );
-    backdrop-filter: blur(22px) saturate(1.2);
-    -webkit-backdrop-filter: blur(22px) saturate(1.2);
-    border-bottom: 1px solid rgba(27, 27, 30, 0.1);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 12px 36px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(0, 0, 0, 0.06);
   }
 
-  :global(body.light-theme) .simple-nav__link {
+  :global(body.light-theme) .top-nav__pill.is-scrolled {
+    border-color: rgba(27, 27, 30, 0.12);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 10px 32px rgba(0, 0, 0, 0.12),
+      0 0 0 1px rgba(0, 0, 0, 0.07);
+  }
+
+  :global(body.light-theme) .nav-link {
     color: var(--brand-text);
   }
+
+  :global(body.light-theme) .hamburger-icon span {
+    background: var(--brand-text);
+  }
 </style>
+
+<script>
+  function initNavScroll() {
+    const pill = document.querySelector('.simple-site-top-nav .top-nav__pill');
+    if (!pill) return;
+
+    const onScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop;
+      pill.classList.toggle('is-scrolled', y > 24);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavScroll, { once: true });
+  } else {
+    initNavScroll();
+  }
+</script>

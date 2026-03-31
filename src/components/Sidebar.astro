@@ -98,9 +98,9 @@
             </a>
           </li>
           <li>
-            <a href="/reels" class="sidebar-link">
+            <a href="/studio" class="sidebar-link">
               <span class="sidebar-link__num">08</span>
-              <span class="sidebar-link__label">Reels</span>
+              <span class="sidebar-link__label">The Studio</span>
             </a>
           </li>
         </ul>
@@ -478,13 +478,27 @@
   const sidebar = document.getElementById('sidebar');
   const hamburger = document.getElementById('hamburgerBtn');
 
+  function openSidebar() {
+    if (!sidebar) return;
+    sidebar.classList.add('is-open');
+    sidebar.setAttribute('aria-hidden', 'false');
+    hamburger?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
   function closeSidebar() {
-    if (!sidebar || !hamburger) return;
+    if (!sidebar) return;
     sidebar.classList.remove('is-open');
     sidebar.setAttribute('aria-hidden', 'true');
-    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
+
+  hamburger?.addEventListener('click', () => {
+    const isOpen = sidebar?.classList.contains('is-open');
+    if (isOpen) closeSidebar();
+    else openSidebar();
+  });
 
   overlay?.addEventListener('click', closeSidebar);
   closeBtn?.addEventListener('click', closeSidebar);
@@ -495,5 +509,12 @@
 
   sidebar?.querySelectorAll('.sidebar-cta').forEach((link) => {
     link.addEventListener('click', closeSidebar);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    var studioModal = document.getElementById('studio-modal');
+    if (studioModal && !studioModal.hidden) return;
+    if (sidebar?.classList.contains('is-open')) closeSidebar();
   });
 </script>

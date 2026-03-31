@@ -1,18 +1,198 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/projects-page.css';
+import { urlFor } from '../lib/sanity';
+import { getAllProjects, type ProjectSummary } from '../lib/queries';
+
+const pageTitle = 'Projects - Creative Work by Siryus';
+const pageDescription =
+  'Campaigns, productions and creative projects from Siryus Creative Media Ltd. Release campaigns, artist development and brand marketing from Kigali to the world.';
+
+const fromSanity = await getAllProjects();
+
+const fallbackProjects: ProjectSummary[] = [
+  {
+    _id: 'fallback-1',
+    title: 'Nobody - Max Prodigy feat. Juuru',
+    slug: { current: 'nobody-max-prodigy-feat-juuru' },
+    category: 'Release Campaign',
+    description:
+      "Full social media and content rollout for Max Prodigy's latest single. Strategy, content calendar, visual direction and platform distribution.",
+    coverImage: null,
+    tags: ['Artist Management', 'Social Media', 'Content Strategy'],
+    year: '2025',
+    status: 'Completed',
+    artist: null,
+    featured: false,
+  },
+  {
+    _id: 'fallback-2',
+    title: 'Tarama - SIRYUS A.M Collective',
+    slug: { current: 'tarama-siryus-am-collective' },
+    category: 'Creative Production',
+    description:
+      'A collaborative music project featuring Max Prodigy, Hidaya Morgan, Aine Arsene, Chriss D and Couronne. Production, distribution and rollout managed by SIRYUS A.M.',
+    coverImage: null,
+    tags: ['Creative Production', 'Distribution', 'Artist Collaboration'],
+    year: '2024',
+    status: 'Completed',
+    artist: null,
+    featured: false,
+  },
+  {
+    _id: 'fallback-3',
+    title: 'The Indiba Project Series',
+    slug: { current: 'the-indiba-project-series' },
+    category: 'Artist Development',
+    description:
+      'An ongoing creative initiative under SIRYUS A.M designed to unlock and amplify emerging sounds across Africa.',
+    coverImage: null,
+    tags: ['Artist Development', 'Creative Direction', 'Pan-African'],
+    year: 'Ongoing',
+    status: 'Active',
+    artist: null,
+    featured: false,
+  },
+];
+
+const projects = fromSanity.length > 0 ? fromSanity : fallbackProjects;
 ---
 
-<BaseLayout
-  title="Projects"
-  description="Creative projects and initiatives from SIRYUS A.M and the Siryus ecosystem."
->
-  <h1>Projects</h1>
-  <p class="marketing-lede">
-    Explore collaborative releases, campaigns, and initiatives. Detailed project pages will be added as this site grows.
-  </p>
+<BaseLayout title={pageTitle} description={pageDescription} canonical="https://www.siryushub.com/projects">
+  <div class="projects-page">
+    <section class="projects-bleed projects-hero projects-reveal" aria-labelledby="projects-hero-heading">
+      <div class="projects-hero__ambient" aria-hidden="true">
+        <img
+          class="projects-hero__ambient-img"
+          src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="projects-hero__ambient-scrim"></div>
+      </div>
+      <div class="projects-hero__mesh" aria-hidden="true"></div>
+      <div class="projects-inner">
+        <header class="projects-hero__intro">
+          <span class="projects-hero__label">Our Work</span>
+          <h1 id="projects-hero-heading" class="projects-hero__title">Projects We Are Proud Of.</h1>
+          <p class="projects-hero__sub">
+            From release campaigns to brand strategy. Here is a look at what we have been building.
+          </p>
+        </header>
+      </div>
+    </section>
 
-  <p>
-    For partnerships or project inquiries, visit
-    <a href="/contact">Contact</a>.
-  </p>
+    <section class="projects-inner projects-grid-section" aria-labelledby="projects-grid-heading">
+      <h2 id="projects-grid-heading" class="visually-hidden">Selected projects</h2>
+      <div class="projects-grid">
+        {
+          projects.map((project) => {
+            const coverUrl = project.coverImage
+              ? urlFor(project.coverImage).width(960).height(540).fit('crop').auto('format').url()
+              : '';
+            const tags = Array.isArray(project.tags) ? project.tags.filter(Boolean) : [];
+            return (
+              <article class="project-card project-card--surface projects-reveal">
+                {coverUrl ? (
+                  <img
+                    class="project-card__cover"
+                    src={coverUrl}
+                    alt={`Cover image for ${project.title}`}
+                    width="960"
+                    height="540"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : null}
+                <span class="project-card__cat">{project.category}</span>
+                <h3 class="project-card__title">{project.title}</h3>
+                <p class="project-card__desc">{project.description}</p>
+                <div class="project-card__tags" role="list">
+                  {tags.map((tag) => (
+                    <span class="project-card__tag" role="listitem">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div class="project-card__meta">
+                  <span>
+                    <strong>Year:</strong> {project.year}
+                  </span>
+                  <span>
+                    <strong>Status:</strong> {project.status}
+                  </span>
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <section class="projects-bleed projects-cta projects-reveal" aria-labelledby="projects-cta-heading">
+      <div class="projects-cta__inner">
+        <h2 id="projects-cta-heading" class="projects-cta__title">Have a Project in Mind?</h2>
+        <p class="projects-cta__copy">
+          Whether it is a release campaign, a brand activation or a creative production, let us talk about what you are building.
+        </p>
+        <a href="/contact" class="projects-cta__btn">Work With Us</a>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.projects-reveal');
+      if (reduce) {
+        els.forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      } else {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+        );
+        els.forEach(function (el) {
+          io.observe(el);
+        });
+      }
+    })();
+  </script>
+
+  <style is:global>
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+
+  <style>
+    .project-card__cover {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 14rem;
+      object-fit: cover;
+      border-radius: var(--radius-md, 12px);
+      margin-bottom: 1rem;
+    }
+  </style>
 </BaseLayout>

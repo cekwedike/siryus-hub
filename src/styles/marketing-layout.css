@@ -35,7 +35,8 @@ body.marketing-body {
 .marketing-main {
   max-width: var(--ml-max);
   margin: 0 auto;
-  padding: 4.5rem 1rem 3rem;
+  /* Fixed pill nav is out of flow; preserve prior offset (sticky bar + padding) */
+  padding: calc(72px + 4.5rem) 1rem 3rem;
 }
 
 .marketing-main h1 {

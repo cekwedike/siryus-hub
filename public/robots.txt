@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+Disallow: /studio/
+Disallow: /api/
+
 Sitemap: https://www.siryushub.com/sitemap-index.xml

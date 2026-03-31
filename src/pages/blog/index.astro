@@ -1,16 +1,208 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/blog.css';
+import { urlFor } from '../../lib/sanity';
+import { getAllPosts, getFeaturedPosts } from '../../lib/queries';
+
+const pageTitle = 'Blog - Creative Industry Insights';
+const pageDescription =
+  'The Siryus Hub blog covers music industry insights, artist development, brand marketing strategy and creative production. Written by the team behind SIRYUS A.M.';
+
+const allPosts = await getAllPosts();
+const featuredPosts = await getFeaturedPosts();
+const featured = featuredPosts[0] ?? null;
+
+const gridPosts =
+  featured && allPosts.length > 0
+    ? allPosts.filter((p) => p._id !== featured._id)
+    : allPosts;
+
+function formatDate(iso: string) {
+  try {
+    return new Date(iso).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return '';
+  }
+}
+
+function truncateExcerpt(text: string, max: number) {
+  const t = text.trim();
+  if (t.length <= max) return t;
+  return `${t.slice(0, max).trimEnd()}…`;
+}
+
+function readMinutesFromExcerpt(excerpt: string) {
+  const words = excerpt.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+function coverSrc(post: (typeof allPosts)[0]) {
+  if (!post.coverImage) return null;
+  try {
+    return urlFor(post.coverImage).width(800).height(500).url();
+  } catch {
+    return null;
+  }
+}
 ---
 
-<BaseLayout
-  title="Blog"
-  description="Insights and resources for independent artists and creatives from Siryus Hub and SIRYUS A.M."
->
-  <h1>Blog</h1>
-  <p class="marketing-lede">
-    Articles on creative careers, marketing, and industry practice will appear here. A headless CMS can power this section
-    in a future release.
-  </p>
+<BaseLayout title={pageTitle} description={pageDescription} canonical="https://www.siryushub.com/blog">
+  <div class="blog-page">
+    <section class="blog-bleed blog-hero blog-reveal" aria-labelledby="blog-hero-heading">
+      <div class="blog-hero__photo-layer" aria-hidden="true">
+        <img
+          class="blog-hero__photo"
+          src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="blog-hero__photo-scrim"></div>
+      </div>
+      <div class="blog-hero__glow" aria-hidden="true"></div>
+      <div class="blog-inner blog-hero__shell">
+        <div class="morph-hero-glass-panel" style="max-width: 42rem;">
+          <div class="blog-hero__inner" style="padding: 2rem 1.75rem;">
+            <span class="blog-hero__label">The Blog</span>
+            <h1 id="blog-hero-heading" class="blog-hero__title">Ideas Worth Sharing.</h1>
+            <p class="blog-hero__sub">
+              Music. Marketing. Creative industry. We write about what we know from doing it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <p>Check back soon, or <a href="/contact">subscribe via contact</a> to hear about new posts.</p>
+    {
+      featured && (
+        <section class="blog-bleed blog-section blog-reveal" aria-labelledby="blog-featured-heading">
+          <div class="blog-inner">
+            <h2 id="blog-featured-heading" class="visually-hidden">
+              Featured article
+            </h2>
+            <a
+              class="blog-featured morph-clay-card"
+              href={`/blog/${featured.slug?.current ?? ''}`}
+              data-astro-prefetch
+            >
+              <div class="blog-featured__media">
+                {coverSrc(featured) ? (
+                  <img src={coverSrc(featured)!} alt={`Cover image for ${featured.title}`} width="1200" height="514" loading="lazy" decoding="async" />
+                ) : null}
+              </div>
+              <div class="blog-featured__body">
+                {featured.category ? <span class="blog-badge">{featured.category}</span> : null}
+                <h2 class="blog-featured__title">{featured.title}</h2>
+                <p class="blog-featured__excerpt">{featured.excerpt}</p>
+                <div class="blog-featured__meta">
+                  <span class="blog-featured__author">{featured.author}</span>
+                  <time class="blog-featured__date" datetime={featured.publishedAt}>
+                    {formatDate(featured.publishedAt)}
+                  </time>
+                  <span class="blog-read-time">{readMinutesFromExcerpt(featured.excerpt)} min read</span>
+                  <span class="blog-featured__link">Read article</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+      )
+    }
+
+    <section
+      class="blog-bleed blog-section blog-section--tight-bottom"
+      aria-labelledby="blog-all-heading"
+    >
+      <div class="blog-inner">
+        <h2 id="blog-all-heading" class="blog-section__title">All posts</h2>
+
+        {
+          allPosts.length === 0 ? (
+            <div class="blog-empty morph-clay-card blog-reveal">
+              <p>We are working on something. First posts dropping soon.</p>
+            </div>
+          ) : (
+            <div class="blog-grid">
+              {gridPosts.map((post) => {
+                const href = `/blog/${post.slug?.current ?? ''}`;
+                const img = coverSrc(post);
+                const cardRead = readMinutesFromExcerpt(post.excerpt);
+                return (
+                  <a class="blog-card morph-clay-card blog-reveal" href={href} data-astro-prefetch>
+                    <div class="blog-card__media">
+                      {img ? (
+                        <img src={img} alt={`Cover image for ${post.title}`} width="400" height="250" loading="lazy" decoding="async" />
+                      ) : null}
+                    </div>
+                    <div class="blog-card__body">
+                      {post.category ? <span class="blog-badge">{post.category}</span> : null}
+                      <h3 class="blog-card__title">{post.title}</h3>
+                      <p class="blog-card__excerpt">{truncateExcerpt(post.excerpt, 120)}</p>
+                      <div class="blog-card__meta">
+                        <span class="blog-card__author">{post.author}</span>
+                        <div class="blog-card__date-row">
+                          <time class="blog-card__date" datetime={post.publishedAt}>
+                            {formatDate(post.publishedAt)}
+                          </time>
+                          <span class="blog-read-time">{cardRead} min read</span>
+                        </div>
+                      </div>
+                      <span class="blog-card__read">Read more</span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          )
+        }
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.blog-reveal');
+    if (reduce) {
+      els.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+    );
+    els.forEach(function (el) {
+      io.observe(el);
+    });
+  })();
+</script>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
