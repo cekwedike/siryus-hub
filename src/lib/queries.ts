@@ -343,7 +343,22 @@ const teamMemberFields = `
   slug,
   role,
   responsibilities,
-  photo,
+  photo {
+    _type,
+    hotspot,
+    crop,
+    asset->{
+      _id,
+      _type,
+      url,
+      metadata {
+        dimensions {
+          width,
+          height
+        }
+      }
+    }
+  },
   initials,
   order,
   founder

@@ -14,6 +14,7 @@
     "lint:max-lines": "node scripts/check-line-length.mjs",
     "seed:artists": "node scripts/seed-artists.mjs",
     "seed:projects": "node scripts/seed-projects.mjs",
+    "update:indiba": "node scripts/update-indiba.mjs",
     "seed:team": "node scripts/seed-team.mjs",
     "patch:artist-keys": "node scripts/patch-artist-release-keys.mjs",
     "studio": "cd studio && sanity dev"

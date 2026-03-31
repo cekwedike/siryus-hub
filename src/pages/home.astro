@@ -497,5 +497,20 @@ import '../styles/morphism.css';
   </script>
 
   <ThemeToggle />
+
+  <style is:global>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html.layout-html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+  </style>
 </body>
 </html>

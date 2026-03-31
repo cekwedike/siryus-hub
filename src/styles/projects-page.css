@@ -24,7 +24,8 @@
 
 .projects-hero {
   position: relative;
-  padding: var(--space-8) 0 var(--space-12);
+  padding: 0;
+  background-color: var(--brand-bg-deep);
 }
 
 .projects-hero__ambient {
@@ -63,29 +64,21 @@
   pointer-events: none;
 }
 
-/* Editorial hero — typography-led, no frosted “rectangle card” */
+.projects-hero .projects-inner {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--space-20) var(--space-8);
+}
+
+/* Editorial hero: full-width title within centered shell */
 .projects-hero__intro {
   position: relative;
   z-index: 1;
-  max-width: 44rem;
-  padding: 0.35rem 0 0.35rem clamp(1.1rem, 3vw, 1.65rem);
+  width: 100%;
+  max-width: none;
+  padding: 0;
   margin: 0;
-}
-
-.projects-hero__intro::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.15rem;
-  bottom: 0.15rem;
-  width: 3px;
-  border-radius: 2px;
-  background: linear-gradient(
-    180deg,
-    var(--brand-accent) 0%,
-    rgba(209, 223, 75, 0.22) 72%,
-    rgba(209, 223, 75, 0.06) 100%
-  );
 }
 
 .projects-hero__label {
@@ -123,7 +116,7 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-6);
 }
 
@@ -136,6 +129,8 @@
 .project-card {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  min-height: 400px;
   padding: var(--space-6);
   border-radius: var(--radius-lg);
   transition:
@@ -206,6 +201,11 @@ body.light-theme .project-card__cat {
   font-size: var(--text-base);
   line-height: 1.6;
   flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .project-card__tags {
@@ -213,6 +213,7 @@ body.light-theme .project-card__cat {
   flex-wrap: wrap;
   gap: var(--space-2);
   margin-bottom: var(--space-5);
+  min-width: 0;
 }
 
 .project-card__tag {
@@ -223,6 +224,8 @@ body.light-theme .project-card__cat {
   background: transparent;
   color: var(--brand-text-muted);
   border: 1px solid rgba(255, 255, 255, 0.12);
+  word-break: break-word;
+  max-width: 100%;
 }
 
 body.light-theme .project-card__tag {

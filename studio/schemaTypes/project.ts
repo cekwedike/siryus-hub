@@ -45,7 +45,8 @@ export default defineType({
       name: 'excerpt',
       title: 'Short Excerpt for cards',
       type: 'string',
-      validation: (Rule) => Rule.max(160),
+      description: 'Shown on project cards. Up to 500 characters.',
+      validation: (Rule) => Rule.max(500),
     }),
     defineField({
       name: 'category',

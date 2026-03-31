@@ -70,9 +70,9 @@ const projects = [
     registrationClosedText:
       'The Indiba Project Series is not currently open for applications. When the next edition opens, the application link will appear right here. Follow us on Instagram to be the first to know.',
     excerpt:
-      'A music incubator for independent African artists. Collaborative recording, mentorship and structured releases that have already launched real careers across Africa.',
+      'A music incubator for independent African artists. Collaborative recording, mentorship and structured releases. Home of the Indiba Volume album series.',
     description:
-      'The Indiba Project Series is where independent African artists come to build. Not just music. Careers. Each edition brings together a curated group of rising artists for collaborative recording sessions, direct mentorship, and a structured release campaign with real strategy behind it. Artists who have come through the series include Hidaya Morgan, Max Prodigy, Couronne, Aine Arsene and Chriss D. The series has drawn international recognition including acknowledgment from hip-hop legend Dana Dane.',
+      'A music incubator for independent African artists. Collaborative recording, mentorship and structured releases that have already launched real careers across Africa. Home of the Indiba Volume album series.',
     tags: ['Artist Development', 'Mentorship', 'Collaboration', 'Pan-African', 'Music Incubator'],
   },
   {

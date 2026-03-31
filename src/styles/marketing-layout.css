@@ -25,6 +25,7 @@ html.layout-html {
 body.marketing-body {
   margin: 0;
   min-height: 100vh;
+  width: 100%;
   font-family:
     system-ui,
     -apple-system,
@@ -40,7 +41,9 @@ body.marketing-body {
 }
 
 .marketing-main {
-  max-width: var(--ml-max);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   margin: 0 auto;
   /* Fixed pill nav is out of flow; preserve prior offset (sticky bar + padding) */
   padding: calc(72px + 4.5rem) 1rem 3rem;
@@ -83,11 +86,9 @@ body.marketing-body {
   color: var(--ml-muted);
 }
 
-/* Do not style WindDecorButton links like body copy — dark theme uses lime ink on lime fill */
+/* Inline links in marketing main: accent color; underlines come from scoped blog/post styles only */
 .marketing-main a:not(.wind-decor-btn) {
   color: var(--brand-accent-ink);
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .marketing-main a:not(.wind-decor-btn):hover {
@@ -113,4 +114,14 @@ body.marketing-body {
 .skip-link:focus {
   left: 0.5rem;
   top: 0.5rem;
+}
+
+/* Global link reset (matches brand-tokens) */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
 }

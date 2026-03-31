@@ -16,8 +16,9 @@ function dropImagePath(slug: string) {
 }
 
 function photoUrl(member: TeamMember, size: number) {
-  if (!member.photo) return null;
-  return urlFor(member.photo).width(size).height(size).fit('crop').url();
+  const p = member.photo as { asset?: { _ref?: string; _id?: string } | null } | null;
+  if (!p?.asset) return null;
+  return urlFor(member.photo!).width(size).height(size).fit('crop').auto('format').url();
 }
 ---
 

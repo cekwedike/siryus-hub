@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WindDecorButton from '../../components/WindDecorButton.astro';
+import IndibaProjectBodyFallback from '../../components/IndibaProjectBodyFallback.astro';
 import '../../styles/blog.css';
 import '../../styles/project-detail.css';
 import type { SanityImageSource } from '@sanity/image-url';
@@ -59,6 +60,15 @@ if (project.coverImage) {
     ogImagePath = '/images/og-default.png';
   }
 }
+
+function isLongDescriptionEmpty(blocks: ProjectDetail['longDescription']): boolean {
+  if (blocks == null) return true;
+  if (Array.isArray(blocks) && blocks.length === 0) return true;
+  return false;
+}
+
+const useIndibaBodyFallback =
+  project.slug.current === 'indiba-project-series' && isLongDescriptionEmpty(project.longDescription);
 
 const bodyHtmlFromLong = portableTextToBlogHtml(project.longDescription ?? []);
 const aboutHtml =
@@ -177,8 +187,14 @@ if (project.coverImage) {
 
     <section class="project-detail-about project-detail-bleed blog-post-body-wrap" aria-labelledby="about-heading">
       <div class="project-detail-about__inner">
-        <h2 id="about-heading" class="project-detail-about__heading">About this project</h2>
-        <div class="blog-post-body" set:html={aboutHtml} />
+        <h2 id="about-heading" class="project-detail-about__heading">About The Project</h2>
+        {useIndibaBodyFallback ? (
+          <IndibaProjectBodyFallback />
+        ) : (
+          <div class="project-body">
+            <div class="blog-post-body" set:html={aboutHtml} />
+          </div>
+        )}
       </div>
     </section>
 
