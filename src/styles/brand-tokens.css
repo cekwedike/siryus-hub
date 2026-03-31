@@ -174,7 +174,8 @@ body.light-theme {
     font-size: clamp(1.5rem, 5vw, 2rem);
   }
 
-  .marketing-main h2 {
+  /* Project detail pages set their own h2 scale (accent headings, body copy) */
+  .marketing-main:not(:has(.project-detail-page)) h2 {
     font-size: clamp(1.25rem, 4vw, 1.65rem);
   }
 

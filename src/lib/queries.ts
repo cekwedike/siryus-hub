@@ -258,7 +258,8 @@ const projectListFields = `
 
 /** Dereferenced image shape from getProjectBySlug (direct CDN URLs for hero and gallery). */
 export interface ProjectSanityImageDeref {
-  asset?: { _id: string; url?: string } | null
+  _key?: string
+  asset?: { _id?: string; _ref?: string; url?: string } | null
   alt?: string | null
 }
 
@@ -271,6 +272,7 @@ const projectBySlugQuery = `*[_type == "project" && slug.current == $slug][0] {
   coverImage {
     asset->{
       _id,
+      _ref,
       url
     },
     alt
@@ -284,8 +286,10 @@ const projectBySlugQuery = `*[_type == "project" && slug.current == $slug][0] {
   projectType,
   longDescription,
   galleryImages[] {
+    _key,
     asset->{
       _id,
+      _ref,
       url
     },
     alt

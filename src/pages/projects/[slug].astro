@@ -5,7 +5,7 @@ import IndibaProjectBodyFallback from '../../components/IndibaProjectBodyFallbac
 import '../../styles/blog.css';
 import '../../styles/project-detail.css';
 import type { SanityImageSource } from '@sanity/image-url';
-import { urlFor } from '../../lib/sanity';
+import { imageUrlFromProjectImage, urlFor } from '../../lib/sanity';
 import {
   getAllProjects,
   getProjectBySlug,
@@ -60,15 +60,20 @@ const pageDescription = projectMetaDescription(project);
 
 function coverAssetUrl(cover: ProjectDetail['coverImage']): string | null {
   if (!cover || typeof cover !== 'object') return null;
-  if ('asset' in cover && cover.asset && typeof cover.asset === 'object' && 'url' in cover.asset) {
-    const u = (cover.asset as { url?: string }).url;
-    if (typeof u === 'string' && u.length > 0) return u;
-  }
-  return null;
+  return imageUrlFromProjectImage(cover as { asset?: { url?: string; _id?: string; _ref?: string } | null }, 1920, 1080);
+}
+
+function galleryItemSrc(img: ProjectSanityImageDeref): string | null {
+  return imageUrlFromProjectImage(img, 1920);
 }
 
 let ogImagePath = '/images/og-default.png';
-const ogDirect = coverAssetUrl(project.coverImage);
+const ogDirect =
+  imageUrlFromProjectImage(
+    project.coverImage as { asset?: { url?: string; _id?: string; _ref?: string } | null } | null,
+    1200,
+    630
+  ) ?? null;
 if (ogDirect) {
   ogImagePath = ogDirect;
 } else if (project.coverImage) {
@@ -138,8 +143,11 @@ const creativeWorkSchema: Record<string, unknown> = {
 if (project.coverImage) {
   try {
     const schemaImg =
-      coverAssetUrl(project.coverImage) ??
-      urlFor(project.coverImage as SanityImageSource).width(1200).height(630).url();
+      imageUrlFromProjectImage(
+        project.coverImage as { asset?: { url?: string; _id?: string; _ref?: string } | null },
+        1200,
+        630
+      ) ?? urlFor(project.coverImage as SanityImageSource).width(1200).height(630).url();
     creativeWorkSchema.image = schemaImg;
   } catch {
     /* omit */
@@ -216,14 +224,14 @@ if (project.coverImage) {
     {
       project.galleryImages &&
       project.galleryImages.length > 0 &&
-      project.galleryImages.some((img) => img.asset?.url) ? (
+      project.galleryImages.some((img) => galleryItemSrc(img)) ? (
         <section class="project-gallery project-detail-bleed" aria-labelledby="gallery-heading">
           <h2 id="gallery-heading" class="project-section-heading">
             Project Gallery
           </h2>
           <div class="project-gallery__grid">
             {project.galleryImages.map((img: ProjectSanityImageDeref) => {
-              const src = img.asset?.url;
+              const src = galleryItemSrc(img);
               if (!src) return null;
               const alt =
                 typeof img.alt === 'string' && img.alt.trim().length > 0
