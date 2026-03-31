@@ -6,7 +6,13 @@ import '../../styles/blog.css';
 import '../../styles/project-detail.css';
 import type { SanityImageSource } from '@sanity/image-url';
 import { urlFor } from '../../lib/sanity';
-import { getAllProjects, getProjectBySlug, type ProjectDetail, type ProjectSummary } from '../../lib/queries';
+import {
+  getAllProjects,
+  getProjectBySlug,
+  type ProjectDetail,
+  type ProjectSanityImageDeref,
+  type ProjectSummary,
+} from '../../lib/queries';
 import { FALLBACK_PROJECTS, projectMetaDescription } from '../../lib/projectFallbacks';
 import { portableTextToBlogHtml } from '../../lib/portableTextHtml';
 
@@ -52,10 +58,22 @@ const canonicalUrl = `https://www.siryushub.com/projects/${project.slug.current}
 const pageTitle = `${project.title} | Siryus Creative Media`;
 const pageDescription = projectMetaDescription(project);
 
+function coverAssetUrl(cover: ProjectDetail['coverImage']): string | null {
+  if (!cover || typeof cover !== 'object') return null;
+  if ('asset' in cover && cover.asset && typeof cover.asset === 'object' && 'url' in cover.asset) {
+    const u = (cover.asset as { url?: string }).url;
+    if (typeof u === 'string' && u.length > 0) return u;
+  }
+  return null;
+}
+
 let ogImagePath = '/images/og-default.png';
-if (project.coverImage) {
+const ogDirect = coverAssetUrl(project.coverImage);
+if (ogDirect) {
+  ogImagePath = ogDirect;
+} else if (project.coverImage) {
   try {
-    ogImagePath = urlFor(project.coverImage).width(1200).height(630).url();
+    ogImagePath = urlFor(project.coverImage as SanityImageSource).width(1200).height(630).url();
   } catch {
     ogImagePath = '/images/og-default.png';
   }
@@ -75,9 +93,12 @@ const aboutHtml =
   bodyHtmlFromLong.trim().length > 0 ? bodyHtmlFromLong : plainDescriptionToHtml(project.description);
 
 let heroBgStyle = '';
-if (project.coverImage) {
+const heroDirect = coverAssetUrl(project.coverImage);
+if (heroDirect) {
+  heroBgStyle = `background-image:url(${heroDirect})`;
+} else if (project.coverImage) {
   try {
-    heroBgStyle = `background-image:url(${urlFor(project.coverImage).width(1920).height(1080).fit('crop').auto('format').url()})`;
+    heroBgStyle = `background-image:url(${urlFor(project.coverImage as SanityImageSource).width(1920).height(1080).fit('crop').auto('format').url()})`;
   } catch {
     heroBgStyle = '';
   }
@@ -93,15 +114,6 @@ const closedMsg =
 const poolAll = await getAllProjects();
 const pool: ProjectSummary[] = poolAll.length > 0 ? poolAll : FALLBACK_PROJECTS;
 const related = pool.filter((p) => p.slug.current !== project.slug.current).slice(0, 2);
-
-function galleryUrl(img: unknown, w: number, h: number): string | null {
-  if (!img || typeof img !== 'object') return null;
-  try {
-    return urlFor(img as SanityImageSource).width(w).height(h).fit('crop').auto('format').url();
-  } catch {
-    return null;
-  }
-}
 
 function relatedCover(p: ProjectSummary): string | null {
   if (!p.coverImage) return null;
@@ -125,7 +137,10 @@ const creativeWorkSchema: Record<string, unknown> = {
 };
 if (project.coverImage) {
   try {
-    creativeWorkSchema.image = urlFor(project.coverImage).width(1200).height(630).url();
+    const schemaImg =
+      coverAssetUrl(project.coverImage) ??
+      urlFor(project.coverImage as SanityImageSource).width(1200).height(630).url();
+    creativeWorkSchema.image = schemaImg;
   } catch {
     /* omit */
   }
@@ -199,21 +214,31 @@ if (project.coverImage) {
     </section>
 
     {
-      Array.isArray(project.galleryImages) && project.galleryImages.length > 0 ? (
-        <section class="project-detail-gallery project-detail-bleed" aria-labelledby="gallery-heading">
-          <h2 id="gallery-heading" class="visually-hidden">Project gallery</h2>
-          <div class="project-detail-gallery__grid">
-            {project.galleryImages.map((img) => {
-              const src = galleryUrl(img, 960, 540);
+      project.galleryImages &&
+      project.galleryImages.length > 0 &&
+      project.galleryImages.some((img) => img.asset?.url) ? (
+        <section class="project-gallery project-detail-bleed" aria-labelledby="gallery-heading">
+          <h2 id="gallery-heading" class="project-section-heading">
+            Project Gallery
+          </h2>
+          <div class="project-gallery__grid">
+            {project.galleryImages.map((img: ProjectSanityImageDeref) => {
+              const src = img.asset?.url;
               if (!src) return null;
               const alt =
-                typeof (img as { alt?: string })?.alt === 'string'
-                  ? (img as { alt: string }).alt.trim()
-                  : `Gallery image for ${project.title}`;
+                typeof img.alt === 'string' && img.alt.trim().length > 0
+                  ? img.alt.trim()
+                  : project.title;
               return (
-                <figure class="project-detail-gallery__figure">
-                  <img src={src} alt={alt} width="960" height="540" loading="lazy" decoding="async" />
-                </figure>
+                <div class="project-gallery__item">
+                  <img
+                    src={src}
+                    alt={alt}
+                    class="project-gallery__img"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
               );
             })}
           </div>

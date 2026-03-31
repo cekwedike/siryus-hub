@@ -256,16 +256,50 @@ const projectListFields = `
   registrationClosedText
 `
 
-const projectFullFields = `
-  ${projectListFields},
+/** Dereferenced image shape from getProjectBySlug (direct CDN URLs for hero and gallery). */
+export interface ProjectSanityImageDeref {
+  asset?: { _id: string; url?: string } | null
+  alt?: string | null
+}
+
+const projectBySlugQuery = `*[_type == "project" && slug.current == $slug][0] {
+  _id,
+  title,
+  slug,
+  category,
+  description,
+  coverImage {
+    asset->{
+      _id,
+      url
+    },
+    alt
+  },
+  tags,
+  year,
+  status,
+  artist,
+  featured,
+  excerpt,
+  projectType,
+  longDescription,
+  galleryImages[] {
+    asset->{
+      _id,
+      url
+    },
+    alt
+  },
+  registrationOpen,
+  registrationUrl,
+  registrationButtonText,
+  registrationClosedText,
   publishedAt
-`
+}`
 
 const allProjectsQuery = `*[_type == "project"] | order(year desc, publishedAt desc) { ${projectListFields} }`
 
 const featuredProjectsQuery = `*[_type == "project" && featured == true] | order(year desc, publishedAt desc) [0...3] { ${projectListFields} }`
-
-const projectBySlugQuery = `*[_type == "project" && slug.current == $slug][0] { ${projectFullFields} }`
 
 export interface ProjectSummary {
   _id: string
@@ -289,8 +323,10 @@ export interface ProjectSummary {
   registrationClosedText: string | null
 }
 
-export interface ProjectDetail extends ProjectSummary {
+export interface ProjectDetail extends Omit<ProjectSummary, 'coverImage' | 'galleryImages'> {
   publishedAt: string | null
+  coverImage: SanityImageSource | ProjectSanityImageDeref | null
+  galleryImages: ProjectSanityImageDeref[] | null
 }
 
 export async function getAllProjects(): Promise<ProjectSummary[]> {
