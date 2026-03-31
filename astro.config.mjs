@@ -32,6 +32,7 @@ export default defineConfig({
         'https://www.siryushub.com/projects',
         'https://www.siryushub.com/contact',
         'https://www.siryushub.com/faq',
+        'https://www.siryushub.com/indiba-project-series',
       ],
     }),
   ],
