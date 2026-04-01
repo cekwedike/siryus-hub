@@ -105,6 +105,8 @@ export default defineType({
                     name: 'href',
                     type: 'url',
                     title: 'URL',
+                    description:
+                      'Always include the full URL with https:// for external links. Example: https://www.instagram.com/siryus.am not instagram.com/siryus.am',
                     validation: (Rule) =>
                       Rule.uri({
                         allowRelative: true,

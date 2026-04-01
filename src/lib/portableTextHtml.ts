@@ -10,6 +10,16 @@ export function portableTextToBlogHtml(blocks: PortableTextBlock[] | null | unde
   if (!blocks?.length) return ''
   return toHTML(blocks, {
     components: {
+      marks: {
+        link: ({ children, value }) => {
+          const href = typeof value?.href === 'string' ? escapeAttr(value.href) : ''
+          const isExternal = value?.href?.startsWith('http')
+          if (isExternal) {
+            return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="blog-link blog-link--external">${children}</a>`
+          }
+          return `<a href="${href}" class="blog-link">${children}</a>`
+        },
+      },
       types: {
         image: ({ value }) => {
           if (!value?.asset) return ''
