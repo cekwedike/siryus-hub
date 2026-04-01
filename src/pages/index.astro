@@ -122,7 +122,18 @@ import '../styles/morphism.css';
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&family=Unbounded:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&family=Unbounded:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </noscript>
 
   <script
     is:inline
@@ -451,21 +462,24 @@ import '../styles/morphism.css';
       });
     }
 
-    // Active Nav Link
+    // Active Nav Link — cache layout values to avoid forced reflow on scroll
+    type SectionData = { top: number; bottom: number; id: string | null };
+    let sectionCache: SectionData[] = [];
+
+    function cacheSectionPositions() {
+      sectionCache = Array.from(document.querySelectorAll('section[id]')).map(section => {
+        const el = section as HTMLElement;
+        return { top: el.offsetTop, bottom: el.offsetTop + el.offsetHeight, id: el.getAttribute('id') };
+      });
+    }
+
     function updateActiveNavLink() {
-      const sections = document.querySelectorAll('section[id]');
       const scrollY = window.scrollY + 100;
-
-      sections.forEach(section => {
-        const sectionTop = (section as HTMLElement).offsetTop;
-        const sectionHeight = (section as HTMLElement).offsetHeight;
-        const sectionId = section.getAttribute('id');
-
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-          // Update sidebar menu items if needed
+      sectionCache.forEach(({ top, bottom, id }) => {
+        if (scrollY >= top && scrollY < bottom) {
           document.querySelectorAll('.menu-item').forEach(item => {
             const link = item.querySelector('a');
-            if (link && link.getAttribute('href') === `#${sectionId}`) {
+            if (link && link.getAttribute('href') === `#${id}`) {
               item.classList.add('active');
             } else {
               item.classList.remove('active');
@@ -517,12 +531,8 @@ import '../styles/morphism.css';
       initSectionAnimations();
       initNewsletterForm();
 
-      // Update active nav on scroll
-      window.addEventListener('scroll', () => {
-        updateActiveNavLink();
-      });
-
-      // Initial call
+      cacheSectionPositions();
+      window.addEventListener('scroll', updateActiveNavLink, { passive: true });
       updateActiveNavLink();
     }
 
@@ -533,18 +543,18 @@ import '../styles/morphism.css';
       init();
     }
 
-    // Handle resize
+    // Handle resize — re-cache layout values, reset parallax
     let resizeTimer: ReturnType<typeof globalThis.setTimeout> | undefined;
     window.addEventListener('resize', () => {
       if (resizeTimer !== undefined) globalThis.clearTimeout(resizeTimer);
       resizeTimer = globalThis.setTimeout(() => {
-        // Re-calculate parallax positions
+        cacheSectionPositions();
         const parallaxElements = document.querySelectorAll('[class*="parallax-"]');
         parallaxElements.forEach(element => {
           (element as HTMLElement).style.transform = 'translateY(0)';
         });
       }, 250);
-    });
+    }, { passive: true });
   </script>
 
   <ThemeToggle />

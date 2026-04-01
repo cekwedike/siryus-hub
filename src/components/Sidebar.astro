@@ -7,6 +7,7 @@ import WindDecorButton from './WindDecorButton.astro';
   class="sidebar"
   aria-label="Site menu"
   aria-hidden="true"
+  inert
 >
   <div
     class="sidebar-overlay"
@@ -476,6 +477,7 @@ import WindDecorButton from './WindDecorButton.astro';
     if (!sidebar) return;
     sidebar.classList.add('is-open');
     sidebar.setAttribute('aria-hidden', 'false');
+    sidebar.removeAttribute('inert');
     hamburger?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   }
@@ -484,6 +486,7 @@ import WindDecorButton from './WindDecorButton.astro';
     if (!sidebar) return;
     sidebar.classList.remove('is-open');
     sidebar.setAttribute('aria-hidden', 'true');
+    sidebar.setAttribute('inert', '');
     hamburger?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }

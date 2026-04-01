@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&display=swap');
 @import './wind-decor-button.css';
 
 :root {
@@ -12,8 +11,8 @@
 
   /* Text */
   --brand-text: #f5f9e9;
-  --brand-text-muted: #8b9098;
-  --brand-text-faint: #4a4e55;
+  --brand-text-muted: #a8adb4;
+  --brand-text-faint: #6b7280;
   --brand-muted: var(--brand-text-muted);
 
   /* Accent */
@@ -103,7 +102,7 @@
   --color-background: #050505;
   --color-elevated: #323836;
   --color-text-primary: #f5f9e9;
-  --color-text-muted: #949ba0;
+  --color-text-muted: #a8adb4;
   --font-family: var(--font-body);
   --space-xs: 4px;
   --space-sm: 8px;
