@@ -175,7 +175,8 @@ function photoUrl(member: TeamMember, size: number) {
                                 alt={member.name}
                                 width="400"
                                 height="400"
-                                loading="lazy"
+                                loading="eager"
+                                fetchpriority="high"
                                 decoding="async"
                               />
                               <div class="founder-photo__placeholder" aria-hidden="true">
@@ -798,20 +799,18 @@ function photoUrl(member: TeamMember, size: number) {
     border: 1px solid var(--brand-surface-border);
   }
 
+  /* display:block so the image actually loads (display:none + lazy broke load/has-loaded) */
   .founder-photo__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: none;
-  }
-
-  .founder-photo.has-loaded .founder-photo__img {
     display: block;
   }
 
   .founder-photo__placeholder {
     position: absolute;
     inset: 0;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;

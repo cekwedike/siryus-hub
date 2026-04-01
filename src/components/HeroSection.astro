@@ -29,7 +29,7 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
   aria-labelledby="hero-heading"
 >
   <div
-    class="hero-carousel hero-spline"
+    class="hero-carousel"
     data-hero-carousel
     aria-hidden="true"
   >
@@ -273,14 +273,19 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
 
   @media (max-width: 768px) {
     .hero-carousel {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      left: 0;
-      right: auto;
-      opacity: 0.88;
+      height: 100%;
+      max-width: none;
+      z-index: 1;
+      -webkit-mask-image: none;
+      mask-image: none;
     }
 
     :global(body.light-theme) .hero-carousel {
-      opacity: 0.93;
+      -webkit-mask-image: none;
+      mask-image: none;
     }
   }
 
@@ -594,7 +599,6 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
       min-height: auto;
     }
 
-    .hero-carousel,
     .hero-spline {
       display: none;
     }
@@ -610,10 +614,21 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
 
     .hero-overlay {
       background: linear-gradient(
-        180deg,
-        rgba(5, 5, 5, 0.97) 0%,
-        rgba(5, 5, 5, 0.92) 45%,
-        rgba(5, 5, 5, 0.88) 100%
+        to top,
+        rgba(5, 5, 5, 0.95) 0%,
+        rgba(5, 5, 5, 0.8) 40%,
+        rgba(5, 5, 5, 0.4) 70%,
+        transparent 100%
+      );
+    }
+
+    :global(body.light-theme) .hero-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(252, 251, 248, 0.99) 0%,
+        rgba(252, 251, 248, 0.9) 40%,
+        rgba(252, 251, 248, 0.55) 70%,
+        transparent 100%
       );
     }
 
