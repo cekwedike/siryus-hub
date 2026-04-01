@@ -998,6 +998,15 @@
   width: 60%;
 }
 
+.blog-divider--dotted {
+  border-top: 2px dotted rgba(209, 223, 75, 0.3);
+}
+
+.blog-divider--wide {
+  width: 100%;
+  border-top: 1px solid rgba(209, 223, 75, 0.15);
+}
+
 .blog-post-body p {
   margin-bottom: var(--space-5);
 }

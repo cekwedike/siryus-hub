@@ -17,7 +17,11 @@ export function portableTextToBlogHtml(blocks: PortableTextBlock[] | null | unde
           const alt = typeof value.alt === 'string' ? value.alt : ''
           return `<figure class="blog-post-body__figure"><img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" loading="lazy" decoding="async" width="900" /></figure>`
         },
-        divider: () => '<hr class="blog-divider" />',
+        divider: ({ value }) => {
+          if (value?.style === 'dotted') return '<hr class="blog-divider blog-divider--dotted" />'
+          if (value?.style === 'wide') return '<hr class="blog-divider blog-divider--wide" />'
+          return '<hr class="blog-divider" />'
+        },
       },
     },
   })

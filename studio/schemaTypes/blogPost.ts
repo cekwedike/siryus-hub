@@ -138,6 +138,13 @@ export default defineType({
               type: 'string',
               title: 'Style',
               initialValue: 'line',
+              options: {
+                list: [
+                  { title: 'Line', value: 'line' },
+                  { title: 'Dotted', value: 'dotted' },
+                  { title: 'Wide', value: 'wide' },
+                ],
+              },
             },
           ],
           preview: {
