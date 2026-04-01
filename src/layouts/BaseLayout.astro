@@ -132,8 +132,63 @@ const finalSchema = schema || organizationSchema;
       type="application/ld+json"
       set:html={JSON.stringify(finalSchema)}
     />
+
+    <!-- Google Tag Manager -->
+    <script is:inline
+      >(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PK8BC3TV');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google Analytics -->
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-H882NL8BE3"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-H882NL8BE3');
+    </script>
+    <!-- End Google Analytics -->
+
+    <!-- Microsoft Clarity -->
+    <script is:inline type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;
+        t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t,y);
+      })(window,document,"clarity","script","uix15dy0m8");
+    </script>
+    <!-- End Microsoft Clarity -->
+
+    <!-- Google AdSense -->
+    <script
+      is:inline
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3731681794344166"
+      crossorigin="anonymous"
+    ></script>
+    <!-- End Google AdSense -->
   </head>
   <body class="marketing-body" style="width: 100%; box-sizing: border-box;">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PK8BC3TV"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <Sidebar />
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <SimpleSiteNav />
