@@ -19,7 +19,6 @@ export default defineConfig({
       lastmod: new Date(),
       customPages: [
         'https://www.siryushub.com/',
-        'https://www.siryushub.com/home',
         'https://www.siryushub.com/about',
         'https://www.siryushub.com/services',
         'https://www.siryushub.com/siryus-am',
