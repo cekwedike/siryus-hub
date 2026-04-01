@@ -4,7 +4,7 @@ import vercel from '@astrojs/vercel'
 
 export default defineConfig({
   site: 'https://www.siryushub.com',
-  output: 'static',
+  output: 'hybrid',
   adapter: vercel(),
   integrations: [
     sitemap({
