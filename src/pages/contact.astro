@@ -1,4 +1,13 @@
 ---
+// FORMSPREE SETUP:
+// 1. Go to formspree.io and create a free account
+// 2. Click New Form
+// 3. Name it: Siryus Hub Contact
+// 4. Set the email to: management@siryushub.com
+// 5. Copy your form endpoint, it looks like:
+//    https://formspree.io/f/xyzabcde
+// 6. Replace FORMSPREE_ENDPOINT below with
+//    your actual endpoint URL
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WindDecorButton from '../components/WindDecorButton.astro';
 ---
@@ -25,7 +34,23 @@ import WindDecorButton from '../components/WindDecorButton.astro';
           <h2 id="contact-form-heading" class="contact-form__title">Send Us a Message</h2>
 
           <div id="contact-form-panel" class="contact-form-panel">
-            <form id="contact-form" class="contact-form morph-neu-stack" novalidate>
+            <form
+              id="contactForm"
+              action="https://formspree.io/f/xbdpynod"
+              method="POST"
+              class="contact-form"
+            >
+              <input
+                type="hidden"
+                name="_subject"
+                value="New enquiry from Siryus Hub"
+              />
+
+              <input
+                type="text"
+                name="_gotcha"
+                style="display:none"
+              />
               <label class="contact-field">
                 <span class="contact-field__label">Your name</span>
                 <input
@@ -98,20 +123,14 @@ import WindDecorButton from '../components/WindDecorButton.astro';
                 </select>
               </label>
 
-              <WindDecorButton type="submit" class="contact-form__submit">
+              <WindDecorButton id="submitBtn" type="submit" class="contact-form__submit">
                 Send Message
               </WindDecorButton>
-            </form>
-          </div>
 
-          <div id="contact-success" class="contact-success morph-neu-stack" hidden>
-            <div class="contact-success__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-            </div>
-            <p class="contact-success__text">Your message landed. We will get back to you within 48 hours.</p>
+              <p id="formSuccess" class="form-success" role="status">
+                Your message landed. We will get back to you within 48 hours.
+              </p>
+            </form>
           </div>
         </div>
 
@@ -383,23 +402,16 @@ import WindDecorButton from '../components/WindDecorButton.astro';
     box-shadow: 0 10px 28px rgba(209, 223, 75, 0.35);
   }
 
-  .contact-success {
-    text-align: center;
-    padding: var(--space-10) var(--space-6);
-  }
-
-  .contact-success__icon {
-    color: var(--brand-accent);
-    display: flex;
-    justify-content: center;
-    margin-bottom: var(--space-5);
-  }
-
-  .contact-success__text {
-    font-size: var(--text-lg);
-    line-height: 1.55;
-    color: var(--brand-text);
-    margin: 0;
+  .form-success {
+    display: none;
+    background: rgba(75, 223, 122, 0.1);
+    border: 1px solid rgba(75, 223, 122, 0.3);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    color: var(--brand-success);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-top: var(--space-4);
   }
 
   .contact-split__aside {
@@ -603,8 +615,7 @@ import WindDecorButton from '../components/WindDecorButton.astro';
     color: #0a0a0a;
   }
 
-  :global(body.light-theme) .contact-form.morph-neu-stack,
-  :global(body.light-theme) .contact-success.morph-neu-stack {
+  :global(body.light-theme) .contact-form.morph-neu-stack {
     background: #f5f6f3;
     border: 1px solid rgba(27, 27, 30, 0.08);
     box-shadow:
@@ -720,20 +731,60 @@ import WindDecorButton from '../components/WindDecorButton.astro';
 </style>
 
 <script>
-  // TODO: Connect to form backend or Netlify Forms
-  const form = document.getElementById('contact-form');
-  const formPanel = document.getElementById('contact-form-panel');
-  const success = document.getElementById('contact-success');
+  const form = document.getElementById('contactForm');
+  const successMsg = document.getElementById('formSuccess');
+  const submitBtn = document.getElementById('submitBtn');
+  const submitLabel = submitBtn?.querySelector('.wind-decor-btn__label');
 
-  form?.addEventListener('submit', (e) => {
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!(form instanceof HTMLFormElement)) return;
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
-    formPanel?.setAttribute('hidden', '');
-    success?.removeAttribute('hidden');
+
+    const formData = new FormData(form);
+    const action = form.action;
+
+    if (submitBtn instanceof HTMLButtonElement) {
+      submitBtn.disabled = true;
+    }
+    if (submitLabel) {
+      submitLabel.textContent = 'Sending...';
+    }
+
+    try {
+      const response = await fetch(action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        if (successMsg) {
+          successMsg.style.display = 'block';
+        }
+        form.reset();
+        if (submitLabel) {
+          submitLabel.textContent = 'Send Message';
+        }
+        if (submitBtn instanceof HTMLButtonElement) {
+          submitBtn.disabled = false;
+        }
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      if (submitLabel) {
+        submitLabel.textContent = 'Something went wrong. Try again.';
+      }
+      if (submitBtn instanceof HTMLButtonElement) {
+        submitBtn.disabled = false;
+      }
+    }
   });
 
   /* FAQ accordion: smooth max-height via CSS, no external libraries */

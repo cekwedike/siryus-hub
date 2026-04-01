@@ -286,7 +286,12 @@ import WindDecorButton from './WindDecorButton.astro';
           New releases, creative resources, and updates from the
           Siryus world. No spam.
         </p>
-        <form class="footer-newsletter__form" id="footerNewsletterForm">
+        <form
+          id="footerNewsletterForm"
+          action="https://formspree.io/f/xaqljrjb"
+          method="POST"
+          class="footer-newsletter__form"
+        >
           <label for="footerEmail" class="sr-only">
             Your email address
           </label>
@@ -762,7 +767,7 @@ import WindDecorButton from './WindDecorButton.astro';
   const form = document.getElementById('footerNewsletterForm');
   const success = document.getElementById('newsletterSuccess');
 
-  form?.addEventListener('submit', (e) => {
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const emailInput = document.getElementById('footerEmail');
     if (!(emailInput instanceof HTMLInputElement)) return;
@@ -770,18 +775,19 @@ import WindDecorButton from './WindDecorButton.astro';
       emailInput.reportValidity();
       return;
     }
-    const addr = emailInput.value.trim();
-    const subject = encodeURIComponent('Newsletter signup');
-    const body = encodeURIComponent(
-      'Please add this address to the Siryus newsletter list: ' + addr
-    );
-    window.location.href =
-      'mailto:management@siryushub.com?subject=' + subject + '&body=' + body;
-    if (success) {
-      success.classList.add('is-visible');
-    }
-    if (form instanceof HTMLFormElement) {
-      form.reset();
+    if (!(form instanceof HTMLFormElement)) return;
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (response.ok) {
+        success?.classList.add('is-visible');
+        form.reset();
+      }
+    } catch {
+      /* ignore */
     }
   });
 
