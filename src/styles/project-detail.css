@@ -254,6 +254,19 @@ body.light-theme .project-detail-reg--closed {
   font-style: italic;
 }
 
+body.light-theme .marketing-main .project-detail-page .project-body em,
+body.light-theme .marketing-main .blog-page .project-body em {
+  color: #3d4700;
+}
+
+body.light-theme .marketing-main .blog-page .project-body a {
+  color: #3d4700;
+}
+
+body.light-theme .marketing-main .blog-page .project-body a:hover {
+  color: #4f5c12;
+}
+
 .marketing-main .project-detail-page .project-body ul,
 .marketing-main .project-detail-page .project-body ol,
 .marketing-main .blog-page .project-body ul,
