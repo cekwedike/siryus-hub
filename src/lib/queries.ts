@@ -25,6 +25,7 @@ export interface BlogPostDetail extends BlogPostSummary {
   seoDescription: string | null
 }
 
+/** Resolves CDN URLs and keeps hotspot/crop for image-url builder. */
 const listFields = `
   _id,
   title,
@@ -32,7 +33,18 @@ const listFields = `
   author,
   publishedAt,
   excerpt,
-  coverImage,
+  coverImage {
+    _type,
+    hotspot,
+    crop,
+    alt,
+    asset->{
+      _id,
+      _type,
+      _ref,
+      url
+    }
+  },
   category,
   featured
 `

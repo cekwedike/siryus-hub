@@ -1,17 +1,8 @@
 ---
 import type { SanityImageSource } from '@sanity/image-url'
 import WindDecorButton from './WindDecorButton.astro'
-import { sanityClient, urlFor } from '../lib/sanity'
-
-type BlogCard = {
-  title: string
-  slug: { current: string }
-  excerpt: string
-  publishedAt: string
-  author: string
-  coverImage: SanityImageSource | null
-  category: string | null
-}
+import { sanityClient, urlFor, blogCoverImageUrl } from '../lib/sanity'
+import { getAllPosts } from '../lib/queries'
 
 type ArtistCard = {
   name: string
@@ -29,16 +20,6 @@ type ProjectCard = {
   category: string
   status: string
 }
-
-const latestBlogQuery = `*[_type == "blogPost"] | order(publishedAt desc) [0] {
-  title,
-  slug,
-  excerpt,
-  publishedAt,
-  author,
-  coverImage,
-  category
-}`
 
 const featuredArtistQuery = `*[_type == "artist" && active == true && featured == true] | order(coalesce(order, 999) asc, name asc) [0] {
   name,
@@ -69,7 +50,7 @@ async function safeFetch<T>(query: string): Promise<T | null> {
   }
 }
 
-const latestBlog = await safeFetch<BlogCard>(latestBlogQuery)
+const latestBlog = (await getAllPosts())[0] ?? null
 const featuredArtist = await safeFetch<ArtistCard>(featuredArtistQuery)
 const latestProject = await safeFetch<ProjectCard>(latestInitiativeQuery)
 
@@ -121,14 +102,7 @@ const artistDisplay = featuredArtist
       photo: null as SanityImageSource | null,
     }
 
-let blogCoverUrl: string | null = null
-if (latestBlog?.coverImage) {
-  try {
-    blogCoverUrl = urlFor(latestBlog.coverImage).width(960).height(420).fit('crop').auto('format').url()
-  } catch {
-    blogCoverUrl = null
-  }
-}
+const blogCoverUrl = blogCoverImageUrl(latestBlog?.coverImage ?? null, 960, 420)
 
 let artistPhotoUrl: string | null = null
 if (artistDisplay.photo) {
@@ -234,7 +208,7 @@ const blogMetaLine = latestBlog
               'Most artists treat marketing as an afterthought. The ones who break through treat it like part of the music.'}
           </p>
           <a
-            href={latestBlog ? `/blog/${latestBlog.slug.current}` : '/blog'}
+            href={latestBlog?.slug?.current ? `/blog/${latestBlog.slug.current}` : '/blog'}
             class="latest-card__link"
           >
             Read on the blog

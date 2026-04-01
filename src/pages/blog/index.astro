@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/blog.css';
-import { urlFor } from '../../lib/sanity';
+import { blogCoverImageUrl } from '../../lib/sanity';
 import { getAllPosts, getFeaturedPosts } from '../../lib/queries';
 
 const pageTitle = 'Blog - Creative Industry Insights';
@@ -41,12 +41,7 @@ function readMinutesFromExcerpt(excerpt: string) {
 }
 
 function coverSrc(post: (typeof allPosts)[0]) {
-  if (!post.coverImage) return null;
-  try {
-    return urlFor(post.coverImage).width(800).height(500).url();
-  } catch {
-    return null;
-  }
+  return blogCoverImageUrl(post.coverImage, 800, 500);
 }
 ---
 
@@ -67,7 +62,7 @@ function coverSrc(post: (typeof allPosts)[0]) {
       </div>
       <div class="blog-hero__glow" aria-hidden="true"></div>
       <div class="blog-inner blog-hero__shell">
-        <div class="morph-hero-glass-panel" style="max-width: 42rem;">
+        <div class="morph-hero-glass-panel blog-hero__glass" style="max-width: 50rem;">
           <div class="blog-hero__inner" style="padding: 2rem 1.75rem;">
             <span class="blog-hero__label">The Blog</span>
             <h1 id="blog-hero-heading" class="blog-hero__title">Ideas Worth Sharing.</h1>
