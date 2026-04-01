@@ -123,7 +123,7 @@ const related = pool.filter((p) => p.slug.current !== project.slug.current).slic
 function relatedCover(p: ProjectSummary): string | null {
   if (!p.coverImage) return null;
   try {
-    return urlFor(p.coverImage).width(640).height(360).fit('crop').auto('format').url();
+    return urlFor(p.coverImage).width(800).height(450).fit('crop').auto('format').url();
   } catch {
     return null;
   }
@@ -249,6 +249,8 @@ if (project.coverImage) {
                         src={src}
                         alt={alt}
                         class="project-gallery__img"
+                        width="800"
+                        height="450"
                         loading="lazy"
                         decoding="async"
                       />
@@ -288,8 +290,8 @@ if (project.coverImage) {
                       <img
                         src={thumb}
                         alt={`Cover for ${p.title}`}
-                        width="640"
-                        height="360"
+                        width="800"
+                        height="450"
                         loading="lazy"
                         decoding="async"
                       />

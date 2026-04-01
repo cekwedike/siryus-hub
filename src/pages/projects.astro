@@ -46,7 +46,7 @@ const projects = fromSanity.length > 0 ? fromSanity : FALLBACK_PROJECTS;
         {
           projects.map((project) => {
             const coverUrl = project.coverImage
-              ? urlFor(project.coverImage).width(960).height(540).fit('crop').auto('format').url()
+              ? urlFor(project.coverImage).width(800).height(450).fit('crop').auto('format').url()
               : '';
             const tags = Array.isArray(project.tags) ? project.tags.filter(Boolean) : [];
             const href = `/projects/${project.slug.current}`;
@@ -58,8 +58,8 @@ const projects = fromSanity.length > 0 ? fromSanity : FALLBACK_PROJECTS;
                     class="project-card__cover"
                     src={coverUrl}
                     alt={`Cover image for ${project.title}`}
-                    width="960"
-                    height="540"
+                    width="800"
+                    height="450"
                     loading="lazy"
                     decoding="async"
                   />

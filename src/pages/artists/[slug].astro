@@ -46,7 +46,7 @@ const pageDescription = `${artist.oneLiner} Managed by SIRYUS A.M. Stream on Spo
 const canonicalUrl = `https://www.siryushub.com/artists/${slug}`;
 
 const photoUrl = artist.photo
-  ? urlFor(artist.photo).width(600).height(800).fit('crop').auto('format').url()
+  ? urlFor(artist.photo).width(400).height(600).fit('crop').auto('format').url()
   : '';
 const heroLabel = artist.managementLabel?.trim() || 'SIRYUS A.M Artist';
 
@@ -153,8 +153,8 @@ const mgmtHeadingId = `artist-mgmt-${slug}`;
                 class="artist-profile-portrait__img"
                 src={photoUrl}
                 alt={artist.name}
-                width="600"
-                height="800"
+                width="400"
+                height="600"
                 loading="eager"
                 decoding="async"
               />

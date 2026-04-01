@@ -15,6 +15,8 @@ interface Props {
   ogType?: string;
   noIndex?: boolean;
   schema?: object;
+  /** Preload URL for LCP hero image (e.g. home carousel first slide) */
+  lcpImagePreload?: string;
 }
 
 const {
@@ -25,7 +27,13 @@ const {
   ogType = 'website',
   noIndex = false,
   schema,
+  lcpImagePreload,
 } = Astro.props;
+
+const fontPreloadUnbounded =
+  'https://fonts.gstatic.com/s/unbounded/v12/Yq6F-LOTXCb04q32xlpat-6uR42XTqtG67H244rNgQ.woff2';
+const fontPreloadDmSans =
+  'https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g7M8btVsD8Ck0q7u0-K4.woff2';
 
 const pageTitle = title.includes('|')
   ? title
@@ -91,6 +99,38 @@ const finalSchema = schema || organizationSchema;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.clarity.ms" />
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+    <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
+
+    {
+      lcpImagePreload ? (
+        <link
+          rel="preload"
+          as="image"
+          href={lcpImagePreload}
+          fetchpriority="high"
+        />
+      ) : null
+    }
+
+    <link
+      rel="preload"
+      href={fontPreloadUnbounded}
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href={fontPreloadDmSans}
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
     <!-- Favicons -->
     <link
       rel="icon"
@@ -133,49 +173,18 @@ const finalSchema = schema || organizationSchema;
       set:html={JSON.stringify(finalSchema)}
     />
 
-    <!-- Google Tag Manager -->
-    <script is:inline
-      >(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PK8BC3TV');</script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Google Analytics -->
+    <!-- Google Analytics (deferred; non-blocking) -->
     <script
       is:inline
-      async
+      defer
       src="https://www.googletagmanager.com/gtag/js?id=G-H882NL8BE3"
     ></script>
-    <script is:inline>
+    <script is:inline defer>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-H882NL8BE3');
     </script>
-    <!-- End Google Analytics -->
-
-    <!-- Microsoft Clarity -->
-    <script is:inline type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;
-        t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t,y);
-      })(window,document,"clarity","script","uix15dy0m8");
-    </script>
-    <!-- End Microsoft Clarity -->
-
-    <!-- Google AdSense -->
-    <script
-      is:inline
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3731681794344166"
-      crossorigin="anonymous"
-    ></script>
-    <!-- End Google AdSense -->
   </head>
   <body class="marketing-body" style="width: 100%; box-sizing: border-box;">
     <!-- Google Tag Manager (noscript) -->
@@ -198,6 +207,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <Footer />
 
     <ThemeToggle />
+
+    <!-- Google Tag Manager -->
+    <script is:inline
+      >(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PK8BC3TV');</script>
+
+    <!-- Microsoft Clarity -->
+    <script is:inline>
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;
+        t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t,y);
+      })(window,document,"clarity","script","uix15dy0m8");
+    </script>
+
+    <!-- Google AdSense -->
+    <script
+      is:inline
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3731681794344166"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
 

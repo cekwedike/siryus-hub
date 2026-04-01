@@ -39,7 +39,7 @@ const artists = await getAllArtists();
                 const genres = Array.isArray(artist.genre) ? artist.genre.filter(Boolean) : [];
                 const genreLine = genres.length ? genres.join(' / ') : '';
                 const photoUrl = artist.photo
-                  ? urlFor(artist.photo).width(600).height(800).fit('crop').auto('format').url()
+                  ? urlFor(artist.photo).width(400).height(600).fit('crop').auto('format').url()
                   : null;
                 const alt = artist.name;
                 return (
@@ -51,8 +51,8 @@ const artists = await getAllArtists();
                             class="artists-index-card__img"
                             src={photoUrl}
                             alt={alt}
-                            width="600"
-                            height="800"
+                            width="400"
+                            height="600"
                             loading="lazy"
                             decoding="async"
                           />

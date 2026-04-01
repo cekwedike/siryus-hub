@@ -13,12 +13,13 @@ type HeroSlide = {
 };
 
 const heroSlides: HeroSlide[] = [
-  { src: '/images/hero/image-1.webp', alt: '' },
+  { src: '/images/hero/image-1.webp', alt: 'Siryus Hub creative workspace' },
   { src: '/images/hero/siryus-hub-home.webp', alt: 'Siryus Hub creative workspace scene' },
   { src: '/images/hero/siryus-violin.webp', alt: 'Violin performance at Siryus Creative Media' },
   { src: '/images/hero/jlinez.webp', alt: 'Artist Jlinez promotional photo' },
 ];
 
+const heroSlideCount = heroSlides.length;
 const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
 ---
 
@@ -34,23 +35,28 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
     aria-hidden="true"
   >
     <div class="hero-carousel__track">
-      {
-        heroSlides.map((slide, index) => (
-          <img
-            class:list={[
-              'hero-carousel__slide',
-              { 'is-active': index === 0 },
-            ]}
-            src={slide.src}
-            {...(slide.srcset ? { srcset: slide.srcset } : {})}
-            sizes={heroImgSizes}
-            alt={slide.alt}
-            loading={index === 0 ? 'eager' : 'lazy'}
-            decoding={index === 0 ? 'sync' : 'async'}
-            fetchpriority={index === 0 ? 'high' : 'low'}
-          />
-        ))
-      }
+      <div
+        class="hero-carousel__strip hero-carousel__strip--idle"
+        data-hero-strip
+        style={`width: ${heroSlideCount * 100}%; --hero-slides: ${heroSlideCount};`}
+      >
+        {
+          heroSlides.map((slide, index) => (
+            <img
+              class="hero-carousel__slide"
+              src={slide.src}
+              {...(slide.srcset ? { srcset: slide.srcset } : {})}
+              sizes={heroImgSizes}
+              alt={slide.alt}
+              width="1920"
+              height="1080"
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding={index === 0 ? 'sync' : 'async'}
+              fetchpriority={index === 0 ? 'high' : 'low'}
+            />
+          ))
+        }
+      </div>
     </div>
   </div>
 
@@ -228,18 +234,30 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
     width: 100%;
     height: 100%;
     min-height: 280px;
+    overflow: hidden;
+  }
+
+  .hero-carousel__strip {
+    display: flex;
+    height: 100%;
+    transform: translateX(0);
+    transition: transform 0.85s ease;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .hero-carousel__strip.hero-carousel__strip--idle {
+    will-change: auto;
   }
 
   .hero-carousel__slide {
-    position: absolute;
-    inset: 0;
-    width: 100%;
+    flex: 0 0 calc(100% / var(--hero-slides, 4));
+    width: calc(100% / var(--hero-slides, 4));
     height: 100%;
     max-width: none;
     object-fit: cover;
     object-position: center;
-    opacity: 0;
-    transition: opacity 0.85s ease;
     image-rendering: auto;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -249,10 +267,6 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
     .hero-carousel__slide {
       image-rendering: high-quality;
     }
-  }
-
-  .hero-carousel__slide.is-active {
-    opacity: 1;
   }
 
   /* Left-edge fade only: avoids a muddy band + right-edge vignette on light */
@@ -786,22 +800,27 @@ const heroImgSizes = '(max-width: 768px) 100vw, 65vw';
       clearTimer();
       var root = document.querySelector('[data-hero-carousel]');
       if (!root) return;
+      var strip = root.querySelector('[data-hero-strip]');
       var slides = root.querySelectorAll('.hero-carousel__slide');
-      if (slides.length < 2) return;
+      if (!strip || slides.length < 2) return;
+      var n = slides.length;
+      var pct = 100 / n;
+      strip.style.transform = 'translateX(0)';
+      strip.classList.add('hero-carousel__strip--idle');
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        slides.forEach(function (s, j) {
-          s.classList.toggle('is-active', j === 0);
-        });
         return;
       }
+      strip.ontransitionend = function (e) {
+        if (e.propertyName !== 'transform') return;
+        strip.style.willChange = 'auto';
+        strip.classList.add('hero-carousel__strip--idle');
+      };
       var i = 0;
-      slides.forEach(function (s, j) {
-        s.classList.toggle('is-active', j === 0);
-      });
       timer = setInterval(function () {
-        slides[i].classList.remove('is-active');
-        i = (i + 1) % slides.length;
-        slides[i].classList.add('is-active');
+        strip.classList.remove('hero-carousel__strip--idle');
+        strip.style.willChange = 'transform';
+        i = (i + 1) % n;
+        strip.style.transform = 'translateX(-' + i * pct + '%)';
       }, INTERVAL_MS);
     }
 

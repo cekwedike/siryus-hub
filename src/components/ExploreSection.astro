@@ -133,7 +133,7 @@ if (latestBlog?.coverImage) {
 let artistPhotoUrl: string | null = null
 if (artistDisplay.photo) {
   try {
-    artistPhotoUrl = urlFor(artistDisplay.photo).width(600).height(800).fit('crop').auto('format').url()
+    artistPhotoUrl = urlFor(artistDisplay.photo).width(400).height(600).fit('crop').auto('format').url()
   } catch {
     artistPhotoUrl = null
   }
@@ -192,6 +192,7 @@ const blogMetaLine = latestBlog
               width="960"
               height="420"
               loading="lazy"
+              decoding="async"
             />
           ) : (
             <div
@@ -264,9 +265,10 @@ const blogMetaLine = latestBlog
               class="latest-card__img"
               src={artistPhotoUrl}
               alt=""
-              width="600"
-              height="800"
+              width="400"
+              height="600"
               loading="lazy"
+              decoding="async"
             />
           ) : (
             <div
