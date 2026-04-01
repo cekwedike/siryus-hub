@@ -997,3 +997,19 @@
   margin: var(--space-8) auto;
   width: 60%;
 }
+
+.blog-post-body p {
+  margin-bottom: var(--space-5);
+}
+
+body.light-theme .blog-post-body {
+  background: transparent;
+}
+
+body.light-theme .blog-post-body p {
+  color: #2a2a2a;
+}
+
+body.light-theme .blog-post-body h2 {
+  color: #3d4700;
+}
