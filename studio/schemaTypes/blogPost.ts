@@ -128,6 +128,24 @@ export default defineType({
             }),
           ],
         },
+        {
+          type: 'object',
+          name: 'divider',
+          title: 'Divider',
+          fields: [
+            {
+              name: 'style',
+              type: 'string',
+              title: 'Style',
+              initialValue: 'line',
+            },
+          ],
+          preview: {
+            prepare() {
+              return { title: 'Divider' }
+            },
+          },
+        },
       ],
     }),
     defineField({
