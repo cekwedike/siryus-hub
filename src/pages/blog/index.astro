@@ -82,26 +82,38 @@ function coverSrc(post: (typeof allPosts)[0]) {
               Featured article
             </h2>
             <a
-              class="blog-featured morph-clay-card"
+              class="blog-featured"
               href={`/blog/${featured.slug?.current ?? ''}`}
               data-astro-prefetch
             >
-              <div class="blog-featured__media">
+              <div class="blog-featured__image-panel">
                 {coverSrc(featured) ? (
-                  <img src={coverSrc(featured)!} alt={`Cover image for ${featured.title}`} width="1200" height="514" loading="lazy" decoding="async" />
+                  <img src={coverSrc(featured)!} alt={`Cover image for ${featured.title}`} width="1200" height="800" loading="lazy" decoding="async" />
                 ) : null}
+                <div class="blog-featured__image-fade" aria-hidden="true"></div>
               </div>
-              <div class="blog-featured__body">
-                {featured.category ? <span class="blog-badge">{featured.category}</span> : null}
+              <div class="blog-featured__content">
+                <div class="blog-featured__top">
+                  <span class="blog-featured__eyebrow">Featured</span>
+                  {featured.category ? <span class="blog-badge">{featured.category}</span> : null}
+                </div>
                 <h2 class="blog-featured__title">{featured.title}</h2>
                 <p class="blog-featured__excerpt">{featured.excerpt}</p>
-                <div class="blog-featured__meta">
-                  <span class="blog-featured__author">{featured.author}</span>
-                  <time class="blog-featured__date" datetime={featured.publishedAt}>
-                    {formatDate(featured.publishedAt)}
-                  </time>
-                  <span class="blog-read-time">{readMinutesFromExcerpt(featured.excerpt)} min read</span>
-                  <span class="blog-featured__link">Read article</span>
+                <div class="blog-featured__footer">
+                  <div class="blog-featured__meta">
+                    <span class="blog-featured__author">{featured.author}</span>
+                    <span class="blog-featured__sep" aria-hidden="true"></span>
+                    <time class="blog-featured__date" datetime={featured.publishedAt}>
+                      {formatDate(featured.publishedAt)}
+                    </time>
+                    <span class="blog-read-time">{readMinutesFromExcerpt(featured.excerpt)} min read</span>
+                  </div>
+                  <span class="blog-featured__cta">
+                    Read article
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
                 </div>
               </div>
             </a>
