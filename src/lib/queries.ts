@@ -17,6 +17,7 @@ export interface BlogPostSummary {
   coverImage: SanityImageSource | null
   category: string | null
   featured: boolean | null
+  readingTime: number
 }
 
 export interface BlogPostDetail extends BlogPostSummary {
@@ -46,7 +47,8 @@ const listFields = `
     }
   },
   category,
-  featured
+  featured,
+  "readingTime": max([1, round(length(pt::text(body)) / 5 / 200)])
 `
 
 const allPostsQuery = `*[_type == "blogPost"] | order(publishedAt desc) { ${listFields} }`
