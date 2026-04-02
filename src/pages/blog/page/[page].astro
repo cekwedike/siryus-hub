@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import '../../../styles/blog.css';
+import { blogCoverImageUrl } from '../../../lib/sanity';
+import { getAllPosts, getFeaturedPosts } from '../../../lib/queries';
+
+export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 6;
+  const allPosts = await getAllPosts();
+  const featuredPosts = await getFeaturedPosts();
+  const featured = featuredPosts[0] ?? null;
+
+  const gridPosts =
+    featured && allPosts.length > 0
+      ? allPosts.filter((p) => p._id !== featured._id)
+      : allPosts;
+
+  const totalPages = Math.max(1, Math.ceil(gridPosts.length / POSTS_PER_PAGE));
+
+  return Array.from({ length: totalPages - 1 }, (_, i) => {
+    const pageNum = i + 2;
+    const start = (pageNum - 1) * POSTS_PER_PAGE;
+    const posts = gridPosts.slice(start, start + POSTS_PER_PAGE);
+    return {
+      params: { page: String(pageNum) },
+      props: { posts, pageNum, totalPages, featuredId: featured?._id ?? null },
+    };
+  });
+}
+
+const { posts, pageNum, totalPages } = Astro.props;
+
+const pageTitle = `Blog - Page ${pageNum} - Creative Industry Insights`;
+const pageDescription =
+  'The Siryus Hub blog covers music industry insights, artist development, brand marketing strategy and creative production. Written by the team behind SIRYUS A.M.';
+
+function formatDate(iso: string) {
+  try {
+    return new Date(iso).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return '';
+  }
+}
+
+function truncateExcerpt(text: string, max: number) {
+  const t = text.trim();
+  if (t.length <= max) return t;
+  return `${t.slice(0, max).trimEnd()}…`;
+}
+
+function readingTime(post: (typeof posts)[0]) {
+  const text = post.bodyText ?? post.excerpt ?? '';
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+function coverSrc(post: (typeof posts)[0]) {
+  return blogCoverImageUrl(post.coverImage, 800, 500);
+}
+
+const prevHref = pageNum === 2 ? '/blog' : `/blog/page/${pageNum - 1}`;
+const nextHref = pageNum < totalPages ? `/blog/page/${pageNum + 1}` : null;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={`https://www.siryushub.com/blog/page/${pageNum}`}
+>
+  <div class="blog-page">
+    <section
+      class="blog-bleed blog-section blog-section--tight-bottom"
+      aria-labelledby="blog-all-heading"
+    >
+      <div class="blog-inner">
+        <div class="blog-pagination-header">
+          <h1 id="blog-all-heading" class="blog-section__title">All posts</h1>
+          <span class="blog-pagination-header__count">Page {pageNum} of {totalPages}</span>
+        </div>
+
+        <div class="blog-grid">
+          {posts.map((post) => {
+            const href = `/blog/${post.slug?.current ?? ''}`;
+            const img = coverSrc(post);
+            const cardRead = readingTime(post);
+            return (
+              <a class="blog-card morph-clay-card blog-reveal" href={href} data-astro-prefetch>
+                <div class="blog-card__media">
+                  {img ? (
+                    <img src={img} alt={`Cover image for ${post.title}`} width="400" height="250" loading="lazy" decoding="async" />
+                  ) : null}
+                </div>
+                <div class="blog-card__body">
+                  {post.category ? <span class="blog-badge">{post.category}</span> : null}
+                  <h3 class="blog-card__title">{post.title}</h3>
+                  <p class="blog-card__excerpt">{truncateExcerpt(post.excerpt, 120)}</p>
+                  <div class="blog-card__meta">
+                    <span class="blog-card__author">{post.author}</span>
+                    <div class="blog-card__date-row">
+                      <time class="blog-card__date" datetime={post.publishedAt}>
+                        {formatDate(post.publishedAt)}
+                      </time>
+                      <span class="blog-read-time">{cardRead} min read</span>
+                    </div>
+                  </div>
+                  <span class="blog-card__read">Read more</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        <nav class="blog-pagination" aria-label="Blog pagination">
+          <a class="blog-pagination__prev" href={prevHref} data-astro-prefetch aria-label="Previous page">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Prev
+          </a>
+
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) =>
+            p === pageNum ? (
+              <span class="blog-pagination__item blog-pagination__item--current" aria-current="page">{p}</span>
+            ) : (
+              <a
+                class="blog-pagination__item"
+                href={p === 1 ? '/blog' : `/blog/page/${p}`}
+                data-astro-prefetch
+              >{p}</a>
+            )
+          )}
+
+          {nextHref ? (
+            <a class="blog-pagination__next" href={nextHref} data-astro-prefetch aria-label="Next page">
+              Next
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          ) : (
+            <span class="blog-pagination__next blog-pagination__next--disabled" aria-disabled="true">
+              Next
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          )}
+        </nav>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.blog-reveal');
+    if (reduce) {
+      els.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+    );
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>

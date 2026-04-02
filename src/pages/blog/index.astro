@@ -8,6 +8,8 @@ const pageTitle = 'Blog - Creative Industry Insights';
 const pageDescription =
   'The Siryus Hub blog covers music industry insights, artist development, brand marketing strategy and creative production. Written by the team behind SIRYUS A.M.';
 
+const POSTS_PER_PAGE = 6;
+
 const allPosts = await getAllPosts();
 const featuredPosts = await getFeaturedPosts();
 const featured = featuredPosts[0] ?? null;
@@ -16,6 +18,10 @@ const gridPosts =
   featured && allPosts.length > 0
     ? allPosts.filter((p) => p._id !== featured._id)
     : allPosts;
+
+const pagePosts = gridPosts.slice(0, POSTS_PER_PAGE);
+const totalPages = Math.max(1, Math.ceil(gridPosts.length / POSTS_PER_PAGE));
+const hasNextPage = totalPages > 1;
 
 function formatDate(iso: string) {
   try {
@@ -128,7 +134,7 @@ function coverSrc(post: (typeof allPosts)[0]) {
       aria-labelledby="blog-all-heading"
     >
       <div class="blog-inner">
-        <h2 id="blog-all-heading" class="blog-section__title">All posts</h2>
+        <h2 id="blog-all-heading" class="blog-section__title">All Posts</h2>
 
         {
           allPosts.length === 0 ? (
@@ -136,37 +142,53 @@ function coverSrc(post: (typeof allPosts)[0]) {
               <p>We are working on something. First posts dropping soon.</p>
             </div>
           ) : (
-            <div class="blog-grid">
-              {gridPosts.map((post) => {
-                const href = `/blog/${post.slug?.current ?? ''}`;
-                const img = coverSrc(post);
-                const cardRead = readingTime(post);
-                return (
-                  <a class="blog-card morph-clay-card blog-reveal" href={href} data-astro-prefetch>
-                    <div class="blog-card__media">
-                      {img ? (
-                        <img src={img} alt={`Cover image for ${post.title}`} width="400" height="250" loading="lazy" decoding="async" />
-                      ) : null}
-                    </div>
-                    <div class="blog-card__body">
-                      {post.category ? <span class="blog-badge">{post.category}</span> : null}
-                      <h3 class="blog-card__title">{post.title}</h3>
-                      <p class="blog-card__excerpt">{truncateExcerpt(post.excerpt, 120)}</p>
-                      <div class="blog-card__meta">
-                        <span class="blog-card__author">{post.author}</span>
-                        <div class="blog-card__date-row">
-                          <time class="blog-card__date" datetime={post.publishedAt}>
-                            {formatDate(post.publishedAt)}
-                          </time>
-                          <span class="blog-read-time">{cardRead} min read</span>
-                        </div>
+            <>
+              <div class="blog-grid">
+                {pagePosts.map((post) => {
+                  const href = `/blog/${post.slug?.current ?? ''}`;
+                  const img = coverSrc(post);
+                  const cardRead = readingTime(post);
+                  return (
+                    <a class="blog-card morph-clay-card blog-reveal" href={href} data-astro-prefetch>
+                      <div class="blog-card__media">
+                        {img ? (
+                          <img src={img} alt={`Cover image for ${post.title}`} width="400" height="250" loading="lazy" decoding="async" />
+                        ) : null}
                       </div>
-                      <span class="blog-card__read">Read more</span>
-                    </div>
+                      <div class="blog-card__body">
+                        {post.category ? <span class="blog-badge">{post.category}</span> : null}
+                        <h3 class="blog-card__title">{post.title}</h3>
+                        <p class="blog-card__excerpt">{truncateExcerpt(post.excerpt, 120)}</p>
+                        <div class="blog-card__meta">
+                          <span class="blog-card__author">{post.author}</span>
+                          <div class="blog-card__date-row">
+                            <time class="blog-card__date" datetime={post.publishedAt}>
+                              {formatDate(post.publishedAt)}
+                            </time>
+                            <span class="blog-read-time">{cardRead} min read</span>
+                          </div>
+                        </div>
+                        <span class="blog-card__read">Read more</span>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+              {hasNextPage && (
+                <nav class="blog-pagination" aria-label="Blog pagination">
+                  <span class="blog-pagination__item blog-pagination__item--current" aria-current="page">1</span>
+                  {Array.from({ length: totalPages - 1 }, (_, i) => i + 2).map((p) => (
+                    <a class="blog-pagination__item" href={`/blog/page/${p}`} data-astro-prefetch>{p}</a>
+                  ))}
+                  <a class="blog-pagination__next" href="/blog/page/2" data-astro-prefetch aria-label="Next page">
+                    Next
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </a>
-                );
-              })}
-            </div>
+                </nav>
+              )}
+            </>
           )
         }
       </div>
