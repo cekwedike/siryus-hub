@@ -35,6 +35,12 @@ function truncateExcerpt(text: string, max: number) {
   return `${t.slice(0, max).trimEnd()}…`;
 }
 
+function readingTime(post: (typeof allPosts)[0]) {
+  const text = post.bodyText ?? post.excerpt ?? '';
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
 function coverSrc(post: (typeof allPosts)[0]) {
   return blogCoverImageUrl(post.coverImage, 800, 500);
 }
@@ -101,7 +107,7 @@ function coverSrc(post: (typeof allPosts)[0]) {
                     <time class="blog-featured__date" datetime={featured.publishedAt}>
                       {formatDate(featured.publishedAt)}
                     </time>
-                    <span class="blog-read-time">{featured.readingTime} min read</span>
+                    <span class="blog-read-time">{readingTime(featured)} min read</span>
                   </div>
                   <span class="blog-featured__cta">
                     Read article
@@ -134,7 +140,7 @@ function coverSrc(post: (typeof allPosts)[0]) {
               {gridPosts.map((post) => {
                 const href = `/blog/${post.slug?.current ?? ''}`;
                 const img = coverSrc(post);
-                const cardRead = post.readingTime;
+                const cardRead = readingTime(post);
                 return (
                   <a class="blog-card morph-clay-card blog-reveal" href={href} data-astro-prefetch>
                     <div class="blog-card__media">
