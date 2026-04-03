@@ -51,7 +51,7 @@ const listFields = `
   "bodyText": array::join(body[_type == "block"].children[_type == "span"].text, " ")
 `
 
-const allPostsQuery = `*[_type == "blogPost"] | order(publishedAt desc) { ${listFields} }`
+const allPostsQuery = `*[_type == "blogPost"] | order(publishedAt desc, _createdAt desc) { ${listFields} }`
 
 const featuredPostsQuery = `*[_type == "blogPost" && featured == true] | order(publishedAt desc) [0...3] { ${listFields} }`
 

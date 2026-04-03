@@ -5,7 +5,7 @@ import { blogCoverImageUrl } from '../../../lib/sanity';
 import { getAllPosts, getFeaturedPosts } from '../../../lib/queries';
 
 export async function getStaticPaths() {
-  const POSTS_PER_PAGE = 6;
+  const POSTS_PER_PAGE = 3;
   const allPosts = await getAllPosts();
   const featuredPosts = await getFeaturedPosts();
   const featured = featuredPosts[0] ?? null;
