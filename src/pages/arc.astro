@@ -41,8 +41,8 @@ import ArcFooter from '../components/ArcFooter.astro';
     <main class="arc-page">
       <section class="arc-hero">
         <img
-          src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&w=2200&q=80"
-          alt="Black creative in a warm studio performance setting"
+          src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=2200&q=80"
+          alt="Creative visual artist building work in a studio"
           class="arc-hero__image"
         />
         <div class="arc-hero__overlay"></div>
@@ -50,11 +50,12 @@ import ArcFooter from '../components/ArcFooter.astro';
         <p class="arc-hero__edge-note arc-hero__edge-note--left">Nigeria • Rwanda</p>
         <p class="arc-hero__edge-note arc-hero__edge-note--right">Independent Christian Creatives</p>
         <div class="arc-hero__content">
+          <p class="arc-hero__superline">ASCENT. REFUGE. COLLECTIVE.</p>
           <ArcAnimatedLogo />
           <p>A home for the ones building in faith.</p>
         </div>
         <div class="arc-hero__ticker" aria-hidden="true">
-          <span>ASCENT</span><span>REFUGE</span><span>COLLECTIVE</span><span>ASCENT</span><span>REFUGE</span><span>COLLECTIVE</span>
+          <span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span>
         </div>
       </section>
 
@@ -91,7 +92,8 @@ import ArcFooter from '../components/ArcFooter.astro';
         </div>
       </section>
 
-      <section class="arc-horizontal" data-horizontal-scroll>
+      <section class="arc-horizontal" data-horizontal-section>
+        <div class="arc-horizontal__sticky">
         <div class="horizontal-track" data-horizontal-track>
           <article class="horizontal-panel">
             <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=2200&q=80" alt="Creative reaching upward while performing" />
@@ -117,6 +119,7 @@ import ArcFooter from '../components/ArcFooter.astro';
               <p class="panel-sub">The tribe. Builders moving together, carrying weight for each other.</p>
             </div>
           </article>
+        </div>
         </div>
       </section>
 
@@ -173,63 +176,25 @@ import ArcFooter from '../components/ArcFooter.astro';
 
     <script is:inline>
       (() => {
-        const section = document.querySelector('[data-horizontal-scroll]');
+        const section = document.querySelector('[data-horizontal-section]');
         const track = document.querySelector('[data-horizontal-track]');
         if (!(section instanceof HTMLElement) || !(track instanceof HTMLElement)) return;
-        let locked = false;
-        let progress = 0;
-        let startTouchX = 0;
-        const maxProgress = () => Math.max(0, track.scrollWidth - window.innerWidth);
-        const clamp = (value) => Math.min(maxProgress(), Math.max(0, value));
-        const render = () => {
-          track.style.transform = `translate3d(${-progress}px, 0, 0)`;
+        const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+        const update = () => {
+          const start = section.offsetTop;
+          const travel = section.offsetHeight - window.innerHeight;
+          const maxX = Math.max(0, track.scrollWidth - window.innerWidth);
+          if (travel <= 0 || maxX <= 0) {
+            track.style.transform = 'translate3d(0, 0, 0)';
+            return;
+          }
+          const progress = clamp((window.scrollY - start) / travel, 0, 1);
+          const x = progress * maxX;
+          track.style.transform = `translate3d(${-x}px, 0, 0)`;
         };
-        const unlockIfDone = (delta) => {
-          if (delta > 0 && progress >= maxProgress()) {
-            locked = false;
-            document.body.style.overflow = '';
-          }
-          if (delta < 0 && progress <= 0) {
-            locked = false;
-            document.body.style.overflow = '';
-          }
-        };
-        const shouldLock = () => {
-          const rect = section.getBoundingClientRect();
-          return rect.top <= 0 && rect.bottom >= window.innerHeight;
-        };
-        window.addEventListener('wheel', (event) => {
-          if (!locked && shouldLock()) {
-            locked = true;
-            document.body.style.overflow = 'hidden';
-          }
-          if (!locked) return;
-          event.preventDefault();
-          progress = clamp(progress + event.deltaY);
-          render();
-          unlockIfDone(event.deltaY);
-        }, { passive: false });
-        window.addEventListener('touchstart', (event) => {
-          if (!event.touches[0]) return;
-          startTouchX = event.touches[0].clientX;
-        }, { passive: true });
-        window.addEventListener('touchmove', (event) => {
-          if (!locked && shouldLock()) {
-            locked = true;
-            document.body.style.overflow = 'hidden';
-          }
-          if (!locked || !event.touches[0]) return;
-          event.preventDefault();
-          const delta = startTouchX - event.touches[0].clientX;
-          progress = clamp(progress + delta * 1.1);
-          startTouchX = event.touches[0].clientX;
-          render();
-          unlockIfDone(delta);
-        }, { passive: false });
-        window.addEventListener('resize', () => {
-          progress = clamp(progress);
-          render();
-        });
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
       })();
     </script>
 
@@ -271,6 +236,21 @@ import ArcFooter from '../components/ArcFooter.astro';
   body.arc-route.light-theme {
     background: #f5f0e8;
     color: #1c1208;
+  }
+  body.arc-route .theme-toggle {
+    top: auto;
+    right: 1rem;
+    bottom: 1rem;
+    transform: none;
+    z-index: 30;
+  }
+  body.arc-route .theme-toggle__island {
+    background: rgba(8, 8, 10, 0.7);
+    border-color: rgba(245, 240, 232, 0.2);
+  }
+  body.arc-route.light-theme .theme-toggle__island {
+    background: rgba(255, 255, 255, 0.84);
+    border-color: rgba(28, 18, 8, 0.2);
   }
 </style>
 
@@ -337,6 +317,15 @@ import ArcFooter from '../components/ArcFooter.astro';
     padding: 1.5rem;
     text-align: center;
   }
+  .arc-hero__superline {
+    margin: 0;
+    color: #f5f0e8;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    font-size: clamp(0.8rem, 1.1vw, 1.02rem);
+    text-transform: uppercase;
+    opacity: 0.86;
+  }
   .arc-hero__content p {
     margin: 0;
     color: #f5f0e8;
@@ -345,6 +334,9 @@ import ArcFooter from '../components/ArcFooter.astro';
     font-size: clamp(0.95rem, 1.2vw, 1.15rem);
     text-transform: uppercase;
     opacity: 0.86;
+  }
+  .arc-hero__content p:not(.arc-hero__superline) {
+    font-size: clamp(0.84rem, 1vw, 1.02rem);
   }
   .arc-hero__ticker {
     position: absolute;
@@ -413,7 +405,16 @@ import ArcFooter from '../components/ArcFooter.astro';
   }
   .problem-item h3 { position: relative; margin: 0 0 0.8rem; font-size: clamp(1.3rem, 2.3vw, 2rem); z-index: 1; }
   .problem-item p { position: relative; margin: 0; max-width: 62ch; opacity: 0.88; z-index: 1; }
-  .arc-horizontal { height: 100vh; overflow: hidden; position: relative; }
+  .arc-horizontal {
+    height: 300vh;
+    position: relative;
+  }
+  .arc-horizontal__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
   .horizontal-track {
     height: 100%;
     display: flex;
@@ -511,12 +512,50 @@ import ArcFooter from '../components/ArcFooter.astro';
     text-underline-offset: 0.2em;
     text-decoration-color: rgba(242, 121, 48, 0.8);
   }
+  body.arc-route.light-theme .arc-manifesto {
+    background: #f5f0e8;
+    color: #1c1208;
+  }
+  body.arc-route.light-theme .arc-problem,
+  body.arc-route.light-theme .arc-disciplines,
+  body.arc-route.light-theme .arc-values,
+  body.arc-route.light-theme .arc-attribution {
+    background: #f5f0e8;
+    color: #1c1208;
+  }
+  body.arc-route.light-theme .problem-item {
+    border-top-color: rgba(28, 18, 8, 0.18);
+  }
+  body.arc-route.light-theme .problem-item:nth-child(even) {
+    background: rgba(28, 18, 8, 0.04);
+  }
+  body.arc-route.light-theme .problem-item span {
+    color: rgba(160, 82, 45, 0.14);
+  }
+  body.arc-route.light-theme .tile {
+    border-color: rgba(28, 18, 8, 0.22);
+  }
   @media (max-width: 940px) {
     .arc-hero__edge-note { display: none; }
+    .arc-hero {
+      min-height: 88svh;
+    }
+    .arc-hero__content {
+      gap: 0.7rem;
+      padding: 1rem 0.75rem 2.5rem;
+      width: min(92vw, 440px);
+    }
     .arc-hero__ticker {
       gap: 1rem;
       letter-spacing: 0.14em;
       font-size: 0.64rem;
+      bottom: 0.5rem;
+      padding-inline: 0.6rem;
+    }
+    .arc-horizontal { height: 220vh; }
+    body.arc-route .theme-toggle {
+      right: 0.75rem;
+      bottom: 0.75rem;
     }
     .discipline-mosaic { grid-template-columns: 1fr; }
     .tile-sound, .tile-words, .tile-movement, .tile-vision, .tile-design, .tile-experimental {
