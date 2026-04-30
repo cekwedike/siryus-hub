@@ -872,9 +872,11 @@ import ArcFooter from '../components/ArcFooter.astro';
       top: 0.5rem;
       bottom: auto;
     }
-    .arc-horizontal { height: 100svh; }
-    .arc-horizontal__sticky { position: relative; top: auto; height: 100svh; overflow-x: auto; }
-    .horizontal-track { transform: none !important; }
+    .arc-horizontal { height: 240svh; }
+    .arc-horizontal__sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+    .horizontal-panel {
+      padding-bottom: calc(clamp(4.5rem, 16vw, 7rem) + env(safe-area-inset-bottom));
+    }
     .arc-values {
       grid-template-columns: 1fr;
       gap: 1.8rem;
