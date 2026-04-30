@@ -3,6 +3,7 @@ import { defineField, defineType } from 'sanity'
 const categoryOptions = [
   { title: 'Music Industry', value: 'Music Industry' },
   { title: 'Artist Development', value: 'Artist Development' },
+  { title: 'Artist Spotlight', value: 'Artist Spotlight' },
   { title: 'Marketing', value: 'Marketing' },
   { title: 'Creative Production', value: 'Creative Production' },
   { title: 'Community', value: 'Community' },

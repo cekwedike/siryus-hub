@@ -1,0 +1,264 @@
+---
+import ThemeToggle from '../components/ThemeToggle.astro';
+import ArcAnimatedLogo from '../components/ArcAnimatedLogo.astro';
+import ArcFooter from '../components/ArcFooter.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="layout-html">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARC | Ascent. Refuge. Collective.</title>
+    <meta
+      name="description"
+      content="ARC is a faith-rooted creative community for independent Christian creatives. Founded under Siryus Creative Media Ltd and active across Nigeria and Rwanda."
+    />
+    <link rel="canonical" href="https://www.siryushub.com/arc" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="arc-page">
+      <section class="arc-hero">
+        <img
+          src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1800&q=80"
+          alt="Creatives in a warm studio setting"
+          class="arc-hero__image"
+        />
+        <div class="arc-hero__overlay"></div>
+        <div class="arc-hero__content">
+          <ArcAnimatedLogo />
+          <p>A home for the ones building in faith.</p>
+        </div>
+      </section>
+
+      <section class="arc-section arc-intro">
+        <p>
+          ARC is not a label. Not a management company. It is a movement for independent Christian creatives finding language, structure, and family as they build honest work with conviction.
+        </p>
+      </section>
+
+      <section class="arc-section">
+        <h2>The Problem</h2>
+        <div class="problem-grid">
+          <article><h3>Resource Gap</h3><p>Many gifted creatives lack access to real tools, guidance, and networks. Potential stalls when excellence has no support system.</p></article>
+          <article><h3>Isolation Problem</h3><p>Too many builders are creating alone and carrying vision in silence. Isolation drains courage before the work can mature.</p></article>
+          <article><h3>Pressure to Perform</h3><p>Visibility culture rewards output over formation. Creatives are pushed to look successful before they are spiritually and artistically grounded.</p></article>
+          <article><h3>The Underdog Barrier</h3><p>Emerging talent from overlooked contexts is often ignored until it is already proven. ARC exists to invest before applause arrives.</p></article>
+        </div>
+      </section>
+
+      <section class="arc-section threefold">
+        <h2>Ascent. Refuge. Collective.</h2>
+        <div class="triple-grid">
+          <article><h3>Ascent</h3><p>We pursue growth in skill, discipline, and calling without losing soul.</p></article>
+          <article><h3>Refuge</h3><p>We create room for rest, honesty, and repair where artists can breathe.</p></article>
+          <article><h3>Collective</h3><p>We move as a family of builders who sharpen each other and share burdens.</p></article>
+        </div>
+      </section>
+
+      <section class="arc-section disciplines">
+        <h2>Who ARC is for</h2>
+        <div class="discipline-grid">
+          <article><h3>Sound</h3><p>Producers, musicians, and sonic storytellers shaping atmosphere.</p></article>
+          <article><h3>Words</h3><p>Writers and lyricists crafting truth with language and weight.</p></article>
+          <article><h3>Movement</h3><p>Dancers and physical artists translating spirit through motion.</p></article>
+          <article><h3>Vision</h3><p>Filmmakers and visual narrators building frames with meaning.</p></article>
+          <article><h3>Design</h3><p>Graphic and digital makers giving form to bold imagination.</p></article>
+          <article><h3>Experimental</h3><p>Boundary-pushers creating new forms at the edge of convention.</p></article>
+        </div>
+      </section>
+
+      <section class="arc-section arc-photo-block">
+        <img
+          src="https://images.unsplash.com/photo-1516280030429-27679b3dc9cf?auto=format&fit=crop&w=1600&q=80"
+          alt="Creative performer in focused rehearsal"
+        />
+      </section>
+
+      <section class="arc-section values">
+        <h2>Core Values</h2>
+        <div class="values-grid">
+          <article><h3>Faithfulness</h3><p>We honor process, not just outcomes.</p></article>
+          <article><h3>Excellence</h3><p>We refine craft because people deserve our best work.</p></article>
+          <article><h3>Integrity</h3><p>We stay honest in art, collaboration, and leadership.</p></article>
+          <article><h3>Stewardship</h3><p>We treat gifts, opportunities, and people with care.</p></article>
+          <article><h3>Community</h3><p>We build together and refuse performative belonging.</p></article>
+          <article><h3>Courage</h3><p>We choose conviction over trend, even when unseen.</p></article>
+        </div>
+      </section>
+
+      <section class="arc-section arc-attribution">
+        <p>
+          A Siryus Creative Media Ltd initiative.
+          <a href="https://www.siryushub.com">siryushub.com</a>
+        </p>
+      </section>
+    </main>
+
+    <ArcFooter />
+    <ThemeToggle />
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    background: #0d0b09;
+    color: #f5f0e8;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  body.light-theme {
+    background: #f5f0e8;
+    color: #1b140f;
+  }
+</style>
+
+<style>
+  .arc-page {
+    line-height: 1.5;
+  }
+
+  .arc-hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    align-items: end;
+    overflow: hidden;
+  }
+
+  .arc-hero__image,
+  .arc-hero__overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .arc-hero__image {
+    object-fit: cover;
+  }
+
+  .arc-hero__overlay {
+    background: linear-gradient(180deg, rgba(13, 11, 9, 0.58), rgba(13, 11, 9, 0.88));
+  }
+
+  .arc-hero__content {
+    position: relative;
+    z-index: 2;
+    padding: min(9vw, 5.5rem);
+    max-width: 58rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .arc-hero__content p {
+    margin: 0;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    letter-spacing: 0.01em;
+  }
+
+  .arc-section {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: clamp(3.2rem, 8vw, 7rem) 1.5rem;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    line-height: 1.05;
+    font-weight: 600;
+    margin: 0 0 1.6rem;
+  }
+
+  h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    margin: 0 0 0.6rem;
+  }
+
+  .arc-intro p {
+    max-width: 46rem;
+    margin: 0;
+    font-size: clamp(1.15rem, 2.1vw, 1.65rem);
+  }
+
+  .problem-grid,
+  .discipline-grid,
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.2rem;
+  }
+
+  .problem-grid article,
+  .discipline-grid article,
+  .values-grid article {
+    border-top: 1px solid rgba(242, 121, 48, 0.34);
+    padding-top: 1rem;
+  }
+
+  .problem-grid p,
+  .discipline-grid p,
+  .values-grid p {
+    margin: 0;
+    opacity: 0.84;
+  }
+
+  .threefold .triple-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .threefold h3 {
+    color: #f27930;
+  }
+
+  .arc-photo-block {
+    max-width: 100%;
+    padding-inline: 0;
+  }
+
+  .arc-photo-block img {
+    width: 100%;
+    height: min(56vh, 540px);
+    object-fit: cover;
+    filter: brightness(0.72);
+  }
+
+  .arc-attribution p {
+    margin: 0;
+    font-size: 0.98rem;
+    opacity: 0.8;
+  }
+
+  .arc-attribution a {
+    color: inherit;
+    text-decoration-color: rgba(242, 121, 48, 0.7);
+    text-underline-offset: 0.2em;
+  }
+
+  body.light-theme .problem-grid article,
+  body.light-theme .discipline-grid article,
+  body.light-theme .values-grid article {
+    border-top-color: rgba(114, 57, 26, 0.38);
+  }
+
+  @media (max-width: 900px) {
+    .problem-grid,
+    .discipline-grid,
+    .values-grid,
+    .threefold .triple-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
