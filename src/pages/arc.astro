@@ -8,26 +8,46 @@ import ArcFooter from '../components/ArcFooter.astro';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ARC — Ascent. Refuge. Collective.</title>
+    <title>ARC — A Creative Community for Independent Christian Creatives</title>
     <meta
       name="description"
-      content="ARC is a faith-rooted creative community built for independent Christian creatives across every discipline. A Siryus Creative Media Ltd initiative."
+      content="ARC is a community where independent Christian creatives across music, film, poetry, dance, and design find structure, belonging, and room to grow. An initiative of Siryus Creative Media Ltd."
     />
-    <meta property="og:title" content="ARC — Ascent. Refuge. Collective." />
+    <meta property="og:title" content="ARC — A Creative Community for Independent Christian Creatives" />
     <meta
       property="og:description"
-      content="ARC is a faith-rooted creative community built for independent Christian creatives across every discipline. A Siryus Creative Media Ltd initiative."
+      content="ARC is a community where independent Christian creatives across music, film, poetry, dance, and design find structure, belonging, and room to grow. An initiative of Siryus Creative Media Ltd."
     />
-    <meta property="og:image" content="https://www.siryushub.com/arc/ARC%20LOGO.png" />
+    <meta property="og:image" content="https://www.siryushub.com/arc/arc-logo.png" />
     <meta property="og:url" content="https://www.siryushub.com/arc" />
+    <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ARC — Ascent. Refuge. Collective." />
+    <meta name="twitter:title" content="ARC — A Creative Community for Independent Christian Creatives" />
     <meta
       name="twitter:description"
-      content="ARC is a faith-rooted creative community built for independent Christian creatives across every discipline. A Siryus Creative Media Ltd initiative."
+      content="ARC is a community where independent Christian creatives across music, film, poetry, dance, and design find structure, belonging, and room to grow. An initiative of Siryus Creative Media Ltd."
     />
-    <meta name="twitter:image" content="https://www.siryushub.com/arc/ARC%20LOGO.png" />
+    <meta name="twitter:image" content="https://www.siryushub.com/arc/arc-logo.png" />
     <link rel="canonical" href="https://www.siryushub.com/arc" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ARC — Ascent. Refuge. Collective.",
+        "url": "https://www.siryushub.com/arc",
+        "logo": "https://www.siryushub.com/arc/arc-logo.png",
+        "description": "ARC is a faith-rooted creative community for independent Christian creatives across music, film, poetry, dance, and design. An initiative of Siryus Creative Media Ltd.",
+        "foundingLocation": [
+          { "@type": "Place", "name": "Lagos, Nigeria" },
+          { "@type": "Place", "name": "Kigali, Rwanda" }
+        ],
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Siryus Creative Media Ltd",
+          "url": "https://www.siryushub.com"
+        }
+      }
+    </script>
     <link rel="icon" href="/arc/arc png.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,6 +65,7 @@ import ArcFooter from '../components/ArcFooter.astro';
       </div>
     </nav>
     <main class="arc-page">
+      <h1 class="sr-only">ARC — A Creative Community for Independent Christian Creatives</h1>
       <section class="arc-hero">
         <img
           src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=2200&q=80"
@@ -58,7 +79,7 @@ import ArcFooter from '../components/ArcFooter.astro';
         <div class="arc-hero__content">
           <p class="arc-hero__superline">ASCENT. REFUGE. COLLECTIVE.</p>
           <ArcAnimatedLogo />
-          <p>A home for the ones building in faith.</p>
+          <p>A community for Christian creatives who are serious about their craft and their faith.</p>
         </div>
         <div class="arc-hero__ticker arc-hero__ticker--top" aria-hidden="true">
           <div class="arc-hero__ticker-track">
@@ -81,7 +102,17 @@ import ArcFooter from '../components/ArcFooter.astro';
       <section class="arc-manifesto">
         <div class="manifesto-rule" aria-hidden="true"></div>
         <p>
-          Not a label. Not a management company. A modern ark built to carry the seeds of a new culture.
+          ARC is a community.
+          <br /><br />
+          A place where independent Christian creatives across music, film, poetry, movement, and design come together to grow, collaborate, and build something that lasts.
+          <br /><br />
+          We are not a label. Not a management company. Not a platform looking for content.
+          <br /><br />
+          ARC is a home. For the talented ones building quietly. For the faithful ones who haven't found their people yet. For the serious ones who refuse to compromise their craft or their values to get ahead.
+          <br /><br />
+          We exist to give them structure, community, and room to develop without the pressure to perform before they are ready.
+          <br /><br />
+          ARC operates from Nigeria and Rwanda, and grows globally.
         </p>
       </section>
 
@@ -90,22 +121,22 @@ import ArcFooter from '../components/ArcFooter.astro';
         <div class="problem-list">
           <article class="problem-item">
             <span aria-hidden="true">01</span>
-            <h3>Resource Gap</h3>
+            <h3>No Structure, No Support</h3>
             <p>Many gifted creatives never touch proper tools, mentorship, or rooms that sharpen their craft. Potential fades when structure never arrives.</p>
           </article>
           <article class="problem-item">
             <span aria-hidden="true">02</span>
-            <h3>Isolation Problem</h3>
+            <h3>Building Alone in Silence</h3>
             <p>People with real calling are building in silence, disconnected from peers who understand both faith and craft. Isolation drains confidence before work matures.</p>
           </article>
           <article class="problem-item">
             <span aria-hidden="true">03</span>
-            <h3>Pressure to Perform</h3>
+            <h3>Pushed to Shine Before You're Ready</h3>
             <p>Visibility culture rewards noise over formation. Creatives are pushed to appear successful before their voice and character are fully formed.</p>
           </article>
           <article class="problem-item">
             <span aria-hidden="true">04</span>
-            <h3>The Underdog Barrier</h3>
+            <h3>Overlooked Until You're Already There</h3>
             <p>Builders from overlooked scenes are often ignored until they are already undeniable. ARC invests in conviction before applause.</p>
           </article>
         </div>
@@ -119,7 +150,7 @@ import ArcFooter from '../components/ArcFooter.astro';
             <div class="horizontal-overlay"></div>
             <div class="horizontal-copy">
               <p class="panel-word">Ascent.</p>
-              <p class="panel-sub">The climb. Skill sharpened by discipline. Calling forged in process.</p>
+              <p class="panel-sub">Growth is not an accident. ARC provides the structure, mentorship, and creative direction that helps independent Christian creatives move from potential to impact. Steady progress. No shortcuts. The global stage without losing your soul getting there.</p>
             </div>
           </article>
           <article class="horizontal-panel">
@@ -127,7 +158,7 @@ import ArcFooter from '../components/ArcFooter.astro';
             <div class="horizontal-overlay"></div>
             <div class="horizontal-copy">
               <p class="panel-word">Refuge.</p>
-              <p class="panel-sub">The sanctuary. A quiet room where honesty, rest, and craft can breathe.</p>
+              <p class="panel-sub">ARC is a safe place. Creatives are allowed to learn, struggle, experiment, and mature without the pressure to perform or impress. Faith is lived honestly here, not staged for approval. We protect the creator so the art can become what it was always meant to be.</p>
             </div>
           </article>
           <article class="horizontal-panel">
@@ -135,7 +166,7 @@ import ArcFooter from '../components/ArcFooter.astro';
             <div class="horizontal-overlay"></div>
             <div class="horizontal-copy">
               <p class="panel-word">Collective.</p>
-              <p class="panel-sub">The tribe. Builders moving together, carrying weight for each other.</p>
+              <p class="panel-sub">No creative is meant to build alone. ARC brings musicians, filmmakers, poets, dancers, designers, and storytellers under one roof. Not to compete, but to carry each other. Connection over competition. Always.</p>
             </div>
           </article>
         </div>
@@ -180,33 +211,33 @@ import ArcFooter from '../components/ArcFooter.astro';
         <div class="arc-values__list">
           <article class="value-item" data-value-item>
             <p class="value-item__index">01</p>
-            <h3>Faithfulness</h3>
-            <p>We honor formation before visibility.</p>
+            <h3>Faith Without Performance</h3>
+            <p>We encourage honest faith, not spiritual posturing. No one here needs to look more spiritual than they are.</p>
           </article>
           <article class="value-item" data-value-item>
             <p class="value-item__index">02</p>
-            <h3>Excellence</h3>
-            <p>Craft is stewardship, not vanity.</p>
+            <h3>Excellence Without Ego</h3>
+            <p>Quality matters. Mastery of craft matters. But neither should come at the cost of community or humility.</p>
           </article>
           <article class="value-item" data-value-item>
             <p class="value-item__index">03</p>
-            <h3>Integrity</h3>
-            <p>Truth in process, people, and output.</p>
+            <h3>Growth Without Pressure</h3>
+            <p>Formation takes time. We protect the creative process and refuse to rush what isn't ready.</p>
           </article>
           <article class="value-item" data-value-item>
             <p class="value-item__index">04</p>
-            <h3>Stewardship</h3>
-            <p>We treat gifts and opportunities with care.</p>
+            <h3>Community Without Exploitation</h3>
+            <p>Relationships built on trust, mutual respect, and genuine care. Creatives are people, not products.</p>
           </article>
           <article class="value-item" data-value-item>
             <p class="value-item__index">05</p>
-            <h3>Community</h3>
-            <p>Belonging is lived, not performed.</p>
+            <h3>Integrity Over Visibility</h3>
+            <p>We measure success by character and sustainability, not by numbers or trends.</p>
           </article>
           <article class="value-item" data-value-item>
             <p class="value-item__index">06</p>
-            <h3>Courage</h3>
-            <p>Conviction over trend, even unseen.</p>
+            <h3>Grassroots First</h3>
+            <p>We are committed to the underdog, the overlooked, and the independent voice building in silence.</p>
           </article>
         </div>
       </section>
@@ -415,6 +446,17 @@ import ArcFooter from '../components/ArcFooter.astro';
 
 <style>
   .arc-page { background: transparent; }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
   .arc-hero {
     position: relative;
     min-height: 100svh;
