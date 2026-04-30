@@ -9,16 +9,31 @@ import ArcFooter from '../components/ArcFooter.astro';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ARC | Ascent. Refuge. Collective.</title>
+    <title>ARC — Ascent. Refuge. Collective.</title>
     <meta
       name="description"
-      content="ARC is a faith-rooted creative community for independent Christian creatives. Founded under Siryus Creative Media Ltd and active across Nigeria and Rwanda."
+      content="ARC is a faith-rooted creative community built for independent Christian creatives across every discipline. A Siryus Creative Media Ltd initiative."
     />
+    <meta property="og:title" content="ARC — Ascent. Refuge. Collective." />
+    <meta
+      property="og:description"
+      content="ARC is a faith-rooted creative community built for independent Christian creatives across every discipline. A Siryus Creative Media Ltd initiative."
+    />
+    <meta property="og:image" content="https://www.siryushub.com/arc/ARC%20LOGO.png" />
+    <meta property="og:url" content="https://www.siryushub.com/arc" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ARC — Ascent. Refuge. Collective." />
+    <meta
+      name="twitter:description"
+      content="ARC is a faith-rooted creative community built for independent Christian creatives across every discipline. A Siryus Creative Media Ltd initiative."
+    />
+    <meta name="twitter:image" content="https://www.siryushub.com/arc/ARC%20LOGO.png" />
     <link rel="canonical" href="https://www.siryushub.com/arc" />
+    <link rel="icon" href="/arc/arc png.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Syne:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -26,239 +41,493 @@ import ArcFooter from '../components/ArcFooter.astro';
     <main class="arc-page">
       <section class="arc-hero">
         <img
-          src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1800&q=80"
-          alt="Creatives in a warm studio setting"
+          src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&w=2200&q=80"
+          alt="Black creative in a warm studio performance setting"
           class="arc-hero__image"
         />
         <div class="arc-hero__overlay"></div>
+        <div class="arc-hero__grain" aria-hidden="true"></div>
+        <p class="arc-hero__edge-note arc-hero__edge-note--left">Nigeria • Rwanda</p>
+        <p class="arc-hero__edge-note arc-hero__edge-note--right">Independent Christian Creatives</p>
         <div class="arc-hero__content">
           <ArcAnimatedLogo />
           <p>A home for the ones building in faith.</p>
         </div>
+        <div class="arc-hero__ticker" aria-hidden="true">
+          <span>ASCENT</span><span>REFUGE</span><span>COLLECTIVE</span><span>ASCENT</span><span>REFUGE</span><span>COLLECTIVE</span>
+        </div>
       </section>
 
-      <section class="arc-section arc-intro">
+      <section class="arc-manifesto">
+        <div class="manifesto-rule" aria-hidden="true"></div>
         <p>
-          ARC is not a label. Not a management company. It is a movement for independent Christian creatives finding language, structure, and family as they build honest work with conviction.
+          Not a label. Not a management company. A modern ark built to carry the seeds of a new culture.
         </p>
       </section>
 
-      <section class="arc-section">
+      <section class="arc-problem">
         <h2>The Problem</h2>
-        <div class="problem-grid">
-          <article><h3>Resource Gap</h3><p>Many gifted creatives lack access to real tools, guidance, and networks. Potential stalls when excellence has no support system.</p></article>
-          <article><h3>Isolation Problem</h3><p>Too many builders are creating alone and carrying vision in silence. Isolation drains courage before the work can mature.</p></article>
-          <article><h3>Pressure to Perform</h3><p>Visibility culture rewards output over formation. Creatives are pushed to look successful before they are spiritually and artistically grounded.</p></article>
-          <article><h3>The Underdog Barrier</h3><p>Emerging talent from overlooked contexts is often ignored until it is already proven. ARC exists to invest before applause arrives.</p></article>
+        <div class="problem-list">
+          <article class="problem-item">
+            <span aria-hidden="true">01</span>
+            <h3>Resource Gap</h3>
+            <p>Many gifted creatives never touch proper tools, mentorship, or rooms that sharpen their craft. Potential fades when structure never arrives.</p>
+          </article>
+          <article class="problem-item">
+            <span aria-hidden="true">02</span>
+            <h3>Isolation Problem</h3>
+            <p>People with real calling are building in silence, disconnected from peers who understand both faith and craft. Isolation drains confidence before work matures.</p>
+          </article>
+          <article class="problem-item">
+            <span aria-hidden="true">03</span>
+            <h3>Pressure to Perform</h3>
+            <p>Visibility culture rewards noise over formation. Creatives are pushed to appear successful before their voice and character are fully formed.</p>
+          </article>
+          <article class="problem-item">
+            <span aria-hidden="true">04</span>
+            <h3>The Underdog Barrier</h3>
+            <p>Builders from overlooked scenes are often ignored until they are already undeniable. ARC invests in conviction before applause.</p>
+          </article>
         </div>
       </section>
 
-      <section class="arc-section threefold">
-        <h2>Ascent. Refuge. Collective.</h2>
-        <div class="triple-grid">
-          <article><h3>Ascent</h3><p>We pursue growth in skill, discipline, and calling without losing soul.</p></article>
-          <article><h3>Refuge</h3><p>We create room for rest, honesty, and repair where artists can breathe.</p></article>
-          <article><h3>Collective</h3><p>We move as a family of builders who sharpen each other and share burdens.</p></article>
+      <section class="arc-horizontal" data-horizontal-scroll>
+        <div class="horizontal-track" data-horizontal-track>
+          <article class="horizontal-panel">
+            <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=2200&q=80" alt="Creative reaching upward while performing" />
+            <div class="horizontal-overlay"></div>
+            <div class="horizontal-copy">
+              <p class="panel-word">Ascent</p>
+              <p class="panel-sub">The climb. Skill sharpened by discipline. Calling forged in process.</p>
+            </div>
+          </article>
+          <article class="horizontal-panel">
+            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=2200&q=80" alt="Creative working alone in quiet studio light" />
+            <div class="horizontal-overlay"></div>
+            <div class="horizontal-copy">
+              <p class="panel-word">Refuge</p>
+              <p class="panel-sub">The sanctuary. A quiet room where honesty, rest, and craft can breathe.</p>
+            </div>
+          </article>
+          <article class="horizontal-panel">
+            <img src="https://images.unsplash.com/photo-1516280030429-27679b3dc9cf?auto=format&fit=crop&w=2200&q=80" alt="Community of creatives gathering together in warmth" />
+            <div class="horizontal-overlay"></div>
+            <div class="horizontal-copy">
+              <p class="panel-word">Collective</p>
+              <p class="panel-sub">The tribe. Builders moving together, carrying weight for each other.</p>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section class="arc-section disciplines">
+      <section class="arc-disciplines">
         <h2>Who ARC is for</h2>
-        <div class="discipline-grid">
-          <article><h3>Sound</h3><p>Producers, musicians, and sonic storytellers shaping atmosphere.</p></article>
-          <article><h3>Words</h3><p>Writers and lyricists crafting truth with language and weight.</p></article>
-          <article><h3>Movement</h3><p>Dancers and physical artists translating spirit through motion.</p></article>
-          <article><h3>Vision</h3><p>Filmmakers and visual narrators building frames with meaning.</p></article>
-          <article><h3>Design</h3><p>Graphic and digital makers giving form to bold imagination.</p></article>
-          <article><h3>Experimental</h3><p>Boundary-pushers creating new forms at the edge of convention.</p></article>
+        <div class="discipline-mosaic">
+          <article class="tile tile-sound">
+            <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1400&q=80" alt="Musician building sound in studio" />
+            <h3>Sound</h3><p>Producers and sonic storytellers shaping atmosphere.</p>
+          </article>
+          <article class="tile tile-words">
+            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1400&q=80" alt="Writer drafting words by hand" />
+            <h3>Words</h3><p>Writers and lyricists carrying language with weight.</p>
+          </article>
+          <article class="tile tile-movement">
+            <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1400&q=80" alt="Dancer in expressive movement" />
+            <h3>Movement</h3><p>Dancers translating spirit through motion.</p>
+          </article>
+          <article class="tile tile-vision">
+            <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1400&q=80" alt="Filmmaker framing a visual story" />
+            <h3>Vision</h3><p>Filmmakers and visual narrators building frames of meaning.</p>
+          </article>
+          <article class="tile tile-design">
+            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1400&q=80" alt="Designer working with creative materials" />
+            <h3>Design</h3><p>Designers giving form to ideas that endure.</p>
+          </article>
+          <article class="tile tile-experimental">
+            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1400&q=80" alt="Experimental artist at work in an installation space" />
+            <h3>Experimental</h3><p>Boundary-pushers making new language for culture.</p>
+          </article>
         </div>
       </section>
 
-      <section class="arc-section arc-photo-block">
-        <img
-          src="https://images.unsplash.com/photo-1516280030429-27679b3dc9cf?auto=format&fit=crop&w=1600&q=80"
-          alt="Creative performer in focused rehearsal"
-        />
-      </section>
-
-      <section class="arc-section values">
+      <section class="arc-values" data-value-stack>
         <h2>Core Values</h2>
-        <div class="values-grid">
-          <article><h3>Faithfulness</h3><p>We honor process, not just outcomes.</p></article>
-          <article><h3>Excellence</h3><p>We refine craft because people deserve our best work.</p></article>
-          <article><h3>Integrity</h3><p>We stay honest in art, collaboration, and leadership.</p></article>
-          <article><h3>Stewardship</h3><p>We treat gifts, opportunities, and people with care.</p></article>
-          <article><h3>Community</h3><p>We build together and refuse performative belonging.</p></article>
-          <article><h3>Courage</h3><p>We choose conviction over trend, even when unseen.</p></article>
-        </div>
+        <article class="value-item"><h3>Faithfulness</h3><p>We honor formation before visibility.</p></article>
+        <article class="value-item"><h3>Excellence</h3><p>Craft is stewardship, not vanity.</p></article>
+        <article class="value-item"><h3>Integrity</h3><p>Truth in process, people, and output.</p></article>
+        <article class="value-item"><h3>Stewardship</h3><p>We treat gifts and opportunities with care.</p></article>
+        <article class="value-item"><h3>Community</h3><p>Belonging is lived, not performed.</p></article>
+        <article class="value-item"><h3>Courage</h3><p>Conviction over trend, even unseen.</p></article>
       </section>
 
-      <section class="arc-section arc-attribution">
+      <section class="arc-attribution">
         <p>
-          A Siryus Creative Media Ltd initiative.
-          <a href="https://www.siryushub.com">siryushub.com</a>
+          An initiative of
+          <a href="https://www.siryushub.com">Siryus Creative Media Ltd</a>
         </p>
       </section>
     </main>
 
     <ArcFooter />
     <ThemeToggle />
+
+    <script is:inline>
+      (() => {
+        const section = document.querySelector('[data-horizontal-scroll]');
+        const track = document.querySelector('[data-horizontal-track]');
+        if (!(section instanceof HTMLElement) || !(track instanceof HTMLElement)) return;
+        let locked = false;
+        let progress = 0;
+        let startTouchX = 0;
+        const maxProgress = () => Math.max(0, track.scrollWidth - window.innerWidth);
+        const clamp = (value) => Math.min(maxProgress(), Math.max(0, value));
+        const render = () => {
+          track.style.transform = `translate3d(${-progress}px, 0, 0)`;
+        };
+        const unlockIfDone = (delta) => {
+          if (delta > 0 && progress >= maxProgress()) {
+            locked = false;
+            document.body.style.overflow = '';
+          }
+          if (delta < 0 && progress <= 0) {
+            locked = false;
+            document.body.style.overflow = '';
+          }
+        };
+        const shouldLock = () => {
+          const rect = section.getBoundingClientRect();
+          return rect.top <= 0 && rect.bottom >= window.innerHeight;
+        };
+        window.addEventListener('wheel', (event) => {
+          if (!locked && shouldLock()) {
+            locked = true;
+            document.body.style.overflow = 'hidden';
+          }
+          if (!locked) return;
+          event.preventDefault();
+          progress = clamp(progress + event.deltaY);
+          render();
+          unlockIfDone(event.deltaY);
+        }, { passive: false });
+        window.addEventListener('touchstart', (event) => {
+          if (!event.touches[0]) return;
+          startTouchX = event.touches[0].clientX;
+        }, { passive: true });
+        window.addEventListener('touchmove', (event) => {
+          if (!locked && shouldLock()) {
+            locked = true;
+            document.body.style.overflow = 'hidden';
+          }
+          if (!locked || !event.touches[0]) return;
+          event.preventDefault();
+          const delta = startTouchX - event.touches[0].clientX;
+          progress = clamp(progress + delta * 1.1);
+          startTouchX = event.touches[0].clientX;
+          render();
+          unlockIfDone(delta);
+        }, { passive: false });
+        window.addEventListener('resize', () => {
+          progress = clamp(progress);
+          render();
+        });
+      })();
+    </script>
+
+    <script is:inline>
+      (() => {
+        const stack = document.querySelector('[data-value-stack]');
+        if (!(stack instanceof HTMLElement)) return;
+        const names = Array.from(stack.querySelectorAll('.value-item h3'));
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            names.forEach((name, index) => {
+              name.style.transitionDelay = `${index * 130}ms`;
+              name.classList.add('is-in');
+            });
+            observer.disconnect();
+          });
+        }, { threshold: 0.25 });
+        observer.observe(stack);
+      })();
+    </script>
+
+    <script is:inline>
+      (() => {
+        const path = window.location.pathname.replace(/\/+$/, '');
+        if (path === '/arc') document.body.classList.add('arc-route');
+      })();
+    </script>
   </body>
 </html>
 
 <style is:global>
-  body {
+  body.arc-route {
     margin: 0;
-    font-family: 'DM Sans', sans-serif;
     background: #0d0b09;
     color: #f5f0e8;
-    transition: background 0.3s ease, color 0.3s ease;
+    font-family: 'Syne', sans-serif;
   }
-
-  body.light-theme {
+  body.arc-route.light-theme {
     background: #f5f0e8;
-    color: #1b140f;
+    color: #1c1208;
   }
 </style>
 
 <style>
-  .arc-page {
-    line-height: 1.5;
-  }
-
+  .arc-page { background: transparent; }
   .arc-hero {
     position: relative;
     min-height: 100vh;
     display: grid;
-    align-items: end;
+    place-items: center;
     overflow: hidden;
+    isolation: isolate;
   }
-
-  .arc-hero__image,
-  .arc-hero__overlay {
+  .arc-hero__image, .arc-hero__overlay {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
   }
-
-  .arc-hero__image {
-    object-fit: cover;
-  }
-
+  .arc-hero__image { object-fit: cover; }
   .arc-hero__overlay {
-    background: linear-gradient(180deg, rgba(13, 11, 9, 0.58), rgba(13, 11, 9, 0.88));
+    background:
+      radial-gradient(circle at 56% 48%, rgba(242, 121, 48, 0.16), transparent 38%),
+      linear-gradient(180deg, rgba(13, 11, 9, 0.52), rgba(13, 11, 9, 0.94));
+    z-index: 1;
   }
-
+  .arc-hero__grain {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.17;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23f5f0e8' fill-opacity='0.18'%3E%3Ccircle cx='12' cy='16' r='1'/%3E%3Ccircle cx='44' cy='72' r='1'/%3E%3Ccircle cx='90' cy='20' r='1'/%3E%3Ccircle cx='130' cy='60' r='1'/%3E%3Ccircle cx='24' cy='120' r='1'/%3E%3Ccircle cx='75' cy='108' r='1'/%3E%3C/g%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+  }
+  .arc-hero__edge-note {
+    position: absolute;
+    z-index: 3;
+    margin: 0;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    font-size: 0.62rem;
+    opacity: 0.72;
+    white-space: nowrap;
+  }
+  .arc-hero__edge-note--left {
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left top;
+  }
+  .arc-hero__edge-note--right {
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: right top;
+  }
   .arc-hero__content {
     position: relative;
-    z-index: 2;
-    padding: min(9vw, 5.5rem);
-    max-width: 58rem;
+    z-index: 4;
     display: grid;
-    gap: 1rem;
+    justify-items: center;
+    gap: 1.4rem;
+    padding: 1.5rem;
+    text-align: center;
   }
-
   .arc-hero__content p {
     margin: 0;
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: #f5f0e8;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+    text-transform: uppercase;
+    opacity: 0.86;
+  }
+  .arc-hero__ticker {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1.2rem;
+    z-index: 3;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    white-space: nowrap;
+    padding-inline: 1.2rem;
+    overflow: hidden;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: rgba(245, 240, 232, 0.78);
+    text-transform: uppercase;
+  }
+  .arc-hero__ticker span {
+    animation: arcTicker 12s linear infinite;
+    flex: none;
+  }
+  .arc-manifesto {
+    display: grid;
+    grid-template-columns: 10px minmax(0, 1fr);
+    align-items: start;
+    gap: 2rem;
+    background: #0d0b09;
+    padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 8vw, 10rem);
+  }
+  .manifesto-rule { width: 2px; height: 100%; background: rgba(242, 121, 48, 0.5); }
+  .arc-manifesto p {
+    margin: 0;
+    max-width: 18ch;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.6rem, 5.7vw, 4.5rem);
+    line-height: 1.03;
     letter-spacing: 0.01em;
   }
-
-  .arc-section {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: clamp(3.2rem, 8vw, 7rem) 1.5rem;
-  }
-
-  h2 {
+  .arc-problem { padding: clamp(3rem, 6vw, 6rem) 0; }
+  .arc-problem h2, .arc-disciplines h2, .arc-values h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 4.5vw, 3.5rem);
-    line-height: 1.05;
+    font-size: clamp(2.1rem, 4vw, 3.4rem);
     font-weight: 600;
-    margin: 0 0 1.6rem;
+    margin: 0 0 2rem;
+    padding-inline: clamp(1.25rem, 8vw, 10rem);
   }
-
-  h3 {
+  .problem-list { display: grid; }
+  .problem-item {
+    position: relative;
+    padding: clamp(2rem, 4vw, 3.2rem) clamp(1.25rem, 8vw, 10rem);
+    border-top: 1px solid rgba(242, 121, 48, 0.22);
+    overflow: hidden;
+  }
+  .problem-item:nth-child(even) { background: rgba(245, 240, 232, 0.03); }
+  .problem-item span {
+    position: absolute;
+    right: clamp(1rem, 7vw, 9rem);
+    top: 50%;
+    transform: translateY(-50%);
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.4rem, 2.8vw, 2rem);
-    margin: 0 0 0.6rem;
+    font-size: clamp(5rem, 16vw, 12rem);
+    color: rgba(242, 121, 48, 0.08);
+    line-height: 1;
+    pointer-events: none;
   }
-
-  .arc-intro p {
-    max-width: 46rem;
-    margin: 0;
-    font-size: clamp(1.15rem, 2.1vw, 1.65rem);
+  .problem-item h3 { position: relative; margin: 0 0 0.8rem; font-size: clamp(1.3rem, 2.3vw, 2rem); z-index: 1; }
+  .problem-item p { position: relative; margin: 0; max-width: 62ch; opacity: 0.88; z-index: 1; }
+  .arc-horizontal { height: 100vh; overflow: hidden; position: relative; }
+  .horizontal-track {
+    height: 100%;
+    display: flex;
+    width: 300vw;
+    transition: transform 0.07s linear;
+    will-change: transform;
   }
-
-  .problem-grid,
-  .discipline-grid,
-  .values-grid {
+  .horizontal-panel {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem 1.2rem;
+    align-content: end;
+    padding: clamp(2rem, 7vw, 6rem);
+    box-sizing: border-box;
   }
-
-  .problem-grid article,
-  .discipline-grid article,
-  .values-grid article {
-    border-top: 1px solid rgba(242, 121, 48, 0.34);
-    padding-top: 1rem;
-  }
-
-  .problem-grid p,
-  .discipline-grid p,
-  .values-grid p {
-    margin: 0;
-    opacity: 0.84;
-  }
-
-  .threefold .triple-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  .threefold h3 {
-    color: #f27930;
-  }
-
-  .arc-photo-block {
-    max-width: 100%;
-    padding-inline: 0;
-  }
-
-  .arc-photo-block img {
+  .horizontal-panel img, .horizontal-overlay {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: min(56vh, 540px);
-    object-fit: cover;
-    filter: brightness(0.72);
+    height: 100%;
   }
-
-  .arc-attribution p {
+  .horizontal-panel img { object-fit: cover; }
+  .horizontal-overlay { background: linear-gradient(180deg, rgba(13, 11, 9, 0.42), rgba(13, 11, 9, 0.84)); }
+  .horizontal-copy { position: relative; z-index: 1; max-width: 40rem; }
+  .panel-word {
     margin: 0;
-    font-size: 0.98rem;
-    opacity: 0.8;
+    font-family: 'Cormorant Garamond', serif;
+    color: #f27930;
+    font-size: clamp(4rem, 14vw, 10rem);
+    line-height: 0.92;
   }
-
+  .panel-sub { margin: 0.9rem 0 0; font-size: clamp(1rem, 1.8vw, 1.35rem); }
+  .arc-disciplines { padding: clamp(3.5rem, 8vw, 7rem) clamp(1.25rem, 8vw, 10rem); }
+  .arc-disciplines h2 { padding-inline: 0; margin-bottom: 2.4rem; }
+  .discipline-mosaic { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0.9rem; }
+  .tile {
+    position: relative;
+    min-height: 190px;
+    border: 1px solid rgba(242, 121, 48, 0.28);
+    padding: 1.25rem;
+    display: grid;
+    align-content: end;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .tile img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transition: opacity 0.45s ease, clip-path 0.45s ease;
+    z-index: -1;
+  }
+  .tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(13, 11, 9, 0.15), rgba(13, 11, 9, 0.82));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: -1;
+  }
+  .tile:hover img { opacity: 1; clip-path: inset(0 0 0 0); }
+  .tile:hover::after { opacity: 1; }
+  .tile h3 { margin: 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3rem); }
+  .tile p { margin: 0.4rem 0 0; font-size: 0.95rem; opacity: 0.9; }
+  .tile-sound { grid-column: span 7; min-height: 260px; }
+  .tile-words { grid-column: span 5; min-height: 210px; }
+  .tile-movement { grid-column: span 4; min-height: 250px; }
+  .tile-vision { grid-column: span 8; min-height: 250px; }
+  .tile-design { grid-column: span 6; min-height: 230px; }
+  .tile-experimental { grid-column: span 6; min-height: 280px; }
+  .arc-values { padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 8vw, 10rem); }
+  .arc-values h2 { padding-inline: 0; margin-bottom: 3rem; }
+  .value-item { margin-bottom: clamp(2.2rem, 6vw, 4.2rem); }
+  .value-item h3 {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 9vw, 6rem);
+    line-height: 0.95;
+    transform: translateX(-64px);
+    opacity: 0;
+    transition: transform 0.72s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.72s ease;
+  }
+  .value-item h3.is-in { transform: translateX(0); opacity: 1; }
+  .value-item p { margin: 0.5rem 0 0; font-size: 1rem; letter-spacing: 0.03em; }
+  .arc-attribution { padding: 0 1.25rem 4rem; text-align: center; }
+  .arc-attribution p { margin: 0; font-size: 0.9rem; letter-spacing: 0.04em; opacity: 0.75; }
   .arc-attribution a {
     color: inherit;
-    text-decoration-color: rgba(242, 121, 48, 0.7);
     text-underline-offset: 0.2em;
+    text-decoration-color: rgba(242, 121, 48, 0.8);
   }
-
-  body.light-theme .problem-grid article,
-  body.light-theme .discipline-grid article,
-  body.light-theme .values-grid article {
-    border-top-color: rgba(114, 57, 26, 0.38);
-  }
-
-  @media (max-width: 900px) {
-    .problem-grid,
-    .discipline-grid,
-    .values-grid,
-    .threefold .triple-grid {
-      grid-template-columns: 1fr;
+  @media (max-width: 940px) {
+    .arc-hero__edge-note { display: none; }
+    .arc-hero__ticker {
+      gap: 1rem;
+      letter-spacing: 0.14em;
+      font-size: 0.64rem;
     }
+    .discipline-mosaic { grid-template-columns: 1fr; }
+    .tile-sound, .tile-words, .tile-movement, .tile-vision, .tile-design, .tile-experimental {
+      grid-column: span 1;
+      min-height: 220px;
+    }
+    .arc-manifesto { grid-template-columns: 1fr; gap: 1.25rem; }
+    .manifesto-rule { width: 100px; height: 2px; }
+  }
+  @keyframes arcTicker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-120%); }
   }
 </style>
