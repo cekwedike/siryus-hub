@@ -1,5 +1,4 @@
 ---
-import ThemeToggle from '../components/ThemeToggle.astro';
 import ArcAnimatedLogo from '../components/ArcAnimatedLogo.astro';
 import ArcFooter from '../components/ArcFooter.astro';
 ---
@@ -38,11 +37,18 @@ import ArcFooter from '../components/ArcFooter.astro';
     />
   </head>
   <body>
+    <nav class="arc-route-nav" aria-label="ARC page navigation" data-arc-nav>
+      <a href="/arc" class="arc-route-nav__brand">ARC.</a>
+      <div class="arc-route-nav__links">
+        <a href="#arc-values">Values</a>
+        <a href="https://www.siryushub.com">Back to SiryusHub</a>
+      </div>
+    </nav>
     <main class="arc-page">
       <section class="arc-hero">
         <img
-          src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=2200&q=80"
-          alt="Creative visual artist building work in a studio"
+          src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=2200&q=80"
+          alt="Christian community gathering in worship and prayer"
           class="arc-hero__image"
         />
         <div class="arc-hero__overlay"></div>
@@ -54,8 +60,21 @@ import ArcFooter from '../components/ArcFooter.astro';
           <ArcAnimatedLogo />
           <p>A home for the ones building in faith.</p>
         </div>
+        <div class="arc-hero__ticker arc-hero__ticker--top" aria-hidden="true">
+          <div class="arc-hero__ticker-track">
+            <span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span>
+          </div>
+          <div class="arc-hero__ticker-track" aria-hidden="true">
+            <span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span>
+          </div>
+        </div>
         <div class="arc-hero__ticker" aria-hidden="true">
-          <span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span>
+          <div class="arc-hero__ticker-track">
+            <span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span>
+          </div>
+          <div class="arc-hero__ticker-track" aria-hidden="true">
+            <span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span><span>ASCENT.</span><span>REFUGE.</span><span>COLLECTIVE.</span>
+          </div>
         </div>
       </section>
 
@@ -99,7 +118,7 @@ import ArcFooter from '../components/ArcFooter.astro';
             <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=2200&q=80" alt="Creative reaching upward while performing" />
             <div class="horizontal-overlay"></div>
             <div class="horizontal-copy">
-              <p class="panel-word">Ascent</p>
+              <p class="panel-word">Ascent.</p>
               <p class="panel-sub">The climb. Skill sharpened by discipline. Calling forged in process.</p>
             </div>
           </article>
@@ -107,7 +126,7 @@ import ArcFooter from '../components/ArcFooter.astro';
             <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=2200&q=80" alt="Creative working alone in quiet studio light" />
             <div class="horizontal-overlay"></div>
             <div class="horizontal-copy">
-              <p class="panel-word">Refuge</p>
+              <p class="panel-word">Refuge.</p>
               <p class="panel-sub">The sanctuary. A quiet room where honesty, rest, and craft can breathe.</p>
             </div>
           </article>
@@ -115,7 +134,7 @@ import ArcFooter from '../components/ArcFooter.astro';
             <img src="https://images.unsplash.com/photo-1516280030429-27679b3dc9cf?auto=format&fit=crop&w=2200&q=80" alt="Community of creatives gathering together in warmth" />
             <div class="horizontal-overlay"></div>
             <div class="horizontal-copy">
-              <p class="panel-word">Collective</p>
+              <p class="panel-word">Collective.</p>
               <p class="panel-sub">The tribe. Builders moving together, carrying weight for each other.</p>
             </div>
           </article>
@@ -147,20 +166,49 @@ import ArcFooter from '../components/ArcFooter.astro';
             <h3>Design</h3><p>Designers giving form to ideas that endure.</p>
           </article>
           <article class="tile tile-experimental">
-            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1400&q=80" alt="Experimental artist at work in an installation space" />
+            <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1400&q=80" alt="Experimental artist working with mixed visual media" />
             <h3>Experimental</h3><p>Boundary-pushers making new language for culture.</p>
           </article>
         </div>
       </section>
 
-      <section class="arc-values" data-value-stack>
-        <h2>Core Values</h2>
-        <article class="value-item"><h3>Faithfulness</h3><p>We honor formation before visibility.</p></article>
-        <article class="value-item"><h3>Excellence</h3><p>Craft is stewardship, not vanity.</p></article>
-        <article class="value-item"><h3>Integrity</h3><p>Truth in process, people, and output.</p></article>
-        <article class="value-item"><h3>Stewardship</h3><p>We treat gifts and opportunities with care.</p></article>
-        <article class="value-item"><h3>Community</h3><p>Belonging is lived, not performed.</p></article>
-        <article class="value-item"><h3>Courage</h3><p>Conviction over trend, even unseen.</p></article>
+      <section class="arc-values" data-value-stack id="arc-values">
+        <div class="arc-values__lead">
+          <p class="arc-values__kicker">Core Values</p>
+          <h2>The code we build by.</h2>
+        </div>
+        <div class="arc-values__list">
+          <article class="value-item" data-value-item>
+            <p class="value-item__index">01</p>
+            <h3>Faithfulness</h3>
+            <p>We honor formation before visibility.</p>
+          </article>
+          <article class="value-item" data-value-item>
+            <p class="value-item__index">02</p>
+            <h3>Excellence</h3>
+            <p>Craft is stewardship, not vanity.</p>
+          </article>
+          <article class="value-item" data-value-item>
+            <p class="value-item__index">03</p>
+            <h3>Integrity</h3>
+            <p>Truth in process, people, and output.</p>
+          </article>
+          <article class="value-item" data-value-item>
+            <p class="value-item__index">04</p>
+            <h3>Stewardship</h3>
+            <p>We treat gifts and opportunities with care.</p>
+          </article>
+          <article class="value-item" data-value-item>
+            <p class="value-item__index">05</p>
+            <h3>Community</h3>
+            <p>Belonging is lived, not performed.</p>
+          </article>
+          <article class="value-item" data-value-item>
+            <p class="value-item__index">06</p>
+            <h3>Courage</h3>
+            <p>Conviction over trend, even unseen.</p>
+          </article>
+        </div>
       </section>
 
       <section class="arc-attribution">
@@ -172,7 +220,19 @@ import ArcFooter from '../components/ArcFooter.astro';
     </main>
 
     <ArcFooter />
-    <ThemeToggle />
+
+    <script is:inline>
+      (() => {
+        const nav = document.querySelector('[data-arc-nav]');
+        const hero = document.querySelector('.arc-hero');
+        if (!(nav instanceof HTMLElement) || !(hero instanceof HTMLElement)) return;
+        const observer = new IntersectionObserver((entries) => {
+          const entry = entries[0];
+          nav.classList.toggle('is-visible', !entry.isIntersecting);
+        }, { threshold: 0.2 });
+        observer.observe(hero);
+      })();
+    </script>
 
     <script is:inline>
       (() => {
@@ -180,6 +240,26 @@ import ArcFooter from '../components/ArcFooter.astro';
         const track = document.querySelector('[data-horizontal-track]');
         if (!(section instanceof HTMLElement) || !(track instanceof HTMLElement)) return;
         const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+        const withPanelPauses = (progress) => {
+          const points = [
+            { p: 0, x: 0 },
+            { p: 0.2, x: 0 },
+            { p: 0.46, x: 0.5 },
+            { p: 0.62, x: 0.5 },
+            { p: 0.88, x: 1 },
+            { p: 1, x: 1 }
+          ];
+          for (let index = 0; index < points.length - 1; index++) {
+            const current = points[index];
+            const next = points[index + 1];
+            if (progress <= next.p) {
+              if (next.p === current.p) return current.x;
+              const local = (progress - current.p) / (next.p - current.p);
+              return current.x + ((next.x - current.x) * local);
+            }
+          }
+          return 1;
+        };
         const update = () => {
           const start = section.offsetTop;
           const travel = section.offsetHeight - window.innerHeight;
@@ -189,7 +269,8 @@ import ArcFooter from '../components/ArcFooter.astro';
             return;
           }
           const progress = clamp((window.scrollY - start) / travel, 0, 1);
-          const x = progress * maxX;
+          const easedProgress = withPanelPauses(progress);
+          const x = easedProgress * maxX;
           track.style.transform = `translate3d(${-x}px, 0, 0)`;
         };
         update();
@@ -200,20 +281,19 @@ import ArcFooter from '../components/ArcFooter.astro';
 
     <script is:inline>
       (() => {
-        const stack = document.querySelector('[data-value-stack]');
-        if (!(stack instanceof HTMLElement)) return;
-        const names = Array.from(stack.querySelectorAll('.value-item h3'));
+        const items = Array.from(document.querySelectorAll('[data-value-item]'));
+        if (items.length === 0) return;
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            names.forEach((name, index) => {
-              name.style.transitionDelay = `${index * 130}ms`;
-              name.classList.add('is-in');
-            });
-            observer.disconnect();
+            const item = entry.target;
+            if (entry.isIntersecting) {
+              item.classList.add('is-in');
+            } else {
+              item.classList.remove('is-in');
+            }
           });
-        }, { threshold: 0.25 });
-        observer.observe(stack);
+        }, { threshold: 0.5 });
+        items.forEach((item) => observer.observe(item));
       })();
     </script>
 
@@ -223,6 +303,40 @@ import ArcFooter from '../components/ArcFooter.astro';
         if (path === '/arc') document.body.classList.add('arc-route');
       })();
     </script>
+
+    <script is:inline>
+      (() => {
+        const tiles = Array.from(document.querySelectorAll('.tile'));
+        if (tiles.length === 0) return;
+        const timers = new WeakMap();
+        const deactivate = (tile) => {
+          const timer = timers.get(tile);
+          if (timer) window.clearTimeout(timer);
+          tile.classList.remove('is-revealed');
+        };
+        const activate = (tile) => {
+          tiles.forEach((otherTile) => {
+            if (otherTile !== tile) deactivate(otherTile);
+          });
+          const timer = window.setTimeout(() => {
+            tile.classList.add('is-revealed');
+            timers.delete(tile);
+          }, 220);
+          timers.set(tile, timer);
+        };
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            const tile = entry.target;
+            if (entry.isIntersecting) {
+              activate(tile);
+            } else {
+              deactivate(tile);
+            }
+          });
+        }, { threshold: 0.55 });
+        tiles.forEach((tile) => observer.observe(tile));
+      })();
+    </script>
   </body>
 </html>
 
@@ -230,27 +344,78 @@ import ArcFooter from '../components/ArcFooter.astro';
   body.arc-route {
     margin: 0;
     background: #0d0b09;
-    color: #f5f0e8;
+    color: #ffffff;
     font-family: 'Syne', sans-serif;
   }
   body.arc-route.light-theme {
-    background: #f5f0e8;
-    color: #1c1208;
+    background: #ffffff;
+    color: #000000;
   }
-  body.arc-route .theme-toggle {
-    top: auto;
-    right: 1rem;
-    bottom: 1rem;
-    transform: none;
-    z-index: 30;
+  body.arc-route .arc-route-nav {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translate(-50%, -120%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 60;
+    width: min(1100px, calc(100vw - 1.4rem));
+    padding: 0.65rem 0.9rem;
+    border: 1px solid rgba(242, 121, 48, 0.42);
+    background: rgba(13, 11, 9, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
   }
-  body.arc-route .theme-toggle__island {
-    background: rgba(8, 8, 10, 0.7);
-    border-color: rgba(245, 240, 232, 0.2);
+  body.arc-route .arc-route-nav.is-visible {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    pointer-events: auto;
   }
-  body.arc-route.light-theme .theme-toggle__island {
-    background: rgba(255, 255, 255, 0.84);
-    border-color: rgba(28, 18, 8, 0.2);
+  body.arc-route .arc-route-nav__brand {
+    color: #f27930;
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  body.arc-route .arc-route-nav__links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  body.arc-route .arc-route-nav__links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  body.arc-route.light-theme .arc-route-nav {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(0, 0, 0, 0.28);
+  }
+  body.arc-route.light-theme .arc-route-nav__brand {
+    color: #000000;
+  }
+  body.arc-route.light-theme .arc-route-nav__links a {
+    color: #000000;
+  }
+  @media (max-width: 940px) {
+    body.arc-route .arc-route-nav {
+      top: 0.55rem;
+      width: calc(100vw - 1rem);
+      padding: 0.55rem 0.62rem;
+    }
+    body.arc-route .arc-route-nav__brand {
+      font-size: 1.2rem;
+    }
+    body.arc-route .arc-route-nav__links a {
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+    }
   }
 </style>
 
@@ -258,7 +423,8 @@ import ArcFooter from '../components/ArcFooter.astro';
   .arc-page { background: transparent; }
   .arc-hero {
     position: relative;
-    min-height: 100vh;
+    min-height: 100svh;
+    height: 100svh;
     display: grid;
     place-items: center;
     overflow: hidden;
@@ -293,20 +459,20 @@ import ArcFooter from '../components/ArcFooter.astro';
     letter-spacing: 0.26em;
     text-transform: uppercase;
     font-size: 0.62rem;
-    opacity: 0.72;
+    opacity: 1;
     white-space: nowrap;
   }
   .arc-hero__edge-note--left {
-    left: 1.25rem;
+    left: 1.5rem;
     top: 50%;
     transform: translateY(-50%) rotate(-90deg);
-    transform-origin: left top;
+    transform-origin: left center;
   }
   .arc-hero__edge-note--right {
-    right: 1.25rem;
+    right: 1.5rem;
     top: 50%;
     transform: translateY(-50%) rotate(90deg);
-    transform-origin: right top;
+    transform-origin: right center;
   }
   .arc-hero__content {
     position: relative;
@@ -319,7 +485,7 @@ import ArcFooter from '../components/ArcFooter.astro';
   }
   .arc-hero__superline {
     margin: 0;
-    color: #f5f0e8;
+    color: #ffffff;
     font-weight: 400;
     letter-spacing: 0.16em;
     font-size: clamp(0.8rem, 1.1vw, 1.02rem);
@@ -328,7 +494,7 @@ import ArcFooter from '../components/ArcFooter.astro';
   }
   .arc-hero__content p {
     margin: 0;
-    color: #f5f0e8;
+    color: #ffffff;
     font-weight: 400;
     letter-spacing: 0.16em;
     font-size: clamp(0.95rem, 1.2vw, 1.15rem);
@@ -352,12 +518,26 @@ import ArcFooter from '../components/ArcFooter.astro';
     overflow: hidden;
     font-size: 0.72rem;
     letter-spacing: 0.24em;
-    color: rgba(245, 240, 232, 0.78);
+    color: #ffffff;
     text-transform: uppercase;
+    pointer-events: none;
+  }
+  .arc-hero__ticker--top {
+    top: 1.2rem;
+    bottom: auto;
+  }
+  .arc-hero__ticker--top .arc-hero__ticker-track {
+    animation-direction: reverse;
+  }
+  .arc-hero__ticker-track {
+    display: flex;
+    gap: 1.4rem;
+    flex: none;
+    min-width: max-content;
+    animation: arcTicker 18s linear infinite;
   }
   .arc-hero__ticker span {
-    animation: arcTicker 12s linear infinite;
-    flex: none;
+    display: inline-block;
   }
   .arc-manifesto {
     display: grid;
@@ -404,7 +584,7 @@ import ArcFooter from '../components/ArcFooter.astro';
     pointer-events: none;
   }
   .problem-item h3 { position: relative; margin: 0 0 0.8rem; font-size: clamp(1.3rem, 2.3vw, 2rem); z-index: 1; }
-  .problem-item p { position: relative; margin: 0; max-width: 62ch; opacity: 0.88; z-index: 1; }
+  .problem-item p { position: relative; margin: 0; max-width: 62ch; z-index: 1; }
   .arc-horizontal {
     height: 300vh;
     position: relative;
@@ -481,64 +661,139 @@ import ArcFooter from '../components/ArcFooter.astro';
     transition: opacity 0.35s ease;
     z-index: -1;
   }
-  .tile:hover img { opacity: 1; clip-path: inset(0 0 0 0); }
-  .tile:hover::after { opacity: 1; }
+  .tile:hover img,
+  .tile.is-revealed img { opacity: 1; clip-path: inset(0 0 0 0); }
+  .tile:hover::after,
+  .tile.is-revealed::after { opacity: 1; }
   .tile h3 { margin: 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3rem); }
-  .tile p { margin: 0.4rem 0 0; font-size: 0.95rem; opacity: 0.9; }
+  .tile p { margin: 0.4rem 0 0; font-size: 0.95rem; }
   .tile-sound { grid-column: span 7; min-height: 260px; }
   .tile-words { grid-column: span 5; min-height: 210px; }
   .tile-movement { grid-column: span 4; min-height: 250px; }
   .tile-vision { grid-column: span 8; min-height: 250px; }
   .tile-design { grid-column: span 6; min-height: 230px; }
   .tile-experimental { grid-column: span 6; min-height: 280px; }
-  .arc-values { padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 8vw, 10rem); }
-  .arc-values h2 { padding-inline: 0; margin-bottom: 3rem; }
-  .value-item { margin-bottom: clamp(2.2rem, 6vw, 4.2rem); }
-  .value-item h3 {
-    margin: 0;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 9vw, 6rem);
-    line-height: 0.95;
-    transform: translateX(-64px);
-    opacity: 0;
-    transition: transform 0.72s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.72s ease;
+  .arc-values {
+    padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 8vw, 10rem);
+    display: grid;
+    grid-template-columns: minmax(220px, 0.95fr) minmax(0, 2fr);
+    gap: clamp(1.25rem, 4vw, 4rem);
+    align-items: start;
   }
-  .value-item h3.is-in { transform: translateX(0); opacity: 1; }
-  .value-item p { margin: 0.5rem 0 0; font-size: 1rem; letter-spacing: 0.03em; }
+  .arc-values__lead {
+    position: sticky;
+    top: 6rem;
+  }
+  .arc-values__kicker {
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #f27930;
+  }
+  .arc-values__lead h2 {
+    margin: 0.55rem 0 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.8vw, 3.5rem);
+    line-height: 0.95;
+  }
+  .arc-values__list {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .value-item {
+    --value-shift: -42px;
+    padding: 1.25rem 0 1.6rem;
+    border-top: 1px solid rgba(242, 121, 48, 0.22);
+    transform: translateX(var(--value-shift));
+    opacity: 0.2;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease;
+  }
+  .value-item:nth-child(even) {
+    --value-shift: 28px;
+  }
+  .value-item.is-in {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  .value-item__index {
+    margin: 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: #f27930;
+    text-transform: uppercase;
+  }
+  .value-item h3 {
+    margin: 0.35rem 0 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 7.5vw, 5.3rem);
+    line-height: 0.92;
+  }
+  .value-item p {
+    margin: 0.35rem 0 0;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
   .arc-attribution { padding: 0 1.25rem 4rem; text-align: center; }
-  .arc-attribution p { margin: 0; font-size: 0.9rem; letter-spacing: 0.04em; opacity: 0.75; }
+  .arc-attribution p { margin: 0; font-size: 0.9rem; letter-spacing: 0.04em; }
   .arc-attribution a {
     color: inherit;
     text-underline-offset: 0.2em;
     text-decoration-color: rgba(242, 121, 48, 0.8);
   }
   body.arc-route.light-theme .arc-manifesto {
-    background: #f5f0e8;
-    color: #1c1208;
+    background: #ffffff;
+    color: #000000;
   }
   body.arc-route.light-theme .arc-problem,
   body.arc-route.light-theme .arc-disciplines,
   body.arc-route.light-theme .arc-values,
   body.arc-route.light-theme .arc-attribution {
-    background: #f5f0e8;
-    color: #1c1208;
+    background: #ffffff;
+    color: #000000;
   }
   body.arc-route.light-theme .problem-item {
-    border-top-color: rgba(28, 18, 8, 0.18);
+    border-top-color: rgba(0, 0, 0, 0.18);
   }
   body.arc-route.light-theme .problem-item:nth-child(even) {
-    background: rgba(28, 18, 8, 0.04);
+    background: rgba(0, 0, 0, 0.035);
   }
   body.arc-route.light-theme .problem-item span {
     color: rgba(160, 82, 45, 0.14);
   }
   body.arc-route.light-theme .tile {
-    border-color: rgba(28, 18, 8, 0.22);
+    border-color: rgba(0, 0, 0, 0.22);
+  }
+  body.arc-route.light-theme .value-item {
+    border-top-color: rgba(0, 0, 0, 0.18);
+  }
+  body.arc-route.light-theme .arc-values__kicker,
+  body.arc-route.light-theme .value-item__index {
+    color: #a0522d;
+  }
+  body.arc-route.light-theme .arc-hero__edge-note {
+    color: #ffffff;
   }
   @media (max-width: 940px) {
-    .arc-hero__edge-note { display: none; }
+    .arc-hero__edge-note {
+      font-size: 0.48rem;
+      letter-spacing: 0.12em;
+      top: 50%;
+    }
+    .arc-hero__edge-note--left {
+      left: 0.2rem;
+      transform: translateY(-50%) rotate(-90deg);
+      transform-origin: left center;
+    }
+    .arc-hero__edge-note--right {
+      right: 0.2rem;
+      transform: translateY(-50%) rotate(90deg);
+      transform-origin: right center;
+      text-align: right;
+    }
     .arc-hero {
-      min-height: 88svh;
+      min-height: 100svh;
+      height: 100svh;
     }
     .arc-hero__content {
       gap: 0.7rem;
@@ -548,14 +803,26 @@ import ArcFooter from '../components/ArcFooter.astro';
     .arc-hero__ticker {
       gap: 1rem;
       letter-spacing: 0.14em;
-      font-size: 0.64rem;
+      font-size: 0.56rem;
       bottom: 0.5rem;
       padding-inline: 0.6rem;
     }
-    .arc-horizontal { height: 220vh; }
-    body.arc-route .theme-toggle {
-      right: 0.75rem;
-      bottom: 0.75rem;
+    .arc-hero__ticker--top {
+      top: 0.5rem;
+      bottom: auto;
+    }
+    .arc-horizontal { height: 100svh; }
+    .arc-horizontal__sticky { position: relative; top: auto; height: 100svh; overflow-x: auto; }
+    .horizontal-track { transform: none !important; }
+    .arc-values {
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+    .arc-values__lead {
+      position: static;
+    }
+    .value-item:nth-child(even) {
+      --value-shift: -42px;
     }
     .discipline-mosaic { grid-template-columns: 1fr; }
     .tile-sound, .tile-words, .tile-movement, .tile-vision, .tile-design, .tile-experimental {
@@ -567,6 +834,6 @@ import ArcFooter from '../components/ArcFooter.astro';
   }
   @keyframes arcTicker {
     from { transform: translateX(0); }
-    to { transform: translateX(-120%); }
+    to { transform: translateX(-100%); }
   }
 </style>
