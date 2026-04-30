@@ -101,19 +101,16 @@ import ArcFooter from '../components/ArcFooter.astro';
 
       <section class="arc-manifesto">
         <div class="manifesto-rule" aria-hidden="true"></div>
-        <p>
-          ARC is a community.
-          <br /><br />
-          A place where independent Christian creatives across music, film, poetry, movement, and design come together to grow, collaborate, and build something that lasts.
-          <br /><br />
-          We are not a label. Not a management company. Not a platform looking for content.
-          <br /><br />
-          ARC is a home. For the talented ones building quietly. For the faithful ones who haven't found their people yet. For the serious ones who refuse to compromise their craft or their values to get ahead.
-          <br /><br />
-          We exist to give them structure, community, and room to develop without the pressure to perform before they are ready.
-          <br /><br />
-          ARC operates from Nigeria and Rwanda, and grows globally.
-        </p>
+        <div class="arc-manifesto__content">
+          <p class="arc-manifesto__lead">ARC is a community.</p>
+          <div class="arc-manifesto__copy">
+            <p>A place where independent Christian creatives across music, film, poetry, movement, and design come together to grow, collaborate, and build something that lasts.</p>
+            <p>We are not a label. Not a management company. Not a platform looking for content.</p>
+            <p>ARC is a home. For the talented ones building quietly. For the faithful ones who haven't found their people yet. For the serious ones who refuse to compromise their craft or their values to get ahead.</p>
+            <p>We exist to give them structure, community, and room to develop without the pressure to perform before they are ready.</p>
+            <p>ARC operates from Nigeria and Rwanda, and grows globally.</p>
+          </div>
+        </div>
       </section>
 
       <section class="arc-problem">
@@ -577,20 +574,37 @@ import ArcFooter from '../components/ArcFooter.astro';
   }
   .arc-manifesto {
     display: grid;
-    grid-template-columns: 10px minmax(0, 1fr);
+    grid-template-columns: 2px minmax(0, 1fr);
     align-items: start;
-    gap: 2rem;
+    gap: 1.4rem;
     background: #0d0b09;
-    padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 8vw, 10rem);
+    padding: clamp(2.7rem, 5vw, 4.5rem) clamp(1.25rem, 8vw, 10rem);
   }
   .manifesto-rule { width: 2px; height: 100%; background: rgba(242, 121, 48, 0.5); }
-  .arc-manifesto p {
+  .arc-manifesto__content {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.6fr) minmax(0, 1fr);
+    gap: clamp(1.1rem, 3vw, 3rem);
+    align-items: start;
+  }
+  .arc-manifesto__lead {
     margin: 0;
-    max-width: 18ch;
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.6rem, 5.7vw, 4.5rem);
-    line-height: 1.03;
+    font-size: clamp(2.1rem, 4.2vw, 3.3rem);
+    line-height: 0.98;
     letter-spacing: 0.01em;
+  }
+  .arc-manifesto__copy {
+    max-width: 56ch;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .arc-manifesto__copy p {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.25rem, 2vw, 1.78rem);
+    line-height: 1.17;
+    letter-spacing: 0.006em;
   }
   .arc-problem { padding: clamp(3rem, 6vw, 6rem) 0; }
   .arc-problem h2, .arc-disciplines h2, .arc-values h2 {
@@ -886,8 +900,28 @@ import ArcFooter from '../components/ArcFooter.astro';
       grid-column: span 1;
       min-height: 220px;
     }
-    .arc-manifesto { grid-template-columns: 1fr; gap: 1.25rem; }
-    .manifesto-rule { width: 100px; height: 2px; }
+    .arc-manifesto {
+      gap: 1rem;
+      padding-top: clamp(2.3rem, 8vw, 3rem);
+      padding-bottom: clamp(2.3rem, 8vw, 3rem);
+    }
+    .arc-manifesto__content {
+      grid-template-columns: minmax(150px, 0.46fr) minmax(0, 1fr);
+      gap: 0.85rem;
+    }
+    .arc-manifesto__lead { font-size: clamp(1.65rem, 4.1vw, 2.2rem); }
+    .arc-manifesto__copy { gap: 0.55rem; }
+    .arc-manifesto__copy p { font-size: clamp(1.05rem, 2.1vw, 1.3rem); line-height: 1.14; }
+  }
+  @media (max-width: 700px) {
+    .arc-manifesto {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .manifesto-rule { width: 82px; height: 2px; }
+    .arc-manifesto__content { grid-template-columns: 1fr; gap: 0.75rem; }
+    .arc-manifesto__lead { font-size: clamp(1.75rem, 8vw, 2.4rem); }
+    .arc-manifesto__copy p { font-size: clamp(1.08rem, 4.8vw, 1.32rem); line-height: 1.15; }
   }
   @keyframes arcTicker {
     from { transform: translateX(0); }
