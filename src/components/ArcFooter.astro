@@ -22,6 +22,9 @@
       </div>
     </div>
     <div class="arc-footer__divider" aria-hidden="true"></div>
+    <p class="arc-footer__blog-row">
+      <a class="arc-footer__blog-link" href="/arc/blog">ARC blog</a>
+    </p>
     <div class="arc-footer__meta">
       <p class="arc-footer__attribution">
         An initiative of
@@ -107,6 +110,23 @@
     width: 100%;
     height: 1px;
     background: linear-gradient(90deg, rgba(242, 121, 48, 0.25), rgba(242, 121, 48, 0.55), rgba(242, 121, 48, 0.25));
+  }
+
+  .arc-footer__blog-row {
+    margin: 0;
+  }
+
+  .arc-footer__blog-link {
+    font-size: 0.84rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f27930;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .arc-footer__blog-link:hover {
+    text-decoration: underline;
   }
 
   .arc-footer__meta {
@@ -222,6 +242,10 @@
   }
 
   :global(body.arc-route.light-theme) .arc-footer__back {
+    color: #a0522d;
+  }
+
+  :global(body.arc-route.light-theme) .arc-footer__blog-link {
     color: #a0522d;
   }
 

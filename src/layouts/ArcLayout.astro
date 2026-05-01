@@ -1,0 +1,233 @@
+---
+import '../styles/arc-blog.css';
+import ArcFooter from '../components/ArcFooter.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  noIndex?: boolean;
+  schema?: object;
+}
+
+const {
+  title,
+  description = 'ARC is a community for independent Christian creatives.',
+  canonical,
+  ogImage = '/arc/arc-logo.png',
+  ogType = 'website',
+  noIndex = false,
+  schema,
+} = Astro.props;
+
+const pageTitle = title.includes('|') ? title : `${title} | ARC`;
+
+const canonicalURL = canonical
+  ? new URL(canonical, Astro.url.origin).href
+  : new URL(Astro.url.pathname, Astro.url.origin).href;
+
+const ogImageURL = ogImage.startsWith('http')
+  ? ogImage
+  : new URL(ogImage, Astro.url.origin).href;
+
+const defaultSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'ARC',
+  alternateName: 'Ascent. Refuge. Collective.',
+  url: 'https://www.siryushub.com/arc',
+  logo: 'https://www.siryushub.com/arc/arc-logo.png',
+  description:
+    'ARC is a community for independent Christian creatives who are serious about their craft and their faith.',
+};
+
+const finalSchema = schema || defaultSchema;
+const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const inBlog = currentPath === '/arc/blog' || currentPath.startsWith('/arc/blog/');
+const inArcHome = currentPath === '/arc';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="layout-html">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content="ARC" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
+
+    <link rel="icon" href="/arc/arc png.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Syne:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="arc-route">
+    <a href="#main-content" class="arc-skip-link">Skip to main content</a>
+    <nav class="arc-route-nav arc-route-nav--always" aria-label="ARC page navigation">
+      <a href="/arc" class={`arc-route-nav__brand ${inArcHome ? 'is-active' : ''}`.trim()}>ARC.</a>
+      <div class="arc-route-nav__links">
+        <a href="/arc" class={inArcHome ? 'is-active' : undefined}>Home</a>
+        <a href="/arc/blog" class={inBlog ? 'is-active' : undefined}>Blog</a>
+        <a href="https://www.siryushub.com">Back to SiryusHub</a>
+      </div>
+    </nav>
+    <main id="main-content" class="arc-shell-main">
+      <slot />
+    </main>
+    <ArcFooter />
+  </body>
+</html>
+
+<style is:global>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html.layout-html,
+  body.arc-route {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body.arc-route {
+    background: #0d0b09;
+    color: #ffffff;
+    font-family: 'Syne', sans-serif;
+  }
+
+  body.arc-route.light-theme {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  body.arc-route .arc-route-nav {
+    position: sticky;
+    top: 0.75rem;
+    left: 0;
+    right: 0;
+    z-index: 70;
+    width: min(1120px, calc(100vw - 1.4rem));
+    margin-inline: auto;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid rgba(242, 121, 48, 0.42);
+    background: rgba(13, 11, 9, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(8px);
+  }
+
+  body.arc-route .arc-route-nav__brand {
+    color: #f27930;
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  body.arc-route .arc-route-nav__links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  body.arc-route .arc-route-nav__links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.82;
+  }
+
+  body.arc-route .arc-route-nav a.is-active {
+    opacity: 1;
+    color: #f27930;
+  }
+
+  body.arc-route .arc-route-nav a:hover {
+    opacity: 1;
+  }
+
+  body.arc-route.light-theme .arc-route-nav {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(0, 0, 0, 0.28);
+  }
+
+  body.arc-route.light-theme .arc-route-nav__brand {
+    color: #000000;
+  }
+
+  body.arc-route.light-theme .arc-route-nav__links a {
+    color: #000000;
+  }
+
+  .arc-shell-main {
+    min-height: 60vh;
+    padding-top: 0.9rem;
+  }
+
+  .arc-skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 120;
+    background: #f27930;
+    color: #0d0b09;
+    padding: 0.45rem 0.8rem;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .arc-skip-link:focus {
+    top: 0.5rem;
+  }
+
+  @media (max-width: 940px) {
+    body.arc-route .arc-route-nav {
+      top: 0.5rem;
+      width: calc(100vw - 1rem);
+      padding: 0.55rem 0.62rem;
+    }
+
+    body.arc-route .arc-route-nav__brand {
+      font-size: 1.2rem;
+    }
+
+    body.arc-route .arc-route-nav__links {
+      gap: 0.55rem;
+    }
+
+    body.arc-route .arc-route-nav__links a {
+      font-size: 0.66rem;
+      letter-spacing: 0.05em;
+    }
+  }
+</style>

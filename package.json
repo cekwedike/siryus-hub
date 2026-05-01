@@ -17,7 +17,8 @@
     "update:indiba": "node scripts/update-indiba.mjs",
     "seed:team": "node scripts/seed-team.mjs",
     "patch:artist-keys": "node scripts/patch-artist-release-keys.mjs",
-    "studio": "cd studio && sanity dev"
+    "studio": "cd studio && sanity dev",
+    "studio:arc": "cd studio-arc && sanity dev"
   },
   "engines": {
     "node": ">=18.0.0"

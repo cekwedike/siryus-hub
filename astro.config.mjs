@@ -29,6 +29,8 @@ export default defineConfig({
         'https://www.siryushub.com/artists/winny-ezeme',
         'https://www.siryushub.com/community',
         'https://www.siryushub.com/blog',
+        'https://www.siryushub.com/arc',
+        'https://www.siryushub.com/arc/blog',
         'https://www.siryushub.com/studio',
         'https://www.siryushub.com/projects',
         'https://www.siryushub.com/projects/indiba-project-series',
@@ -49,6 +51,15 @@ export default defineConfig({
       ),
       'process.env.PUBLIC_SANITY_DATASET': JSON.stringify(
         process.env.PUBLIC_SANITY_DATASET
+      ),
+      'process.env.PUBLIC_SANITY_ARC_PROJECT_ID': JSON.stringify(
+        process.env.PUBLIC_SANITY_ARC_PROJECT_ID
+      ),
+      'process.env.PUBLIC_SANITY_ARC_DATASET': JSON.stringify(
+        process.env.PUBLIC_SANITY_ARC_DATASET
+      ),
+      'process.env.PUBLIC_CANONICAL_ORIGIN': JSON.stringify(
+        process.env.PUBLIC_CANONICAL_ORIGIN
       ),
     },
   },

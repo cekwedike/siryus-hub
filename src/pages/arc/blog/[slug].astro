@@ -1,0 +1,262 @@
+---
+import ArcLayout from '../../../layouts/ArcLayout.astro';
+import { blogCoverImageUrlArc } from '../../../lib/sanityArc';
+import { getAllArcPosts, getArcPostBySlug } from '../../../lib/queriesArc';
+import type { BlogPostSummary } from '../../../lib/queries';
+import { portableTextToBlogHtml } from '../../../lib/portableTextHtml';
+import { portableTextToPlainText } from '../../../lib/portableTextPlain';
+import { getCanonicalOrigin } from '../../../lib/siteCanonical';
+
+export const prerender = false;
+
+const origin = getCanonicalOrigin();
+
+const { slug } = Astro.params;
+const post = slug ? await getArcPostBySlug(slug) : null;
+
+if (!post?.slug?.current) {
+  Astro.response.status = 404;
+}
+
+function formatDate(iso: string) {
+  try {
+    return new Date(iso).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return '';
+  }
+}
+
+function relatedCover(p: BlogPostSummary) {
+  return blogCoverImageUrlArc(p.coverImage, 400, 250);
+}
+
+let pageTitle = 'Article not found';
+let pageDescription =
+  'That ARC post could not be found. Browse all posts on the ARC blog.';
+let canonicalUrl = `${origin}/arc/blog`;
+let ogImagePath = '/images/og-default.png';
+let articleSchema: Record<string, unknown> | undefined;
+let bodyHtml = '';
+let readMinutes = 1;
+let datePublishedIso = '';
+let heroCover: string | null = null;
+let related: BlogPostSummary[] = [];
+
+if (post) {
+  pageTitle = post.seoTitle?.trim() ? post.seoTitle.trim() : `${post.title} | ARC Blog`;
+  pageDescription = post.seoDescription?.trim() ? post.seoDescription : post.excerpt;
+  canonicalUrl = `${origin}/arc/blog/${post.slug.current}`;
+  ogImagePath = blogCoverImageUrlArc(post.coverImage, 1200, 630) ?? '/images/og-default.png';
+
+  bodyHtml = portableTextToBlogHtml(post.body ?? []);
+  const plain = portableTextToPlainText(post.body ?? []);
+  const wordCount = plain.trim().split(/\s+/).filter(Boolean).length;
+  readMinutes = Math.max(1, Math.ceil(wordCount / 200));
+
+  try {
+    datePublishedIso = new Date(post.publishedAt).toISOString();
+  } catch {
+    datePublishedIso = post.publishedAt;
+  }
+
+  articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    author: {
+      '@type': 'Person',
+      name: post.author,
+    },
+    datePublished: datePublishedIso,
+    publisher: {
+      '@type': 'Organization',
+      name: 'ARC',
+      url: `${origin}/arc`,
+    },
+  };
+
+  const coverForSchema = blogCoverImageUrlArc(post.coverImage, 1200, 630);
+  if (coverForSchema) {
+    articleSchema.image = coverForSchema;
+  }
+
+  const allForRelated = await getAllArcPosts();
+  related = allForRelated.filter((row) => row._id !== post._id).slice(0, 3);
+
+  heroCover = blogCoverImageUrlArc(post.coverImage, 1800, 1000);
+}
+---
+
+{
+  post ? (
+    <ArcLayout
+      title={pageTitle}
+      description={pageDescription}
+      canonical={canonicalUrl}
+      ogImage={ogImagePath}
+      ogType="article"
+      schema={articleSchema}
+    >
+      <article class="blog-page" itemscope itemtype="https://schema.org/Article">
+        <meta itemprop="datePublished" content={datePublishedIso} />
+        {heroCover ? (
+          <section
+            class="blog-bleed blog-post-hero blog-post-hero--with-cover"
+            aria-labelledby="post-title"
+          >
+            <div class="blog-post-hero__cover-stage">
+              <div class="blog-post-hero__cover-blur" aria-hidden="true">
+                <img class="blog-post-hero__blur-img" src={heroCover} alt="" width="1200" height="675" loading="eager" decoding="async" />
+              </div>
+              <div class="blog-post-hero__cover-scrim" aria-hidden="true" />
+              <div class="blog-inner blog-post-hero__cover-inner">
+                <div class="blog-post-hero__column">
+                  {post.category ? (
+                    <span class="blog-badge blog-badge--on-cover">{post.category}</span>
+                  ) : null}
+                  <h1 id="post-title" class="blog-post-hero__title blog-post-hero__title--on-cover">
+                    {post.title}
+                  </h1>
+                  <div class="blog-post-hero__meta-row blog-post-hero__meta-row--on-cover">
+                    <span class="blog-card__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                      <span itemprop="name">{post.author}</span>
+                    </span>
+                    <time class="blog-card__date" datetime={post.publishedAt}>
+                      {formatDate(post.publishedAt)}
+                    </time>
+                    <span class="blog-read-time blog-read-time--on-cover">{readMinutes} min read</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <meta itemprop="image" content={heroCover} />
+          </section>
+        ) : (
+          <section class="blog-bleed blog-post-hero blog-post-hero--no-cover" aria-labelledby="post-title">
+            <div class="blog-inner">
+              <div class="blog-post-hero__column">
+                {post.category ? <span class="blog-badge">{post.category}</span> : null}
+                <h1 id="post-title" class="blog-post-hero__title">
+                  {post.title}
+                </h1>
+                <div class="blog-post-hero__meta-row">
+                  <span class="blog-card__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">{post.author}</span>
+                  </span>
+                  <time class="blog-card__date" datetime={post.publishedAt}>
+                    {formatDate(post.publishedAt)}
+                  </time>
+                  <span class="blog-read-time">{readMinutes} min read</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        <section class="blog-bleed blog-post-body-wrap" aria-label="Article body">
+          <div class="blog-inner">
+            <div class="project-body">
+              <div class="blog-post-body" set:html={bodyHtml} />
+            </div>
+          </div>
+        </section>
+
+        <footer class="blog-bleed blog-post-footer">
+          <div class="blog-inner">
+            <p class="blog-post-footer__bio">Written by {post.author} for ARC.</p>
+            <a class="blog-post-footer__back" href="/arc/blog">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.25"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              Back to ARC blog
+            </a>
+          </div>
+        </footer>
+
+        {related.length > 0 ? (
+          <section class="blog-bleed blog-related" aria-labelledby="related-heading">
+            <div class="blog-inner">
+              <h2 id="related-heading" class="blog-section__title">
+                More from ARC
+              </h2>
+              <div class="blog-related__grid">
+                {related.map((p) => {
+                  const href = `/arc/blog/${p.slug?.current ?? ''}`;
+                  const thumb = relatedCover(p);
+                  return (
+                    <a class="blog-related-card" href={href} data-astro-prefetch>
+                      <div class="blog-related-card__thumb">
+                        {thumb ? (
+                          <img
+                            src={thumb}
+                            alt={`Cover image for ${p.title}`}
+                            width="400"
+                            height="250"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : null}
+                      </div>
+                      <div class="blog-related-card__body">
+                        {p.category ? <span class="blog-badge">{p.category}</span> : null}
+                        <h3 class="blog-related-card__title">{p.title}</h3>
+                        <time class="blog-card__date" datetime={p.publishedAt}>
+                          {formatDate(p.publishedAt)}
+                        </time>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        ) : null}
+      </article>
+    </ArcLayout>
+  ) : (
+    <ArcLayout
+      title={pageTitle}
+      description={pageDescription}
+      canonical={canonicalUrl}
+      ogImage={ogImagePath}
+      ogType="website"
+      noIndex={true}
+      schema={undefined}
+    >
+      <div class="blog-page blog-page--missing">
+        <section class="blog-bleed blog-section" aria-labelledby="missing-heading">
+          <div class="blog-inner blog-page--missing__inner">
+            <h1 id="missing-heading" class="blog-section__title">
+              Article not found
+            </h1>
+            <p class="blog-page--missing__text">
+              We could not find a post at this address. The link may be outdated, or the URL may have
+              changed when the post was published.
+            </p>
+            <p class="blog-page--missing__actions">
+              <a class="blog-post-footer__back" href="/arc/blog">
+                Back to ARC blog
+              </a>
+            </p>
+          </div>
+        </section>
+      </div>
+    </ArcLayout>
+  )
+}
