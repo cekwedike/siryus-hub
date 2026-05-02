@@ -26,6 +26,33 @@ export interface BlogPostDetail extends BlogPostSummary {
   seoDescription: string | null
 }
 
+export type ArcEventFormat = 'in-person' | 'online' | 'hybrid'
+
+/** Fields shared by ARC event list and detail queries */
+export interface ArcEventSummary {
+  _id: string
+  title: string
+  slug: BlogPostSlug
+  startDateTime: string
+  endDateTime: string | null
+  format: ArcEventFormat | null
+  locationName: string
+  excerpt: string
+  coverImage: SanityImageSource | null
+  featured: boolean | null
+  bodyText: string | null
+}
+
+export interface ArcEventDetail extends ArcEventSummary {
+  locationAddress: string | null
+  locationUrl: string | null
+  onlineUrl: string | null
+  body: PortableTextBlock[] | null
+  registrationUrl: string | null
+  seoTitle: string | null
+  seoDescription: string | null
+}
+
 /** Resolves CDN URLs and keeps hotspot/crop for image-url builder. */
 const listFields = `
   _id,

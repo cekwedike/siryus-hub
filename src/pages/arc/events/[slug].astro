@@ -1,0 +1,393 @@
+---
+import ArcLayout from '../../../layouts/ArcLayout.astro';
+import { blogCoverImageUrlArc } from '../../../lib/sanityArc';
+import { getAllArcEvents, getArcEventBySlug } from '../../../lib/queriesArc';
+import type { ArcEventSummary } from '../../../lib/queries';
+import { portableTextToBlogHtml } from '../../../lib/portableTextHtml';
+import { getCanonicalOrigin } from '../../../lib/siteCanonical';
+
+export const prerender = false;
+
+const origin = getCanonicalOrigin();
+
+const { slug } = Astro.params;
+const event = slug ? await getArcEventBySlug(slug) : null;
+
+if (!event?.slug?.current) {
+  Astro.response.status = 404;
+}
+
+function formatLabel(f: ArcEventSummary['format']) {
+  if (f === 'in-person') return 'In person';
+  if (f === 'online') return 'Online';
+  if (f === 'hybrid') return 'Hybrid';
+  return 'Event';
+}
+
+function formatWhen(isoStart: string, isoEnd: string | null) {
+  try {
+    const start = new Date(isoStart);
+    const end = isoEnd ? new Date(isoEnd) : null;
+    const sameDay =
+      end &&
+      start.getFullYear() === end.getFullYear() &&
+      start.getMonth() === end.getMonth() &&
+      start.getDate() === end.getDate();
+    const datePart = start.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    const timeOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
+    if (!end) {
+      return `${datePart} · ${start.toLocaleTimeString('en-US', timeOpts)}`;
+    }
+    if (sameDay) {
+      return `${datePart} · ${start.toLocaleTimeString('en-US', timeOpts)} – ${end.toLocaleTimeString('en-US', timeOpts)}`;
+    }
+    return `${start.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })} – ${end.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })}`;
+  } catch {
+    return '';
+  }
+}
+
+function attendanceModeUri(f: ArcEventSummary['format']) {
+  if (f === 'online') return 'https://schema.org/OnlineEventAttendanceMode';
+  if (f === 'hybrid') return 'https://schema.org/MixedEventAttendanceMode';
+  return 'https://schema.org/OfflineEventAttendanceMode';
+}
+
+function relatedCover(e: ArcEventSummary) {
+  return blogCoverImageUrlArc(e.coverImage, 400, 250);
+}
+
+let pageTitle = 'Event not found';
+let pageDescription =
+  'That ARC event could not be found. Browse all events on the ARC events page.';
+let canonicalUrl = `${origin}/arc/events`;
+let ogImagePath = '/images/og-default.png';
+let eventSchema: Record<string, unknown> | undefined;
+let bodyHtml = '';
+let heroCover: string | null = null;
+let related: ArcEventSummary[] = [];
+let startIso = '';
+let endIso: string | undefined;
+
+if (event) {
+  pageTitle = event.seoTitle?.trim() ? event.seoTitle.trim() : `${event.title} | ARC Events`;
+  pageDescription = event.seoDescription?.trim() ? event.seoDescription : event.excerpt;
+  canonicalUrl = `${origin}/arc/events/${event.slug.current}`;
+  ogImagePath = blogCoverImageUrlArc(event.coverImage, 1200, 630) ?? '/images/og-default.png';
+
+  bodyHtml = portableTextToBlogHtml(event.body ?? []);
+
+  try {
+    startIso = new Date(event.startDateTime).toISOString();
+  } catch {
+    startIso = event.startDateTime;
+  }
+  if (event.endDateTime) {
+    try {
+      endIso = new Date(event.endDateTime).toISOString();
+    } catch {
+      endIso = event.endDateTime;
+    }
+  }
+
+  eventSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: event.title,
+    description: event.excerpt,
+    eventAttendanceMode: attendanceModeUri(event.format),
+    startDate: startIso,
+    endDate: endIso ?? startIso,
+    organizer: {
+      '@type': 'Organization',
+      name: 'ARC',
+      url: `${origin}/arc`,
+    },
+  };
+
+  const fmt = event.format;
+  const place: Record<string, unknown> = {
+    '@type': 'Place',
+    name: event.locationName,
+  };
+  if (event.locationAddress?.trim()) {
+    place.address = event.locationAddress.trim();
+  }
+
+  if (fmt === 'online') {
+    eventSchema.location = event.onlineUrl
+      ? { '@type': 'VirtualLocation', url: event.onlineUrl }
+      : place;
+  } else if (fmt === 'hybrid' && event.onlineUrl) {
+    eventSchema.location = [place, { '@type': 'VirtualLocation', url: event.onlineUrl }];
+  } else {
+    eventSchema.location = place;
+  }
+
+  const coverForSchema = blogCoverImageUrlArc(event.coverImage, 1200, 630);
+  if (coverForSchema) {
+    eventSchema.image = coverForSchema;
+  }
+
+  heroCover = blogCoverImageUrlArc(event.coverImage, 1800, 1000);
+
+  const allForRelated = await getAllArcEvents();
+  related = allForRelated.filter((row) => row._id !== event._id).slice(0, 3);
+}
+---
+
+{
+  event ? (
+    <ArcLayout
+      title={pageTitle}
+      description={pageDescription}
+      canonical={canonicalUrl}
+      ogImage={ogImagePath}
+      ogType="article"
+      schema={eventSchema}
+    >
+      <article class="blog-page" itemscope itemtype="https://schema.org/Event">
+        <meta itemprop="startDate" content={startIso} />
+        {endIso ? <meta itemprop="endDate" content={endIso} /> : null}
+
+        {heroCover ? (
+          <section
+            class="blog-bleed blog-post-hero blog-post-hero--with-cover"
+            aria-labelledby="event-title"
+          >
+            <div class="blog-post-hero__cover-stage">
+              <div class="blog-post-hero__cover-blur" aria-hidden="true">
+                <img
+                  class="blog-post-hero__blur-img"
+                  src={heroCover}
+                  alt=""
+                  width="1200"
+                  height="675"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+              <div class="blog-post-hero__cover-scrim" aria-hidden="true" />
+              <div class="blog-inner blog-post-hero__cover-inner">
+                <div class="blog-post-hero__column">
+                  <span class="blog-badge blog-badge--on-cover">{formatLabel(event.format)}</span>
+                  <h1 id="event-title" class="blog-post-hero__title blog-post-hero__title--on-cover" itemprop="name">
+                    {event.title}
+                  </h1>
+                  <div class="blog-post-hero__meta-row blog-post-hero__meta-row--on-cover">
+                    <span class="blog-card__author">{event.locationName}</span>
+                    <time class="blog-card__date" datetime={event.startDateTime}>
+                      {formatWhen(event.startDateTime, event.endDateTime)}
+                    </time>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <meta itemprop="image" content={heroCover} />
+          </section>
+        ) : (
+          <section class="blog-bleed blog-post-hero blog-post-hero--no-cover" aria-labelledby="event-title">
+            <div class="blog-inner">
+              <div class="blog-post-hero__column">
+                <span class="blog-badge">{formatLabel(event.format)}</span>
+                <h1 id="event-title" class="blog-post-hero__title" itemprop="name">
+                  {event.title}
+                </h1>
+                <div class="blog-post-hero__meta-row">
+                  <span class="blog-card__author">{event.locationName}</span>
+                  <time class="blog-card__date" datetime={event.startDateTime}>
+                    {formatWhen(event.startDateTime, event.endDateTime)}
+                  </time>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        <section class="blog-bleed arc-event-actions" aria-label="Event links">
+          <div class="blog-inner arc-event-actions__inner">
+            {event.registrationUrl ? (
+              <a class="arc-event-cta" href={event.registrationUrl} rel="noopener noreferrer" target="_blank">
+                Register / tickets
+              </a>
+            ) : null}
+            {event.onlineUrl ? (
+              <a class="arc-event-cta arc-event-cta--secondary" href={event.onlineUrl} rel="noopener noreferrer" target="_blank">
+                Join online
+              </a>
+            ) : null}
+            {event.locationUrl ? (
+              <a class="arc-event-cta arc-event-cta--secondary" href={event.locationUrl} rel="noopener noreferrer" target="_blank">
+                Map / venue
+              </a>
+            ) : null}
+          </div>
+        </section>
+
+        {event.locationAddress?.trim() ? (
+          <section class="blog-bleed arc-event-address" aria-labelledby="event-where-heading">
+            <div class="blog-inner">
+              <h2 id="event-where-heading" class="blog-section__title" style="font-size: 1.1rem;">
+                Where
+              </h2>
+              <p class="arc-event-address__text">{event.locationAddress.trim()}</p>
+            </div>
+          </section>
+        ) : null}
+
+        <section class="blog-bleed blog-post-body-wrap" aria-label="Event details">
+          <div class="blog-inner">
+            <div class="project-body">
+              <div class="blog-post-body" set:html={bodyHtml} itemprop="description" />
+            </div>
+          </div>
+        </section>
+
+        <footer class="blog-bleed blog-post-footer">
+          <div class="blog-inner">
+            <p class="blog-post-footer__bio">An ARC gathering.</p>
+            <a class="blog-post-footer__back" href="/arc/events">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.25"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              All ARC events
+            </a>
+          </div>
+        </footer>
+
+        {related.length > 0 ? (
+          <section class="blog-bleed blog-related" aria-labelledby="related-events-heading">
+            <div class="blog-inner">
+              <h2 id="related-events-heading" class="blog-section__title">
+                More ARC events
+              </h2>
+              <div class="blog-related__grid">
+                {related.map((e) => {
+                  const href = `/arc/events/${e.slug?.current ?? ''}`;
+                  const thumb = relatedCover(e);
+                  return (
+                    <a class="blog-related-card" href={href} data-astro-prefetch>
+                      <div class="blog-related-card__thumb">
+                        {thumb ? (
+                          <img
+                            src={thumb}
+                            alt={`Cover image for ${e.title}`}
+                            width="400"
+                            height="250"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : null}
+                      </div>
+                      <div class="blog-related-card__body">
+                        <span class="blog-badge">{formatLabel(e.format)}</span>
+                        <h3 class="blog-related-card__title">{e.title}</h3>
+                        <time class="blog-card__date" datetime={e.startDateTime}>
+                          {formatWhen(e.startDateTime, e.endDateTime)}
+                        </time>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        ) : null}
+      </article>
+    </ArcLayout>
+  ) : (
+    <ArcLayout
+      title={pageTitle}
+      description={pageDescription}
+      canonical={canonicalUrl}
+      ogImage={ogImagePath}
+      ogType="website"
+      noIndex={true}
+      schema={undefined}
+    >
+      <div class="blog-page blog-page--missing">
+        <section class="blog-bleed blog-section" aria-labelledby="missing-event-heading">
+          <div class="blog-inner blog-page--missing__inner">
+            <h1 id="missing-event-heading" class="blog-section__title">
+              Event not found
+            </h1>
+            <p class="blog-page--missing__text">
+              We could not find an event at this address. It may have been removed or the link may be outdated.
+            </p>
+            <p class="blog-page--missing__actions">
+              <a class="blog-post-footer__back" href="/arc/events">
+                All ARC events
+              </a>
+            </p>
+          </div>
+        </section>
+      </div>
+    </ArcLayout>
+  )
+}
+
+<style>
+  .arc-event-actions {
+    padding-block: 0.5rem 0.25rem;
+  }
+  .arc-event-actions__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  .arc-event-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 1.15rem;
+    border-radius: 999px;
+    background: #f27930;
+    color: #0d0b09;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: 1px solid rgba(242, 121, 48, 0.95);
+  }
+  .arc-event-cta:hover {
+    filter: brightness(1.06);
+  }
+  .arc-event-cta--secondary {
+    background: transparent;
+    color: inherit;
+    border-color: rgba(242, 121, 48, 0.55);
+  }
+  :global(body.arc-route.light-theme) .arc-event-cta--secondary {
+    border-color: rgba(0, 0, 0, 0.28);
+    color: #0d0b09;
+  }
+  .arc-event-address {
+    padding-block: 0.25rem 0.5rem;
+  }
+  .arc-event-address__text {
+    margin: 0;
+    max-width: 42rem;
+    line-height: 1.55;
+    opacity: 0.92;
+    white-space: pre-wrap;
+  }
+</style>

@@ -46,6 +46,7 @@ const defaultSchema = {
 const finalSchema = schema || defaultSchema;
 const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const inBlog = currentPath === '/arc/blog' || currentPath.startsWith('/arc/blog/');
+const inEvents = currentPath === '/arc/events' || currentPath.startsWith('/arc/events/');
 const inArcHome = currentPath === '/arc';
 ---
 
@@ -73,7 +74,9 @@ const inArcHome = currentPath === '/arc';
 
     <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
 
-    <link rel="icon" href="/arc/arc png.png" type="image/png" />
+    <link rel="icon" href="/arc/arc-png.png" type="image/png" />
+    <link rel="shortcut icon" href="/arc/arc-png.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/arc/arc-png.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -88,6 +91,7 @@ const inArcHome = currentPath === '/arc';
       <div class="arc-route-nav__links">
         <a href="/arc" class={inArcHome ? 'is-active' : undefined}>Home</a>
         <a href="/arc/blog" class={inBlog ? 'is-active' : undefined}>Blog</a>
+        <a href="/arc/events" class={inEvents ? 'is-active' : undefined}>Events</a>
         <a href="https://www.siryushub.com">Back to SiryusHub</a>
       </div>
     </nav>

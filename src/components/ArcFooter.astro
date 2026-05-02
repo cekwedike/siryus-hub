@@ -1,42 +1,65 @@
 <footer class="arc-footer" aria-label="ARC footer">
   <div class="arc-footer__texture" aria-hidden="true"></div>
   <div class="arc-footer__inner">
-    <div class="arc-footer__top">
-      <a class="arc-footer__brand" href="https://www.siryushub.com" aria-label="Go to Siryus Hub homepage">
-        <img src="/arc/arc-logo.png" alt="ARC logo" loading="lazy" />
-        <div>
-          <p class="arc-footer__title">Ascent. Refuge. Collective.</p>
-          <p class="arc-footer__back">Back to siryushub.com</p>
+    <div class="arc-footer__main">
+      <div class="arc-footer__primary">
+        <a class="arc-footer__brand" href="https://www.siryushub.com" aria-label="Go to Siryus Hub homepage">
+          <span class="arc-footer__logo-wrap" aria-hidden="true">
+            <img
+              class="arc-footer__logo arc-footer__logo--on-dark"
+              src="/arc/arc-svg.svg"
+              alt=""
+              width="48"
+              height="48"
+              loading="lazy"
+            />
+            <img
+              class="arc-footer__logo arc-footer__logo--on-light"
+              src="/arc/arc-svg-light.svg"
+              alt=""
+              width="48"
+              height="48"
+              loading="lazy"
+            />
+          </span>
+          <div class="arc-footer__brand-text">
+            <p class="arc-footer__title">Ascent. Refuge. Collective.</p>
+            <p class="arc-footer__back">Back to siryushub.com</p>
+          </div>
+        </a>
+        <nav class="arc-footer__nav" aria-label="ARC pages">
+          <a class="arc-footer__nav-link" href="/arc/blog">ARC blog</a>
+          <span class="arc-footer__link-sep" aria-hidden="true">·</span>
+          <a class="arc-footer__nav-link" href="/arc/events">Events</a>
+        </nav>
+      </div>
+
+      <div class="arc-footer__aside">
+        <div class="arc-footer__socials" aria-label="ARC social links">
+          <a href="" aria-label="ARC Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm8.95 1.45a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z"/></svg>
+          </a>
+          <a href="" aria-label="ARC YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.92 2.92 0 0 0-2.06-2.06C17.75 4.6 12 4.6 12 4.6s-5.75 0-7.54.54A2.92 2.92 0 0 0 2.4 7.2 30.9 30.9 0 0 0 1.9 12a30.9 30.9 0 0 0 .5 4.8 2.92 2.92 0 0 0 2.06 2.06c1.79.54 7.54.54 7.54.54s5.75 0 7.54-.54a2.92 2.92 0 0 0 2.06-2.06 30.9 30.9 0 0 0 .5-4.8 30.9 30.9 0 0 0-.5-4.8ZM10.1 15.25V8.75L15.8 12l-5.7 3.25Z"/></svg>
+          </a>
+          <a href="" aria-label="ARC Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8.2h2.77l.42-3.2H13.5V8.56c0-.93.26-1.56 1.59-1.56h1.7V4.15a22.8 22.8 0 0 0-2.47-.13c-2.45 0-4.12 1.49-4.12 4.24v2.34H7.4v3.2h2.8V22h3.3Z"/></svg>
+          </a>
         </div>
-      </a>
-      <div class="arc-footer__socials" aria-label="ARC social links">
-        <a href="" aria-label="ARC Instagram">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm8.95 1.45a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z"/></svg>
-        </a>
-        <a href="" aria-label="ARC YouTube">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.92 2.92 0 0 0-2.06-2.06C17.75 4.6 12 4.6 12 4.6s-5.75 0-7.54.54A2.92 2.92 0 0 0 2.4 7.2 30.9 30.9 0 0 0 1.9 12a30.9 30.9 0 0 0 .5 4.8 2.92 2.92 0 0 0 2.06 2.06c1.79.54 7.54.54 7.54.54s5.75 0 7.54-.54a2.92 2.92 0 0 0 2.06-2.06 30.9 30.9 0 0 0 .5-4.8 30.9 30.9 0 0 0-.5-4.8ZM10.1 15.25V8.75L15.8 12l-5.7 3.25Z"/></svg>
-        </a>
-        <a href="" aria-label="ARC Facebook">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8.2h2.77l.42-3.2H13.5V8.56c0-.93.26-1.56 1.59-1.56h1.7V4.15a22.8 22.8 0 0 0-2.47-.13c-2.45 0-4.12 1.49-4.12 4.24v2.34H7.4v3.2h2.8V22h3.3Z"/></svg>
-        </a>
+        <div class="arc-footer__theme-toggle" role="group" aria-label="Theme">
+          <button type="button" data-theme="dark">Dark</button>
+          <button type="button" data-theme="light">Light</button>
+          <button type="button" data-theme="device">System</button>
+        </div>
       </div>
     </div>
-    <div class="arc-footer__divider" aria-hidden="true"></div>
-    <p class="arc-footer__blog-row">
-      <a class="arc-footer__blog-link" href="/arc/blog">ARC blog</a>
-    </p>
-    <div class="arc-footer__meta">
+
+    <div class="arc-footer__legal">
       <p class="arc-footer__attribution">
         An initiative of
         <a href="https://www.siryushub.com">Siryus Creative Media Ltd</a>
       </p>
-      <div class="arc-footer__theme-toggle" role="group" aria-label="Theme">
-        <button type="button" data-theme="dark">Dark</button>
-        <button type="button" data-theme="light">Light</button>
-        <button type="button" data-theme="device">System</button>
-      </div>
     </div>
-
   </div>
 </footer>
 
@@ -65,16 +88,23 @@
     z-index: 1;
     max-width: 1120px;
     margin: 0 auto;
-    display: grid;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
-  .arc-footer__top {
+  .arc-footer__main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: clamp(1.5rem, 4vw, 2.75rem);
+  }
+
+  .arc-footer__primary {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 1rem;
-    flex-wrap: wrap;
+    min-width: 0;
   }
 
   .arc-footer__brand {
@@ -85,39 +115,68 @@
     color: inherit;
   }
 
-  .arc-footer__brand img {
-    width: 3rem;
-    height: 3rem;
+  .arc-footer__brand-text {
+    min-width: 0;
+  }
+
+  .arc-footer__logo-wrap {
+    position: relative;
+    flex-shrink: 0;
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .arc-footer__logo {
+    width: 3.25rem;
+    height: 3.25rem;
     object-fit: contain;
+    display: block;
+  }
+
+  .arc-footer__logo--on-light {
+    display: none;
+  }
+
+  :global(body.arc-route.light-theme) .arc-footer__logo--on-dark {
+    display: none;
+  }
+
+  :global(body.arc-route.light-theme) .arc-footer__logo--on-light {
+    display: block;
   }
 
   .arc-footer__title {
     margin: 0;
     letter-spacing: 0.03em;
-    font-size: 1.08rem;
+    font-size: 1.22rem;
     font-weight: 600;
   }
 
   .arc-footer__back {
     margin: 0.15rem 0 0;
-    font-size: 0.76rem;
+    font-size: 0.92rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #f27930;
   }
 
-  .arc-footer__divider {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, rgba(242, 121, 48, 0.25), rgba(242, 121, 48, 0.55), rgba(242, 121, 48, 0.25));
-  }
-
-  .arc-footer__blog-row {
+  .arc-footer__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
     margin: 0;
+    padding: 0 0 0 calc(3.25rem + 0.75rem);
+    list-style: none;
   }
 
-  .arc-footer__blog-link {
-    font-size: 0.84rem;
+  .arc-footer__link-sep {
+    opacity: 0.45;
+    user-select: none;
+  }
+
+  .arc-footer__nav-link {
+    font-size: 0.95rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #f27930;
@@ -125,22 +184,30 @@
     font-weight: 600;
   }
 
-  .arc-footer__blog-link:hover {
+  .arc-footer__nav-link:hover {
     text-decoration: underline;
   }
 
-  .arc-footer__meta {
+  .arc-footer__aside {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .arc-footer__legal {
+    margin-top: 1.65rem;
+    padding-top: 1.35rem;
+    border-top: 1px solid rgba(242, 121, 48, 0.22);
   }
 
   .arc-footer__attribution {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 1.02rem;
+    line-height: 1.45;
     color: #ffffff;
+    max-width: 42rem;
   }
 
   .arc-footer__attribution a,
@@ -190,7 +257,7 @@
     background: rgba(13, 11, 9, 0.42);
     color: #ffffff;
     font: inherit;
-    font-size: 0.84rem;
+    font-size: 0.92rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     padding: 0.4rem 0.7rem;
@@ -245,21 +312,36 @@
     color: #a0522d;
   }
 
-  :global(body.arc-route.light-theme) .arc-footer__blog-link {
+  :global(body.arc-route.light-theme) .arc-footer__nav-link {
     color: #a0522d;
   }
 
-  @media (max-width: 700px) {
-    .arc-footer__top {
+  :global(body.arc-route.light-theme) .arc-footer__legal {
+    border-top-color: rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 720px) {
+    .arc-footer__main {
+      grid-template-columns: 1fr;
+    }
+
+    .arc-footer__aside {
       align-items: flex-start;
       flex-direction: column;
+      gap: 1rem;
     }
-    .arc-footer__meta {
-      align-items: flex-start;
-      flex-direction: column;
+
+    .arc-footer__nav {
+      padding-left: 0;
     }
+
+    .arc-footer__theme-toggle {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
     .arc-footer__theme-toggle button {
-      font-size: 0.78rem;
+      font-size: 0.86rem;
     }
   }
 </style>

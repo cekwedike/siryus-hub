@@ -1,0 +1,293 @@
+---
+import ArcLayout from '../../../layouts/ArcLayout.astro';
+import { blogCoverImageUrlArc, sanityArcConfigured } from '../../../lib/sanityArc';
+import { getAllArcEvents, getFeaturedArcEvent } from '../../../lib/queriesArc';
+import type { ArcEventSummary } from '../../../lib/queries';
+import { getCanonicalOrigin } from '../../../lib/siteCanonical';
+
+const origin = getCanonicalOrigin();
+const pageTitle = 'ARC Events | Gatherings for independent Christian creatives';
+const pageDescription =
+  'Workshops, meetups, and gatherings from ARC — faith-rooted creative community. An initiative of Siryus Creative Media Ltd.';
+
+const allEvents = await getAllArcEvents();
+const featuredEvent = await getFeaturedArcEvent();
+
+const gridEvents =
+  featuredEvent && allEvents.length > 0
+    ? allEvents.filter((e) => e._id !== featuredEvent._id)
+    : allEvents;
+
+function formatLabel(format: ArcEventSummary['format']) {
+  if (format === 'in-person') return 'In person';
+  if (format === 'online') return 'Online';
+  if (format === 'hybrid') return 'Hybrid';
+  return 'Event';
+}
+
+function formatWhen(isoStart: string, isoEnd: string | null) {
+  try {
+    const start = new Date(isoStart);
+    const end = isoEnd ? new Date(isoEnd) : null;
+    const sameDay =
+      end &&
+      start.getFullYear() === end.getFullYear() &&
+      start.getMonth() === end.getMonth() &&
+      start.getDate() === end.getDate();
+    const datePart = start.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    const timeOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
+    if (!end) {
+      return `${datePart} · ${start.toLocaleTimeString('en-US', timeOpts)}`;
+    }
+    if (sameDay) {
+      return `${datePart} · ${start.toLocaleTimeString('en-US', timeOpts)} – ${end.toLocaleTimeString('en-US', timeOpts)}`;
+    }
+    return `${start.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })} – ${end.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })}`;
+  } catch {
+    return '';
+  }
+}
+
+function isPastEvent(iso: string) {
+  try {
+    return new Date(iso).getTime() < Date.now();
+  } catch {
+    return false;
+  }
+}
+
+function truncateExcerpt(text: string, max: number) {
+  const t = text.trim();
+  if (t.length <= max) return t;
+  return `${t.slice(0, max).trimEnd()}…`;
+}
+
+function coverSrc(e: ArcEventSummary) {
+  return blogCoverImageUrlArc(e.coverImage, 800, 500);
+}
+---
+
+<ArcLayout title={pageTitle} description={pageDescription} canonical={`${origin}/arc/events`}>
+  <div class="blog-page">
+    <section class="blog-bleed blog-hero blog-reveal" aria-labelledby="arc-events-hero-heading">
+      <div class="blog-hero__photo-layer" aria-hidden="true">
+        <img
+          class="blog-hero__photo"
+          src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="blog-hero__photo-scrim"></div>
+      </div>
+      <div class="blog-hero__glow" aria-hidden="true"></div>
+      <div class="blog-inner blog-hero__shell">
+        <div class="morph-hero-glass-panel blog-hero__glass" style="max-width: 50rem;">
+          <div class="blog-hero__inner" style="padding: 2rem 1.75rem;">
+            <span class="blog-hero__label">ARC</span>
+            <h1 id="arc-events-hero-heading" class="blog-hero__title">Events &amp; gatherings.</h1>
+            <p class="blog-hero__sub">Workshops, meetups, and space to show up for your craft and your faith.</p>
+            <p class="blog-hero__sub" style="margin-top: 0.75rem;">
+              <a href="/arc" style="color: inherit; text-decoration: underline;">← Back to ARC</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {
+      !sanityArcConfigured ? (
+        <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-events-setup-heading">
+          <div class="blog-inner">
+            <h2 id="arc-events-setup-heading" class="blog-section__title">
+              Almost there
+            </h2>
+            <div class="blog-empty blog-reveal">
+              <p>
+                ARC events are ready to connect. Add <code>PUBLIC_SANITY_ARC_PROJECT_ID</code> and{' '}
+                <code>PUBLIC_SANITY_ARC_DATASET</code> to your environment (see <code>.env.example</code> in the repo
+                root), then redeploy. Editors publish events in <code>studio-arc/</code> under the ARC Event document
+                type.
+              </p>
+            </div>
+          </div>
+        </section>
+      ) : null
+    }
+
+    {
+      featuredEvent && (
+        <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-events-featured-heading">
+          <div class="blog-inner">
+            <h2 id="arc-events-featured-heading" class="visually-hidden">
+              Featured event
+            </h2>
+            <a
+              class="blog-featured blog-reveal"
+              href={`/arc/events/${featuredEvent.slug?.current ?? ''}`}
+              data-astro-prefetch
+            >
+              <div class="blog-featured__image-panel">
+                {coverSrc(featuredEvent) ? (
+                  <img
+                    src={coverSrc(featuredEvent)!}
+                    alt={`Cover image for ${featuredEvent.title}`}
+                    width="1200"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : null}
+                <div class="blog-featured__image-fade" aria-hidden="true"></div>
+              </div>
+              <div class="blog-featured__content">
+                <div class="blog-featured__top">
+                  <span class="blog-featured__eyebrow">Featured</span>
+                  <span class="blog-badge">{formatLabel(featuredEvent.format)}</span>
+                  {isPastEvent(featuredEvent.startDateTime) ? (
+                    <span class="blog-badge blog-badge--muted">Past</span>
+                  ) : null}
+                </div>
+                <h2 class="blog-featured__title">{featuredEvent.title}</h2>
+                <p class="blog-featured__excerpt">{featuredEvent.excerpt}</p>
+                <div class="blog-featured__footer">
+                  <div class="blog-featured__meta">
+                    <span class="blog-featured__author">{featuredEvent.locationName}</span>
+                    <span class="blog-featured__sep" aria-hidden="true"></span>
+                    <time class="blog-featured__date" datetime={featuredEvent.startDateTime}>
+                      {formatWhen(featuredEvent.startDateTime, featuredEvent.endDateTime)}
+                    </time>
+                  </div>
+                  <span class="blog-featured__cta">
+                    View event
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path
+                        d="M3 8h10M9 4l4 4-4 4"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="blog-bleed blog-section blog-section--tight-bottom" aria-labelledby="arc-events-all-heading">
+      <div class="blog-inner">
+        <h2 id="arc-events-all-heading" class="blog-section__title">All events</h2>
+
+        {
+          gridEvents.length === 0 ? (
+            <div class="blog-empty blog-reveal">
+              <p>
+                {sanityArcConfigured
+                  ? 'No ARC events yet. Publish an event in ARC Studio to see it here.'
+                  : 'Connect the ARC Sanity project to show events here.'}
+              </p>
+            </div>
+          ) : (
+            <div class="blog-grid">
+              {gridEvents.map((ev) => {
+                const href = `/arc/events/${ev.slug?.current ?? ''}`;
+                const img = coverSrc(ev);
+                const past = isPastEvent(ev.startDateTime);
+                return (
+                  <a class="blog-card blog-reveal" href={href} data-astro-prefetch>
+                    <div class="blog-card__media">
+                      {img ? (
+                        <img
+                          src={img}
+                          alt={`Cover image for ${ev.title}`}
+                          width="400"
+                          height="250"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : null}
+                    </div>
+                    <div class="blog-card__body">
+                      <span class="blog-badge">{formatLabel(ev.format)}</span>
+                      {past ? <span class="blog-badge blog-badge--muted">Past</span> : null}
+                      <h3 class="blog-card__title">{ev.title}</h3>
+                      <p class="blog-card__excerpt">{truncateExcerpt(ev.excerpt, 120)}</p>
+                      <div class="blog-card__meta">
+                        <span class="blog-card__author">{ev.locationName}</span>
+                        <div class="blog-card__date-row">
+                          <time class="blog-card__date" datetime={ev.startDateTime}>
+                            {formatWhen(ev.startDateTime, ev.endDateTime)}
+                          </time>
+                        </div>
+                      </div>
+                      <span class="blog-card__read">Details</span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          )
+        }
+      </div>
+    </section>
+  </div>
+</ArcLayout>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.blog-reveal');
+    if (reduce) {
+      els.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+    );
+    els.forEach(function (el) {
+      io.observe(el);
+    });
+  })();
+</script>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  :global(.blog-badge--muted) {
+    opacity: 0.75;
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+  :global(body.arc-route.light-theme .blog-badge--muted) {
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+</style>
