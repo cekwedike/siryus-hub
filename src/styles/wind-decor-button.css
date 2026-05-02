@@ -1,4 +1,4 @@
-/* Decorative corner splashes + wind hover — loaded after brand-tokens */
+/* Decorative corner splashes + wind hover (loaded after brand-tokens) */
 a.wind-decor-btn {
   text-decoration: none;
 }
@@ -20,7 +20,7 @@ a.wind-decor-btn {
   border: 1px solid var(--brand-accent);
   border-radius: var(--radius-sm);
   background: var(--brand-accent);
-  /* box-shadow instead of filter — filter() composites the whole control and can dull label text inside frosted panels */
+  /* box-shadow instead of filter; filter() composites the whole control and can dull label text inside frosted panels */
   box-shadow: 0 2px 10px var(--wd-shadow);
   box-sizing: border-box;
   isolation: isolate;
@@ -56,7 +56,7 @@ a.wind-decor-btn {
   outline-offset: 3px;
 }
 
-/* Secondary: outline pill — no splash icons */
+/* Secondary: outline pill (no splash icons) */
 .wind-decor-btn--secondary {
   background: rgba(5, 5, 5, 0.35);
   color: var(--brand-text);
@@ -88,7 +88,7 @@ body.light-theme .wind-decor-btn {
   --wd-shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* Light: primary — clearer edge + readable label */
+/* Light: primary (clearer edge + readable label) */
 [data-theme='light'] .wind-decor-btn:not(.wind-decor-btn--secondary),
 body.light-theme .wind-decor-btn:not(.wind-decor-btn--secondary) {
   color: var(--brand-on-accent-text);

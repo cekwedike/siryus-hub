@@ -1,0 +1,281 @@
+---
+import ArcLayout from '../../../layouts/ArcLayout.astro';
+import { sanityArcConfigured } from '../../../lib/sanityArc';
+import { getAllArcFaqItems } from '../../../lib/queriesArc';
+import type { ArcFaqItem } from '../../../lib/queries';
+import { portableTextToArcHtml } from '../../../lib/portableTextHtml';
+import { portableTextToPlainText } from '../../../lib/portableTextPlain';
+import { getCanonicalOrigin } from '../../../lib/siteCanonical';
+
+const origin = getCanonicalOrigin();
+const pageTitle = 'ARC FAQ | Questions we get a lot';
+const pageDescription =
+  'Honest answers about what ARC is, who it is for, and how it works in a faith-rooted creative community. An initiative of Siryus Creative Media Ltd.';
+
+const faqItemsRaw = await getAllArcFaqItems();
+
+const faqItems = faqItemsRaw.map((item: ArcFaqItem) => ({
+  ...item,
+  answerHtml: portableTextToArcHtml(item.answer ?? []),
+}));
+
+const faqSchema =
+  faqItems.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: portableTextToPlainText(item.answer ?? []).trim() || item.question,
+          },
+        })),
+      }
+    : undefined;
+---
+
+<ArcLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={`${origin}/arc/faq`}
+  schema={faqSchema}
+>
+  <div class="blog-page">
+    <section class="blog-bleed blog-hero blog-reveal" aria-labelledby="arc-faq-hero-heading">
+      <div class="blog-hero__photo-layer" aria-hidden="true">
+        <img
+          class="blog-hero__photo"
+          src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="blog-hero__photo-scrim"></div>
+      </div>
+      <div class="blog-hero__glow" aria-hidden="true"></div>
+      <div class="blog-inner blog-hero__shell">
+        <div class="morph-hero-glass-panel blog-hero__glass" style="max-width: 50rem;">
+          <div class="blog-hero__inner" style="padding: 2rem 1.75rem;">
+            <span class="blog-hero__label">ARC</span>
+            <h1 id="arc-faq-hero-heading" class="blog-hero__title">Questions we get a lot.</h1>
+            <p class="blog-hero__sub">
+              Honest answers about what ARC is, who it is for, and how it works.
+            </p>
+            <p class="blog-hero__sub" style="margin-top: 0.75rem;">
+              <a href="/arc" style="color: inherit; text-decoration: underline;">← Back to ARC</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="blog-bleed arc-list-bridge blog-reveal">
+      <div class="blog-inner arc-bridge__inner">
+        <p class="arc-bridge__tagline">Clarity on the collective, before you show up for the work.</p>
+        <div class="arc-bridge__actions">
+          <a class="arc-bridge__pill" href="/arc/blog">Journal</a>
+          <a class="arc-bridge__pill arc-bridge__pill--ghost" href="/arc/subscribe">The ARC Letter</a>
+          <a class="arc-bridge__pill arc-bridge__pill--ghost" href="/arc">ARC home</a>
+        </div>
+      </div>
+    </div>
+
+    {
+      !sanityArcConfigured ? (
+        <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-faq-setup-heading">
+          <div class="blog-inner">
+            <div class="arc-empty-state arc-empty-state--setup blog-reveal">
+              <div class="arc-empty-state__mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 12h6v12H9V12Zm14 2h6v10h-6V14Z" />
+                  <path d="M15 18h6M12 8V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+                </svg>
+              </div>
+              <div>
+                <h2 id="arc-faq-setup-heading" class="arc-empty-state__title">
+                  Connect ARC Studio
+                </h2>
+                <p class="arc-empty-state__text">
+                  Add <code>PUBLIC_SANITY_ARC_PROJECT_ID</code> and <code>PUBLIC_SANITY_ARC_DATASET</code> (see{' '}
+                  <code>.env.example</code>), redeploy, then create <strong>ARC FAQ item</strong> documents in{' '}
+                  <code>studio-arc/</code>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null
+    }
+
+    {
+      sanityArcConfigured ? (
+        <section class="blog-bleed blog-section blog-section--tight-bottom" aria-labelledby="arc-faq-list-heading">
+          <div class="blog-inner">
+            <header class="arc-section-head">
+              <span class="arc-section-head__eyebrow">FAQ</span>
+              <h2 id="arc-faq-list-heading" class="blog-section__title">Answers</h2>
+              <p class="arc-section-head__lede">Straightforward responses. Expand any question to read more.</p>
+              <div class="arc-section-head__rule" aria-hidden="true"></div>
+            </header>
+
+            {faqItems.length === 0 ? (
+              <div class="arc-empty-state blog-reveal" role="status">
+                <div class="arc-empty-state__mark" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 4c3 4 8 7 8 13a8 8 0 1 1-16 0c0-6 5-9 8-13Z" />
+                    <path d="M12 21h8M16 17v8" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="arc-empty-state__title">FAQ entries will appear here</h3>
+                  <p class="arc-empty-state__text">
+                    Publish <strong>ARC FAQ item</strong> documents in ARC Studio (question, answer, order). See seed copy in{' '}
+                    <code>src/lib/queriesArc.ts</code> for suggested questions and answers.
+                  </p>
+                  <div class="arc-empty-state__foot">
+                    <a href="/arc/blog">Read the journal</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="/arc">ARC home</a>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div class="arc-faq-list">
+                {faqItems.map((item) => (
+                  <details class="arc-faq-item blog-reveal" name="arc-faq">
+                    <summary class="arc-faq-item__summary">
+                      <span class="arc-faq-item__question">{item.question}</span>
+                      <span class="arc-faq-item__icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path
+                            d="M5 8l5 5 5-5"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </summary>
+                    <div class="arc-faq-item__answer blog-post-body" set:html={item.answerHtml} />
+                  </details>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      ) : null
+    }
+  </div>
+</ArcLayout>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.blog-reveal');
+    if (reduce) {
+      els.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+    );
+    els.forEach(function (el) {
+      io.observe(el);
+    });
+  })();
+</script>
+
+<style>
+  .arc-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    max-width: 52rem;
+  }
+
+  .arc-faq-item {
+    border: 1px solid var(--arc-border, rgba(242, 121, 48, 0.28));
+    background: var(--arc-card, rgba(255, 255, 255, 0.02));
+    border-radius: 5px;
+    overflow: hidden;
+    list-style: none;
+  }
+
+  .arc-faq-item::marker,
+  .arc-faq-item::-webkit-details-marker {
+    display: none;
+  }
+
+  .arc-faq-item__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.15rem;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 2vw, 1.45rem);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--arc-fg, #ffffff);
+    list-style: none;
+  }
+
+  .arc-faq-item__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .arc-faq-item__question {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .arc-faq-item__icon {
+    flex-shrink: 0;
+    color: var(--arc-accent, #f27930);
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .arc-faq-item[open] .arc-faq-item__icon {
+    transform: rotate(180deg);
+  }
+
+  .arc-faq-item__answer {
+    padding: 0 1.15rem 1.15rem;
+    margin: 0;
+    border-top: 1px solid rgba(242, 121, 48, 0.15);
+    padding-top: 0.85rem;
+  }
+
+  :global(body.arc-route.light-theme .arc-faq-item__answer) {
+    border-top-color: rgba(0, 0, 0, 0.1);
+  }
+
+  :global(.arc-faq-item__answer.blog-post-body p:first-child) {
+    margin-top: 0;
+  }
+
+  :global(.arc-faq-item__summary:focus-visible) {
+    outline: 2px solid var(--arc-accent, #f27930);
+    outline-offset: 2px;
+  }
+</style>

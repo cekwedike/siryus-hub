@@ -1,4 +1,4 @@
-# siryushub.com — Wireframe-Level Sitemap
+# siryushub.com: Wireframe-Level Sitemap
 
 > **Authoritative sitemap for rebuilding siryushub.com**  
 > This file defines the **routing, hierarchy, and ownership** of every page.  

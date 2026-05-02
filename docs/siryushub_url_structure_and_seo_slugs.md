@@ -1,4 +1,4 @@
-# siryushub.com — URL Structure and SEO Slug Map
+# siryushub.com: URL Structure and SEO Slug Map
 
 This document defines the **authoritative URL structure, SEO-friendly slugs, canonical rules, and indexing guidance** for rebuilding **siryushub.com**.
 

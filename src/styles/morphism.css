@@ -11,7 +11,7 @@
   --morph-clay-shadow: rgba(0, 0, 0, 0.45);
 }
 
-/* Glassmorphism — strong frost + edge light (visible on dark pages) */
+/* Glassmorphism: strong frost + edge light (visible on dark pages) */
 .nav-glass {
   background: linear-gradient(
     180deg,
@@ -43,7 +43,7 @@
   .morph-surface--glass { padding: 2.5rem 2rem 3rem; }
 }
 
-/* Claymorphism — puffy 3D cards */
+/* Claymorphism: puffy 3D cards */
 .morph-clay-card {
   border-radius: 24px;
   background: linear-gradient(165deg, rgba(34, 34, 38, 0.98) 0%, rgba(14, 14, 16, 1) 100%);
@@ -154,7 +154,7 @@
   box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
-/* Skeuomorphism — metallic “device” frame */
+/* Skeuomorphism: metallic “device” frame */
 .morph-skeuo-frame {
   position: relative;
   border-radius: 14px;

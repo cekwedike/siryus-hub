@@ -2,6 +2,8 @@ import { sanityArcClient, sanityArcConfigured } from './sanityArc'
 import type {
   ArcEventDetail,
   ArcEventSummary,
+  ArcFaqItem,
+  ArcSupporter,
   BlogPostDetail,
   BlogPostSummary,
 } from './queries'
@@ -154,5 +156,92 @@ export async function getFeaturedArcEvent(): Promise<ArcEventSummary | null> {
     return sorted[0] ?? null
   } catch {
     return null
+  }
+}
+
+const supporterFields = `
+  _id,
+  name,
+  category,
+  shortDescription,
+  featured,
+  logo {
+    _type,
+    hotspot,
+    crop,
+    alt,
+    asset->{
+      _id,
+      _type,
+      _ref,
+      url
+    }
+  }
+`
+
+const allSupportersQuery = `*[_type == "arcSupporter"] { ${supporterFields} }`
+
+export async function getAllArcSupporters(): Promise<ArcSupporter[]> {
+  if (!sanityArcConfigured || !sanityArcClient) return []
+  try {
+    const rows = await sanityArcClient.fetch<ArcSupporter[]>(allSupportersQuery)
+    if (!Array.isArray(rows)) return []
+    return [...rows].sort((a, b) =>
+      (a.name ?? '').localeCompare(b.name ?? '', undefined, { sensitivity: 'base' })
+    )
+  } catch {
+    return []
+  }
+}
+
+/*
+  Seed copy for ARC Studio (arcFaqItem). Add as separate documents in order:
+
+  1) Q: What is ARC?
+     A: ARC stands for Ascent. Refuge. Collective. It is a faith-rooted creative community built to support, protect, and develop Christian creatives across every form of artistic expression. Not a label. Not a management company. A movement.
+
+  2) Q: Who is ARC for?
+     A: ARC is built exclusively for Christian creatives: musicians, producers, poets, spoken word artists, filmmakers, dancers, designers, and anyone creating from a place of genuine faith. If your work is rooted in your relationship with God and you are serious about your craft, you belong here.
+
+  3) Q: Is ARC a label or management company?
+     A: No. ARC does not sign artists or take a cut of your revenue. It is a community and ecosystem built to develop creatives, connect them to each other, and provide the structure and support that independent artists rarely have access to.
+
+  4) Q: Where is ARC based?
+     A: ARC has a founding presence in Nigeria and Rwanda. We operate online and grow globally, but our roots are planted in African creative soil.
+
+  5) Q: How do I join?
+     A: Start by subscribing to The ARC Letter at /arc/subscribe. That is where community updates, event announcements, and opportunities to get more involved are shared. From there, show up to sessions and collaboration labs when they open.
+
+  6) Q: Is ARC only for established creatives?
+     A: No. ARC is built for the overlooked and the independent, people who are serious about their craft but have not had the structure or support to grow. Formation before visibility is a core value here. You do not need to be established to belong.
+
+  7) Q: What is Apartment Sessions?
+     A: Apartment Sessions are intimate creative gatherings hosted in a rented space, bringing together 10 to 15 independent Christian creatives to make music together. Sessions are produced by Jlinez and music released through SIRYUS A.M and The Orchard. The first session is planned for mid-2026 in Kigali.
+
+  8) Q: Who runs ARC?
+     A: ARC was founded by Chidiebere Ekwedike and is operated under Siryus Creative Media Ltd, incorporated in Nigeria. The founding team of nine covers music, storytelling, design, marketing, spoken word, movement, and community management across Nigeria and Rwanda.
+
+  9) Q: How is ARC funded?
+     A: ARC is currently in its foundation phase and operates lean. Revenue will grow through events, merchandise, strategic partnerships, and in later stages, community membership. Financial support structures, when introduced, will focus exclusively on creative projects, not personal needs.
+*/
+
+const faqFields = `
+  _id,
+  question,
+  order,
+  answer
+`
+
+const allFaqItemsQuery = `*[_type == "arcFaqItem"] | order(coalesce(order, 9999) asc, _createdAt asc) {
+  ${faqFields}
+}`
+
+export async function getAllArcFaqItems(): Promise<ArcFaqItem[]> {
+  if (!sanityArcConfigured || !sanityArcClient) return []
+  try {
+    const rows = await sanityArcClient.fetch<ArcFaqItem[]>(allFaqItemsQuery)
+    return Array.isArray(rows) ? rows : []
+  } catch {
+    return []
   }
 }

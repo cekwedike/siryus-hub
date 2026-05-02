@@ -53,6 +53,24 @@ export interface ArcEventDetail extends ArcEventSummary {
   seoDescription: string | null
 }
 
+export type ArcSupporterCategory = 'Church' | 'Studio' | 'Organization' | 'Individual'
+
+export interface ArcSupporter {
+  _id: string
+  name: string
+  logo: SanityImageSource | null
+  category: ArcSupporterCategory | null
+  shortDescription: string | null
+  featured: boolean | null
+}
+
+export interface ArcFaqItem {
+  _id: string
+  question: string
+  order: number | null
+  answer: PortableTextBlock[] | null
+}
+
 /** Resolves CDN URLs and keeps hotspot/crop for image-url builder. */
 const listFields = `
   _id,

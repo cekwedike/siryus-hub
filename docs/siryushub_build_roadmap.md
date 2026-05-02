@@ -1,4 +1,4 @@
-# siryushub.com — Complete Build Roadmap (0% to 100%)
+# siryushub.com: Complete Build Roadmap (0% to 100%)
 
 This document provides a **step-by-step roadmap** for building siryushub.com from initial setup to production launch.
 

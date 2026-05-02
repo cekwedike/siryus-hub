@@ -47,6 +47,11 @@ const finalSchema = schema || defaultSchema;
 const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const inBlog = currentPath === '/arc/blog' || currentPath.startsWith('/arc/blog/');
 const inEvents = currentPath === '/arc/events' || currentPath.startsWith('/arc/events/');
+const inCommunity = currentPath === '/arc/community';
+const inAbout = currentPath === '/arc/about';
+const inSupporters = currentPath === '/arc/supporters';
+const inFaq = currentPath === '/arc/faq';
+const inSubscribe = currentPath === '/arc/subscribe';
 const inArcHome = currentPath === '/arc';
 ---
 
@@ -92,6 +97,10 @@ const inArcHome = currentPath === '/arc';
         <a href="/arc" class={inArcHome ? 'is-active' : undefined}>Home</a>
         <a href="/arc/blog" class={inBlog ? 'is-active' : undefined}>Blog</a>
         <a href="/arc/events" class={inEvents ? 'is-active' : undefined}>Events</a>
+        <a href="/arc/community" class={inCommunity ? 'is-active' : undefined}>Community</a>
+        <a href="/arc/about" class={inAbout ? 'is-active' : undefined}>About</a>
+        <a href="/arc/supporters" class={inSupporters ? 'is-active' : undefined}>Supporters</a>
+        <a href="/arc/faq" class={inFaq ? 'is-active' : undefined}>FAQ</a>
         <a href="https://www.siryushub.com">Back to SiryusHub</a>
       </div>
     </nav>

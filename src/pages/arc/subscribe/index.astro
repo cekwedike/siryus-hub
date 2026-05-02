@@ -1,0 +1,204 @@
+---
+import ArcLayout from '../../../layouts/ArcLayout.astro';
+import { getCanonicalOrigin } from '../../../lib/siteCanonical';
+
+const origin = getCanonicalOrigin();
+const pageTitle = 'The ARC Letter | Stay inside the room';
+const pageDescription =
+  'Subscribe to the ARC Letter for community updates, event news, and creative reflections between gatherings. An initiative of Siryus Creative Media Ltd.';
+
+/** Same Formspree newsletter endpoint as the main site footer. See INTEGRATIONS.md. */
+const FORMSPREE_NEWSLETTER_ACTION = 'https://formspree.io/f/xaqljrjb';
+---
+
+<ArcLayout title={pageTitle} description={pageDescription} canonical={`${origin}/arc/subscribe`}>
+  <div class="blog-page">
+    <section class="blog-bleed blog-hero blog-reveal" aria-labelledby="arc-subscribe-hero-heading">
+      <div class="blog-hero__photo-layer" aria-hidden="true">
+        <img
+          class="blog-hero__photo"
+          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="blog-hero__photo-scrim"></div>
+      </div>
+      <div class="blog-hero__glow" aria-hidden="true"></div>
+      <div class="blog-inner blog-hero__shell">
+        <div class="morph-hero-glass-panel blog-hero__glass" style="max-width: 50rem;">
+          <div class="blog-hero__inner" style="padding: 2rem 1.75rem;">
+            <span class="blog-hero__label">ARC</span>
+            <h1 id="arc-subscribe-hero-heading" class="blog-hero__title">Stay inside the room.</h1>
+            <p class="blog-hero__sub">The ARC Letter is where the community lives between events.</p>
+            <p class="blog-hero__sub" style="margin-top: 0.75rem;">
+              <a href="/arc" style="color: inherit; text-decoration: underline;">← Back to ARC</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="blog-bleed arc-list-bridge blog-reveal">
+      <div class="blog-inner arc-bridge__inner">
+        <p class="arc-bridge__tagline">Between gatherings, the letter keeps the room open.</p>
+        <div class="arc-bridge__actions">
+          <a class="arc-bridge__pill" href="/arc/blog">Journal</a>
+          <a class="arc-bridge__pill arc-bridge__pill--ghost" href="/arc/events">Events</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-subscribe-benefits-heading">
+      <div class="blog-inner">
+        <h2 id="arc-subscribe-benefits-heading" class="blog-section__title">
+          What you get when you subscribe.
+        </h2>
+        <div class="arc-subscribe-benefits">
+          <article class="arc-subscribe-benefit">
+            <h3 class="arc-subscribe-benefit__title">
+              <span class="arc-subscribe-benefit__mark">01</span><span class="arc-subscribe-benefit__dash" aria-hidden="true"> · </span><span class="arc-subscribe-benefit__name">The ARC Letter</span>
+            </h3>
+            <p class="arc-subscribe-benefit__body">
+              Our newsletter. Community updates, creative reflections, session recaps, and what we are building next.
+            </p>
+          </article>
+          <article class="arc-subscribe-benefit">
+            <h3 class="arc-subscribe-benefit__title">
+              <span class="arc-subscribe-benefit__mark">02</span><span class="arc-subscribe-benefit__dash" aria-hidden="true"> · </span><span class="arc-subscribe-benefit__name">Event announcements first</span>
+            </h3>
+            <p class="arc-subscribe-benefit__body">
+              Apartment Sessions, Collaboration Labs, and ARC gatherings: subscribers hear about them before anyone else.
+            </p>
+          </article>
+          <article class="arc-subscribe-benefit">
+            <h3 class="arc-subscribe-benefit__title">
+              <span class="arc-subscribe-benefit__mark">03</span><span class="arc-subscribe-benefit__dash" aria-hidden="true"> · </span><span class="arc-subscribe-benefit__name">Spotlights and stories</span>
+            </h3>
+            <p class="arc-subscribe-benefit__body">
+              Features on creatives in the community, behind-the-scenes content, and honest conversations about faith and craft.
+            </p>
+          </article>
+          <article class="arc-subscribe-benefit">
+            <h3 class="arc-subscribe-benefit__title">
+              <span class="arc-subscribe-benefit__mark">04</span><span class="arc-subscribe-benefit__dash" aria-hidden="true"> · </span><span class="arc-subscribe-benefit__name">No noise</span>
+            </h3>
+            <p class="arc-subscribe-benefit__body">
+              We only send something when it is worth your time. No filler, no spam.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-bleed blog-section arc-subscribe-form-section blog-reveal" aria-labelledby="arc-subscribe-form-heading">
+      <div class="blog-inner arc-subscribe-form-section__inner">
+        <h2 id="arc-subscribe-form-heading" class="visually-hidden">Subscribe to the ARC Letter</h2>
+        <!--
+          FORM HANDLER: wired to Formspree (same newsletter endpoint as src/components/Footer.astro).
+          To use a different ESP, replace FORMSPREE_NEWSLETTER_ACTION above and adjust hidden fields if needed.
+        -->
+        <form
+          id="arcSubscribeForm"
+          class="arc-subscribe-form"
+          action={FORMSPREE_NEWSLETTER_ACTION}
+          method="POST"
+        >
+          <input type="hidden" name="_subject" value="ARC Letter signup" />
+          <label for="arcSubscribeEmail" class="visually-hidden">Email address</label>
+          <div class="arc-subscribe-form__row">
+            <input
+              type="email"
+              id="arcSubscribeEmail"
+              name="email"
+              class="arc-subscribe-form__input"
+              placeholder="Your email address"
+              autocomplete="email"
+              required
+            />
+            <button type="submit" class="arc-subscribe-form__submit">Join The ARC Letter</button>
+          </div>
+          <p class="arc-subscribe-form__trust" role="note">
+            No spam. No selling your data. Unsubscribe anytime.
+          </p>
+          <p class="arc-subscribe-form__success" id="arcSubscribeSuccess" aria-live="polite">
+            You are in. Welcome to the ARC Letter.
+          </p>
+        </form>
+      </div>
+    </section>
+  </div>
+</ArcLayout>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.blog-reveal');
+    if (reduce) {
+      els.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+    } else {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+      );
+      els.forEach(function (el) {
+        io.observe(el);
+      });
+    }
+  })();
+</script>
+
+<script is:inline>
+  (() => {
+    const form = document.getElementById('arcSubscribeForm');
+    const success = document.getElementById('arcSubscribeSuccess');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = document.getElementById('arcSubscribeEmail');
+      if (!(emailInput instanceof HTMLInputElement)) return;
+      if (!emailInput.checkValidity()) {
+        emailInput.reportValidity();
+        return;
+      }
+      if (!(form instanceof HTMLFormElement)) return;
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (response.ok) {
+          success?.classList.add('is-visible');
+          form.reset();
+        }
+      } catch {
+        /* network error; user can retry */
+      }
+    });
+  })();
+</script>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

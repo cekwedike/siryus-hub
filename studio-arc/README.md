@@ -1,4 +1,4 @@
-# ARC Blog — Sanity Studio
+# ARC Blog: Sanity Studio
 
 This Studio connects to a **separate Sanity project** from the main Siryus Hub CMS. Only `blogPost` documents are defined here.
 
@@ -17,7 +17,7 @@ npm run dev
 ```
 
 4. In the **site** repo root `.env` / Vercel env, set the Astro-facing variables (see root `.env.example`):
-   - `PUBLIC_SANITY_ARC_PROJECT_ID` — same project ID as above
-   - `PUBLIC_SANITY_ARC_DATASET` — same dataset name
+   - `PUBLIC_SANITY_ARC_PROJECT_ID`: same project ID as above
+   - `PUBLIC_SANITY_ARC_DATASET`: same dataset name
 
 The public site reads ARC posts at `/arc/blog` using those `PUBLIC_*` variables.

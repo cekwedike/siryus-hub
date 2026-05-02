@@ -144,7 +144,7 @@
   color: inherit;
 }
 
-/* Flat editorial surface — replaces heavy clay + lime category pill */
+/* Flat editorial surface (replaces heavy clay + lime category pill) */
 .project-card--surface {
   background: linear-gradient(165deg, rgba(20, 20, 24, 0.92) 0%, rgba(8, 8, 10, 0.98) 100%);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -258,7 +258,7 @@ body.light-theme .project-card__tag {
   color: var(--brand-accent-hover);
 }
 
-/* Bottom CTA — dark band + accent button (matches FAQ), not a full-width lime slab */
+/* Bottom CTA: dark band + accent button (matches FAQ), not a full-width lime slab */
 .projects-cta {
   padding: var(--space-16) var(--space-5);
   background: linear-gradient(180deg, #0a0a0c 0%, #050505 100%);

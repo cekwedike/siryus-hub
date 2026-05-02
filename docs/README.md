@@ -1,4 +1,4 @@
-# SIRYUS Hub Website — Complete Project Documentation
+# SIRYUS Hub Website: Complete Project Documentation
 
 > **Official documentation for siryushub.com rebuild**  
 > A comprehensive website for SIRYUS Artist Management (SIRYUS A.M), the Siryus Creative Hub community division, and parent company Siryus Creative Media Ltd.
@@ -117,7 +117,7 @@ The website represents three interconnected entities with distinct roles:
 - WordPress installed on subdomain (`cms.siryushub.com`) or Hostinger subdirectory
 - Frontend consumes content via WordPress REST API or WPGraphQL
 - Blog posts, categories, and content managed in WordPress
-- No WordPress theming used — all templates built in Astro
+- No WordPress theming used; all templates built in Astro
 - Editorial flexibility with familiar WordPress interface
 
 ### Architecture
@@ -149,29 +149,29 @@ Static Files (Hostinger public_html)
 ### Primary Navigation Routes
 
 ```
-/                    — Home (ecosystem overview)
-/about               — About (brand architecture, mission, company info)
-/services            — Services (artist management offerings)
-/projects            — Projects (creative initiatives index)
-/projects/[slug]     — Individual project pages
-/artists             — Artists (managed artists directory)
-/artists/[slug]      — Individual artist profiles
-/community           — Community (Siryus Creative Hub)
-/blog                — Blog (insights for independent artists)
-/blog/[slug]         — Individual blog posts
-/blog/category/[slug] — Blog category pages
-/contact             — Contact (inquiry form and details)
+/                   : Home (ecosystem overview)
+/about              : About (brand architecture, mission, company info)
+/services           : Services (artist management offerings)
+/projects           : Projects (creative initiatives index)
+/projects/[slug]    : Individual project pages
+/artists            : Artists (managed artists directory)
+/artists/[slug]     : Individual artist profiles
+/community          : Community (Siryus Creative Hub)
+/blog               : Blog (insights for independent artists)
+/blog/[slug]        : Individual blog posts
+/blog/category/[slug]: Blog category pages
+/contact            : Contact (inquiry form and details)
 ```
 
 ### System and Legal Routes
 
 ```
-/404                 — Custom error page
-/sitemap             — Human-readable sitemap
-/faq                 — Frequently asked questions
-/privacy-policy      — Privacy policy
-/terms-of-use        — Terms of use
-/cookie-policy       — Cookie policy
+/404                : Custom error page
+/sitemap            : Human-readable sitemap
+/faq                : Frequently asked questions
+/privacy-policy     : Privacy policy
+/terms-of-use       : Terms of use
+/cookie-policy      : Cookie policy
 ```
 
 ### URL Structure Rules
@@ -219,7 +219,7 @@ SIRYUS communicates in a tone that is:
 - Not slang-driven or culturally exclusive
 - Not overly ideological
 - Not sales-focused or aggressive
-- **No em dashes (—) anywhere**
+- **Do not use em dashes in copy**
 
 ### Content Writing Rules
 
@@ -261,16 +261,16 @@ The website uses a sophisticated dark theme with high-contrast accents, creating
 The SIRYUS color palette is carefully selected for visual impact and accessibility:
 
 **Primary Colors:**
-- **Brand Yellow:** `#D1DF4B` rgb(209, 223, 75) — Primary CTAs and key highlights
-- **Light Yellow:** `#D5DD85` rgb(213, 221, 133) — Secondary accents and hover states
+- **Brand Yellow:** `#D1DF4B` rgb(209, 223, 75). Primary CTAs and key highlights
+- **Light Yellow:** `#D5DD85` rgb(213, 221, 133). Secondary accents and hover states
 
 **Backgrounds:**
-- **Deep Black:** `#1B1B1E` rgb(27, 27, 30) — Main background
-- **Charcoal:** `#323836` rgb(50, 56, 54) — Cards and elevated surfaces
+- **Deep Black:** `#1B1B1E` rgb(27, 27, 30). Main background
+- **Charcoal:** `#323836` rgb(50, 56, 54). Cards and elevated surfaces
 
 **Text Colors:**
-- **Off-White:** `#F5F9E9` rgb(245, 249, 233) — Primary text and headings
-- **Gray:** `#949BA0` rgb(148, 155, 160) — Secondary text and captions
+- **Off-White:** `#F5F9E9` rgb(245, 249, 233). Primary text and headings
+- **Gray:** `#949BA0` rgb(148, 155, 160). Secondary text and captions
 
 ### Typography
 
@@ -605,19 +605,19 @@ Clear summary of page content, written for humans, including one primary keyword
 ### Open Graph and Social Metadata
 
 **Required Tags:**
-- `og:title` — Page title
-- `og:description` — Page description
-- `og:type` — Type (website, article, profile)
-- `og:url` — Canonical URL
-- `og:image` — Social preview image (1200x630px)
-- `og:site_name` — "SIRYUS Artist Management"
+- `og:title`: Page title
+- `og:description`: Page description
+- `og:type`: Type (website, article, profile)
+- `og:url`: Canonical URL
+- `og:image`: Social preview image (1200x630px)
+- `og:site_name`: "SIRYUS Artist Management"
 
 **Twitter Card Tags:**
-- `twitter:card` — "summary_large_image"
-- `twitter:title` — Page title
-- `twitter:description` — Page description
-- `twitter:image` — Social preview image
-- `twitter:site` — "@siryusam"
+- `twitter:card`: "summary_large_image"
+- `twitter:title`: Page title
+- `twitter:description`: Page description
+- `twitter:image`: Social preview image
+- `twitter:site`: "@siryusam"
 
 ### Sitemap and Robots
 
@@ -690,84 +690,84 @@ Site-wide footer with comprehensive information.
 ### Page-Specific Components
 
 #### Home Page Components
-- `HeroSection` — Primary headline, CTAs, background visual
-- `AboutPreview` — Short intro with link to About
-- `ServicesPreview` — Four service cards with link to Services
-- `ProjectsPreview` — Project highlights with link to Projects
-- `CommunityPreview` — Community description with CTA
-- `BlogPreview` — Latest 3 blog posts with link to Blog
-- `CallToAction` — Final conversion section
+- `HeroSection`: Primary headline, CTAs, background visual
+- `AboutPreview`: Short intro with link to About
+- `ServicesPreview`: Four service cards with link to Services
+- `ProjectsPreview`: Project highlights with link to Projects
+- `CommunityPreview`: Community description with CTA
+- `BlogPreview`: Latest 3 blog posts with link to Blog
+- `CallToAction`: Final conversion section
 
 #### About Page Components
-- `PageHeader` — Page title and intro
-- `StorySection` — Brand narrative
-- `MissionVision` — Mission and vision statements
-- `DivisionBreakdown` — SIRYUS A.M and Hub explanations
-- `ParentCompany` — Siryus Creative Media Ltd info
+- `PageHeader`: Page title and intro
+- `StorySection`: Brand narrative
+- `MissionVision`: Mission and vision statements
+- `DivisionBreakdown`: SIRYUS A.M and Hub explanations
+- `ParentCompany`: Siryus Creative Media Ltd info
 
 #### Services Page Components
-- `PageHeader` — Services introduction
-- `ServicesGrid` — Service cards with descriptions
-- `ProcessOverview` — How we work explanation
-- `CallToAction` — Contact CTA
+- `PageHeader`: Services introduction
+- `ServicesGrid`: Service cards with descriptions
+- `ProcessOverview`: How we work explanation
+- `CallToAction`: Contact CTA
 
 #### Projects Page Components
-- `PageHeader` — Projects introduction
-- `ProjectsGrid` — Project cards with status badges
-- `ProjectStatusLegend` — Status definitions
+- `PageHeader`: Projects introduction
+- `ProjectsGrid`: Project cards with status badges
+- `ProjectStatusLegend`: Status definitions
 
 #### Project Detail Components
-- `ProjectHero` — Project title, image, metadata
-- `ProjectDescription` — Detailed overview
-- `MediaSection` — Embedded audio/video
-- `CreditsSection` — Contributors and roles
-- `RelatedProjects` — Similar projects
+- `ProjectHero`: Project title, image, metadata
+- `ProjectDescription`: Detailed overview
+- `MediaSection`: Embedded audio/video
+- `CreditsSection`: Contributors and roles
+- `RelatedProjects`: Similar projects
 
 #### Artists Page Components
-- `PageHeader` — Artists introduction
-- `ArtistsGrid` — Artist cards with images
-- `FilterBar` — Optional filtering by genre/status
+- `PageHeader`: Artists introduction
+- `ArtistsGrid`: Artist cards with images
+- `FilterBar`: Optional filtering by genre/status
 
 #### Artist Detail Components
-- `ArtistHero` — Name, image, genre, links
-- `BioSection` — Artist biography
-- `MediaEmbeds` — Spotify/YouTube embeds
-- `AssociatedProjects` — Projects they've participated in
-- `ExternalLinks` — Social media, streaming platforms
+- `ArtistHero`: Name, image, genre, links
+- `BioSection`: Artist biography
+- `MediaEmbeds`: Spotify/YouTube embeds
+- `AssociatedProjects`: Projects they've participated in
+- `ExternalLinks`: Social media, streaming platforms
 
 #### Community Page Components
-- `PageHeader` — Community introduction
-- `CommunityIntro` — What is Siryus Creative Hub
-- `BenefitsGrid` — Benefits of joining
-- `JoinCTA` — How to join
+- `PageHeader`: Community introduction
+- `CommunityIntro`: What is Siryus Creative Hub
+- `BenefitsGrid`: Benefits of joining
+- `JoinCTA`: How to join
 
 #### Blog Components
-- `FeaturedPost` — Hero-style featured post
-- `PostsGrid` — Grid of post cards
-- `PostCard` — Individual post preview
-- `Pagination` — Page navigation
-- `PostHeader` — Post title, date, author
-- `PostContent` — Formatted post body
-- `AuthorBox` — Author information
-- `RelatedPosts` — Similar content
+- `FeaturedPost`: Hero-style featured post
+- `PostsGrid`: Grid of post cards
+- `PostCard`: Individual post preview
+- `Pagination`: Page navigation
+- `PostHeader`: Post title, date, author
+- `PostContent`: Formatted post body
+- `AuthorBox`: Author information
+- `RelatedPosts`: Similar content
 
 #### Contact Page Components
-- `PageHeader` — Contact introduction
-- `ContactForm` — Form with validation (React component)
-- `ContactDetails` — Email, social links
+- `PageHeader`: Contact introduction
+- `ContactForm`: Form with validation (React component)
+- `ContactDetails`: Email, social links
 
 ### Reusable UI Components
 
 **Component Library:**
 
-- `Button` — Primary, secondary, ghost variants
-- `Card` — Content container with optional hover effects
-- `SectionHeader` — Consistent section titles
-- `GridLayout` — Responsive grid wrapper
-- `Badge` — Status indicators (Active, Coming Soon, etc.)
-- `CTABlock` — Reusable call-to-action section
-- `AnimatedSection` — Fade-in on scroll wrapper
-- `FadeIn` — Entrance animation component
+- `Button`: Primary, secondary, ghost variants
+- `Card`: Content container with optional hover effects
+- `SectionHeader`: Consistent section titles
+- `GridLayout`: Responsive grid wrapper
+- `Badge`: Status indicators (Active, Coming Soon, etc.)
+- `CTABlock`: Reusable call-to-action section
+- `AnimatedSection`: Fade-in on scroll wrapper
+- `FadeIn`: Entrance animation component
 
 **Component Requirements:**
 - Fully typed with TypeScript
@@ -1306,7 +1306,7 @@ git push origin main
 
 ## Key Success Factors
 
-1. **Follow Documentation:** All specifications exist in supporting documents — use them as authoritative reference
+1. **Follow Documentation:** All specifications exist in supporting documents; use them as authoritative reference
 2. **Test Continuously:** Test after each phase completion, don't wait until the end
 3. **Commit Regularly:** Use Git for version control throughout development
 4. **Focus on Quality:** Don't rush through phases, ensure each is complete
@@ -1343,8 +1343,8 @@ This README synthesizes information from these detailed documents in `/docs`:
    URL structure, SEO-friendly slugs, canonical rules, and indexing guidance
 
 **Additional Resources:**
-- `Siryus Hub.pdf` — Original project brief
-- `Siryus Style Guide.pdf` — Visual brand guidelines
+- `Siryus Hub.pdf`: Original project brief
+- `Siryus Style Guide.pdf`: Visual brand guidelines
 
 ---
 
@@ -1376,7 +1376,7 @@ This project and all associated documentation, code, content, and brand assets a
 
 ## Revision History
 
-- **Version 1.0** — January 6, 2026 — Initial comprehensive README created from all documentation sources
+- **Version 1.0** (January 6, 2026). Initial comprehensive README created from all documentation sources
 - Documentation reflects complete project requirements ready for development phase
 
 ---

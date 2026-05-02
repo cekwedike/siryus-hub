@@ -1,0 +1,264 @@
+---
+import ArcLayout from '../../layouts/ArcLayout.astro';
+import '../../styles/arc-sections-reuse.css';
+import { getCanonicalOrigin } from '../../lib/siteCanonical';
+
+const origin = getCanonicalOrigin();
+const pageTitle = 'ARC Community | A home for the ones building in faith';
+const pageDescription =
+  'ARC is a faith-rooted creative community for Christian creatives in Nigeria, Rwanda, and beyond. Ascent. Refuge. Collective.';
+---
+
+<ArcLayout title={pageTitle} description={pageDescription} canonical={`${origin}/arc/community`}>
+  <div class="blog-page">
+    <section class="blog-bleed blog-hero blog-reveal" aria-labelledby="arc-community-hero-heading">
+      <div class="blog-hero__photo-layer" aria-hidden="true">
+        <img
+          class="blog-hero__photo"
+          src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="blog-hero__photo-scrim"></div>
+      </div>
+      <div class="blog-hero__glow" aria-hidden="true"></div>
+      <div class="blog-inner blog-hero__shell">
+        <div class="morph-hero-glass-panel blog-hero__glass" style="max-width: 50rem;">
+          <div class="blog-hero__inner" style="padding: 2rem 1.75rem;">
+            <span class="blog-hero__label">Nigeria • Rwanda</span>
+            <h1 id="arc-community-hero-heading" class="blog-hero__title">
+              A home for the ones building in faith.
+            </h1>
+            <p class="blog-hero__sub">
+              ARC is not a club. It is a community of Christian creatives who take their craft and their calling
+              seriously.
+            </p>
+            <p class="blog-hero__sub" style="margin-top: 0.75rem;">
+              <a href="/arc" style="color: inherit; text-decoration: underline;">← Back to ARC</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="blog-bleed arc-list-bridge blog-reveal">
+      <div class="blog-inner arc-bridge__inner">
+        <p class="arc-bridge__tagline">Community over isolation. Craft over noise.</p>
+        <div class="arc-bridge__actions">
+          <a class="arc-bridge__pill" href="/arc/blog">Journal</a>
+          <a class="arc-bridge__pill" href="/arc/events">Events</a>
+          <a class="arc-bridge__pill arc-bridge__pill--ghost" href="/arc">ARC home</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="arc-manifesto blog-reveal" aria-labelledby="arc-community-what-heading">
+      <div class="manifesto-rule" aria-hidden="true"></div>
+      <div class="arc-manifesto__content">
+        <h2 id="arc-community-what-heading" class="arc-manifesto__lead">What this place is.</h2>
+        <div class="arc-manifesto__copy">
+          <p>
+            ARC stands for Ascent. Refuge. Collective. It is a faith-rooted creative community built to support,
+            protect, and develop Christian creatives across every form of artistic expression. Not a label. Not a
+            management company. A modern ark built to carry the seeds of a new culture. We exist for the talented, the
+            faithful, and the serious. The ones building in silence who deserve a room that understands both faith and
+            craft.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="arc-disciplines blog-reveal" aria-labelledby="arc-community-who-heading">
+      <h2 id="arc-community-who-heading">Who belongs here.</h2>
+      <div class="discipline-mosaic">
+        <article class="tile tile-sound">
+          <img
+            src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1400&q=80"
+            alt="Musician building sound in studio"
+          />
+          <h3>Sound</h3>
+          <p>
+            Producers, musicians, singers, composers, worship leaders, and afro-gospel artists shaping atmosphere
+            through sound.
+          </p>
+        </article>
+        <article class="tile tile-words">
+          <img
+            src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1400&q=80"
+            alt="Writer drafting words by hand"
+          />
+          <h3>Words</h3>
+          <p>
+            Poets, spoken word artists, songwriters, authors, and lyricists carrying language with weight.
+          </p>
+        </article>
+        <article class="tile tile-movement">
+          <img
+            src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1400&q=80"
+            alt="Dancer in expressive movement"
+          />
+          <h3>Movement</h3>
+          <p>Dancers and choreographers translating spirit through the body.</p>
+        </article>
+        <article class="tile tile-vision">
+          <img
+            src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1400&q=80"
+            alt="Filmmaker framing a visual story"
+          />
+          <h3>Vision</h3>
+          <p>
+            Filmmakers, photographers, videographers, and visual storytellers building frames of meaning.
+          </p>
+        </article>
+        <article class="tile tile-design">
+          <img
+            src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1400&q=80"
+            alt="Designer working with creative materials"
+          />
+          <h3>Design</h3>
+          <p>
+            Graphic artists, illustrators, fashion designers, and visual creatives giving form to ideas that endure.
+          </p>
+        </article>
+        <article class="tile tile-experimental">
+          <img
+            src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1400&q=80"
+            alt="Experimental artist working with mixed visual media"
+          />
+          <h3>Experimental</h3>
+          <p>
+            Boundary-pushers making new language for culture. If your work does not fit a category, it fits here.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="arc-values blog-reveal" data-value-stack aria-labelledby="arc-community-involve-heading">
+      <div class="arc-values__lead">
+        <p class="arc-values__kicker">Get involved</p>
+        <h2 id="arc-community-involve-heading">How to plug in.</h2>
+      </div>
+      <div class="arc-values__list">
+        <article class="value-item" data-value-item>
+          <p class="value-item__index">01</p>
+          <h3>Follow the journey</h3>
+          <p>Start by following ARC on social media. Everything we build, you will see it happen in real time.</p>
+        </article>
+        <article class="value-item" data-value-item>
+          <p class="value-item__index">02</p>
+          <h3>Join the newsletter</h3>
+          <p>The ARC Letter is where the community lives between events. Subscribe and stay connected.</p>
+        </article>
+        <article class="value-item" data-value-item>
+          <p class="value-item__index">03</p>
+          <h3>Show up to a session</h3>
+          <p>
+            Apartment Sessions and Collaboration Labs are where the real work happens. Watch for announcements and come
+            ready to create.
+          </p>
+        </article>
+        <article class="value-item" data-value-item>
+          <p class="value-item__index">04</p>
+          <h3>Bring your tribe</h3>
+          <p>If you know a Christian creative who belongs here, bring them. ARC grows through trust, not noise.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="arc-community-cta blog-bleed blog-reveal" aria-labelledby="arc-community-cta-heading">
+      <div class="blog-inner arc-community-cta__inner">
+        <h2 id="arc-community-cta-heading">Ready to be part of it?</h2>
+        <p>Join the newsletter and stay connected to everything ARC is building.</p>
+        <a class="arc-bridge__pill" href="/arc/subscribe">Subscribe to The ARC Letter</a>
+      </div>
+    </section>
+  </div>
+</ArcLayout>
+
+<script is:inline>
+  (() => {
+    const items = Array.from(document.querySelectorAll('[data-value-item]'));
+    if (items.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const item = entry.target;
+          if (entry.isIntersecting) {
+            item.classList.add('is-in');
+          } else {
+            item.classList.remove('is-in');
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    items.forEach((item) => observer.observe(item));
+  })();
+</script>
+
+<script is:inline>
+  (() => {
+    const tiles = Array.from(document.querySelectorAll('.tile'));
+    if (tiles.length === 0) return;
+    const timers = new WeakMap();
+    const deactivate = (tile) => {
+      const timer = timers.get(tile);
+      if (timer) window.clearTimeout(timer);
+      tile.classList.remove('is-revealed');
+    };
+    const activate = (tile) => {
+      tiles.forEach((otherTile) => {
+        if (otherTile !== tile) deactivate(otherTile);
+      });
+      const timer = window.setTimeout(() => {
+        tile.classList.add('is-revealed');
+        timers.delete(tile);
+      }, 220);
+      timers.set(tile, timer);
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const tile = entry.target;
+          if (entry.isIntersecting) {
+            activate(tile);
+          } else {
+            deactivate(tile);
+          }
+        });
+      },
+      { threshold: 0.55 }
+    );
+    tiles.forEach((tile) => observer.observe(tile));
+  })();
+</script>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.blog-reveal');
+    if (reduce) {
+      els.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+    );
+    els.forEach(function (el) {
+      io.observe(el);
+    });
+  })();
+</script>

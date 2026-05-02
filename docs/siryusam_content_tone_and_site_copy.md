@@ -1,4 +1,4 @@
-# SIRYUS Artist Management — Content Tone, Messaging, and Site Copy
+# SIRYUS Artist Management: Content Tone, Messaging, and Site Copy
 
 This document defines the official **content tone, messaging framework, SEO principles, and full website copy** for **SIRYUS Artist Management (SIRYUS A.M)**.  
 It serves as the authoritative reference for writers, developers, designers, and CMS integration.

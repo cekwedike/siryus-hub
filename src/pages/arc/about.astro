@@ -1,0 +1,346 @@
+---
+import ArcLayout from '../../layouts/ArcLayout.astro';
+import { getCanonicalOrigin } from '../../lib/siteCanonical';
+
+const origin = getCanonicalOrigin();
+const pageTitle = 'About ARC | Ascent. Refuge. Collective.';
+const pageDescription =
+  'Why ARC exists: a faith-rooted creative home for the overlooked, rooted in Nigeria and Rwanda. An initiative of Siryus Creative Media Ltd.';
+
+const team = [
+  { name: 'Chidiebere Ekwedike', role: 'Founder & Executive Lead' },
+  { name: 'Jesse Joseph Wakili (Jlinez)', role: 'Music & Artist Community Lead' },
+  { name: 'Adediwura Adedigba', role: 'Brand Strategist, Operations & Merch Lead' },
+  { name: 'Francis Iwejuo', role: 'Visual Content & Community Co-Lead' },
+  { name: "Opeyemi Lawal (Abba's Scribe)", role: 'Marketing & Growth Lead' },
+  { name: 'Christian Chiamaka Ayoola', role: 'Communications, Copy & Community Co-Lead' },
+  { name: 'Michelle Lawal', role: 'Finance Lead' },
+  { name: 'Esther Johnson', role: 'Experiences & Community Lead' },
+] as const;
+---
+
+<ArcLayout title={pageTitle} description={pageDescription} canonical={`${origin}/arc/about`}>
+  <div class="blog-page">
+    <section class="blog-bleed blog-hero blog-reveal" aria-labelledby="arc-about-hero-heading">
+      <div class="blog-hero__photo-layer" aria-hidden="true">
+        <img
+          class="blog-hero__photo"
+          src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="blog-hero__photo-scrim"></div>
+      </div>
+      <div class="blog-hero__glow" aria-hidden="true"></div>
+      <div class="blog-inner blog-hero__shell">
+        <div class="morph-hero-glass-panel blog-hero__glass" style="max-width: 50rem;">
+          <div class="blog-hero__inner" style="padding: 2rem 1.75rem;">
+            <span class="blog-hero__label">ARC</span>
+            <h1 id="arc-about-hero-heading" class="blog-hero__title">Built for the overlooked. Rooted in faith.</h1>
+            <p class="blog-hero__sub">The story behind Ascent. Refuge. Collective.</p>
+            <p class="blog-hero__sub" style="margin-top: 0.75rem;">
+              <a href="/arc" style="color: inherit; text-decoration: underline;">← Back to ARC</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="blog-bleed arc-list-bridge blog-reveal">
+      <div class="blog-inner arc-bridge__inner">
+        <p class="arc-bridge__tagline">A long-haul home for faith-rooted creatives. Local roots, global reach.</p>
+        <div class="arc-bridge__actions">
+          <a class="arc-bridge__pill" href="/arc/blog">Journal</a>
+          <a class="arc-bridge__pill arc-bridge__pill--ghost" href="/arc/events">Events</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-about-manifesto-heading">
+      <div class="blog-inner">
+        <header class="arc-section-head">
+          <h2 id="arc-about-manifesto-heading" class="blog-section__title">Why ARC exists.</h2>
+          <div class="arc-section-head__rule" aria-hidden="true"></div>
+        </header>
+        <div class="project-body blog-post-body arc-about-prose">
+          <p>
+            The dominant story of the creative industry, especially in the African gospel and faith-based space, is one
+            of brilliant talent dying in isolation. Artists with genuine vision and deep wells of creativity are overlooked
+            by major labels, burnt out by platforms that demand output over formation, and disconnected from peers who
+            could elevate their work.
+          </p>
+          <p>ARC was built to change that story.</p>
+          <p>
+            We say the overlooked are not failures. They are seeds waiting for the right ground. And ARC is that ground.
+          </p>
+          <p>
+            The name is intentional. Ascent: the climb, skill sharpened by discipline, calling forged in process. Refuge:
+            the sanctuary, a quiet room where honesty, rest, and craft can breathe. Collective: the tribe, builders
+            moving together, carrying weight for each other.
+          </p>
+          <p>
+            The ark metaphor runs deep. Just as Noah's ark was not built for the sea but to survive it, ARC is not built
+            for the moment. It is built for the long haul. To carry the seeds of a new cultural movement safely through
+            the noise of trends, commercial pressure, and spiritual compromise, until those seeds are ready to change the
+            world.
+          </p>
+          <p>We are not in a hurry. Slow and steady. Constant growth without compromise.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-about-where-heading">
+      <div class="blog-inner">
+        <header class="arc-section-head">
+          <h2 id="arc-about-where-heading" class="blog-section__title">Nigeria. Rwanda. The world.</h2>
+          <p class="arc-section-head__lede">
+            ARC was founded with a presence across Nigeria and Rwanda. Nigeria is home to a vibrant, battle-tested gospel
+            creative scene. Rwanda and East Africa represent an open field: minimal visible afro-gospel infrastructure,
+            maximum opportunity. ARC is planting roots in both. The work begins local and grows global.
+          </p>
+          <div class="arc-section-head__rule" aria-hidden="true"></div>
+        </header>
+
+        <div class="arc-about-location-grid">
+          <article class="arc-about-loc-card blog-reveal">
+            <p class="arc-about-loc-card__city">Lagos, Nigeria</p>
+            <p class="arc-about-loc-card__note">
+              Where the sound is sharpest and the creative hunger runs deep.
+            </p>
+          </article>
+          <article class="arc-about-loc-card blog-reveal">
+            <p class="arc-about-loc-card__city">Kigali, Rwanda</p>
+            <p class="arc-about-loc-card__note">
+              A new frontier for afro-gospel creativity. ARC is here early, on purpose.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-bleed blog-section blog-section--tight-bottom blog-reveal" aria-labelledby="arc-about-team-heading">
+      <div class="blog-inner">
+        <header class="arc-section-head">
+          <h2 id="arc-about-team-heading" class="blog-section__title">The people building it.</h2>
+          <p class="arc-section-head__lede">
+            ARC was built by people who believe in it enough to give it their best work.
+          </p>
+          <div class="arc-section-head__rule" aria-hidden="true"></div>
+        </header>
+
+        <div class="arc-about-team-grid" role="list">
+          {
+            team.map((member) => (
+              <article class="arc-about-team-card blog-reveal" role="listitem">
+                <div class="arc-about-team-card__body">
+                  <h3 class="arc-about-team-card__name">{member.name}</h3>
+                  <p class="arc-about-team-card__role">{member.role}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-about-siryus-heading">
+      <div class="blog-inner">
+        <header class="arc-section-head">
+          <h2 id="arc-about-siryus-heading" class="blog-section__title">An initiative of Siryus Creative Media Ltd.</h2>
+          <div class="arc-section-head__rule" aria-hidden="true"></div>
+        </header>
+        <div class="project-body blog-post-body arc-about-prose arc-about-prose--tight">
+          <p>
+            ARC operates under Siryus Creative Media Ltd, officially incorporated in Nigeria. Siryus is the structural
+            home: the legal and operational infrastructure that allows ARC to move with intention and accountability. ARC
+            is the creative mission it carries.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-bleed arc-about-cta blog-reveal" aria-labelledby="arc-about-cta-heading">
+      <div class="blog-inner arc-about-cta__inner">
+        <h2 id="arc-about-cta-heading" class="arc-about-cta__title">Want to be part of what we're building?</h2>
+        <a class="arc-bridge__pill" href="/arc/community">Join the community</a>
+      </div>
+    </section>
+  </div>
+</ArcLayout>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.blog-reveal');
+    if (reduce) {
+      els.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+    );
+    els.forEach(function (el) {
+      io.observe(el);
+    });
+  })();
+</script>
+
+<style>
+  :global(.arc-about-prose p) {
+    margin: 1.35rem 0;
+    line-height: 1.72;
+  }
+
+  :global(.arc-about-prose--tight p) {
+    margin: 0;
+    line-height: 1.72;
+  }
+
+  .arc-about-location-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .arc-about-loc-card {
+    margin: 0;
+    padding: clamp(1.25rem, 2.5vw, 1.65rem);
+    border: 1px solid var(--arc-border);
+    background: var(--arc-card);
+    border-radius: 6px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+  }
+
+  :global(body.arc-route.light-theme) .arc-about-loc-card {
+    box-shadow: 0 12px 32px rgba(28, 18, 8, 0.06);
+  }
+
+  .arc-about-loc-card__city {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.55rem, 2.4vw, 2rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--arc-fg);
+  }
+
+  .arc-about-loc-card__note {
+    margin: 0.75rem 0 0;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.98rem, 1vw + 0.9rem, 1.06rem);
+    line-height: 1.55;
+    color: var(--arc-muted);
+  }
+
+  .arc-about-team-grid {
+    margin-top: 0.25rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem 1rem;
+  }
+
+  .arc-about-team-card {
+    margin: 0;
+    border: 1px solid var(--arc-border);
+    background: var(--arc-card);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .arc-about-team-card:hover {
+    border-color: rgba(242, 121, 48, 0.45);
+    background: rgba(242, 121, 48, 0.04);
+  }
+
+  :global(body.arc-route.light-theme) .arc-about-team-card:hover {
+    background: rgba(160, 82, 45, 0.06);
+  }
+
+  .arc-about-team-card__body {
+    padding: 1.05rem 0.95rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+  }
+
+  .arc-about-team-card__name {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.22rem, 1.4vw, 1.45rem);
+    line-height: 1.15;
+    font-weight: 600;
+    color: var(--arc-fg);
+  }
+
+  .arc-about-team-card__role {
+    margin: 0;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.86rem, 0.3vw + 0.82rem, 0.95rem);
+    line-height: 1.45;
+    color: var(--arc-muted);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .arc-about-cta {
+    padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(3rem, 6vw, 4.5rem);
+    background:
+      linear-gradient(180deg, rgba(242, 121, 48, 0.12) 0%, transparent 65%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, rgba(242, 121, 48, 0.08), transparent 55%);
+    border-top: 1px solid var(--arc-border);
+    border-bottom: 1px solid var(--arc-border);
+  }
+
+  .arc-about-cta__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.35rem;
+  }
+
+  .arc-about-cta__title {
+    margin: 0;
+    max-width: 36rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.85rem, 4vw, 2.75rem);
+    line-height: 1.08;
+    font-weight: 600;
+    color: var(--arc-fg);
+  }
+
+  @media (max-width: 1040px) {
+    .arc-about-team-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .arc-about-location-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .arc-about-team-grid {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+</style>

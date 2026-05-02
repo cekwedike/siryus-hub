@@ -462,7 +462,7 @@ import '../styles/morphism.css';
       });
     }
 
-    // Active Nav Link — cache layout values to avoid forced reflow on scroll
+    // Active Nav Link: cache layout values to avoid forced reflow on scroll
     type SectionData = { top: number; bottom: number; id: string | null };
     let sectionCache: SectionData[] = [];
 
@@ -543,7 +543,7 @@ import '../styles/morphism.css';
       init();
     }
 
-    // Handle resize — re-cache layout values, reset parallax
+    // Handle resize: re-cache layout values, reset parallax
     let resizeTimer: ReturnType<typeof globalThis.setTimeout> | undefined;
     window.addEventListener('resize', () => {
       if (resizeTimer !== undefined) globalThis.clearTimeout(resizeTimer);

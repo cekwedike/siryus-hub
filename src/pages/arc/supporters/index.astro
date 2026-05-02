@@ -1,0 +1,407 @@
+---
+import ArcLayout from '../../../layouts/ArcLayout.astro';
+import { blogCoverImageUrlArc, sanityArcConfigured } from '../../../lib/sanityArc';
+import { getAllArcSupporters } from '../../../lib/queriesArc';
+import type { ArcSupporter } from '../../../lib/queries';
+import { getCanonicalOrigin } from '../../../lib/siteCanonical';
+
+const origin = getCanonicalOrigin();
+const pageTitle = 'ARC Supporters | Community behind the work';
+const pageDescription =
+  'Churches, studios, organizations, and individuals standing with ARC, a faith-rooted creative community. An initiative of Siryus Creative Media Ltd.';
+
+const allSupporters = await getAllArcSupporters();
+const featuredSupporters = allSupporters.filter((s) => s.featured);
+const gridSupporters = allSupporters.filter((s) => !s.featured);
+const hasAnySupporters = allSupporters.length > 0;
+
+function logoSrc(s: ArcSupporter, width: number, height: number) {
+  return blogCoverImageUrlArc(s.logo, width, height);
+}
+
+function logoAlt(s: ArcSupporter) {
+  const img = s.logo as { alt?: string | null } | null | undefined;
+  const a = img?.alt?.trim();
+  return a && a.length > 0 ? a : `${s.name} logo`;
+}
+---
+
+<ArcLayout title={pageTitle} description={pageDescription} canonical={`${origin}/arc/supporters`}>
+  <div class="blog-page">
+    <section class="blog-bleed blog-hero blog-reveal" aria-labelledby="arc-supporters-hero-heading">
+      <div class="blog-hero__photo-layer" aria-hidden="true">
+        <img
+          class="blog-hero__photo"
+          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="blog-hero__photo-scrim"></div>
+      </div>
+      <div class="blog-hero__glow" aria-hidden="true"></div>
+      <div class="blog-inner blog-hero__shell">
+        <div class="morph-hero-glass-panel blog-hero__glass" style="max-width: 50rem;">
+          <div class="blog-hero__inner" style="padding: 2rem 1.75rem;">
+            <span class="blog-hero__label">ARC</span>
+            <h1 id="arc-supporters-hero-heading" class="blog-hero__title">The ones who believe in the work.</h1>
+            <p class="blog-hero__sub">
+              ARC is built by a community. These are the organizations and individuals who stand behind it.
+            </p>
+            <p class="blog-hero__sub" style="margin-top: 0.75rem;">
+              <a href="/arc" style="color: inherit; text-decoration: underline;">← Back to ARC</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="blog-bleed arc-list-bridge blog-reveal">
+      <div class="blog-inner arc-bridge__inner">
+        <p class="arc-bridge__tagline">Partners in craft, faith, and showing up for the collective.</p>
+        <div class="arc-bridge__actions">
+          <a class="arc-bridge__pill" href="/arc/blog">Journal</a>
+          <a class="arc-bridge__pill arc-bridge__pill--ghost" href="/arc/events">Events</a>
+          <a class="arc-bridge__pill arc-bridge__pill--ghost" href="/arc">ARC home</a>
+        </div>
+      </div>
+    </div>
+
+    {
+      !sanityArcConfigured ? (
+        <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-supporters-setup-heading">
+          <div class="blog-inner">
+            <div class="arc-empty-state arc-empty-state--setup blog-reveal">
+              <div class="arc-empty-state__mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 12h6v12H9V12Zm14 2h6v10h-6V14Z" />
+                  <path d="M15 18h6M12 8V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+                </svg>
+              </div>
+              <div>
+                <h2 id="arc-supporters-setup-heading" class="arc-empty-state__title">
+                  Connect ARC Studio
+                </h2>
+                <p class="arc-empty-state__text">
+                  Add <code>PUBLIC_SANITY_ARC_PROJECT_ID</code> and <code>PUBLIC_SANITY_ARC_DATASET</code> (see{' '}
+                  <code>.env.example</code>), redeploy, then create <strong>ARC Supporter</strong> documents in{' '}
+                  <code>studio-arc/</code>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null
+    }
+
+    {
+      sanityArcConfigured && featuredSupporters.length > 0 ? (
+        <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-supporters-featured-heading">
+          <div class="blog-inner">
+            <header class="arc-section-head">
+              <span class="arc-section-head__eyebrow">Featured</span>
+              <h2 id="arc-supporters-featured-heading" class="blog-section__title">
+                Standing with ARC
+              </h2>
+              <p class="arc-section-head__lede">Organizations and individuals highlighted for their partnership.</p>
+              <div class="arc-section-head__rule" aria-hidden="true"></div>
+            </header>
+            <div class="arc-supporter-grid arc-supporter-grid--featured">
+              {featuredSupporters.map((s) => {
+                const src = logoSrc(s, 560, 280);
+                return (
+                  <article class="arc-supporter-card arc-supporter-card--featured blog-reveal">
+                    <div class="arc-supporter-card__media">
+                      {src ? (
+                        <img src={src} alt={logoAlt(s)} width="560" height="280" loading="lazy" decoding="async" />
+                      ) : (
+                        <div class="arc-supporter-card__nameplate">
+                          <h3 class="blog-card__title arc-supporter-card__title-fallback">{s.name}</h3>
+                        </div>
+                      )}
+                    </div>
+                    <div class="arc-supporter-card__body">
+                      {src ? <h3 class="blog-card__title">{s.name}</h3> : null}
+                      {s.category ? <span class="blog-badge">{s.category}</span> : null}
+                      {s.shortDescription ? <p class="blog-card__excerpt">{s.shortDescription}</p> : null}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      ) : null
+    }
+
+    {
+      sanityArcConfigured ? (
+        <section
+          class:list={[
+            'blog-bleed blog-section',
+            featuredSupporters.length > 0 ? 'blog-section--tight-bottom' : '',
+          ]}
+          aria-labelledby="arc-supporters-all-heading"
+        >
+          <div class="blog-inner">
+            <header class="arc-section-head">
+              <span class="arc-section-head__eyebrow">Community</span>
+              <h2 id="arc-supporters-all-heading" class="blog-section__title">Supporters</h2>
+              <p class="arc-section-head__lede">Churches, studios, organizations, and individuals: thank you.</p>
+              <div class="arc-section-head__rule" aria-hidden="true"></div>
+            </header>
+
+            {
+              gridSupporters.length === 0 && !hasAnySupporters ? (
+                <div class="arc-empty-state blog-reveal" role="status">
+                  <div class="arc-empty-state__mark" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 4c3 4 8 7 8 13a8 8 0 1 1-16 0c0-6 5-9 8-13Z" />
+                      <path d="M12 21h8M16 17v8" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="arc-empty-state__title">Supporters will appear here</h3>
+                    <p class="arc-empty-state__text">
+                      Publish <strong>ARC Supporter</strong> entries in ARC Studio with optional logos and short blurbs, and they will show up in this grid automatically.
+                    </p>
+                    <div class="arc-empty-state__foot">
+                      <a href="/arc/blog">Read the journal</a>
+                      <span aria-hidden="true">·</span>
+                      <a href="/arc">ARC home</a>
+                    </div>
+                  </div>
+                </div>
+              ) : gridSupporters.length === 0 ? (
+                <p class="arc-supporters-grid-note blog-reveal" role="status">
+                  Additional partners will be listed here as they are added.
+                </p>
+              ) : (
+                <div class="blog-grid arc-supporter-grid--standard">
+                  {gridSupporters.map((s) => {
+                    const src = logoSrc(s, 400, 200);
+                    return (
+                      <article class="arc-supporter-card blog-card blog-reveal">
+                        <div class="arc-supporter-card__media arc-supporter-card__media--compact">
+                          {src ? (
+                            <img src={src} alt={logoAlt(s)} width="400" height="200" loading="lazy" decoding="async" />
+                          ) : (
+                            <div class="arc-supporter-card__nameplate arc-supporter-card__nameplate--compact">
+                              <h3 class="blog-card__title arc-supporter-card__title-fallback">{s.name}</h3>
+                            </div>
+                          )}
+                        </div>
+                        <div class="arc-supporter-card__body">
+                          {src ? <h3 class="blog-card__title">{s.name}</h3> : null}
+                          <div class="arc-supporter-card__badges">
+                            {s.category ? <span class="blog-badge">{s.category}</span> : null}
+                          </div>
+                          {s.shortDescription ? <p class="blog-card__excerpt">{s.shortDescription}</p> : null}
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              )
+            }
+          </div>
+        </section>
+      ) : null
+    }
+
+    <section class="blog-bleed blog-section arc-supporter-cta-section blog-reveal" aria-labelledby="arc-supporters-cta-heading">
+      <div class="blog-inner">
+        <div class="arc-supporter-cta">
+          <h2 id="arc-supporters-cta-heading" class="blog-section__title">Want to stand with ARC?</h2>
+          <p class="arc-supporter-cta__body">
+            ARC is looking for churches, studios, organizations, and individuals who believe in what faithful Christian creatives can build. If that is you, reach out.
+          </p>
+          <a class="arc-bridge__pill" href="mailto:wearearc.creatives@gmail.com">Get in touch</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</ArcLayout>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.blog-reveal');
+    if (reduce) {
+      els.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+    );
+    els.forEach(function (el) {
+      io.observe(el);
+    });
+  })();
+</script>
+
+<style>
+  .arc-supporter-grid--featured {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .arc-supporter-card {
+    border: 1px solid var(--arc-border, rgba(242, 121, 48, 0.28));
+    background: var(--arc-card, rgba(255, 255, 255, 0.02));
+    border-radius: 5px;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    margin: 0;
+  }
+
+  .arc-supporter-card--featured .arc-supporter-card__media {
+    min-height: 12rem;
+  }
+
+  .arc-supporter-card__media {
+    position: relative;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .arc-supporter-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    padding: 1.25rem;
+    display: block;
+  }
+
+  .arc-supporter-card--featured .arc-supporter-card__media img {
+    padding: 1.75rem 2rem;
+    max-height: 14rem;
+  }
+
+  .arc-supporter-card__media--compact {
+    min-height: 8.5rem;
+  }
+
+  .arc-supporter-card__media--compact img {
+    padding: 1rem;
+    max-height: 9rem;
+  }
+
+  .arc-supporter-card__nameplate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 11rem;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .arc-supporter-card__nameplate--compact {
+    min-height: 8.5rem;
+    padding: 1.25rem;
+  }
+
+  .arc-supporter-card__title-fallback {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+    line-height: 1.15;
+  }
+
+  .arc-supporter-card--featured .arc-supporter-card__title-fallback {
+    font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  }
+
+  .arc-supporter-card__body {
+    padding: 1rem 1.1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    align-items: flex-start;
+  }
+
+  .arc-supporter-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  :global(.arc-supporter-card.blog-card) {
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  :global(.arc-supporter-card.blog-card:hover) {
+    transform: none;
+    border-color: rgba(242, 121, 48, 0.55);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+  }
+
+  :global(body.arc-route.light-theme .arc-supporter-card.blog-card:hover) {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .arc-supporters-grid-note {
+    margin: 0;
+    color: var(--arc-muted, #ddd6ce);
+    font-size: 1.05rem;
+    max-width: 52ch;
+  }
+
+  :global(body.arc-route.light-theme .arc-supporters-grid-note) {
+    color: var(--arc-muted, #312821);
+  }
+
+  .arc-supporter-cta-section {
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .arc-supporter-cta {
+    border: 1px solid var(--arc-border, rgba(242, 121, 48, 0.28));
+    background: var(--arc-card, rgba(255, 255, 255, 0.02));
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    border-radius: 6px;
+    max-width: 46rem;
+  }
+
+  .arc-supporter-cta__body {
+    margin: 0.75rem 0 1.35rem;
+    color: var(--arc-muted, #ddd6ce);
+    line-height: 1.6;
+    font-size: clamp(1rem, 0.2vw + 0.95rem, 1.12rem);
+  }
+
+  :global(body.arc-route.light-theme .arc-supporter-cta__body) {
+    color: var(--arc-muted, #312821);
+  }
+
+  @media (max-width: 940px) {
+    .arc-supporter-grid--featured {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 760px) {
+    :global(.arc-supporter-grid--standard.blog-grid) {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

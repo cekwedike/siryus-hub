@@ -1,4 +1,4 @@
-# siryushub.com — SEO Metadata Templates and Design System
+# siryushub.com: SEO Metadata Templates and Design System
 
 This document combines **SEO metadata standards**, **structured data schemas**, and the **design system foundations** for rebuilding **siryushub.com**.
 

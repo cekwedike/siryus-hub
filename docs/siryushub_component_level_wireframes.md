@@ -1,4 +1,4 @@
-# siryushub.com — Component-Level Page Wireframes
+# siryushub.com: Component-Level Page Wireframes
 
 This document defines the **component architecture, layout structure, and reusable UI blocks** for rebuilding **siryushub.com**.
 

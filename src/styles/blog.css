@@ -171,7 +171,7 @@
   border: 1px solid rgba(209, 223, 75, 0.35);
 }
 
-/* Featured — editorial split: image left, content right */
+/* Featured: editorial split (image left, content right) */
 .blog-featured {
   display: grid;
   grid-template-columns: 55fr 45fr;
@@ -438,7 +438,7 @@
   color: var(--brand-text-faint);
 }
 
-/* Index grid only: dark card body — pure white copy (classes shared with post hero meta) */
+/* Index grid only: dark card body, pure white copy (classes shared with post hero meta) */
 .blog-page .blog-grid .blog-card__title,
 .blog-page .blog-grid .blog-card__excerpt,
 .blog-page .blog-grid .blog-card__author,
@@ -838,7 +838,7 @@
   line-height: 1.35;
 }
 
-/* Light theme — blog: black copy, slate/teal accents (no neon lime on white) */
+/* Light theme / blog: black copy, slate/teal accents (no neon lime on white) */
 :global(body.light-theme) .blog-page {
   --blog-light-accent: #0c4a6e;
   --blog-light-accent-hover: #075985;
@@ -962,7 +962,7 @@
   color: #d4eef9;
 }
 
-/* Article: no-cover hero — badges use slate accent on paper */
+/* Article: no-cover hero (badges use slate accent on paper) */
 :global(body.light-theme) .blog-post-hero--no-cover .blog-badge {
   color: var(--blog-light-accent);
   background: rgba(12, 74, 110, 0.08);

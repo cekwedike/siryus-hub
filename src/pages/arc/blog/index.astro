@@ -85,17 +85,37 @@ function coverSrc(post: (typeof allPosts)[0]) {
       </div>
     </section>
 
+    <div class="blog-bleed arc-list-bridge blog-reveal">
+      <div class="blog-inner arc-bridge__inner">
+        <p class="arc-bridge__tagline">Letters on faith, craft, and showing up for the work.</p>
+        <div class="arc-bridge__actions">
+          <a class="arc-bridge__pill" href="/arc/events">Events</a>
+          <a class="arc-bridge__pill arc-bridge__pill--ghost" href="/arc">ARC home</a>
+        </div>
+      </div>
+    </div>
+
     {
       !sanityArcConfigured ? (
         <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-blog-setup-heading">
           <div class="blog-inner">
-            <h2 id="arc-blog-setup-heading" class="blog-section__title">Almost there</h2>
-            <div class="blog-empty blog-reveal">
-              <p>
-                ARC blog content is ready to connect. Add <code>PUBLIC_SANITY_ARC_PROJECT_ID</code> and{' '}
-                <code>PUBLIC_SANITY_ARC_DATASET</code> to your environment (see <code>.env.example</code> in the repo
-                root), then redeploy. Editors use the ARC Studio in <code>studio-arc/</code>.
-              </p>
+            <div class="arc-empty-state arc-empty-state--setup blog-reveal">
+              <div class="arc-empty-state__mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 12h6v12H9V12Zm14 2h6v10h-6V14Z" />
+                  <path d="M15 18h6M12 8V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+                </svg>
+              </div>
+              <div>
+                <h2 id="arc-blog-setup-heading" class="arc-empty-state__title">
+                  Connect ARC Studio
+                </h2>
+                <p class="arc-empty-state__text">
+                  ARC content is ready once your env is set. Add <code>PUBLIC_SANITY_ARC_PROJECT_ID</code> and{' '}
+                  <code>PUBLIC_SANITY_ARC_DATASET</code> (see <code>.env.example</code>), redeploy, then publish from{' '}
+                  <code>studio-arc/</code>.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -155,16 +175,35 @@ function coverSrc(post: (typeof allPosts)[0]) {
       aria-labelledby="arc-blog-all-heading"
     >
       <div class="blog-inner">
-        <h2 id="arc-blog-all-heading" class="blog-section__title">All posts</h2>
+        <header class="arc-section-head">
+          <span class="arc-section-head__eyebrow">Journal</span>
+          <h2 id="arc-blog-all-heading" class="blog-section__title">All posts</h2>
+          <p class="arc-section-head__lede">Stories filed under ARC. Browse the archive below.</p>
+          <div class="arc-section-head__rule" aria-hidden="true"></div>
+        </header>
 
         {
           allPosts.length === 0 ? (
-            <div class="blog-empty blog-reveal">
-              <p>
-                {sanityArcConfigured
-                  ? 'No ARC posts yet. Publish a story in the ARC Studio to see it here.'
-                  : 'Connect the ARC Sanity project to show posts here.'}
-              </p>
+            <div class="arc-empty-state blog-reveal" role="status">
+              <div class="arc-empty-state__mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 6h20v20H6V6Z" />
+                  <path d="M6 12h20M10 6v8M16 10h6" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="arc-empty-state__title">The first story is still loading</h3>
+                <p class="arc-empty-state__text">
+                  {sanityArcConfigured
+                    ? 'Nothing in the feed yet. When you publish a post in ARC Studio, it will land here with a cover, excerpt, and byline. No code required.'
+                    : 'Wire up the ARC Sanity project to pull in posts. Add the public project id and dataset, then deploy.'}
+                </p>
+                <div class="arc-empty-state__foot">
+                  <a href="/arc/events">Upcoming events</a>
+                  <span aria-hidden="true">·</span>
+                  <a href="/arc">ARC home</a>
+                </div>
+              </div>
             </div>
           ) : (
             <>

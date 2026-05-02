@@ -1,4 +1,4 @@
-# siryushub.com — Tech Stack, CMS, and Hosting Decisions
+# siryushub.com: Tech Stack, CMS, and Hosting Decisions
 
 This document defines the **recommended technology stack**, **CMS architecture**, and **deployment approach** for rebuilding **siryushub.com**.
 

@@ -392,7 +392,7 @@ body.light-theme .project-detail-about__heading::before {
   }
 }
 
-/* Gallery: same column as .project-body (no project-detail-bleed — that + max-width caused misalignment) */
+/* Gallery: same column as .project-body (no project-detail-bleed; that + max-width caused misalignment) */
 .project-gallery {
   position: relative;
   padding: var(--space-12) var(--space-5) var(--space-10);
