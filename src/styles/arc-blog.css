@@ -127,7 +127,7 @@ body.arc-route.light-theme .blog-hero a:hover {
 
 .blog-hero__title {
   margin: 0.6rem 0 0;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
   font-size: clamp(2.3rem, 6vw, 4.2rem);
   line-height: 0.95;
 }
@@ -138,12 +138,12 @@ body.arc-route.light-theme .blog-hero a:hover {
   max-width: 56ch;
   font-size: clamp(1rem, 1.15vw + 0.88rem, 1.22rem);
   line-height: 1.45;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
 }
 
 .blog-section__title {
   margin: 0 0 1.2rem;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
   font-size: clamp(2rem, 4.8vw, 3.4rem);
   line-height: 0.95;
 }
@@ -155,7 +155,7 @@ body.arc-route.light-theme .blog-hero a:hover {
   max-width: 46rem;
   font-size: 1.0625rem;
   line-height: 1.65;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
 }
 
 .blog-empty p {
@@ -241,7 +241,7 @@ body.arc-route.light-theme .blog-featured {
 
 .blog-featured__title {
   margin: 0;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 0.94;
 }
@@ -251,7 +251,7 @@ body.arc-route.light-theme .blog-featured {
   color: var(--arc-muted);
   font-size: clamp(1.02rem, 1vw + 0.92rem, 1.14rem);
   line-height: 1.45;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
 }
 
 .blog-featured__author,
@@ -347,7 +347,7 @@ body.arc-route.light-theme .blog-card:hover {
 
 .blog-card__title {
   margin: 0.65rem 0 0;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
   font-size: clamp(1.5rem, 2.2vw, 2rem);
   line-height: 0.98;
 }
@@ -357,7 +357,7 @@ body.arc-route.light-theme .blog-card:hover {
   color: var(--arc-muted);
   font-size: clamp(0.98rem, 0.25vw + 0.94rem, 1.05rem);
   line-height: 1.5;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
 }
 
 .blog-card__meta {
@@ -472,7 +472,7 @@ body.arc-route.light-theme .blog-card:hover {
 
 .blog-post-hero__title {
   margin: 0.55rem 0 0;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
   font-size: clamp(2.2rem, 6vw, 4.5rem);
   line-height: 0.93;
 }
@@ -544,7 +544,7 @@ body.arc-route.light-theme .blog-post-hero--with-cover .blog-badge.blog-badge--o
 }
 
 .blog-post-body {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-body);
   font-size: clamp(1.3rem, 2.1vw, 1.62rem);
   line-height: 1.52;
 }
@@ -561,7 +561,7 @@ body.arc-route.light-theme .blog-post-hero--with-cover .blog-badge.blog-badge--o
 .blog-post-body h4 {
   margin: 1.3rem 0 0.6rem;
   line-height: 1.1;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
 }
 
 .blog-post-body a {
@@ -617,7 +617,7 @@ body.arc-route.light-theme .blog-post-hero--with-cover .blog-badge.blog-badge--o
 
 .blog-related-card__title {
   margin: 0.6rem 0;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
   font-size: clamp(1.28rem, 2vw, 1.9rem);
   line-height: 1;
 }
@@ -630,7 +630,7 @@ body.arc-route.light-theme .blog-post-hero--with-cover .blog-badge.blog-badge--o
   color: var(--arc-muted);
   font-size: 1.06rem;
   line-height: 1.6;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
 }
 
 /* Editorial listing layers (ARC blog / events) */
@@ -654,7 +654,7 @@ body.arc-route.light-theme .blog-post-hero--with-cover .blog-badge.blog-badge--o
 .arc-bridge__tagline {
   margin: 0;
   max-width: 38rem;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
   font-size: clamp(1.35rem, 2.5vw, 1.85rem);
   font-style: italic;
   font-weight: 500;
@@ -722,7 +722,7 @@ body.arc-route.light-theme .arc-bridge__pill--ghost {
 .arc-section-head__lede {
   margin: 0.65rem 0 0;
   max-width: 40rem;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
   font-size: clamp(0.98rem, 1.2vw, 1.08rem);
   line-height: 1.5;
   color: var(--arc-muted);
@@ -783,7 +783,7 @@ body.arc-route.light-theme .arc-empty-state__mark {
 
 .arc-empty-state__title {
   margin: 0;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
   font-size: clamp(1.45rem, 2.5vw, 2rem);
   font-weight: 600;
   line-height: 1.15;
@@ -792,7 +792,7 @@ body.arc-route.light-theme .arc-empty-state__mark {
 
 .arc-empty-state__text {
   margin: 0.65rem 0 0;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
   font-size: 1.02rem;
   line-height: 1.6;
   color: var(--arc-muted);
@@ -816,7 +816,7 @@ body.arc-route.light-theme .arc-empty-state__text code {
   flex-wrap: wrap;
   gap: 0.5rem 1rem;
   align-items: center;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
   font-size: 0.88rem;
 }
 
@@ -918,7 +918,7 @@ body.arc-route.light-theme .arc-empty-state__text code {
 
 .arc-subscribe-benefit__title {
   margin: 0;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
   font-size: clamp(1.65rem, 3.2vw, 2.35rem);
   line-height: 1.08;
   font-weight: 600;
@@ -929,7 +929,7 @@ body.arc-route.light-theme .arc-empty-state__text code {
   letter-spacing: 0.12em;
   color: var(--arc-accent);
   text-transform: uppercase;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
   font-weight: 600;
   vertical-align: 0.12em;
   margin-right: 0.02em;
@@ -938,13 +938,13 @@ body.arc-route.light-theme .arc-empty-state__text code {
 .arc-subscribe-benefit__dash {
   color: var(--arc-muted);
   font-weight: 500;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
   font-size: clamp(0.75rem, 1vw, 0.88rem);
   letter-spacing: 0.02em;
 }
 
 .arc-subscribe-benefit__name {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--arc-font-heading);
   font-weight: 600;
 }
 
@@ -954,7 +954,7 @@ body.arc-route.light-theme .arc-empty-state__text code {
   max-width: 62ch;
   font-size: clamp(1.02rem, 1.05vw + 0.95rem, 1.12rem);
   line-height: 1.5;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--arc-font-body);
 }
 
 .arc-subscribe-form-section {

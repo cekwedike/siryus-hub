@@ -1,6 +1,7 @@
 ---
 import ArcAnimatedLogo from '../components/ArcAnimatedLogo.astro';
 import ArcFooter from '../components/ArcFooter.astro';
+import '../styles/arc-fonts.css';
 ---
 
 <!DOCTYPE html>
@@ -54,11 +55,11 @@ import ArcFooter from '../components/ArcFooter.astro';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Syne:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="arc-route">
     <nav class="arc-route-nav" aria-label="ARC page navigation" data-arc-nav>
       <a href="/arc" class="arc-route-nav__brand">ARC.</a>
       <div class="arc-route-nav__links">
@@ -318,7 +319,7 @@ import ArcFooter from '../components/ArcFooter.astro';
               item.classList.remove('is-in');
             }
           });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.2, rootMargin: '0px 0px -5% 0px' });
         items.forEach((item) => observer.observe(item));
       })();
     </script>
@@ -371,7 +372,7 @@ import ArcFooter from '../components/ArcFooter.astro';
     margin: 0;
     background: #0d0b09;
     color: #ffffff;
-    font-family: 'Syne', sans-serif;
+    font-family: var(--arc-font-body);
   }
   body.arc-route.light-theme {
     background: #ffffff;
@@ -402,7 +403,7 @@ import ArcFooter from '../components/ArcFooter.astro';
   body.arc-route .arc-route-nav__brand {
     color: #f27930;
     text-decoration: none;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--arc-font-heading);
     font-size: 1.45rem;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -593,7 +594,7 @@ import ArcFooter from '../components/ArcFooter.astro';
   }
   .arc-manifesto__lead {
     margin: 0;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--arc-font-heading);
     font-size: clamp(2.1rem, 4.2vw, 3.3rem);
     line-height: 0.98;
     letter-spacing: 0.01em;
@@ -605,14 +606,15 @@ import ArcFooter from '../components/ArcFooter.astro';
   }
   .arc-manifesto__copy p {
     margin: 0;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--arc-font-heading);
     font-size: clamp(1.25rem, 2vw, 1.78rem);
     line-height: 1.17;
     letter-spacing: 0.006em;
   }
   .arc-problem { padding: clamp(3rem, 6vw, 6rem) 0; }
-  .arc-problem h2, .arc-disciplines h2, .arc-values h2 {
-    font-family: 'Cormorant Garamond', serif;
+  .arc-problem h2,
+  .arc-disciplines h2 {
+    font-family: var(--arc-font-heading);
     font-size: clamp(2.1rem, 4vw, 3.4rem);
     font-weight: 600;
     margin: 0 0 2rem;
@@ -631,7 +633,7 @@ import ArcFooter from '../components/ArcFooter.astro';
     right: clamp(1rem, 7vw, 9rem);
     top: 50%;
     transform: translateY(-50%);
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--arc-font-heading);
     font-size: clamp(5rem, 16vw, 12rem);
     color: rgba(242, 121, 48, 0.08);
     line-height: 1;
@@ -676,7 +678,7 @@ import ArcFooter from '../components/ArcFooter.astro';
   .horizontal-copy { position: relative; z-index: 1; max-width: 40rem; }
   .panel-word {
     margin: 0;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--arc-font-heading);
     color: #f27930;
     font-size: clamp(4rem, 14vw, 10rem);
     line-height: 0.92;
@@ -719,7 +721,7 @@ import ArcFooter from '../components/ArcFooter.astro';
   .tile.is-revealed img { opacity: 1; clip-path: inset(0 0 0 0); }
   .tile:hover::after,
   .tile.is-revealed::after { opacity: 1; }
-  .tile h3 { margin: 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3rem); }
+  .tile h3 { margin: 0; font-family: var(--arc-font-heading); font-size: clamp(1.8rem, 4vw, 3rem); }
   .tile p { margin: 0.4rem 0 0; font-size: 0.95rem; }
   .tile-sound { grid-column: span 7; min-height: 260px; }
   .tile-words { grid-column: span 5; min-height: 210px; }
@@ -728,66 +730,111 @@ import ArcFooter from '../components/ArcFooter.astro';
   .tile-design { grid-column: span 6; min-height: 230px; }
   .tile-experimental { grid-column: span 6; min-height: 280px; }
   .arc-values {
-    padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 8vw, 10rem);
+    padding: clamp(3rem, 7vw, 5.5rem) clamp(1.15rem, 5vw, 2.5rem);
     display: grid;
-    grid-template-columns: minmax(220px, 0.95fr) minmax(0, 2fr);
-    gap: clamp(1.25rem, 4vw, 4rem);
+    grid-template-columns: minmax(180px, 0.42fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 3.5rem);
     align-items: start;
+    max-width: min(1120px, 100%);
+    margin-inline: auto;
   }
   .arc-values__lead {
     position: sticky;
-    top: 6rem;
+    top: 5.5rem;
   }
   .arc-values__kicker {
     margin: 0;
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: #f27930;
+    font-family: var(--arc-font-body);
+    font-weight: 600;
   }
   .arc-values__lead h2 {
-    margin: 0.55rem 0 0;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 3.8vw, 3.5rem);
-    line-height: 0.95;
+    margin: 0.65rem 0 0;
+    font-family: var(--arc-font-heading);
+    font-size: clamp(1.45rem, 2.4vw + 0.6rem, 2.15rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    max-width: min(28ch, 100%);
   }
   .arc-values__list {
-    display: grid;
-    gap: 0.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
   .value-item {
-    --value-shift: -42px;
-    padding: 1.25rem 0 1.6rem;
+    --value-shift: -14px;
+    display: grid;
+    grid-template-columns: minmax(2.75rem, 3.25rem) minmax(0, 1fr);
+    column-gap: clamp(0.75rem, 2vw, 1.25rem);
+    row-gap: 0.45rem;
+    align-items: start;
+    padding: clamp(1.1rem, 2.5vw, 1.45rem) 0 clamp(1.25rem, 3vw, 1.65rem);
     border-top: 1px solid rgba(242, 121, 48, 0.22);
     transform: translateX(var(--value-shift));
-    opacity: 0.2;
-    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease;
+    opacity: 0.35;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease;
   }
   .value-item:nth-child(even) {
-    --value-shift: 28px;
+    --value-shift: 10px;
   }
   .value-item.is-in {
     transform: translateX(0);
     opacity: 1;
   }
-  .value-item__index {
+  .value-item > p.value-item__index {
     margin: 0;
-    font-size: clamp(0.8rem, 1.2vw, 1.1rem);
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+    justify-self: start;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 3.25rem;
+    font-size: 0.75rem;
     letter-spacing: 0.14em;
     color: #f27930;
     text-transform: uppercase;
     font-weight: 600;
+    font-family: var(--arc-font-body);
+    line-height: 1.25;
+    padding-top: 0.2em;
   }
   .value-item h3 {
-    margin: 0.35rem 0 0;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.4rem, 8.5vw, 6.6rem);
-    line-height: 0.92;
+    margin: 0;
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+    font-family: var(--arc-font-heading);
+    font-size: clamp(1.05rem, 1.1vw + 0.85rem, 1.45rem);
+    font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: -0.01em;
   }
-  .value-item p {
-    margin: 0.35rem 0 0;
-    font-size: clamp(1.08rem, 1.9vw, 1.38rem);
-    letter-spacing: 0.02em;
+  .value-item > p:not(.value-item__index) {
+    margin: 0;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    position: relative;
+    z-index: 1;
+    font-family: var(--arc-font-body);
+    font-size: clamp(0.94rem, 0.35vw + 0.88rem, 1.05rem);
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    color: rgba(221, 214, 206, 0.95);
+    max-width: 56ch;
+  }
+  @media (min-width: 640px) {
+    .value-item > p:not(.value-item__index) {
+      grid-column: 2;
+      grid-row: 2;
+    }
   }
   body.arc-route.light-theme .arc-manifesto {
     background: #ffffff;
@@ -814,8 +861,11 @@ import ArcFooter from '../components/ArcFooter.astro';
   body.arc-route.light-theme .value-item {
     border-top-color: rgba(0, 0, 0, 0.18);
   }
+  body.arc-route.light-theme .value-item > p:not(.value-item__index) {
+    color: #312821;
+  }
   body.arc-route.light-theme .arc-values__kicker,
-  body.arc-route.light-theme .value-item__index {
+  body.arc-route.light-theme .value-item > p.value-item__index {
     color: #a0522d;
   }
   body.arc-route.light-theme .arc-hero__edge-note {
@@ -883,23 +933,24 @@ import ArcFooter from '../components/ArcFooter.astro';
     }
     .arc-values {
       grid-template-columns: 1fr;
-      gap: 1.8rem;
+      gap: clamp(1.5rem, 4vw, 2rem);
+      padding-inline: clamp(1rem, 4vw, 1.5rem);
     }
     .arc-values__lead {
       position: static;
+      max-width: 36rem;
     }
-    .value-item__index {
-      font-size: 0.86rem;
+    .arc-values__lead h2 {
+      max-width: none;
     }
-    .value-item h3 {
-      font-size: clamp(2.9rem, 15vw, 4.2rem);
-      line-height: 0.94;
-    }
-    .value-item p {
-      font-size: clamp(0.98rem, 4.2vw, 1.18rem);
+    .value-item {
+      grid-template-columns: minmax(2.35rem, 3rem) minmax(0, 1fr);
+      column-gap: 0.7rem;
+      padding-top: 1rem;
+      padding-bottom: 1.15rem;
     }
     .value-item:nth-child(even) {
-      --value-shift: -42px;
+      --value-shift: -14px;
     }
     .discipline-mosaic { grid-template-columns: 1fr; }
     .tile-sound, .tile-words, .tile-movement, .tile-vision, .tile-design, .tile-experimental {
