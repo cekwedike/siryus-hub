@@ -66,12 +66,17 @@ function coverSrc(post: (typeof posts)[0]) {
 
 const prevHref = pageNum === 2 ? '/arc/blog' : `/arc/blog/page/${pageNum - 1}`;
 const nextHref = pageNum < totalPages ? `/arc/blog/page/${pageNum + 1}` : null;
+
+const paginationPrev = new URL(prevHref, `${origin}/`).href;
+const paginationNext = nextHref ? new URL(nextHref, `${origin}/`).href : undefined;
 ---
 
 <ArcLayout
   title={pageTitle}
   description={pageDescription}
   canonical={`${origin}/arc/blog/page/${pageNum}`}
+  paginationPrev={paginationPrev}
+  paginationNext={paginationNext}
 >
   <div class="blog-page">
     <section

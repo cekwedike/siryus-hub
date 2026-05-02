@@ -17,6 +17,10 @@ interface Props {
   schema?: object;
   /** Preload URL for LCP hero image (e.g. home carousel first slide) */
   lcpImagePreload?: string;
+  /** Absolute URL for paginated series SEO (`rel="prev"`) */
+  paginationPrev?: string;
+  /** Absolute URL for paginated series SEO (`rel="next"`) */
+  paginationNext?: string;
 }
 
 const {
@@ -28,6 +32,8 @@ const {
   noIndex = false,
   schema,
   lcpImagePreload,
+  paginationPrev,
+  paginationNext,
 } = Astro.props;
 
 const fontPreloadUnbounded =
@@ -80,6 +86,8 @@ const finalSchema = schema || organizationSchema;
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {paginationPrev && <link rel="prev" href={paginationPrev} />}
+    {paginationNext && <link rel="next" href={paginationNext} />}
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->

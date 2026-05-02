@@ -64,12 +64,18 @@ function coverSrc(post: (typeof posts)[0]) {
 
 const prevHref = pageNum === 2 ? '/blog' : `/blog/page/${pageNum - 1}`;
 const nextHref = pageNum < totalPages ? `/blog/page/${pageNum + 1}` : null;
+
+const siteBase = Astro.site ?? new URL('https://www.siryushub.com/');
+const paginationPrev = new URL(prevHref, siteBase).href;
+const paginationNext = nextHref ? new URL(nextHref, siteBase).href : undefined;
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
   canonical={`https://www.siryushub.com/blog/page/${pageNum}`}
+  paginationPrev={paginationPrev}
+  paginationNext={paginationNext}
 >
   <div class="blog-page">
     <section

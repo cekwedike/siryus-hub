@@ -10,6 +10,10 @@ interface Props {
   ogType?: string;
   noIndex?: boolean;
   schema?: object;
+  /** Absolute URL for paginated series SEO (`rel="prev"`) */
+  paginationPrev?: string;
+  /** Absolute URL for paginated series SEO (`rel="next"`) */
+  paginationNext?: string;
 }
 
 const {
@@ -20,6 +24,8 @@ const {
   ogType = 'website',
   noIndex = false,
   schema,
+  paginationPrev,
+  paginationNext,
 } = Astro.props;
 
 const pageTitle = title.includes('|') ? title : `${title} | ARC`;
@@ -63,6 +69,8 @@ const inArcHome = currentPath === '/arc';
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {paginationPrev && <link rel="prev" href={paginationPrev} />}
+    {paginationNext && <link rel="next" href={paginationNext} />}
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:title" content={pageTitle} />
