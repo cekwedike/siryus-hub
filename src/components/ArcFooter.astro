@@ -46,13 +46,18 @@
 
       <div class="arc-footer__aside">
         <div class="arc-footer__socials" aria-label="ARC social links">
-          <a href="" aria-label="ARC Instagram">
+          <a href="#" aria-label="ARC Instagram (link coming soon)" tabindex="-1" aria-disabled="true" class="arc-footer__social--placeholder">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm8.95 1.45a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z"/></svg>
           </a>
-          <a href="" aria-label="ARC YouTube">
+          <a
+            href="https://www.youtube.com/@wearearc.creatives?sub_confirmation=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ARC on YouTube"
+          >
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.92 2.92 0 0 0-2.06-2.06C17.75 4.6 12 4.6 12 4.6s-5.75 0-7.54.54A2.92 2.92 0 0 0 2.4 7.2 30.9 30.9 0 0 0 1.9 12a30.9 30.9 0 0 0 .5 4.8 2.92 2.92 0 0 0 2.06 2.06c1.79.54 7.54.54 7.54.54s5.75 0 7.54-.54a2.92 2.92 0 0 0 2.06-2.06 30.9 30.9 0 0 0 .5-4.8 30.9 30.9 0 0 0-.5-4.8ZM10.1 15.25V8.75L15.8 12l-5.7 3.25Z"/></svg>
           </a>
-          <a href="" aria-label="ARC Facebook">
+          <a href="#" aria-label="ARC Facebook (link coming soon)" tabindex="-1" aria-disabled="true" class="arc-footer__social--placeholder">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8.2h2.77l.42-3.2H13.5V8.56c0-.93.26-1.56 1.59-1.56h1.7V4.15a22.8 22.8 0 0 0-2.47-.13c-2.45 0-4.12 1.49-4.12 4.24v2.34H7.4v3.2h2.8V22h3.3Z"/></svg>
           </a>
         </div>
@@ -77,9 +82,9 @@
   .arc-footer {
     position: relative;
     overflow: hidden;
-    background: #0d0b09;
-    border-top: 1px solid rgba(242, 121, 48, 0.2);
-    color: #ffffff;
+    background: var(--arc-bg, #0d0b09);
+    border-top: 1px solid var(--arc-border, rgba(242, 121, 48, 0.28));
+    color: var(--arc-fg, #ffffff);
     padding: 2.75rem 1.25rem 2.5rem;
     font-family: var(--arc-font-body);
   }
@@ -88,8 +93,16 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 12% 28%, rgba(242, 121, 48, 0.13), transparent 33%),
-      radial-gradient(circle at 84% 76%, rgba(242, 121, 48, 0.1), transparent 35%);
+      radial-gradient(
+        circle at 12% 28%,
+        color-mix(in srgb, var(--arc-accent, #f27930) 14%, transparent),
+        transparent 33%
+      ),
+      radial-gradient(
+        circle at 84% 76%,
+        color-mix(in srgb, var(--arc-accent, #f27930) 10%, transparent),
+        transparent 35%
+      );
     pointer-events: none;
   }
 
@@ -168,7 +181,7 @@
     font-size: 0.92rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #f27930;
+    color: var(--arc-accent, #f27930);
   }
 
   .arc-footer__nav {
@@ -190,7 +203,7 @@
     font-size: 0.95rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #f27930;
+    color: var(--arc-accent, #f27930);
     text-decoration: none;
     font-weight: 600;
   }
@@ -210,21 +223,21 @@
   .arc-footer__legal {
     margin-top: 1.65rem;
     padding-top: 1.35rem;
-    border-top: 1px solid rgba(242, 121, 48, 0.22);
+    border-top: 1px solid var(--arc-border, rgba(242, 121, 48, 0.22));
   }
 
   .arc-footer__attribution {
     margin: 0;
     font-size: 1.02rem;
     line-height: 1.45;
-    color: #ffffff;
+    color: var(--arc-fg, #ffffff);
     max-width: 42rem;
   }
 
   .arc-footer__attribution a,
   .arc-footer__socials a {
-    color: #ffffff;
-    text-decoration-color: rgba(242, 121, 48, 0.7);
+    color: var(--arc-fg, #ffffff);
+    text-decoration-color: color-mix(in srgb, var(--arc-accent, #f27930) 70%, transparent);
     text-underline-offset: 0.2em;
   }
 
@@ -236,17 +249,23 @@
   .arc-footer__socials a {
     width: 2.15rem;
     height: 2.15rem;
-    border: 1px solid rgba(242, 121, 48, 0.5);
+    border: 1px solid var(--arc-border, rgba(242, 121, 48, 0.5));
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
     text-decoration: none;
   }
 
-  .arc-footer__socials a:hover {
-    background: #f27930;
-    color: #0d0b09;
+  .arc-footer__socials a.arc-footer__social--placeholder {
+    pointer-events: none;
+    opacity: 0.42;
+  }
+
+  .arc-footer__socials a:hover:not(.arc-footer__social--placeholder) {
+    background: var(--arc-accent, #f27930);
+    color: var(--arc-bg, #0d0b09);
+    border-color: var(--arc-accent, #f27930);
     transform: translateY(-2px);
   }
 
@@ -264,71 +283,30 @@
   }
 
   .arc-footer__theme-toggle button {
-    border: 1px solid rgba(242, 121, 48, 0.5);
-    background: rgba(13, 11, 9, 0.42);
-    color: #ffffff;
+    border: 1px solid var(--arc-border, rgba(242, 121, 48, 0.5));
+    background: var(--arc-card, rgba(13, 11, 9, 0.42));
+    color: var(--arc-fg, #ffffff);
     font: inherit;
     font-size: 0.92rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     padding: 0.4rem 0.7rem;
     cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
   }
 
   .arc-footer__theme-toggle button:hover {
-    border-color: rgba(242, 121, 48, 0.85);
+    border-color: color-mix(in srgb, var(--arc-accent, #f27930) 85%, transparent);
   }
 
   .arc-footer__theme-toggle button.active {
-    background: #f27930;
-    color: #0d0b09;
-    border-color: #f27930;
+    background: var(--arc-accent, #f27930);
+    color: var(--arc-bg, #0d0b09);
+    border-color: var(--arc-accent, #f27930);
   }
 
-  :global(body.arc-route.light-theme) .arc-footer__theme-toggle button {
-    color: #000000;
-    border-color: rgba(0, 0, 0, 0.28);
-    background: rgba(255, 255, 255, 0.9);
-  }
-
-  :global(body.arc-route.light-theme) .arc-footer {
-    background: #ffffff;
-    color: #000000;
-    border-top-color: rgba(0, 0, 0, 0.2);
-  }
-
-  :global(body.arc-route.light-theme) .arc-footer__texture {
-    background:
-      radial-gradient(circle at 12% 28%, rgba(242, 121, 48, 0.1), transparent 33%),
-      radial-gradient(circle at 84% 76%, rgba(0, 0, 0, 0.05), transparent 35%);
-  }
-
-  :global(body.arc-route.light-theme) .arc-footer__attribution,
-  :global(body.arc-route.light-theme) .arc-footer__attribution a,
-  :global(body.arc-route.light-theme) .arc-footer__title {
-    color: #000000;
-  }
-
-  :global(body.arc-route.light-theme) .arc-footer__socials a {
-    color: #000000;
-    border-color: rgba(0, 0, 0, 0.28);
-  }
-
-  :global(body.arc-route.light-theme) .arc-footer__socials a:hover {
+  :global(body.arc-route.light-theme) .arc-footer__socials a:hover:not(.arc-footer__social--placeholder) {
     color: #ffffff;
-  }
-
-  :global(body.arc-route.light-theme) .arc-footer__back {
-    color: #a0522d;
-  }
-
-  :global(body.arc-route.light-theme) .arc-footer__nav-link {
-    color: #a0522d;
-  }
-
-  :global(body.arc-route.light-theme) .arc-footer__legal {
-    border-top-color: rgba(0, 0, 0, 0.1);
   }
 
   @media (max-width: 720px) {
