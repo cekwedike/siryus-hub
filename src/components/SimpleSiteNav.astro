@@ -26,7 +26,7 @@ function isCurrent(href: string) {
           <a href="/services" class="nav-link" aria-current={isCurrent('/services') ? 'page' : undefined}>Services</a>
         </li>
         <li>
-          <a href="/arc" class="nav-link" aria-current={isCurrent('/arc') ? 'page' : undefined}>ARC.</a>
+          <a href="/arc" class="nav-link nav-link--arc" aria-current={isCurrent('/arc') ? 'page' : undefined}>ARC.</a>
         </li>
         <li>
           <a href="/siryus-am" class="nav-link" aria-current={isCurrent('/siryus-am') ? 'page' : undefined}>SIRYUS A.M</a>
@@ -166,6 +166,23 @@ function isCurrent(href: string) {
 
   .nav-link[aria-current='page'] {
     color: var(--brand-accent-ink);
+  }
+
+  .nav-link--arc {
+    color: #f27930;
+    font-weight: 700;
+  }
+
+  .nav-link--arc::after {
+    background: #f27930;
+  }
+
+  .nav-link--arc:hover {
+    color: color-mix(in srgb, #f27930 88%, #ffffff);
+  }
+
+  .nav-link--arc[aria-current='page'] {
+    color: #f27930;
   }
 
   .nav-right {

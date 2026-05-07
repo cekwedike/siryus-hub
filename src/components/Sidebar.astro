@@ -59,14 +59,20 @@ import WindDecorButton from './WindDecorButton.astro';
             </a>
           </li>
           <li>
-            <a href="/blog" class="sidebar-link">
+            <a href="/arc" class="sidebar-link sidebar-link--arc">
               <span class="sidebar-link__num">03</span>
+              <span class="sidebar-link__label">ARC.</span>
+            </a>
+          </li>
+          <li>
+            <a href="/blog" class="sidebar-link">
+              <span class="sidebar-link__num">04</span>
               <span class="sidebar-link__label">Blog</span>
             </a>
           </li>
           <li>
             <a href="/community" class="sidebar-link">
-              <span class="sidebar-link__num">04</span>
+              <span class="sidebar-link__num">05</span>
               <span class="sidebar-link__label">Community</span>
             </a>
           </li>
@@ -349,6 +355,20 @@ import WindDecorButton from './WindDecorButton.astro';
 
   .sidebar-link:hover .sidebar-link__label {
     color: var(--brand-accent-ink-hover);
+  }
+
+  .sidebar-link--arc .sidebar-link__label {
+    color: #f27930;
+  }
+
+  .sidebar-link--arc:hover {
+    background: rgba(242, 121, 48, 0.08);
+    border-color: rgba(242, 121, 48, 0.22);
+  }
+
+  .sidebar-link--arc:hover .sidebar-link__num,
+  .sidebar-link--arc:hover .sidebar-link__label {
+    color: #f27930;
   }
 
   /* Small legal links */
