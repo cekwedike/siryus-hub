@@ -77,6 +77,7 @@ const eventListFields = `
   _id,
   title,
   slug,
+  comingSoon,
   startDateTime,
   endDateTime,
   format,
@@ -116,13 +117,35 @@ const eventBySlugQuery = `*[_type == "arcEvent" && slug.current == $slug][0] {
 /** Upcoming first (soonest first), then past (most recent first). */
 export function sortArcEventsForListing(events: ArcEventSummary[]): ArcEventSummary[] {
   const now = Date.now()
-  const upcoming = events
-    .filter((e) => new Date(e.startDateTime).getTime() >= now)
-    .sort((a, b) => new Date(a.startDateTime).getTime() - new Date(b.startDateTime).getTime())
-  const past = events
-    .filter((e) => new Date(e.startDateTime).getTime() < now)
-    .sort((a, b) => new Date(b.startDateTime).getTime() - new Date(a.startDateTime).getTime())
-  return [...upcoming, ...past]
+  const getStart = (e: ArcEventSummary) => {
+    if (e.comingSoon) return null
+    const raw = e.startDateTime
+    if (!raw) return null
+    const t = new Date(raw).getTime()
+    return Number.isFinite(t) ? t : null
+  }
+
+  const datedUpcoming: ArcEventSummary[] = []
+  const comingSoon: ArcEventSummary[] = []
+  const datedPast: ArcEventSummary[] = []
+
+  events.forEach((e) => {
+    const t = getStart(e)
+    if (t == null) {
+      comingSoon.push(e)
+      return
+    }
+    if (t >= now) datedUpcoming.push(e)
+    else datedPast.push(e)
+  })
+
+  datedUpcoming.sort((a, b) => (getStart(a)! - getStart(b)!))
+  datedPast.sort((a, b) => (getStart(b)! - getStart(a)!))
+  comingSoon.sort((a, b) =>
+    (a.title ?? '').localeCompare(b.title ?? '', undefined, { sensitivity: 'base' })
+  )
+
+  return [...datedUpcoming, ...comingSoon, ...datedPast]
 }
 
 export async function getAllArcEvents(): Promise<ArcEventSummary[]> {

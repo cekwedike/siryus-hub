@@ -33,7 +33,8 @@ export interface ArcEventSummary {
   _id: string
   title: string
   slug: BlogPostSlug
-  startDateTime: string
+  comingSoon: boolean | null
+  startDateTime: string | null
   endDateTime: string | null
   format: ArcEventFormat | null
   locationName: string

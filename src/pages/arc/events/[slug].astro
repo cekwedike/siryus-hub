@@ -18,7 +18,7 @@ if (!event?.slug?.current) {
 }
 
 function formatLabel(f: ArcEventSummary['format']) {
-  if (f === 'in-person') return 'In person';
+  if (f === 'in-person') return 'In-Person';
   if (f === 'online') return 'Online';
   if (f === 'hybrid') return 'Hybrid';
   return 'Event';
@@ -52,6 +52,15 @@ function formatWhen(isoStart: string, isoEnd: string | null) {
   }
 }
 
+function isComingSoon(e: { comingSoon?: boolean | null; startDateTime?: string | null } | null) {
+  return !!(e?.comingSoon || !e?.startDateTime);
+}
+
+function displayWhen(e: { startDateTime?: string | null; endDateTime?: string | null }) {
+  if (!e.startDateTime) return 'Coming Soon';
+  return formatWhen(e.startDateTime, e.endDateTime ?? null);
+}
+
 function attendanceModeUri(f: ArcEventSummary['format']) {
   if (f === 'online') return 'https://schema.org/OnlineEventAttendanceMode';
   if (f === 'hybrid') return 'https://schema.org/MixedEventAttendanceMode';
@@ -82,56 +91,58 @@ if (event) {
 
   bodyHtml = portableTextToBlogHtml(event.body ?? []);
 
-  try {
-    startIso = new Date(event.startDateTime).toISOString();
-  } catch {
-    startIso = event.startDateTime;
-  }
-  if (event.endDateTime) {
+  if (!isComingSoon(event)) {
     try {
-      endIso = new Date(event.endDateTime).toISOString();
+      startIso = new Date(event.startDateTime as string).toISOString();
     } catch {
-      endIso = event.endDateTime;
+      startIso = event.startDateTime as string;
     }
-  }
+    if (event.endDateTime) {
+      try {
+        endIso = new Date(event.endDateTime).toISOString();
+      } catch {
+        endIso = event.endDateTime;
+      }
+    }
 
-  eventSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    name: event.title,
-    description: event.excerpt,
-    eventAttendanceMode: attendanceModeUri(event.format),
-    startDate: startIso,
-    endDate: endIso ?? startIso,
-    organizer: {
-      '@type': 'Organization',
-      name: 'ARC',
-      url: `${origin}/arc`,
-    },
-  };
+    eventSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: event.title,
+      description: event.excerpt,
+      eventAttendanceMode: attendanceModeUri(event.format),
+      startDate: startIso,
+      endDate: endIso ?? startIso,
+      organizer: {
+        '@type': 'Organization',
+        name: 'ARC.',
+        url: `${origin}/arc`,
+      },
+    };
 
-  const fmt = event.format;
-  const place: Record<string, unknown> = {
-    '@type': 'Place',
-    name: event.locationName,
-  };
-  if (event.locationAddress?.trim()) {
-    place.address = event.locationAddress.trim();
-  }
+    const fmt = event.format;
+    const place: Record<string, unknown> = {
+      '@type': 'Place',
+      name: event.locationName,
+    };
+    if (event.locationAddress?.trim()) {
+      place.address = event.locationAddress.trim();
+    }
 
-  if (fmt === 'online') {
-    eventSchema.location = event.onlineUrl
-      ? { '@type': 'VirtualLocation', url: event.onlineUrl }
-      : place;
-  } else if (fmt === 'hybrid' && event.onlineUrl) {
-    eventSchema.location = [place, { '@type': 'VirtualLocation', url: event.onlineUrl }];
-  } else {
-    eventSchema.location = place;
-  }
+    if (fmt === 'online') {
+      eventSchema.location = event.onlineUrl
+        ? { '@type': 'VirtualLocation', url: event.onlineUrl }
+        : place;
+    } else if (fmt === 'hybrid' && event.onlineUrl) {
+      eventSchema.location = [place, { '@type': 'VirtualLocation', url: event.onlineUrl }];
+    } else {
+      eventSchema.location = place;
+    }
 
-  const coverForSchema = blogCoverImageUrlArc(event.coverImage, 1200, 630);
-  if (coverForSchema) {
-    eventSchema.image = coverForSchema;
+    const coverForSchema = blogCoverImageUrlArc(event.coverImage, 1200, 630);
+    if (coverForSchema) {
+      eventSchema.image = coverForSchema;
+    }
   }
 
   heroCover = blogCoverImageUrlArc(event.coverImage, 1800, 1000);
@@ -152,8 +163,12 @@ if (event) {
       schema={eventSchema}
     >
       <article class="blog-page" itemscope itemtype="https://schema.org/Event">
-        <meta itemprop="startDate" content={startIso} />
-        {endIso ? <meta itemprop="endDate" content={endIso} /> : null}
+        {!isComingSoon(event) ? (
+          <>
+            <meta itemprop="startDate" content={startIso} />
+            {endIso ? <meta itemprop="endDate" content={endIso} /> : null}
+          </>
+        ) : null}
 
         {heroCover ? (
           <section
@@ -181,9 +196,13 @@ if (event) {
                   </h1>
                   <div class="blog-post-hero__meta-row blog-post-hero__meta-row--on-cover">
                     <span class="blog-card__author">{event.locationName}</span>
-                    <time class="blog-card__date" datetime={event.startDateTime}>
-                      {formatWhen(event.startDateTime, event.endDateTime)}
-                    </time>
+                    {isComingSoon(event) ? (
+                      <span class="blog-card__date">Coming Soon</span>
+                    ) : (
+                      <time class="blog-card__date" datetime={event.startDateTime as string}>
+                        {displayWhen(event)}
+                      </time>
+                    )}
                   </div>
                 </div>
               </div>
@@ -200,9 +219,13 @@ if (event) {
                 </h1>
                 <div class="blog-post-hero__meta-row">
                   <span class="blog-card__author">{event.locationName}</span>
-                  <time class="blog-card__date" datetime={event.startDateTime}>
-                    {formatWhen(event.startDateTime, event.endDateTime)}
-                  </time>
+                  {isComingSoon(event) ? (
+                    <span class="blog-card__date">Coming Soon</span>
+                  ) : (
+                    <time class="blog-card__date" datetime={event.startDateTime as string}>
+                      {displayWhen(event)}
+                    </time>
+                  )}
                 </div>
               </div>
             </div>
@@ -298,10 +321,17 @@ if (event) {
                       </div>
                       <div class="blog-related-card__body">
                         <span class="blog-badge">{formatLabel(e.format)}</span>
+                        {e.comingSoon || !e.startDateTime ? (
+                          <span class="blog-badge blog-badge--muted">Coming Soon</span>
+                        ) : null}
                         <h3 class="blog-related-card__title">{e.title}</h3>
-                        <time class="blog-card__date" datetime={e.startDateTime}>
-                          {formatWhen(e.startDateTime, e.endDateTime)}
-                        </time>
+                        {e.comingSoon || !e.startDateTime ? (
+                          <span class="blog-card__date">Coming Soon</span>
+                        ) : (
+                          <time class="blog-card__date" datetime={e.startDateTime}>
+                            {formatWhen(e.startDateTime, e.endDateTime)}
+                          </time>
+                        )}
                       </div>
                     </a>
                   );

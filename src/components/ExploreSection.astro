@@ -118,7 +118,7 @@ const blogMetaLine = latestBlog
       const d = formatBlogDate(latestBlog.publishedAt)
       return d ? `${latestBlog.author} · ${d}` : latestBlog.author
     })()
-  : 'Coming soon'
+  : 'Coming Soon'
 ---
 
 <section
@@ -329,7 +329,7 @@ const blogMetaLine = latestBlog
             ) : null}
           </div>
           <h3 class="latest-card__heading">
-            {latestProject?.title ?? 'Coming soon'}
+            {latestProject?.title ?? 'Coming Soon'}
           </h3>
           <p class="latest-card__excerpt">
             {latestProject

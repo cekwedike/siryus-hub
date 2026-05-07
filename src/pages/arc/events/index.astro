@@ -19,7 +19,7 @@ const gridEvents =
     : allEvents;
 
 function formatLabel(format: ArcEventSummary['format']) {
-  if (format === 'in-person') return 'In person';
+  if (format === 'in-person') return 'In-Person';
   if (format === 'online') return 'Online';
   if (format === 'hybrid') return 'Hybrid';
   return 'Event';
@@ -59,6 +59,16 @@ function isPastEvent(iso: string) {
   } catch {
     return false;
   }
+}
+
+function displayWhen(ev: ArcEventSummary) {
+  if (ev.comingSoon || !ev.startDateTime) return 'Coming Soon';
+  return formatWhen(ev.startDateTime, ev.endDateTime);
+}
+
+function isPast(ev: ArcEventSummary) {
+  if (ev.comingSoon || !ev.startDateTime) return false;
+  return isPastEvent(ev.startDateTime);
 }
 
 function truncateExcerpt(text: string, max: number) {
@@ -168,7 +178,10 @@ function coverSrc(e: ArcEventSummary) {
                 <div class="blog-featured__top">
                   <span class="blog-featured__eyebrow">Featured</span>
                   <span class="blog-badge">{formatLabel(featuredEvent.format)}</span>
-                  {isPastEvent(featuredEvent.startDateTime) ? (
+                  {featuredEvent.comingSoon || !featuredEvent.startDateTime ? (
+                    <span class="blog-badge blog-badge--muted">Coming Soon</span>
+                  ) : null}
+                  {isPast(featuredEvent) ? (
                     <span class="blog-badge blog-badge--muted">Past</span>
                   ) : null}
                 </div>
@@ -178,9 +191,13 @@ function coverSrc(e: ArcEventSummary) {
                   <div class="blog-featured__meta">
                     <span class="blog-featured__author">{featuredEvent.locationName}</span>
                     <span class="blog-featured__sep" aria-hidden="true"></span>
-                    <time class="blog-featured__date" datetime={featuredEvent.startDateTime}>
-                      {formatWhen(featuredEvent.startDateTime, featuredEvent.endDateTime)}
-                    </time>
+                    {featuredEvent.comingSoon || !featuredEvent.startDateTime ? (
+                      <span class="blog-featured__date">Coming Soon</span>
+                    ) : (
+                      <time class="blog-featured__date" datetime={featuredEvent.startDateTime}>
+                        {formatWhen(featuredEvent.startDateTime, featuredEvent.endDateTime)}
+                      </time>
+                    )}
                   </div>
                   <span class="blog-featured__cta">
                     View event
@@ -240,7 +257,7 @@ function coverSrc(e: ArcEventSummary) {
               {gridEvents.map((ev) => {
                 const href = `/arc/events/${ev.slug?.current ?? ''}`;
                 const img = coverSrc(ev);
-                const past = isPastEvent(ev.startDateTime);
+                const past = isPast(ev);
                 return (
                   <a class="blog-card blog-reveal" href={href} data-astro-prefetch>
                     <div class="blog-card__media">
@@ -257,15 +274,22 @@ function coverSrc(e: ArcEventSummary) {
                     </div>
                     <div class="blog-card__body">
                       <span class="blog-badge">{formatLabel(ev.format)}</span>
+                      {ev.comingSoon || !ev.startDateTime ? (
+                        <span class="blog-badge blog-badge--muted">Coming Soon</span>
+                      ) : null}
                       {past ? <span class="blog-badge blog-badge--muted">Past</span> : null}
                       <h3 class="blog-card__title">{ev.title}</h3>
                       <p class="blog-card__excerpt">{truncateExcerpt(ev.excerpt, 120)}</p>
                       <div class="blog-card__meta">
                         <span class="blog-card__author">{ev.locationName}</span>
                         <div class="blog-card__date-row">
-                          <time class="blog-card__date" datetime={ev.startDateTime}>
-                            {formatWhen(ev.startDateTime, ev.endDateTime)}
-                          </time>
+                          {ev.comingSoon || !ev.startDateTime ? (
+                            <span class="blog-card__date">Coming Soon</span>
+                          ) : (
+                            <time class="blog-card__date" datetime={ev.startDateTime}>
+                              {displayWhen(ev)}
+                            </time>
+                          )}
                         </div>
                       </div>
                       <span class="blog-card__read">Details</span>

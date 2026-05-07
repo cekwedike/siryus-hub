@@ -1,7 +1,7 @@
 import { defineField, defineType } from 'sanity'
 
 const formatOptions = [
-  { title: 'In person', value: 'in-person' },
+  { title: 'In-Person', value: 'in-person' },
   { title: 'Online', value: 'online' },
   { title: 'Hybrid', value: 'hybrid' },
 ]
@@ -11,6 +11,13 @@ export default defineType({
   title: 'ARC Event',
   type: 'document',
   fields: [
+    defineField({
+      name: 'comingSoon',
+      title: 'Coming Soon',
+      type: 'boolean',
+      description: 'Toggle on if the date is not confirmed yet.',
+      initialValue: false,
+    }),
     defineField({
       name: 'title',
       title: 'Title',
@@ -31,7 +38,12 @@ export default defineType({
       name: 'startDateTime',
       title: 'Starts',
       type: 'datetime',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.custom((value, ctx) => {
+          const doc = ctx.document as { comingSoon?: boolean } | undefined
+          if (doc?.comingSoon) return true
+          return value ? true : 'Required unless Coming Soon is enabled.'
+        }),
     }),
     defineField({
       name: 'endDateTime',
@@ -192,16 +204,19 @@ export default defineType({
     select: {
       title: 'title',
       start: 'startDateTime',
+      comingSoon: 'comingSoon',
       media: 'coverImage',
       format: 'format',
     },
-    prepare({ title, start, media, format }) {
-      const when = start
-        ? new Date(start).toLocaleString(undefined, {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-          })
-        : ''
+    prepare({ title, start, comingSoon, media, format }) {
+      const when = comingSoon
+        ? 'Coming Soon'
+        : start
+          ? new Date(start).toLocaleString(undefined, {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+            })
+          : ''
       return {
         title: title ?? 'Untitled event',
         subtitle: [format, when].filter(Boolean).join(' · '),
