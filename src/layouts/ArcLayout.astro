@@ -2,7 +2,6 @@
 import '../styles/arc-fonts.css';
 import '../styles/arc-blog.css';
 import ArcFooter from '../components/ArcFooter.astro';
-import Sidebar from '../components/Sidebar.astro';
 
 interface Props {
   title: string;
@@ -120,10 +119,10 @@ const inArcHome = currentPath === '/arc';
       <button
         type="button"
         class="arc-route-nav__hamburger"
-        id="hamburgerBtn"
+        id="arcHamburgerBtn"
         aria-label="Open menu"
         aria-expanded="false"
-        aria-controls="sidebar"
+        aria-controls="arcMobileNav"
       >
         <span class="arc-route-nav__hamburger-icon" aria-hidden="true">
           <span></span>
@@ -132,11 +131,39 @@ const inArcHome = currentPath === '/arc';
         </span>
       </button>
     </nav>
+
+    <div
+      id="arcMobileNav"
+      class="arc-mobile-nav"
+      aria-label="ARC mobile navigation"
+      aria-hidden="true"
+      inert
+    >
+      <button class="arc-mobile-nav__overlay" type="button" aria-label="Close menu" data-arc-nav-close></button>
+      <div class="arc-mobile-nav__panel" role="dialog" aria-modal="true" aria-label="ARC menu">
+        <div class="arc-mobile-nav__head">
+          <span class="arc-mobile-nav__title">ARC.</span>
+          <button class="arc-mobile-nav__close" type="button" aria-label="Close menu" data-arc-nav-close>
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="arc-mobile-nav__list" role="list">
+          <a href="/arc" class={`arc-mobile-nav__link ${inArcHome ? 'is-active' : ''}`.trim()}>Home</a>
+          <a href="/arc/blog" class={`arc-mobile-nav__link ${inBlog ? 'is-active' : ''}`.trim()}>Blog</a>
+          <a href="/arc/events" class={`arc-mobile-nav__link ${inEvents ? 'is-active' : ''}`.trim()}>Events</a>
+          <a href="/arc/community" class={`arc-mobile-nav__link ${inCommunity ? 'is-active' : ''}`.trim()}>Community</a>
+          <a href="/arc/about" class={`arc-mobile-nav__link ${inAbout ? 'is-active' : ''}`.trim()}>About</a>
+          <a href="/arc/supporters" class={`arc-mobile-nav__link ${inSupporters ? 'is-active' : ''}`.trim()}>Supporters</a>
+          <a href="/arc/faq" class={`arc-mobile-nav__link ${inFaq ? 'is-active' : ''}`.trim()}>FAQ</a>
+          <a href="https://www.siryushub.com" class="arc-mobile-nav__link arc-mobile-nav__link--siryus">Back to SiryusHub</a>
+        </div>
+      </div>
+    </div>
+
     <main id="main-content" class="arc-shell-main">
       <slot />
     </main>
     <ArcFooter />
-    <Sidebar />
   </body>
 </html>
 
@@ -167,10 +194,10 @@ const inArcHome = currentPath === '/arc';
   }
 
   body.arc-route .arc-route-nav {
-    position: sticky;
+    position: fixed;
     top: 0.75rem;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 70;
     width: min(1120px, calc(100vw - 1.4rem));
     margin-inline: auto;
@@ -255,7 +282,7 @@ const inArcHome = currentPath === '/arc';
 
   .arc-shell-main {
     min-height: 60vh;
-    padding-top: 0.9rem;
+    padding-top: 5.25rem;
   }
 
   .arc-skip-link {
@@ -307,4 +334,178 @@ const inArcHome = currentPath === '/arc';
       justify-content: center;
     }
   }
+
+  .arc-mobile-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    pointer-events: none;
+  }
+
+  .arc-mobile-nav.is-open {
+    pointer-events: auto;
+  }
+
+  .arc-mobile-nav__overlay {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.65);
+    opacity: 0;
+    transition: opacity 0.22s ease;
+    cursor: pointer;
+  }
+
+  .arc-mobile-nav.is-open .arc-mobile-nav__overlay {
+    opacity: 1;
+  }
+
+  .arc-mobile-nav__panel {
+    position: absolute;
+    top: max(0.75rem, env(safe-area-inset-top));
+    right: max(0.75rem, env(safe-area-inset-right));
+    left: max(0.75rem, env(safe-area-inset-left));
+    border: 1px solid rgba(242, 121, 48, 0.35);
+    background: rgba(13, 11, 9, 0.96);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    transform: translateY(-8px);
+    opacity: 0;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+    padding: 0.9rem 0.9rem 1rem;
+    max-height: calc(100vh - 1.5rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow: auto;
+  }
+
+  .arc-mobile-nav.is-open .arc-mobile-nav__panel {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .arc-mobile-nav__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(242, 121, 48, 0.18);
+  }
+
+  .arc-mobile-nav__title {
+    font-family: var(--arc-font-heading);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #f27930;
+  }
+
+  .arc-mobile-nav__close {
+    border: 1px solid rgba(242, 121, 48, 0.3);
+    background: transparent;
+    color: #ffffff;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .arc-mobile-nav__list {
+    display: grid;
+    gap: 0.4rem;
+    padding-top: 0.8rem;
+  }
+
+  .arc-mobile-nav__link {
+    text-decoration: none;
+    color: rgba(245, 240, 232, 0.92);
+    font-family: var(--arc-font-body);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    padding: 0.7rem 0.7rem;
+    border-radius: 10px;
+    border: 1px solid rgba(242, 121, 48, 0.14);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .arc-mobile-nav__link.is-active {
+    border-color: rgba(242, 121, 48, 0.45);
+    color: #ffffff;
+  }
+
+  .arc-mobile-nav__link--siryus {
+    border-style: dashed;
+    opacity: 0.92;
+  }
+
+  body.arc-route.light-theme .arc-mobile-nav__panel {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(0, 0, 0, 0.18);
+  }
+
+  body.arc-route.light-theme .arc-mobile-nav__overlay {
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  body.arc-route.light-theme .arc-mobile-nav__link {
+    color: rgba(13, 11, 9, 0.9);
+    border-color: rgba(0, 0, 0, 0.14);
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  body.arc-route.light-theme .arc-mobile-nav__close {
+    color: #0d0b09;
+    border-color: rgba(0, 0, 0, 0.18);
+  }
+
+  body.arc-route.light-theme .arc-mobile-nav__head {
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+  }
 </style>
+
+<script is:inline>
+  (() => {
+    const btn = document.getElementById('arcHamburgerBtn');
+    const nav = document.getElementById('arcMobileNav');
+    if (!(btn instanceof HTMLButtonElement) || !(nav instanceof HTMLElement)) return;
+
+    const closeEls = Array.from(nav.querySelectorAll('[data-arc-nav-close]'));
+    const links = Array.from(nav.querySelectorAll('a'));
+
+    const open = () => {
+      nav.classList.add('is-open');
+      nav.setAttribute('aria-hidden', 'false');
+      nav.removeAttribute('inert');
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const close = () => {
+      nav.classList.remove('is-open');
+      nav.setAttribute('aria-hidden', 'true');
+      nav.setAttribute('inert', '');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
+
+    btn.addEventListener('click', () => {
+      const isOpen = nav.classList.contains('is-open');
+      if (isOpen) close();
+      else open();
+    });
+
+    closeEls.forEach((el) => el.addEventListener('click', close));
+    links.forEach((a) => a.addEventListener('click', close));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (nav.classList.contains('is-open')) close();
+    });
+  })();
+</script>

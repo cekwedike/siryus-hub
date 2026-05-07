@@ -3,7 +3,7 @@ import ArcLayout from '../../../layouts/ArcLayout.astro';
 import { blogCoverImageUrlArc } from '../../../lib/sanityArc';
 import { getAllArcPosts, getArcPostBySlug } from '../../../lib/queriesArc';
 import type { BlogPostSummary } from '../../../lib/queries';
-import { portableTextToBlogHtml } from '../../../lib/portableTextHtml';
+import { portableTextToArcHtml } from '../../../lib/portableTextHtml';
 import { portableTextToPlainText } from '../../../lib/portableTextPlain';
 import { getCanonicalOrigin } from '../../../lib/siteCanonical';
 
@@ -52,7 +52,7 @@ if (post) {
   canonicalUrl = `${origin}/arc/blog/${post.slug.current}`;
   ogImagePath = blogCoverImageUrlArc(post.coverImage, 1200, 630) ?? '/images/og-default.png';
 
-  bodyHtml = portableTextToBlogHtml(post.body ?? []);
+  bodyHtml = portableTextToArcHtml(post.body ?? []);
   const plain = portableTextToPlainText(post.body ?? []);
   const wordCount = plain.trim().split(/\s+/).filter(Boolean).length;
   readMinutes = Math.max(1, Math.ceil(wordCount / 200));
