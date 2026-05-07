@@ -513,17 +513,18 @@ import '../styles/arc-blog.css';
     font-size: 0.62rem;
     opacity: 1;
     white-space: nowrap;
+    display: inline-block;
   }
   .arc-hero__edge-note--left {
     left: 1.5rem;
     top: 50%;
-    transform: translateY(-50%) rotate(-90deg);
+    transform: translateY(-50%) rotate(-90deg) translateX(-50%);
     transform-origin: left center;
   }
   .arc-hero__edge-note--right {
     right: 1.5rem;
     top: 50%;
-    transform: translateY(-50%) rotate(90deg);
+    transform: translateY(-50%) rotate(90deg) translateX(50%);
     transform-origin: right center;
   }
   .arc-hero__content {
@@ -929,6 +930,17 @@ import '../styles/arc-blog.css';
       padding: 1rem 0.75rem 2.5rem;
       width: min(92vw, 440px);
     }
+    .arc-hero__superline {
+      font-size: clamp(0.7rem, 2.8vw, 0.9rem);
+      letter-spacing: 0.12em;
+    }
+    .arc-hero__content p {
+      letter-spacing: 0.12em;
+      font-size: clamp(0.84rem, 3.2vw, 1rem);
+    }
+    .arc-hero__content p:not(.arc-hero__superline) {
+      font-size: clamp(0.78rem, 2.9vw, 0.95rem);
+    }
     .arc-hero__ticker {
       gap: 1rem;
       letter-spacing: 0.14em;
@@ -944,6 +956,13 @@ import '../styles/arc-blog.css';
     .arc-horizontal__sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
     .horizontal-panel {
       padding-bottom: calc(clamp(8rem, 24vw, 11rem) + env(safe-area-inset-bottom));
+    }
+    .panel-word {
+      font-size: clamp(3.1rem, 14vw, 6.6rem);
+    }
+    .panel-sub {
+      font-size: clamp(0.95rem, 3.5vw, 1.12rem);
+      line-height: 1.55;
     }
     .arc-values {
       grid-template-columns: 1fr;
@@ -982,7 +1001,7 @@ import '../styles/arc-blog.css';
     }
     .arc-manifesto__lead { font-size: clamp(1.65rem, 4.1vw, 2.2rem); }
     .arc-manifesto__copy { gap: 0.55rem; }
-    .arc-manifesto__copy p { font-size: clamp(1.05rem, 2.1vw, 1.3rem); line-height: 1.14; }
+    .arc-manifesto__copy p { font-size: clamp(1rem, 3.3vw, 1.18rem); line-height: 1.18; }
   }
   @media (max-width: 700px) {
     .arc-manifesto {
@@ -992,7 +1011,7 @@ import '../styles/arc-blog.css';
     .manifesto-rule { width: 82px; height: 2px; }
     .arc-manifesto__content { grid-template-columns: 1fr; gap: 0.75rem; }
     .arc-manifesto__lead { font-size: clamp(1.75rem, 8vw, 2.4rem); }
-    .arc-manifesto__copy p { font-size: clamp(1.08rem, 4.8vw, 1.32rem); line-height: 1.15; }
+    .arc-manifesto__copy p { font-size: clamp(1rem, 4.2vw, 1.2rem); line-height: 1.18; }
   }
   @keyframes arcTicker {
     from { transform: translateX(0); }

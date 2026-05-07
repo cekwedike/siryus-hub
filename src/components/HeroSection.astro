@@ -1,6 +1,7 @@
 ---
 /**
- * Hero carousel
+ * Hero carousel: WebP in public/images/hero/
+ * For sharp display on retina: export each at ≥ ~2400px wide (covers ~65vw × 2 on 1920px).
  * Optional `srcset`: width descriptors, e.g. "/path/a-1600.webp 1600w, /path/a-3200.webp 3200w"
  */
 import WindDecorButton from './WindDecorButton.astro';
@@ -12,10 +13,10 @@ type HeroSlide = {
 };
 
 const heroSlides: HeroSlide[] = [
-  { src: '/arc/hero-section.webp', alt: 'Creative community gathering' },
-  { src: '/arc/young-christians.webp', alt: 'Young creatives in community' },
-  { src: '/arc/praise-and-pray.jpg', alt: 'Worship and prayer moment' },
-  { src: '/arc/praise-to-jesus.jpg', alt: 'Praise and worship moment' },
+  { src: '/images/hero/image-1.webp', alt: 'Siryus Hub creative workspace' },
+  { src: '/images/hero/siryus-hub-home.webp', alt: 'Siryus Hub creative workspace scene' },
+  { src: '/images/hero/siryus-violin.webp', alt: 'Violin performance at Siryus Creative Media' },
+  { src: '/images/hero/jlinez.webp', alt: 'Artist Jlinez promotional photo' },
 ];
 
 const heroSlideCount = heroSlides.length;
