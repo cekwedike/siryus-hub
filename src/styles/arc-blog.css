@@ -553,6 +553,18 @@ body.arc-route.light-theme .blog-post-hero--with-cover .blog-badge.blog-badge--o
   line-height: 1.52;
 }
 
+.blog-post-body__figure {
+  margin: 2rem 0;
+}
+
+.blog-post-body__figure img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
 .blog-post-body p,
 .blog-post-body ul,
 .blog-post-body ol,
