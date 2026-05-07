@@ -911,12 +911,12 @@ import '../styles/arc-blog.css';
       top: 50%;
     }
     .arc-hero__edge-note--left {
-      left: 0.2rem;
+      left: max(0.85rem, env(safe-area-inset-left));
       transform: translateY(-50%) rotate(-90deg);
       transform-origin: left center;
     }
     .arc-hero__edge-note--right {
-      right: 0.2rem;
+      right: max(0.85rem, env(safe-area-inset-right));
       transform: translateY(-50%) rotate(90deg);
       transform-origin: right center;
       text-align: right;
