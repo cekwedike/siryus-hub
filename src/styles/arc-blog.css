@@ -463,6 +463,7 @@ body.arc-route.light-theme .blog-card:hover {
   position: relative;
   z-index: 2;
   width: 100%;
+  padding-inline: clamp(0.75rem, 3vw, 2rem);
   padding-bottom: clamp(2rem, 4vw, 3.4rem);
 }
 
