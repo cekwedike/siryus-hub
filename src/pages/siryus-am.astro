@@ -137,73 +137,6 @@ import WindDecorButton from '../components/WindDecorButton.astro';
       </div>
     </section>
 
-    <section class="siryus-am-bleed siryus-am-roster siryus-am-reveal" aria-labelledby="siryus-am-roster-heading">
-      <div class="siryus-am-inner">
-        <h2 id="siryus-am-roster-heading" class="siryus-am-section-title">Our Artists</h2>
-        <p class="siryus-am-roster__sub">A small roster by design. Every artist gets our full attention.</p>
-        <ul class="siryus-am-roster__grid" role="list">
-          <li>
-            <a
-              href="/artists/max-prodigy"
-              class="siryus-am-roster-card"
-              aria-label="Max Prodigy, Hip Hop / Rap, Nigeria. View profile"
-            >
-              <div class="siryus-am-roster-card__photo">
-                <img
-                  class="siryus-am-roster-card__img"
-                  src="/images/artists/max-prodigy.jpg"
-                  alt="Max Prodigy"
-                  width="400"
-                  height="600"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div class="siryus-am-roster-card__placeholder" aria-hidden="true">MP</div>
-              </div>
-              <div class="siryus-am-roster-card__meta">
-                <p class="siryus-am-roster-card__name">Max Prodigy</p>
-                <p class="siryus-am-roster-card__tags">
-                  <span class="siryus-am-roster-card__genre">Hip Hop / Rap</span>
-                  <span class="siryus-am-roster-card__dot" aria-hidden="true">·</span>
-                  <span class="siryus-am-roster-card__loc">Nigeria</span>
-                </p>
-                <span class="siryus-am-roster-card__link">View profile</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/artists/hidaya-morgan"
-              class="siryus-am-roster-card"
-              aria-label="Hidaya Morgan, Afro Soul, East Africa. View profile"
-            >
-              <div class="siryus-am-roster-card__photo">
-                <img
-                  class="siryus-am-roster-card__img"
-                  src="/images/artists/hidaya-morgan.jpg"
-                  alt="Hidaya Morgan"
-                  width="400"
-                  height="600"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div class="siryus-am-roster-card__placeholder" aria-hidden="true">HM</div>
-              </div>
-              <div class="siryus-am-roster-card__meta">
-                <p class="siryus-am-roster-card__name">Hidaya Morgan</p>
-                <p class="siryus-am-roster-card__tags">
-                  <span class="siryus-am-roster-card__genre">Afro Soul</span>
-                  <span class="siryus-am-roster-card__dot" aria-hidden="true">·</span>
-                  <span class="siryus-am-roster-card__loc">East Africa</span>
-                </p>
-                <span class="siryus-am-roster-card__link">View profile</span>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </section>
-
     <section class="siryus-am-bleed siryus-am-fit siryus-am-reveal" aria-labelledby="siryus-am-fit-heading">
       <div class="siryus-am-inner">
         <h2 id="siryus-am-fit-heading" class="siryus-am-section-title">Is SIRYUS A.M Right for You?</h2>
@@ -294,25 +227,6 @@ import WindDecorButton from '../components/WindDecorButton.astro';
 
 <script is:inline>
   (function () {
-    document.querySelectorAll('.siryus-am-roster-card__img').forEach(function (img) {
-      var wrap = img.closest('.siryus-am-roster-card__photo');
-      function markLoaded() {
-        if (wrap) wrap.classList.add('has-loaded');
-      }
-      function markError() {
-        if (wrap) {
-          wrap.classList.add('has-error');
-          wrap.classList.remove('has-loaded');
-        }
-      }
-      if (img.complete && img.naturalHeight > 0) {
-        markLoaded();
-      } else {
-        img.addEventListener('load', markLoaded);
-        img.addEventListener('error', markError);
-      }
-    });
-
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var els = document.querySelectorAll('.siryus-am-reveal');
     if (reduce) {
