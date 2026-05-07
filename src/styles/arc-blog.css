@@ -453,6 +453,8 @@ body.arc-route.light-theme .blog-card:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: blur(4px);
+  transform: scale(1.06);
 }
 
 .blog-post-hero__cover-scrim {
@@ -468,13 +470,14 @@ body.arc-route.light-theme .blog-card:hover {
 }
 
 .blog-post-hero__column {
-  max-width: 52rem;
+  max-width: min(760px, 100%);
+  margin-inline: auto;
 }
 
 .blog-post-hero__title {
   margin: 0.55rem 0 0;
   font-family: var(--arc-font-heading);
-  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-size: clamp(2.05rem, 5.4vw, 4rem);
   line-height: 0.93;
 }
 
