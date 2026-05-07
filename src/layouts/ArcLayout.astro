@@ -2,6 +2,7 @@
 import '../styles/arc-fonts.css';
 import '../styles/arc-blog.css';
 import ArcFooter from '../components/ArcFooter.astro';
+import Sidebar from '../components/Sidebar.astro';
 
 interface Props {
   title: string;
@@ -116,11 +117,26 @@ const inArcHome = currentPath === '/arc';
         <a href="/arc/faq" class={inFaq ? 'is-active' : undefined}>FAQ</a>
         <a href="https://www.siryushub.com">Back to SiryusHub</a>
       </div>
+      <button
+        type="button"
+        class="arc-route-nav__hamburger"
+        id="hamburgerBtn"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="sidebar"
+      >
+        <span class="arc-route-nav__hamburger-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
     </nav>
     <main id="main-content" class="arc-shell-main">
       <slot />
     </main>
     <ArcFooter />
+    <Sidebar />
   </body>
 </html>
 
@@ -192,6 +208,29 @@ const inArcHome = currentPath === '/arc';
     opacity: 0.82;
   }
 
+  body.arc-route .arc-route-nav__hamburger {
+    display: none;
+    background: transparent;
+    border: 1px solid rgba(242, 121, 48, 0.42);
+    padding: 0.45rem 0.55rem;
+    border-radius: 999px;
+    cursor: pointer;
+    color: inherit;
+  }
+
+  body.arc-route .arc-route-nav__hamburger-icon {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  body.arc-route .arc-route-nav__hamburger-icon span {
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+    display: block;
+  }
+
   body.arc-route .arc-route-nav a.is-active {
     opacity: 1;
     color: #f27930;
@@ -254,6 +293,18 @@ const inArcHome = currentPath === '/arc';
     body.arc-route .arc-route-nav__links a {
       font-size: 0.66rem;
       letter-spacing: 0.05em;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body.arc-route .arc-route-nav__links {
+      display: none;
+    }
+
+    body.arc-route .arc-route-nav__hamburger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 </style>
