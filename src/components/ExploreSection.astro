@@ -3,6 +3,7 @@ import type { SanityImageSource } from '@sanity/image-url'
 import WindDecorButton from './WindDecorButton.astro'
 import { sanityClient, urlFor, blogCoverImageUrl } from '../lib/sanity'
 import { getAllPosts } from '../lib/queries'
+import { isSiryusAmArticle } from '../data/articleOwnership'
 
 type ArtistCard = {
   name: string
@@ -21,7 +22,7 @@ type ProjectCard = {
   status: string
 }
 
-const featuredArtistQuery = `*[_type == "artist" && active == true && featured == true] | order(coalesce(order, 999) asc, name asc) [0] {
+const featuredArtistQuery = `*[_type == "artist" && active == true && featured == true && slug.current in ["max-prodigy", "jlinez"]] | order(coalesce(order, 999) asc, name asc) [0] {
   name,
   slug,
   oneLiner,
@@ -32,6 +33,8 @@ const featuredArtistQuery = `*[_type == "artist" && active == true && featured =
 const latestInitiativeQuery = `*[_type == "project"
   && status in ["Active", "Coming Soon"]
   && category != "Release Campaign"
+  && slug.current != "acoustic-rwanda"
+  && slug.current != "the-abditory-sessions"
 ] | order(coalesce(publishedAt, _createdAt) desc) [0] {
   title,
   slug,
@@ -50,7 +53,7 @@ async function safeFetch<T>(query: string): Promise<T | null> {
   }
 }
 
-const latestBlog = (await getAllPosts())[0] ?? null
+const latestBlog = (await getAllPosts()).find((post) => isSiryusAmArticle(post.slug?.current ?? '')) ?? null
 const featuredArtist = await safeFetch<ArtistCard>(featuredArtistQuery)
 const latestProject = await safeFetch<ProjectCard>(latestInitiativeQuery)
 
@@ -134,7 +137,7 @@ const blogMetaLine = latestBlog
       >
         Latest From Siryus
       </h2>
-      <WindDecorButton href="/blog" variant="secondary" class="latest__view-all" splash={false}>
+      <WindDecorButton href="/siryus-am/blog" variant="secondary" class="latest__view-all" splash={false}>
         View all
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +211,7 @@ const blogMetaLine = latestBlog
               'Most artists treat marketing as an afterthought. The ones who break through treat it like part of the music.'}
           </p>
           <a
-            href={latestBlog?.slug?.current ? `/blog/${latestBlog.slug.current}` : '/blog'}
+            href={latestBlog?.slug?.current ? `/siryus-am/blog/${latestBlog.slug.current}` : '/siryus-am/blog'}
             class="latest-card__link"
           >
             Read on the blog

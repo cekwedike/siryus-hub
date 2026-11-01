@@ -1,14 +1,17 @@
 ---
 import ArcLayout from '../../../layouts/ArcLayout.astro';
 import { blogCoverImageUrlArc } from '../../../lib/sanityArc';
+import { blogCoverImageUrl } from '../../../lib/sanity';
 import { getAllArcPosts, getArcPostBySlug } from '../../../lib/queriesArc';
-import type { BlogPostSummary } from '../../../lib/queries';
+import { getAllPosts, getPostBySlug, type BlogPostSummary } from '../../../lib/queries';
+import { isArcArticle } from '../../../data/articleOwnership';
 import { portableTextToArcHtml } from '../../../lib/portableTextHtml';
 import { portableTextToPlainText } from '../../../lib/portableTextPlain';
 import { getCanonicalOrigin } from '../../../lib/siteCanonical';
 
 export async function getStaticPaths() {
-  const posts = await getAllArcPosts();
+  const [arcPosts, mainPosts] = await Promise.all([getAllArcPosts(), getAllPosts()]);
+  const posts = [...arcPosts, ...mainPosts.filter((post) => isArcArticle(post.slug?.current ?? ''))];
 
   return posts
     .filter((post) => post.slug?.current)
@@ -18,7 +21,10 @@ export async function getStaticPaths() {
 const origin = getCanonicalOrigin();
 
 const { slug } = Astro.params;
-const post = slug ? await getArcPostBySlug(slug) : null;
+const arcPost = slug ? await getArcPostBySlug(slug) : null;
+const migratedPost = slug && isArcArticle(slug) ? await getPostBySlug(slug) : null;
+const post = arcPost ?? migratedPost;
+const usesMainSanity = !arcPost && Boolean(migratedPost);
 
 if (!post?.slug?.current) {
   Astro.response.status = 404;
@@ -37,7 +43,16 @@ function formatDate(iso: string) {
 }
 
 function relatedCover(p: BlogPostSummary) {
-  return blogCoverImageUrlArc(p.coverImage, 400, 250);
+  return isArcArticle(p.slug?.current ?? '')
+    ? blogCoverImageUrl(p.coverImage, 400, 250)
+    : blogCoverImageUrlArc(p.coverImage, 400, 250);
+}
+
+function postCover(width: number, height: number) {
+  if (!post) return null;
+  return usesMainSanity
+    ? blogCoverImageUrl(post.coverImage, width, height)
+    : blogCoverImageUrlArc(post.coverImage, width, height);
 }
 
 let pageTitle = 'Article not found';
@@ -56,7 +71,7 @@ if (post) {
   pageTitle = post.seoTitle?.trim() ? post.seoTitle.trim() : `${post.title} | ARC Blog`;
   pageDescription = post.seoDescription?.trim() ? post.seoDescription : post.excerpt;
   canonicalUrl = `${origin}/arc/blog/${post.slug.current}`;
-  ogImagePath = blogCoverImageUrlArc(post.coverImage, 1200, 630) ?? '/images/og-default.png';
+  ogImagePath = postCover(1200, 630) ?? '/images/og-default.png';
 
   bodyHtml = portableTextToArcHtml(post.body ?? []);
   const plain = portableTextToPlainText(post.body ?? []);
@@ -80,20 +95,24 @@ if (post) {
     datePublished: datePublishedIso,
     publisher: {
       '@type': 'Organization',
-      name: 'ARC',
+      name: 'ARC. Creatives',
       url: `${origin}/arc`,
     },
   };
 
-  const coverForSchema = blogCoverImageUrlArc(post.coverImage, 1200, 630);
+  const coverForSchema = postCover(1200, 630);
   if (coverForSchema) {
     articleSchema.image = coverForSchema;
   }
 
-  const allForRelated = await getAllArcPosts();
+  const [arcForRelated, mainForRelated] = await Promise.all([getAllArcPosts(), getAllPosts()]);
+  const allForRelated = [
+    ...arcForRelated,
+    ...mainForRelated.filter((row) => isArcArticle(row.slug?.current ?? '')),
+  ];
   related = allForRelated.filter((row) => row._id !== post._id).slice(0, 3);
 
-  heroCover = blogCoverImageUrlArc(post.coverImage, 1800, 1000);
+  heroCover = postCover(1800, 1000);
 }
 ---
 
@@ -173,7 +192,7 @@ if (post) {
 
         <footer class="blog-bleed blog-post-footer">
           <div class="blog-inner">
-            <p class="blog-post-footer__bio">Written by {post.author} for ARC.</p>
+            <p class="blog-post-footer__bio">Written by {post.author} for ARC. Creatives.</p>
             <a class="blog-post-footer__back" href="/arc/blog">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

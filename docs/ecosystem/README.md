@@ -27,15 +27,14 @@ This pack turns the current multi-page site into a clear plan for a minimal SIRY
 ## Current repository facts observed on 1 November 2026
 
 - Astro 6.1.1 with static output.
-- `@astrojs/vercel` is still imported and configured.
+- The Astro output is static and the Vercel adapter has been removed locally.
 - Two Sanity studios exist: `studio/` and `studio-arc/`.
-- The main Studio currently hardcodes its project ID and dataset. ARC reads environment variables.
-- The root and main Studio have `package-lock.json`; `studio-arc/` has its own package manifest.
+- Both Studios read project and dataset identifiers from scoped environment variables.
+- The repository uses one pnpm workspace lockfile and no npm lockfiles.
 - The route tree includes the parent site, SIRYUS A.M, artists, projects, blog, and a large ARC section.
-- `astro.config.mjs` still lists Hidaya, Winny, and Acoustic Rwanda in sitemap custom pages.
-- Git was clean on `main` when this pack was prepared.
+- The custom sitemap priorities no longer list Hidaya, Winny, or Acoustic Rwanda.
+- Implementation work is uncommitted on `phase-1-pnpm-static-foundation`.
 
 ## Definition of done for the future implementation
 
 The work is complete only when the approved route plan is implemented, content is migrated without loss, the Cloudflare preview passes the QA matrix, email DNS is unchanged, production cutover is approved, and a rollback path is still available.
-

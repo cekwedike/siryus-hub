@@ -1,0 +1,62 @@
+---
+import '../styles/ecosystem.css'
+
+interface Props {
+  title: string
+  description: string
+  canonical?: string
+}
+
+const { title, description, canonical = 'https://www.siryushub.com/' } = Astro.props
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Siryus Creative Media Ltd',
+  url: 'https://www.siryushub.com',
+  logo: 'https://www.siryushub.com/images/logo/dark/siryus-logo-dark.png',
+  email: 'management@siryushub.com',
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://www.siryushub.com/images/logo/dark/siryus-logo-dark.png" />
+    <meta property="og:site_name" content="Siryus Creative Media Ltd" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://www.siryushub.com/images/logo/dark/siryus-logo-dark.png" />
+    <link rel="icon" type="image/x-icon" href="/images/logo/dark/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/dark/apple-touch-icon.png" />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script is:inline defer src="https://www.googletagmanager.com/gtag/js?id=G-H882NL8BE3"></script>
+    <script is:inline defer>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-H882NL8BE3');
+    </script>
+  </head>
+  <body>
+    <a class="ecosystem-skip" href="#main-content">Skip to main content</a>
+    <slot />
+    <script is:inline>
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window,document,"clarity","script","uix15dy0m8");
+    </script>
+  </body>
+</html>

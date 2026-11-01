@@ -1,0 +1,21 @@
+---
+import EcosystemCard from './EcosystemCard.astro'
+import type { EcosystemCard as EcosystemCardData } from '../../data/ecosystem'
+
+interface Props {
+  cards: EcosystemCardData[]
+}
+
+const { cards } = Astro.props
+---
+
+<section class="ecosystem-grid" aria-labelledby="ecosystem-grid-title">
+  <div class="ecosystem-grid__intro">
+    <h2 id="ecosystem-grid-title">Choose where you want to go.</h2>
+    <p>Each part of SIRYUS has its own work, people, and next step.</p>
+  </div>
+
+  <div class="ecosystem-grid__cards">
+    {cards.map((card, index) => <EcosystemCard card={card} index={index} />)}
+  </div>
+</section>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import { getAllPosts, getPostBySlug } from '../../../lib/queries'
+import { blogCoverImageUrl } from '../../../lib/sanity'
+import { portableTextToBlogHtml } from '../../../lib/portableTextHtml'
+import { portableTextToPlainText } from '../../../lib/portableTextPlain'
+import { isSiryusAmArticle } from '../../../data/articleOwnership'
+import '../../../styles/blog.css'
+import '../../../styles/project-detail.css'
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts()
+  return posts
+    .filter((post) => isSiryusAmArticle(post.slug?.current ?? ''))
+    .map((post) => ({ params: { slug: post.slug.current } }))
+}
+
+const slug = Astro.params.slug ?? ''
+const post = isSiryusAmArticle(slug) ? await getPostBySlug(slug) : null
+
+if (!post) return Astro.redirect('/siryus-am/blog')
+
+const bodyHtml = portableTextToBlogHtml(post.body ?? [])
+const wordCount = portableTextToPlainText(post.body ?? []).trim().split(/\s+/).filter(Boolean).length
+const readMinutes = Math.max(1, Math.ceil(wordCount / 200))
+const cover = blogCoverImageUrl(post.coverImage, 1800, 1000)
+const canonical = `https://www.siryushub.com/siryus-am/blog/${slug}`
+---
+
+<BaseLayout
+  title={post.seoTitle?.trim() || `${post.title} | SIRYUS A.M Journal`}
+  description={post.seoDescription?.trim() || post.excerpt}
+  canonical={canonical}
+  ogImage={blogCoverImageUrl(post.coverImage, 1200, 630) ?? '/images/og-default.png'}
+  ogType="article"
+>
+  <article class="blog-page">
+    <section class:list={['blog-bleed', 'blog-post-hero', { 'blog-post-hero--with-cover': cover, 'blog-post-hero--no-cover': !cover }]} aria-labelledby="post-title">
+      {cover ? <div class="blog-post-hero__cover-blur" aria-hidden="true"><img src={cover} alt="" width="1200" height="675" /></div> : null}
+      <div class="blog-inner blog-post-hero__cover-inner">
+        <div class="blog-post-hero__column">
+          <h1 id="post-title" class="blog-post-hero__title">{post.title}</h1>
+          <p>{post.author} · {readMinutes} min read</p>
+        </div>
+      </div>
+    </section>
+    <section class="blog-bleed blog-post-body-wrap" aria-label="Article body">
+      <div class="blog-inner"><div class="project-body"><div class="blog-post-body" set:html={bodyHtml} /></div></div>
+    </section>
+    <footer class="blog-bleed blog-post-footer">
+      <div class="blog-inner">
+        <p class="blog-post-footer__bio">Written by {post.author} for SIRYUS A.M.</p>
+        <a class="blog-post-footer__back" href="/siryus-am/blog">Back to the SIRYUS A.M journal</a>
+      </div>
+    </footer>
+  </article>
+</BaseLayout>

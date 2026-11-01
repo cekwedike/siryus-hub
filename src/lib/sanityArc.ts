@@ -14,7 +14,8 @@ export const sanityArcClient = configured
       projectId: projectId!.trim(),
       dataset: dataset!.trim(),
       useCdn: false,
-      apiVersion: '2024-01-01',
+      apiVersion: '2026-03-01',
+      perspective: 'published',
     })
   : null
 

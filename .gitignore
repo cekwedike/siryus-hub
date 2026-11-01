@@ -5,10 +5,14 @@ dist/
 
 # generated types
 .astro/
+.playwright-mcp/
 
 # dependencies
 node_modules/
 studio/node_modules/
+studio-arc/node_modules/
+studio/dist/
+studio-arc/dist/
 
 # logs
 *.log

@@ -3,10 +3,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/artist-pages.css';
 import '../../styles/artist-experience.css';
 import { urlFor } from '../../lib/sanity';
-import { getAllArtists, getArtistBySlug, type ArtistDetail, type ArtistRelease } from '../../lib/queries';
+import { getArtistBySlug, getPublicArtistPaths, type ArtistDetail, type ArtistRelease } from '../../lib/queries';
 
 export async function getStaticPaths() {
-  const artists = await getAllArtists();
+  const artists = await getPublicArtistPaths();
   return artists.map((a) => ({
     params: { slug: a.slug?.current ?? '' },
   })).filter((p) => p.params.slug.length > 0);
@@ -41,8 +41,13 @@ function releaseHref(r: ArtistRelease, detail: ArtistDetail) {
 
 const genres = Array.isArray(artist.genre) ? artist.genre.filter(Boolean) : [];
 const firstGenre = genres[0] ?? 'Artist';
-const pageTitle = `${artist.name} - ${firstGenre} Artist | SIRYUS A.M`;
-const pageDescription = `${artist.oneLiner} Managed by SIRYUS A.M. Stream on Spotify and more.`;
+const isLegacyArchive = slug === 'hidaya-morgan';
+const pageTitle = isLegacyArchive
+  ? `${artist.name} - Legacy Artist Archive | SIRYUS A.M`
+  : `${artist.name} - ${firstGenre} Artist | SIRYUS A.M`;
+const pageDescription = isLegacyArchive
+  ? `${artist.oneLiner} This page is kept as a legacy archive and does not describe current SIRYUS A.M management.`
+  : `${artist.oneLiner} Managed by SIRYUS A.M. Stream on Spotify and more.`;
 const canonicalUrl = `https://www.siryushub.com/artists/${slug}`;
 
 let photoUrl = '';
@@ -51,7 +56,9 @@ try {
     ? urlFor(artist.photo).width(400).height(600).fit('crop').auto('format').url()
     : '';
 } catch { photoUrl = ''; }
-const heroLabel = artist.managementLabel?.trim() || 'SIRYUS A.M Artist';
+const heroLabel = isLegacyArchive
+  ? 'Legacy artist archive'
+  : artist.managementLabel?.trim() || 'SIRYUS A.M Artist';
 
 const sameAs: string[] = [];
 const pl = artist.platforms;
@@ -259,12 +266,24 @@ const mgmtHeadingId = `artist-mgmt-${slug}`;
 
     <section class="artists-bleed artist-mgmt artist-mgmt--v2 artist-reveal" aria-labelledby={mgmtHeadingId}>
       <div class="artists-inner">
-        <h2 id={mgmtHeadingId} class="visually-hidden">Management</h2>
-        <p class="artist-mgmt__text"><strong>Represented by SIRYUS A.M</strong></p>
-        <p class="artist-mgmt__text">
-          For bookings and features:
-          <a href="mailto:management@siryushub.com">management@siryushub.com</a>
-        </p>
+        {isLegacyArchive ? (
+          <>
+            <h2 id={mgmtHeadingId} class="visually-hidden">Archive status</h2>
+            <p class="artist-mgmt__text"><strong>Legacy archive</strong></p>
+            <p class="artist-mgmt__text">
+              This page records Hidaya Morgan's past work with SIRYUS A.M. It does not mean that SIRYUS A.M currently manages or represents her.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2 id={mgmtHeadingId} class="visually-hidden">Management</h2>
+            <p class="artist-mgmt__text"><strong>Represented by SIRYUS A.M</strong></p>
+            <p class="artist-mgmt__text">
+              For bookings and features:
+              <a href="mailto:management@siryushub.com">management@siryushub.com</a>
+            </p>
+          </>
+        )}
       </div>
     </section>
   </div>

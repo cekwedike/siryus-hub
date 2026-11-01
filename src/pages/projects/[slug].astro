@@ -92,6 +92,7 @@ function isLongDescriptionEmpty(blocks: ProjectDetail['longDescription']): boole
 
 const useIndibaBodyFallback =
   project.slug.current === 'indiba-project-series' && isLongDescriptionEmpty(project.longDescription);
+const isIndiba = project.slug.current === 'indiba-project-series';
 
 const bodyHtmlFromLong = portableTextToBlogHtml(project.longDescription ?? []);
 const aboutHtml =
@@ -211,6 +212,11 @@ if (project.coverImage) {
     <section class="project-detail-about project-detail-bleed blog-post-body-wrap" aria-labelledby="about-heading">
       <div class="project-detail-about__inner">
         <h2 id="about-heading" class="project-detail-about__heading">About The Project</h2>
+        {isIndiba ? (
+          <p class="project-detail-history-note">
+            Hidaya Morgan and Winny Ezeme are named here as participants in the first Indiba cohort. This historical record does not present either artist as part of the current SIRYUS A.M roster.
+          </p>
+        ) : null}
         {useIndibaBodyFallback ? (
           <IndibaProjectBodyFallback />
         ) : (

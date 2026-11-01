@@ -359,6 +359,15 @@ body.light-theme .marketing-main .blog-page .project-body blockquote {
   gap: var(--space-3);
 }
 
+.project-detail-history-note {
+  max-width: 54rem;
+  margin: 0 0 var(--space-8);
+  padding: var(--space-5);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--brand-text-muted);
+  line-height: 1.65;
+}
+
 .project-detail-about__heading::before {
   content: '';
   display: inline-block;

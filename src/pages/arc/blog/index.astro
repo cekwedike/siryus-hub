@@ -1,7 +1,10 @@
 ---
 import ArcLayout from '../../../layouts/ArcLayout.astro';
 import { blogCoverImageUrlArc, sanityArcConfigured } from '../../../lib/sanityArc';
+import { blogCoverImageUrl } from '../../../lib/sanity';
 import { getAllArcPosts, getFeaturedArcPosts } from '../../../lib/queriesArc';
+import { getAllPosts } from '../../../lib/queries';
+import { isArcArticle } from '../../../data/articleOwnership';
 import { getCanonicalOrigin } from '../../../lib/siteCanonical';
 
 const origin = getCanonicalOrigin();
@@ -11,7 +14,11 @@ const pageDescription =
 
 const POSTS_PER_PAGE = 3;
 
-const allPosts = await getAllArcPosts();
+const [arcPosts, mainPosts] = await Promise.all([getAllArcPosts(), getAllPosts()]);
+const allPosts = [
+  ...arcPosts,
+  ...mainPosts.filter((post) => isArcArticle(post.slug?.current ?? '')),
+].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 const featuredPosts = await getFeaturedArcPosts();
 const featured = featuredPosts[0] ?? null;
 
@@ -49,7 +56,9 @@ function readingTime(post: (typeof allPosts)[0]) {
 }
 
 function coverSrc(post: (typeof allPosts)[0]) {
-  return blogCoverImageUrlArc(post.coverImage, 800, 500);
+  return isArcArticle(post.slug?.current ?? '')
+    ? blogCoverImageUrl(post.coverImage, 800, 500)
+    : blogCoverImageUrlArc(post.coverImage, 800, 500);
 }
 ---
 
@@ -96,7 +105,7 @@ function coverSrc(post: (typeof allPosts)[0]) {
     </div>
 
     {
-      !sanityArcConfigured ? (
+      !sanityArcConfigured && allPosts.length === 0 ? (
         <section class="blog-bleed blog-section blog-reveal" aria-labelledby="arc-blog-setup-heading">
           <div class="blog-inner">
             <div class="arc-empty-state arc-empty-state--setup blog-reveal">

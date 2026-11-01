@@ -9,6 +9,8 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/studio') &&
         !page.includes('/api') &&
+        !page.includes('www.siryushub.com/blog') &&
+        page !== 'https://www.siryushub.com/community/' &&
         !page.includes('/privacy-policy') &&
         !page.includes('/terms-of-use') &&
         !page.includes('/cookie-policy'),
@@ -22,11 +24,8 @@ export default defineConfig({
         'https://www.siryushub.com/siryus-am',
         'https://www.siryushub.com/artists',
         'https://www.siryushub.com/artists/max-prodigy',
-        'https://www.siryushub.com/artists/hidaya-morgan',
         'https://www.siryushub.com/artists/jlinez',
-        'https://www.siryushub.com/artists/winny-ezeme',
-        'https://www.siryushub.com/community',
-        'https://www.siryushub.com/blog',
+        'https://www.siryushub.com/siryus-am/blog',
         'https://www.siryushub.com/arc',
         'https://www.siryushub.com/arc/blog',
         'https://www.siryushub.com/arc/events',
@@ -38,7 +37,6 @@ export default defineConfig({
         'https://www.siryushub.com/studio',
         'https://www.siryushub.com/projects',
         'https://www.siryushub.com/projects/indiba-project-series',
-        'https://www.siryushub.com/projects/acoustic-rwanda',
         'https://www.siryushub.com/projects/the-abditory-sessions',
         'https://www.siryushub.com/contact',
         'https://www.siryushub.com/faq',

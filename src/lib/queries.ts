@@ -239,9 +239,13 @@ const artistFullFields = `
   order
 `
 
-const allArtistsQuery = `*[_type == "artist" && active == true] | order(coalesce(order, 999) asc, name asc) { ${artistListFields} }`
+const currentArtistSlugs = ['max-prodigy', 'jlinez'] as const
 
-const featuredArtistsQuery = `*[_type == "artist" && active == true && featured == true] | order(coalesce(order, 999) asc, name asc) { ${artistListFields} }`
+const allArtistsQuery = `*[_type == "artist" && active == true && slug.current in $currentArtistSlugs] | order(coalesce(order, 999) asc, name asc) { ${artistListFields} }`
+
+const featuredArtistsQuery = `*[_type == "artist" && active == true && featured == true && slug.current in $currentArtistSlugs] | order(coalesce(order, 999) asc, name asc) { ${artistListFields} }`
+
+const publicArtistPathsQuery = `*[_type == "artist" && slug.current in $publicArtistSlugs] | order(coalesce(order, 999) asc, name asc) { ${artistListFields} }`
 
 const artistBySlugQuery = `*[_type == "artist" && slug.current == $slug][0] { ${artistFullFields} }`
 
@@ -268,7 +272,18 @@ export interface ArtistDetail extends ArtistSummary {
 
 export async function getAllArtists(): Promise<ArtistSummary[]> {
   try {
-    const rows = await sanityClient.fetch<ArtistSummary[]>(allArtistsQuery)
+    const rows = await sanityClient.fetch<ArtistSummary[]>(allArtistsQuery, { currentArtistSlugs })
+    return Array.isArray(rows) ? rows : []
+  } catch {
+    return []
+  }
+}
+
+export async function getPublicArtistPaths(): Promise<ArtistSummary[]> {
+  try {
+    const rows = await sanityClient.fetch<ArtistSummary[]>(publicArtistPathsQuery, {
+      publicArtistSlugs: [...currentArtistSlugs, 'hidaya-morgan'],
+    })
     return Array.isArray(rows) ? rows : []
   } catch {
     return []
@@ -287,7 +302,7 @@ export async function getArtistBySlug(slug: string): Promise<ArtistDetail | null
 
 export async function getFeaturedArtists(): Promise<ArtistSummary[]> {
   try {
-    const rows = await sanityClient.fetch<ArtistSummary[]>(featuredArtistsQuery)
+    const rows = await sanityClient.fetch<ArtistSummary[]>(featuredArtistsQuery, { currentArtistSlugs })
     return Array.isArray(rows) ? rows : []
   } catch {
     return []
@@ -323,7 +338,7 @@ export interface ProjectSanityImageDeref {
   alt?: string | null
 }
 
-const projectBySlugQuery = `*[_type == "project" && slug.current == $slug][0] {
+const projectBySlugQuery = `*[_type == "project" && slug.current == $slug && slug.current != "acoustic-rwanda"][0] {
   _id,
   title,
   slug,
@@ -361,9 +376,9 @@ const projectBySlugQuery = `*[_type == "project" && slug.current == $slug][0] {
   publishedAt
 }`
 
-const allProjectsQuery = `*[_type == "project"] | order(year desc, publishedAt desc) { ${projectListFields} }`
+const allProjectsQuery = `*[_type == "project" && slug.current != "acoustic-rwanda"] | order(year desc, publishedAt desc) { ${projectListFields} }`
 
-const featuredProjectsQuery = `*[_type == "project" && featured == true] | order(year desc, publishedAt desc) [0...3] { ${projectListFields} }`
+const featuredProjectsQuery = `*[_type == "project" && featured == true && slug.current != "acoustic-rwanda"] | order(year desc, publishedAt desc) [0...3] { ${projectListFields} }`
 
 export interface ProjectSummary {
   _id: string
@@ -393,20 +408,40 @@ export interface ProjectDetail extends Omit<ProjectSummary, 'coverImage' | 'gall
   galleryImages: ProjectSanityImageDeref[] | null
 }
 
+function normalizePublicProject<T extends ProjectSummary | ProjectDetail>(project: T): T {
+  if (project.slug?.current !== 'the-abditory-sessions') return project
+
+  return {
+    ...project,
+    projectType: 'Historical Series',
+    year: 'Historical',
+    status: 'Historical',
+    excerpt:
+      'A historical SIRYUS initiative built around long-form conversations with independent artists about their journey, craft, and career.',
+    description:
+      'The Abditory Sessions is kept here as a historical SIRYUS initiative. It was built around long-form conversations with independent artists about their journey, craft, and career. Any future plans are still to be confirmed.',
+    longDescription: null,
+    registrationOpen: false,
+    registrationUrl: null,
+    registrationClosedText:
+      'The Abditory Sessions is kept here as a historical SIRYUS initiative. Any future plans are still to be confirmed.',
+  } as T
+}
+
 export async function getAllProjects(): Promise<ProjectSummary[]> {
   try {
     const rows = await sanityClient.fetch<ProjectSummary[]>(allProjectsQuery)
-    return Array.isArray(rows) ? rows : []
+    return Array.isArray(rows) ? rows.map(normalizePublicProject) : []
   } catch {
     return []
   }
 }
 
 export async function getProjectBySlug(slug: string): Promise<ProjectDetail | null> {
-  if (!slug?.trim()) return null
+  if (!slug?.trim() || slug === 'acoustic-rwanda') return null
   try {
     const row = await sanityClient.fetch<ProjectDetail | null>(projectBySlugQuery, { slug })
-    return row ?? null
+    return row ? normalizePublicProject(row) : null
   } catch {
     return null
   }
@@ -415,7 +450,7 @@ export async function getProjectBySlug(slug: string): Promise<ProjectDetail | nu
 export async function getFeaturedProjects(): Promise<ProjectSummary[]> {
   try {
     const rows = await sanityClient.fetch<ProjectSummary[]>(featuredProjectsQuery)
-    return Array.isArray(rows) ? rows : []
+    return Array.isArray(rows) ? rows.map(normalizePublicProject) : []
   } catch {
     return []
   }
