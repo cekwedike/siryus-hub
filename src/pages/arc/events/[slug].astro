@@ -6,7 +6,13 @@ import type { ArcEventSummary } from '../../../lib/queries';
 import { portableTextToArcHtml } from '../../../lib/portableTextHtml';
 import { getCanonicalOrigin } from '../../../lib/siteCanonical';
 
-export const prerender = false;
+export async function getStaticPaths() {
+  const events = await getAllArcEvents();
+
+  return events
+    .filter((event) => event.slug?.current)
+    .map((event) => ({ params: { slug: event.slug.current } }));
+}
 
 const origin = getCanonicalOrigin();
 

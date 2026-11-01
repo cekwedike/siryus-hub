@@ -7,7 +7,13 @@ import { getAllPosts, getPostBySlug, type BlogPostSummary } from '../../lib/quer
 import { portableTextToBlogHtml } from '../../lib/portableTextHtml';
 import { portableTextToPlainText } from '../../lib/portableTextPlain';
 
-export const prerender = false;
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+
+  return posts
+    .filter((post) => post.slug?.current)
+    .map((post) => ({ params: { slug: post.slug.current } }));
+}
 
 const { slug } = Astro.params;
 const post = slug ? await getPostBySlug(slug) : null;

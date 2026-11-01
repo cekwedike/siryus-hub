@@ -7,7 +7,13 @@ import { portableTextToArcHtml } from '../../../lib/portableTextHtml';
 import { portableTextToPlainText } from '../../../lib/portableTextPlain';
 import { getCanonicalOrigin } from '../../../lib/siteCanonical';
 
-export const prerender = false;
+export async function getStaticPaths() {
+  const posts = await getAllArcPosts();
+
+  return posts
+    .filter((post) => post.slug?.current)
+    .map((post) => ({ params: { slug: post.slug.current } }));
+}
 
 const origin = getCanonicalOrigin();
 

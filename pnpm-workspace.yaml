@@ -1,0 +1,7 @@
+packages:
+  - studio
+  - studio-arc
+
+allowBuilds:
+  esbuild: true
+  sharp: true
