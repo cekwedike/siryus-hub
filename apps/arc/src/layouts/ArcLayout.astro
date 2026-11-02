@@ -21,7 +21,7 @@ const {
   title,
   description = 'ARC is a community for independent Christian creatives.',
   canonical,
-  ogImage = '/arc/arc-logo.png',
+  ogImage = '/og.png',
   ogType = 'website',
   noIndex = false,
   schema,
@@ -35,17 +35,24 @@ const canonicalURL = canonical
   ? new URL(canonical, Astro.url.origin).href
   : new URL(Astro.url.pathname, Astro.url.origin).href;
 
+// Sanity's auto format can hand crawlers the original file (for example HEIF), so share images ask for JPEG.
 const ogImageURL = ogImage.startsWith('http')
-  ? ogImage
+  ? ogImage.replace('auto=format', 'fm=jpg')
   : new URL(ogImage, Astro.url.origin).href;
+
+// Search results show about 160 characters, so long CMS excerpts are trimmed at a word for meta tags only.
+const metaDescription =
+  description.length <= 160
+    ? description
+    : `${description.slice(0, 157).replace(/\s+\S*$/, '')}...`;
 
 const defaultSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'ARC',
   alternateName: 'Ascent. Refuge. Collective.',
-  url: 'https://www.siryushub.com/arc',
-  logo: 'https://www.siryushub.com/arc/arc-logo.png',
+  url: 'https://collective.siryushub.com/',
+  logo: 'https://collective.siryushub.com/arc/arc-logo.png',
   description:
     'ARC is a community for independent Christian creatives who are serious about their craft and their faith.',
   sameAs: [
@@ -63,7 +70,7 @@ const inAbout = currentPath === '/arc/about';
 const inSupporters = currentPath === '/arc/supporters';
 const inFaq = currentPath === '/arc/faq';
 const inSubscribe = currentPath === '/arc/subscribe';
-const inArcHome = currentPath === '/arc';
+const inArcHome = currentPath === '/';
 ---
 
 <!DOCTYPE html>
@@ -72,7 +79,7 @@ const inArcHome = currentPath === '/arc';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     <meta name="theme-color" content="#0a0908" />
     <link rel="canonical" href={canonicalURL} />
     {paginationPrev && <link rel="prev" href={paginationPrev} />}
@@ -80,7 +87,7 @@ const inArcHome = currentPath === '/arc';
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImageURL} />
@@ -88,7 +95,7 @@ const inArcHome = currentPath === '/arc';
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImageURL} />
 
     <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
@@ -106,9 +113,9 @@ const inArcHome = currentPath === '/arc';
   <body class="arc-route">
     <a href="#main-content" class="arc-skip-link">Skip to main content</a>
     <nav class="arc-route-nav arc-route-nav--always" aria-label="ARC page navigation">
-      <a href="/arc" class={`arc-route-nav__brand ${inArcHome ? 'is-active' : ''}`.trim()}>ARC. Creatives</a>
+      <a href="/" class={`arc-route-nav__brand ${inArcHome ? 'is-active' : ''}`.trim()}>ARC. Creatives</a>
       <div class="arc-route-nav__links">
-        <a href="/arc" class={inArcHome ? 'is-active' : undefined}>Home</a>
+        <a href="/" class={inArcHome ? 'is-active' : undefined}>Home</a>
         <a href="/arc/blog" class={inBlog ? 'is-active' : undefined}>Blog</a>
         <a href="/arc/events" class={inEvents ? 'is-active' : undefined}>Events</a>
         <a href="/arc/music" class={currentPath === '/arc/music' ? 'is-active' : undefined}>Music &amp; Projects</a>
@@ -117,7 +124,7 @@ const inArcHome = currentPath === '/arc';
         <a href="/arc/supporters" class={inSupporters ? 'is-active' : undefined}>Supporters</a>
         <a href="/arc/faq" class={inFaq ? 'is-active' : undefined}>FAQ</a>
         <a href="/arc/subscribe" class={inSubscribe ? 'is-active' : undefined}>Letter</a>
-        <a href="https://www.siryushub.com">Back to SiryusHub</a>
+        <a href="https://siryushub.com">Back to SIRYUS</a>
       </div>
       <button
         type="button"
@@ -151,7 +158,7 @@ const inArcHome = currentPath === '/arc';
           </button>
         </div>
         <div class="arc-mobile-nav__list" role="list">
-          <a href="/arc" class={`arc-mobile-nav__link ${inArcHome ? 'is-active' : ''}`.trim()}>Home</a>
+          <a href="/" class={`arc-mobile-nav__link ${inArcHome ? 'is-active' : ''}`.trim()}>Home</a>
           <a href="/arc/blog" class={`arc-mobile-nav__link ${inBlog ? 'is-active' : ''}`.trim()}>Blog</a>
           <a href="/arc/events" class={`arc-mobile-nav__link ${inEvents ? 'is-active' : ''}`.trim()}>Events</a>
           <a href="/arc/music" class={`arc-mobile-nav__link ${currentPath === '/arc/music' ? 'is-active' : ''}`.trim()}>Music &amp; Projects</a>
@@ -160,7 +167,7 @@ const inArcHome = currentPath === '/arc';
           <a href="/arc/supporters" class={`arc-mobile-nav__link ${inSupporters ? 'is-active' : ''}`.trim()}>Supporters</a>
           <a href="/arc/faq" class={`arc-mobile-nav__link ${inFaq ? 'is-active' : ''}`.trim()}>FAQ</a>
           <a href="/arc/subscribe" class={`arc-mobile-nav__link ${inSubscribe ? 'is-active' : ''}`.trim()}>Letter</a>
-          <a href="https://www.siryushub.com" class="arc-mobile-nav__link arc-mobile-nav__link--siryus">Back to SiryusHub</a>
+          <a href="https://siryushub.com" class="arc-mobile-nav__link arc-mobile-nav__link--siryus">Back to SIRYUS</a>
         </div>
       </div>
     </div>

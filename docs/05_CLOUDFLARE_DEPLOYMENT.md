@@ -34,3 +34,24 @@ Cloudflare Pages supports `public/_redirects` for static resources. Rules do NOT
 - Git integration: https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/
 
 No live deployment or DNS editing without user authorization.
+
+## 2026-11-02: concrete plan for the four sites
+
+| Cloudflare Pages project | App | Build (from repo root) | Output | Custom domain (later) |
+|---|---|---|---|---|
+| `siryus-hub` | `apps/siryus` | `pnpm --filter @siryus/hub build` | `apps/siryus/dist` | `siryushub.com` (last) |
+| `siryus-artists` | `apps/am` | `pnpm --filter @siryus/am build` | `apps/am/dist` | `artists.siryushub.com` |
+| `siryus-growth` | `apps/signal` | `pnpm --filter @siryus/signal build` | `apps/signal/dist` | `growth.siryushub.com` |
+| `siryus-collective` | `apps/arc` | `pnpm --filter @siryus/arc build` | `apps/arc/dist` | `collective.siryushub.com` |
+
+- pnpm is pinned to 11.25.0 through `packageManager`. Use Node 20 or newer.
+- ARC. needs `PUBLIC_SANITY_PROJECT_ID`, `PUBLIC_SANITY_DATASET`, `PUBLIC_SANITY_ARC_PROJECT_ID`, `PUBLIC_SANITY_ARC_DATASET` and `PUBLIC_CANONICAL_ORIGIN=https://collective.siryushub.com` at build time. Locally they live in the git-ignored `apps/arc/.env.local`. With Git builds, add them as Pages environment variables. Without them, ARC. ships developer placeholder text instead of content.
+- ARC. content comes from Sanity at build time. A published post appears only after a rebuild, so connect a Sanity webhook to the project's Pages deploy hook.
+- Every `_headers` file marks `*.pages.dev` hosts `noindex`, so previews never compete with the real domains.
+
+Order of go-live
+1. Deploy all four projects and review them on their `pages.dev` URLs.
+2. Add `artists`, `growth` and `collective` as custom domains on their projects. Cloudflare creates the proxied CNAME records. These are new names, so no email record is touched.
+3. Only when all three subdomains work, move `siryushub.com` from Vercel to `siryus-hub`. Its `_redirects` file sends the old URLs to the subdomains, so they must exist first.
+4. Add `www.siryushub.com` with a Cloudflare redirect rule to `https://siryushub.com` (301, keep the path), then retire Vercel.
+5. Submit each sitemap in Google Search Console: `siryushub.com/sitemap-index.xml` and the same path on each subdomain.

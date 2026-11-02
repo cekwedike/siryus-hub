@@ -1,0 +1,39 @@
+---
+import '../styles/global.css'
+import Head from '../components/Head.astro'
+
+interface Props {
+  title: string
+  description: string
+  path: string
+}
+
+const { title, description, path } = Astro.props
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <Head title={title} description={description} path={path} noIndex />
+  </head>
+  <body>
+    <div class="legal-shell">
+      <header class="top">
+        <a class="lockup" href="/" aria-label="SIRYUS home">
+          <img src="/brand/siryus/lockup-black.png" width="1200" height="567" alt="SIRYUS" />
+        </a>
+        <a class="home" href="/">Back to SIRYUS</a>
+      </header>
+      <main class="legal">
+        <slot />
+      </main>
+      <footer class="foot">
+        <p>© 2026 Siryus Creative Media Ltd</p>
+        <nav class="legal-links" aria-label="Legal">
+          <a href="/privacy-policy">Privacy</a>
+          <a href="/terms-of-use">Terms</a>
+          <a href="/cookie-policy">Cookies</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

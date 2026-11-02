@@ -17,6 +17,7 @@
     "check": "pnpm -r --filter @siryus/hub --filter @siryus/am --filter @siryus/signal --filter @siryus/arc check",
     "preview": "pnpm --filter @siryus/hub preview",
     "icons": "node scripts/build-brand-icons.mjs",
+    "og": "node scripts/build-og-images.mjs",
     "lint:max-lines": "node scripts/check-line-length.mjs",
     "seed:artists": "node scripts/seed-artists.mjs",
     "seed:projects": "node scripts/seed-projects.mjs",

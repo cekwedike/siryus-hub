@@ -1,19 +1,14 @@
-/home / 301
-/siryus-am /am 301
-/projects/acoustic-rwanda /am/projects 301
-/community /arc/community 301
-/blog / 301
-/blog/page/* / 301
-/blog/what-independent-artists-get-wrong-about-marketing /siryus-am/blog/what-independent-artists-get-wrong-about-marketing 301
-/blog/copyright-vs-intellectual-property /siryus-am/blog/copyright-vs-intellectual-property 301
-/blog/how-mental-health-impacts-your-art /siryus-am/blog/how-mental-health-impacts-your-art 301
-/blog/monetizing-creativity-earn-living-passion /arc/blog/monetizing-creativity-earn-living-passion 301
-/blog/mastering-time-management-for-creatives /arc/blog/mastering-time-management-for-creatives 301
-/blog/building-an-online-portfolio-that-pops /arc/blog/building-an-online-portfolio-that-pops 301
-/blog/building-your-brand-as-a-creative /arc/blog/building-your-brand-as-a-creative 301
-/blog/collaboration-in-creative-industries /arc/blog/collaboration-in-creative-industries 301
-/max-prodigy /artists/max-prodigy 301
-/hidaya-morgan /artists/hidaya-morgan 301
-/contact-page-siryus /contact 301
-/siryus-hub-projects /am#projects 301
-/indiba-project-series /projects/indiba-project-series 301
+# ARC. Creatives on collective.siryushub.com. Home is /, and ARC pages keep their /arc/* paths.
+# Old siryushub.com URLs are redirected from the SIRYUS project (apps/siryus/public/_redirects).
+
+/arc                           /                                                            301
+/arc/                          /                                                            301
+/home                          /                                                            301
+/community                     /arc/community                                               301
+/blog                          /arc/blog                                                    301
+/blog/page/*                   /arc/blog                                                    301
+/blog/monetizing-creativity-earn-living-passion           /arc/blog/monetizing-creativity-earn-living-passion  301
+/blog/mastering-time-management-for-creatives             /arc/blog/mastering-time-management-for-creatives  301
+/blog/building-an-online-portfolio-that-pops              /arc/blog/building-an-online-portfolio-that-pops  301
+/blog/building-your-brand-as-a-creative                   /arc/blog/building-your-brand-as-a-creative  301
+/blog/collaboration-in-creative-industries                /arc/blog/collaboration-in-creative-industries  301

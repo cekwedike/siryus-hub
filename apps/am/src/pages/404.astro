@@ -1,0 +1,11 @@
+---
+import Site from '../layouts/Site.astro'
+
+const tracks = [
+  ['Artists', 'Meet Max Prodigy and Jlinez', '/artists'],
+  ['What we do', 'Management, marketing and development', '/services'],
+  ['Projects', 'Music and collective work, including Indiba', '/projects'],
+  ['Contact', 'Start a conversation with the team', '/contact'],
+]
+---
+<Site noIndex title="Page not found" description="This page moved or never existed. Find your way back to SIRYUS A.M."><section class="lost"><div class="lost-copy"><p class="lost-tag">Error 404</p><h1>This track isn't on <span>the record.</span></h1><p>The page moved or never existed. Pick another track and keep listening.</p><ol class="tracks">{tracks.map(([name, note, href], i) => <li><a href={href}><b>{String(i + 1).padStart(2, '0')}</b><span>{name}<small>{note}</small></span></a></li>)}</ol></div><div class="record-wrap" aria-hidden="true"><div class="record"><span class="label"><span>SIRYUS</span><span>A.M</span></span></div><span class="stamp">Side B<br/>not found</span></div></section></Site>

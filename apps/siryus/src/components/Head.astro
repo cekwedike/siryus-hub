@@ -1,0 +1,35 @@
+---
+interface Props {
+  title: string
+  description: string
+  path?: string
+  noIndex?: boolean
+  schema?: object
+}
+
+const { title, description, path = '/', noIndex = false, schema } = Astro.props
+const url = new URL(path, 'https://siryushub.com').href
+---
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+{noIndex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={url} />}
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content="SIRYUS" />
+<meta property="og:image" content="https://siryushub.com/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+{schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Marcellus&family=Sora:wght@700&family=Unbounded:wght@600&display=swap" />

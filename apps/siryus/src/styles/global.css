@@ -35,7 +35,7 @@ img { display: block; max-width: 100%; }
 .top, .foot { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: clamp(1rem, 2.4vh, 1.75rem) var(--gutter); }
 .lockup { display: block; text-decoration: none; }
 .lockup img { height: clamp(3rem, 5vw, 4.4rem); width: auto; }
-.top h1 { margin: 0; font: 400 clamp(.95rem, 1.35vw, 1.3rem)/1.2 Marcellus, 'Times New Roman', serif; letter-spacing: .01em; text-align: right; text-wrap: balance; }
+.top h1, .tagline { margin: 0; font: 400 clamp(.95rem, 1.35vw, 1.3rem)/1.2 Marcellus, 'Times New Roman', serif; letter-spacing: .01em; text-align: right; text-wrap: balance; }
 .foot p { margin: 0; font-size: .75rem; line-height: 1.3; }
 .status { font-variant-numeric: tabular-nums; transition: opacity .25s; }
 
@@ -43,15 +43,27 @@ img { display: block; max-width: 100%; }
 .cosmos { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .orbit { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--ink); }
 .orbit #orbit-path { stroke-width: 1.2; opacity: .3; stroke-dasharray: 2 7; }
-.orbit .inner { stroke-width: .8; opacity: .18; }
+.orbit .inner { stroke-width: .8; opacity: .18; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 3.2s .2s var(--ease) forwards; }
 .traveller path { fill: var(--paper); stroke: var(--ink); stroke-width: 12; }
 .traveller path + path { stroke-width: 6; }
 .sparkle { position: absolute; fill: none; stroke: var(--ink); stroke-width: 1.1; stroke-linejoin: round; animation: twinkle 6s ease-in-out infinite; }
-.s1 { width: 1.4rem; top: 2.2rem; left: 34%; }
-.s2 { width: .8rem; top: 4.6rem; left: 39%; animation-delay: -2s; }
+.s1 { width: 1.4rem; top: 1.7rem; left: 46%; }
+.s2 { width: .8rem; top: 4.3rem; left: 50.5%; animation-delay: -2s; }
 .s3 { width: 1rem; top: 2.8rem; right: 31%; animation-delay: -4s; }
 .s4 { width: 1.15rem; bottom: 1.5rem; left: 57%; animation-delay: -3s; }
 @keyframes twinkle { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.6); opacity: .4; } }
+
+/* Hand-drawn doodles: a constellation, a ringed planet, a crescent moon and the odd shooting star. */
+.doodle { position: absolute; overflow: visible; fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.constellation { width: clamp(7rem, 12vw, 12rem); top: clamp(1.1rem, 2.6vh, 1.8rem); left: 21%; }
+.constellation polyline { stroke-width: .9; opacity: .55; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.6s .5s var(--ease) forwards; }
+.constellation .node { fill: var(--ink); stroke: none; transform-box: fill-box; transform-origin: center; animation: twinkle 5s ease-in-out infinite; animation-delay: calc(var(--n) * -.8s); }
+.planet { width: clamp(2.6rem, 4vw, 3.6rem); bottom: .65rem; left: 31%; }
+.planet circle { fill: var(--paper); }
+.moon { width: clamp(1.1rem, 1.6vw, 1.5rem); bottom: 1.1rem; right: 24%; }
+.meteor { position: absolute; top: 1rem; left: 60%; width: 6rem; height: 1px; background: linear-gradient(90deg, rgb(0 0 0 / 0), var(--ink)); opacity: 0; animation: meteor 12s 2.5s linear infinite; }
+@keyframes meteor { 0% { opacity: 0; transform: rotate(18deg) translateX(-5rem); } 2% { opacity: .8; } 7%, 100% { opacity: 0; transform: rotate(18deg) translateX(9rem); } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
 
 /* Print crop marks frame the stage like a proof sheet. */
 .crop { position: absolute; inset: clamp(.25rem, 1.5vh, 1rem) var(--gutter); pointer-events: none; }
@@ -115,6 +127,21 @@ img { display: block; max-width: 100%; }
 .shard:focus-visible .copy { outline: 2px solid var(--on-image); outline-offset: .6rem; }
 .shard:hover .media img, .shard:hover .ticks i::after { animation-play-state: paused; }
 
+/* 404: the same sky, one clear way back. */
+.lost { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem var(--gutter) 3rem; }
+.lost-code { margin: 0 0 1rem; font-size: .78rem; font-weight: 800; }
+.lost h1 { margin: 0; max-width: 14ch; font: 400 clamp(2.5rem, 6vw, 5.4rem)/1 Marcellus, 'Times New Roman', serif; text-wrap: balance; }
+.lost-note { margin: 1.25rem 0 0; max-width: 38ch; font-size: clamp(.95rem, 1.3vw, 1.1rem); line-height: 1.5; }
+.lost-worlds { list-style: none; margin: clamp(2rem, 5vh, 3.5rem) 0 0; padding: 0; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: .5rem clamp(1.5rem, 3.5vw, 3.25rem); }
+.lost-world { display: grid; justify-items: center; gap: .5rem; padding: .75rem .5rem; text-decoration: none; }
+.lost .lost-world .name { font-size: clamp(1.35rem, 2.2vw, 1.95rem); }
+.lost .lost-world.arc .name { font-size: clamp(1.05rem, 1.65vw, 1.45rem); }
+.lost .pavo { --accent: var(--ink); }
+.lost-world .go { margin-top: 0; }
+.lost-world:hover .go, .lost-world:focus-visible .go { background-size: 100% 2px; }
+.home { margin-top: clamp(1.75rem, 4vh, 2.75rem); padding: .9rem 1.5rem; border: 1px solid var(--ink); border-radius: 999px; font-size: .85rem; font-weight: 800; text-decoration: none; transition: background-color .3s, color .3s; }
+.home:hover, .home:focus-visible { background: var(--ink); color: var(--paper); }
+
 @keyframes rise { from { opacity: 0; transform: translateY(2.5rem); } to { opacity: 1; transform: none; } }
 @keyframes slide {
   0% { opacity: 0; transform: scale(1.12); }
@@ -142,6 +169,8 @@ img { display: block; max-width: 100%; }
   .signal .name { font-size: clamp(1.9rem, 5.8cqi, 3.2rem); }
   .pavo .name { font-size: clamp(1.5rem, 4.6cqi, 2.6rem); }
   .note { font-size: .82rem; }
+  .constellation { left: 24%; width: 7rem; }
+  .planet { left: 36%; }
 }
 
 /* Phone: four diagonal bands that fill the screen and interlock like the desktop shards. */
@@ -176,10 +205,27 @@ img { display: block; max-width: 100%; }
   .foot { padding-block: .9rem 1.1rem; }
   .status { display: none; }
   .s1 { left: 46%; top: 1.4rem; } .s2 { left: 52%; top: 3.2rem; } .s3 { display: none; } .s4 { left: 70%; bottom: 1.1rem; }
+  .constellation, .planet, .meteor { display: none; }
+  .moon { right: 1.25rem; bottom: 1.2rem; }
   .crop { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .media img:not(:first-child), .ticks, .traveller { display: none; }
+  .media img:not(:first-child), .ticks, .traveller, .meteor { display: none; }
+  .orbit .inner, .constellation polyline { stroke-dashoffset: 0; }
 }
+
+/* Legal pages and footer links. */
+.foot-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.5rem; }
+.legal-links { display: flex; gap: 1rem; font-size: .75rem; }
+.legal-links a { text-decoration: none; }
+.legal-links a:hover, .legal-links a:focus-visible { text-decoration: underline; }
+.legal-shell { min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; }
+.legal-shell .home { margin-top: 0; }
+.legal { width: 100%; max-width: 44rem; margin: 0 auto; padding: clamp(2rem, 6vh, 4rem) var(--gutter) 5rem; }
+.legal h1 { margin: 0 0 .75rem; font: 400 clamp(2.4rem, 5vw, 3.6rem)/1.05 Marcellus, 'Times New Roman', serif; }
+.legal h2 { margin: 2.5rem 0 .6rem; font: 400 1.45rem/1.2 Marcellus, 'Times New Roman', serif; }
+.legal p, .legal li { font-size: 1rem; line-height: 1.7; }
+.legal a { text-underline-offset: .2em; }
+.legal-page__meta { font-size: .8rem; font-weight: 800; }

@@ -1,106 +1,42 @@
 ---
 import '../styles/global.css'
+import Head from '../components/Head.astro'
+import Cosmos from '../components/Cosmos.astro'
+import { worlds } from '../data/worlds'
 
-type World = {
-  id: string
-  name: string
-  period?: boolean
-  note: string
-  href: string
-  domain: string
-  external?: boolean
-  logo?: { src: string; width: number; height: number }
-  images: string[]
+const title = 'SIRYUS | Different Worlds. One Creative Universe.'
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://siryushub.com/#organization',
+      name: 'Siryus Creative Media Ltd',
+      alternateName: 'SIRYUS',
+      url: 'https://siryushub.com/',
+      logo: 'https://siryushub.com/icon-512.png',
+      slogan: 'Different worlds. One creative universe.',
+      brand: worlds.filter((world) => !world.external).map((world) => ({ '@type': 'Brand', name: world.name + (world.period ? '.' : ''), url: world.href })),
+    },
+    { '@type': 'WebSite', '@id': 'https://siryushub.com/#website', name: 'SIRYUS', url: 'https://siryushub.com/', publisher: { '@id': 'https://siryushub.com/#organization' } },
+  ],
 }
-
-const worlds: World[] = [
-  {
-    id: 'am',
-    name: 'SIRYUS A.M',
-    note: 'Artist management, music and long-term growth.',
-    href: 'https://artists.siryushub.com',
-    domain: 'artists.siryushub.com',
-    logo: { src: '/brand/am/tile.png', width: 360, height: 333 },
-    images: ['/images/hero/siryus-violin.webp', '/images/hero/jlinez.webp', '/images/artists/max-prodigy.webp'],
-  },
-  {
-    id: 'arc',
-    name: 'ARC. Creatives',
-    note: 'Ascent. Refuge. Collective.',
-    href: 'https://collective.siryushub.com',
-    domain: 'collective.siryushub.com',
-    logo: { src: '/brand/arc/logo-on-dark.svg', width: 73, height: 77 },
-    images: ['/arc/hero-section.webp', '/arc/arc-mic.webp', '/arc/young-and-for-christ.jpg'],
-  },
-  {
-    id: 'signal',
-    name: 'SIGNAL',
-    period: true,
-    note: 'Story-led marketing and growth for brands.',
-    href: 'https://growth.siryushub.com',
-    domain: 'growth.siryushub.com',
-    logo: { src: '/brand/signal/symbol.png', width: 425, height: 355 },
-    images: ['/images/portal/signal-workshop.webp', '/images/portal/signal-planning.webp', '/images/portal/signal-wall.webp'],
-  },
-  {
-    id: 'pavo',
-    name: 'PAVO Create',
-    note: 'The software company behind PAVO, MusicSim, ATLAS and Trackr.',
-    href: 'https://pavocreate.com',
-    domain: 'pavocreate.com',
-    external: true,
-    images: ['/images/portal/pavo-code.webp', '/images/portal/pavo-laptop.webp', '/images/portal/pavo-devices.webp'],
-  },
-]
-
-const title = 'SIRYUS | Different worlds. One creative universe.'
 const description = 'SIRYUS is home to SIRYUS A.M, ARC. Creatives and SIGNAL., with PAVO Create alongside. Choose a world to enter.'
 ---
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href="https://siryushub.com/" />
-    <meta name="theme-color" content="#ffffff" />
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://siryushub.com/" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://siryushub.com/og.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Marcellus&family=Sora:wght@700&family=Unbounded:wght@600&display=swap" />
+    <Head title={title} description={description} schema={schema} />
   </head>
   <body>
     <a class="skip" href="#worlds">Skip to the worlds</a>
     <div class="portal">
-      <div class="cosmos" aria-hidden="true">
-        <svg class="orbit" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" focusable="false">
-          <path id="orbit-path" d="M30 520a770 455 -7 1 0 1540 0a770 455 -7 1 0 -1540 0" />
-          <path class="inner" d="M78 520a722 424 -7 1 0 1444 0a722 424 -7 1 0 -1444 0" />
-          <g class="traveller">
-            <g transform="scale(.13) translate(-748 -540)"><path d="M843.2,501.06c-23.91,29.7-37.92,67.43-37.57,107.87l-6.45-3.89l-79.27,68.77l23.71-102.23l-89.9-54.14l104.56-9.04l23.71-102.23l40.91,96.64L843.2,501.06z" /><path d="M814.64,519.79c-12.4,15.41-19.68,34.99-19.5,55.98l-3.35-2.02l-41.13,35.69l12.3-53.05l-46.65-28.09l54.26-4.69l12.3-53.05l21.23,50.15L814.64,519.79z" /></g>
-            <animateMotion dur="80s" repeatCount="indefinite" rotate="0"><mpath href="#orbit-path" /></animateMotion>
-          </g>
-        </svg>
-        <svg class="sparkle s1" viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-        <svg class="sparkle s2" viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-        <svg class="sparkle s3" viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-        <svg class="sparkle s4" viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-      </div>
+      <Cosmos />
       <header class="top">
         <a class="lockup" href="/" aria-label="SIRYUS home">
           <img src="/brand/siryus/lockup-black.png" width="1200" height="567" alt="SIRYUS" />
         </a>
-        <h1>Different worlds. One creative universe.</h1>
+        <h1>Different Worlds. One Creative Universe.</h1>
       </header>
 
       <main class="stage">
@@ -138,7 +74,10 @@ const description = 'SIRYUS is home to SIRYUS A.M, ARC. Creatives and SIGNAL., w
       </main>
 
       <footer class="foot">
-        <p>© 2026 Siryus Creative Media Ltd</p>
+        <div class="foot-meta">
+          <p>© 2026 Siryus Creative Media Ltd</p>
+          <nav class="legal-links" aria-label="Legal"><a href="/privacy-policy">Privacy</a><a href="/terms-of-use">Terms</a><a href="/cookie-policy">Cookies</a></nav>
+        </div>
         <p class="status" aria-hidden="true" data-default="siryushub.com">siryushub.com</p>
       </footer>
     </div>

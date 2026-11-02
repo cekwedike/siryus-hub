@@ -91,9 +91,5 @@ await iconSet('arc', arcSquare)
 await out(app('arc', 'favicon-arc.png'), await sharp(arcSquare).resize(512).png().toBuffer())
 await copyFile(arcSvg, app('siryus', 'brand', 'arc', 'logo-on-dark.svg'))
 
-console.log('Brand icons written for siryus, am, signal and arc.')
+console.log('Brand icons written for siryus, am, signal and arc. Social preview images are built by `pnpm og`.')
 
-// Social share card for the parent site.
-const ogLockup = await sharp(join(root, 'apps', 'siryus', 'public', 'brand', 'siryus', 'lockup-black.png')).resize({ width: 640 }).png().toBuffer()
-await sharp({ create: { width: 1200, height: 630, channels: 4, background: '#ffffff' } })
-  .composite([{ input: ogLockup, gravity: 'center' }]).png().toFile(app('siryus', 'og.png'))

@@ -1101,6 +1101,7 @@ body.arc-route.light-theme .arc-subscribe-form__submit {
   padding-inline: 0;
   border: 0;
   background: transparent;
+  color: var(--arc-accent);
   text-decoration: underline;
   text-underline-offset: 0.3em;
 }

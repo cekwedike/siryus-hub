@@ -1,0 +1,48 @@
+---
+import '../styles/global.css'
+import Head from '../components/Head.astro'
+import Cosmos from '../components/Cosmos.astro'
+import { worlds } from '../data/worlds'
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <Head title="Page not found | SIRYUS" description="This page moved or never existed. Choose a SIRYUS world to keep going." noIndex />
+  </head>
+  <body>
+    <div class="portal">
+      <Cosmos />
+      <header class="top">
+        <a class="lockup" href="/" aria-label="SIRYUS home">
+          <img src="/brand/siryus/lockup-black.png" width="1200" height="567" alt="SIRYUS" />
+        </a>
+        <p class="tagline">Different worlds. One Creative Universe.</p>
+      </header>
+
+      <main class="lost">
+        <p class="lost-code">Page not found</p>
+        <h1>This star isn't on our map.</h1>
+        <p class="lost-note">The page moved or never existed. Choose a world, or head back to the start.</p>
+        <ul class="lost-worlds">
+          {worlds.map((world) => (
+            <li>
+              <a class:list={['lost-world', world.id]} href={world.href} target={world.external ? '_blank' : undefined} rel={world.external ? 'noopener' : undefined}>
+                <span class="name">{world.name}{world.period && <span class="period" aria-hidden="true"></span>}</span>
+                <span class="go">{world.domain}{world.external && <span class="sr"> (opens in a new tab)</span>}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a class="home" href="/">Back to SIRYUS</a>
+      </main>
+
+      <footer class="foot">
+        <div class="foot-meta">
+          <p>© 2026 Siryus Creative Media Ltd</p>
+          <nav class="legal-links" aria-label="Legal"><a href="/privacy-policy">Privacy</a><a href="/terms-of-use">Terms</a><a href="/cookie-policy">Cookies</a></nav>
+        </div>
+        <p>siryushub.com</p>
+      </footer>
+    </div>
+  </body>
+</html>

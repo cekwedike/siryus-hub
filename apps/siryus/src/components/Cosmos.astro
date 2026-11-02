@@ -1,0 +1,39 @@
+---
+// Decorative celestial layer for the SIRYUS parent pages. Everything here is hidden from assistive tech.
+const starOuter = 'M843.2,501.06c-23.91,29.7-37.92,67.43-37.57,107.87l-6.45-3.89l-79.27,68.77l23.71-102.23l-89.9-54.14l104.56-9.04l23.71-102.23l40.91,96.64L843.2,501.06z'
+const starInner = 'M814.64,519.79c-12.4,15.41-19.68,34.99-19.5,55.98l-3.35-2.02l-41.13,35.69l12.3-53.05l-46.65-28.09l54.26-4.69l12.3-53.05l21.23,50.15L814.64,519.79z'
+const sparkle = 'M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z'
+const constellation: [number, number][] = [[6, 44], [50, 20], [94, 36], [138, 12], [182, 30], [214, 52]]
+---
+<div class="cosmos" aria-hidden="true">
+  <svg class="orbit" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <path id="orbit-path" d="M30 520a770 455 -7 1 0 1540 0a770 455 -7 1 0 -1540 0" />
+    <path class="inner" pathLength="1" d="M78 520a722 424 -7 1 0 1444 0a722 424 -7 1 0 -1444 0" />
+    <g class="traveller">
+      <g transform="scale(.13) translate(-748 -540)"><path d={starOuter} /><path d={starInner} /></g>
+      <animateMotion dur="80s" repeatCount="indefinite" rotate="0"><mpath href="#orbit-path" /></animateMotion>
+    </g>
+  </svg>
+
+  <svg class="doodle constellation" viewBox="0 0 220 64" focusable="false">
+    <polyline pathLength="1" points={constellation.map((p) => p.join(',')).join(' ')} />
+    {constellation.map(([x, y], i) => <circle class="node" cx={x} cy={y} r={i === 3 ? 3.4 : 2.2} style={`--n:${i}`} />)}
+  </svg>
+
+  <svg class="doodle planet" viewBox="0 0 64 40" focusable="false">
+    <ellipse cx="32" cy="20" rx="28" ry="6" transform="rotate(-14 32 20)" />
+    <circle cx="32" cy="20" r="9" />
+    <path d="M59.17 13.23A28 6 -14 0 1 4.83 26.77" />
+  </svg>
+
+  <svg class="doodle moon" viewBox="0 0 30 30" focusable="false">
+    <path d="M19 3a12 12 0 1 0 9 17A10 10 0 0 1 19 3Z" />
+  </svg>
+
+  <span class="meteor"></span>
+
+  <svg class="sparkle s1" viewBox="0 0 24 24"><path d={sparkle} /></svg>
+  <svg class="sparkle s2" viewBox="0 0 24 24"><path d={sparkle} /></svg>
+  <svg class="sparkle s3" viewBox="0 0 24 24"><path d={sparkle} /></svg>
+  <svg class="sparkle s4" viewBox="0 0 24 24"><path d={sparkle} /></svg>
+</div>

@@ -139,8 +139,8 @@ SIRYUS portal
 - `og.png` and social meta were added.
 
 Known issues, not changed
-- ARC pages link to `/about`, `/artists`, `/contact` and `/arc`, which do not exist in the standalone ARC app. These are leftovers from the old combined site. They need a decision before ARC is touched.
-- `package.json` pins `packageManager: pnpm@12.15.0`. On this machine that pnpm install fails to start, so builds were run with `astro build` directly in each app.
+- ARC broken links: resolved later the same day (see below).
+- Resolved later the same day: see "Fixes, 404 pages and more parent doodles".
 
 ## 2026-11-02: user corrections and parent decoration
 
@@ -149,3 +149,40 @@ Known issues, not changed
 - SIGNAL.'s period is circular, matching the approved lockups. The earlier "square period" rule in AGENTS.md and the docs was updated to match.
 - The parent favicon is the Siryus Creative Media Ltd star, not the SIRYUS A.M hexagon. These are separate logos.
 - Parent decoration: a dotted double orbit (echoing the double outline of the logo star) frames the worlds, a small SIRYUS star travels it every 80 seconds, four outline sparkles twinkle in the open space, and print crop marks frame the stage on tablet and desktop. All are decorative (`aria-hidden`), and reduced motion stops the travelling star and twinkles.
+
+## 2026-11-02: fixes, 404 pages and more parent doodles
+
+Fixes
+- pnpm: the pinned pnpm 12.15.0 ships a native binary that its Windows launcher cannot start. `packageManager` is now `pnpm@11.25.0`, which reads the same lockfile (format 9.0). `pnpm install --frozen-lockfile`, `pnpm build` and `pnpm check` all pass, and the lockfile is unchanged.
+- ARC. home links pointed to `/arc`, which does not exist on the standalone ARC. site. They now point to `/`, and the nav "Home" active state follows.
+- ARC. primary bridge pill: a later override stripped its background and left dark text on a dark band (also visible on About). It now uses the ARC. accent colour, like the other pills. No other ARC. styling changed.
+- A link check over every built page in all four apps reports no missing internal targets.
+
+404 pages (each site's own design)
+- SIRYUS: "This star isn't on our map." in Marcellus, with the same orbit and doodles, links to the four worlds in their brand fonts, and a way back home. Marked `noindex`.
+- SIRYUS A.M: "This track isn't on the record." with a spinning record and a numbered tracklist of real pages, in A.M's Cenzo, blue, coral and yellow.
+- SIGNAL.: "Signal lost." with broadcast rings rippling from the round red dot, plus editorial page rows in DM Serif Display.
+- ARC. Creatives: "Lost, but not for long." It reuses ARC.'s own hero, glass panel and bridge pills, and gets the same reveal script as other ARC. pages.
+
+Parent refinements
+- Shared parts moved into `components/Head.astro`, `components/Cosmos.astro` and `data/worlds.ts`, so the homepage and 404 stay in sync.
+- New doodles: a constellation that draws in, a ringed planet, a crescent moon and an occasional shooting star. The inner orbit now draws itself on load. Phones keep the moon and sparkles only. Reduced motion shows every line already drawn, with nothing moving.
+
+Still waiting on the user
+- PAVO Create logo, typeface and product imagery. The card uses Sora and stock photos until then.
+
+## 2026-11-02: production SEO
+
+- Every site now has a canonical URL on its own host, Open Graph and Twitter tags, a 1200 x 630 share image, `robots.txt` pointing to its sitemap, `_headers` with security and caching rules, and `noindex` on 404 pages and `*.pages.dev` previews.
+- Share images are designed per brand and rendered by `pnpm og` (`scripts/build-og-images.mjs`) with each brand's fonts, logo, photography and copy. ARC. articles and events use their own Sanity cover image, requested as JPEG.
+- Structured data: SIRYUS describes Siryus Creative Media Ltd with SIRYUS A.M, ARC. Creatives and SIGNAL. as brands. PAVO Create is left out, so no ownership is claimed. A.M and SIGNAL. each describe their organization, with Siryus Creative Media Ltd as parent, plus their WebSite.
+- ARC. canonical, schema and share URLs moved from `www.siryushub.com/arc` to `collective.siryushub.com`. Its "Back to" links now go to `siryushub.com` and read "Back to SIRYUS".
+- ARC. had been building without Sanity settings and showed developer placeholder text on Journal, Events, FAQ and Supporters. `apps/arc/.env.local` now holds the public Sanity identifiers, and ARC. builds 28 pages, including 14 articles and 2 events. Long CMS excerpts are trimmed to about 160 characters for meta tags only.
+- Old `www.siryushub.com` URLs have 301s in `apps/siryus/public/_redirects`. ARC.'s `_redirects` now holds only rules for its own host.
+- Privacy, terms and cookie pages were carried over word for word to `siryushub.com`, kept `noindex` and out of the sitemap, and linked from every site's footer. ARC.'s newsletter collects email addresses, so these must stay live.
+- Thin page descriptions on A.M and SIGNAL. were rewritten.
+
+NEEDS CONFIRMATION before the apex moves
+- The three old A.M blog articles have no new home yet. They redirect to the A.M Journal page, which loses their individual search ranking unless the articles are rebuilt on `artists.siryushub.com`.
+- Old `/contact` and `/services` redirect to the SIRYUS homepage.
+- The legal text dates from March 2025 and names Nigeria as the place of incorporation. Owner review is needed.

@@ -4,4 +4,4 @@ Allow: /
 Disallow: /studio/
 Disallow: /api/
 
-Sitemap: https://www.siryushub.com/sitemap-index.xml
+Sitemap: https://collective.siryushub.com/sitemap-index.xml
