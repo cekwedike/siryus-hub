@@ -93,3 +93,32 @@ await copyFile(arcSvg, app('siryus', 'brand', 'arc', 'logo-on-dark.svg'))
 
 console.log('Brand icons written for siryus, am, signal and arc. Social preview images are built by `pnpm og`.')
 
+
+// SIRYUS A.M site header/footer mark (white tile for its charcoal surfaces).
+await out(app('am', 'brand', 'mark.png'), await sharp(amMark).resize({ width: 112 }).png({ compressionLevel: 9, palette: true }).toBuffer())
+
+// SIGNAL. lockups for the growth site. For light backgrounds the approved light reference render is
+// converted colour-to-alpha against its stone background, so all three path colours and the red period
+// survive with soft edges. The dark lockup is the approved transparent export.
+{
+  const ref = sharp(join(logos, 'SIGNAL', 'REFERENCE-approved-light-full.png'))
+  const { data, info } = await ref.ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  const bg = [0, 1, 2].map((c) => data[(10 * info.width + 10) * 4 + c])
+  for (let i = 0; i < data.length; i += 4) {
+    let a = 0
+    for (let c = 0; c < 3; c++) {
+      const p = data[i + c], b = bg[c]
+      a = Math.max(a, p > b ? (p - b) / (255 - b || 1) : (b - p) / (b || 1))
+    }
+    if (a < 0.08) a = 0
+    for (let c = 0; c < 3; c++) data[i + c] = a > 0 ? Math.round(Math.min(255, Math.max(0, (data[i + c] - bg[c]) / a + bg[c]))) : 0
+    data[i + 3] = Math.round(Math.min(1, a * 1.15) * 255)
+  }
+  const lightLockup = await sharp(data, { raw: info }).png().toBuffer()
+  const src = join(logos, 'SIGNAL', 'signal-horizontal-transparent-for-dark.png')
+  for (const [name, input] of [['lockup-light', lightLockup], ['lockup-dark', await sharp(src).png().toBuffer()]]) {
+    const trimmed = await sharp(input).trim().toBuffer()
+    await out(app('signal', 'brand', 'signal', `${name}.webp`), await sharp(trimmed).resize({ width: 520 }).webp({ quality: 90, alphaQuality: 100 }).toBuffer())
+  }
+  await out(app('signal', 'brand', 'signal', 'symbol.webp'), await sharp(join(logos, 'SIGNAL', 'signal-symbol-transparent.png')).resize({ width: 160 }).webp({ quality: 90 }).toBuffer())
+}

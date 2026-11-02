@@ -1,0 +1,41 @@
+---
+import Site from '../../layouts/Site.astro'
+import { getRoster, img, srcset } from '../../lib/sanity'
+
+const roster = await getRoster()
+---
+<Site title="Artists" description={`Meet ${roster.map((a) => a.name).join(' and ')}, the artists managed by SIRYUS A.M.`}>
+  <header class="page-hero">
+    <div class="wrap">
+      <h1>Artists with a world of their own.</h1>
+      <p>We keep the roster small by choice. Every artist gets real time, a plan built around who they are, and a team that stays close to the work.</p>
+    </div>
+  </header>
+  <section class="section dark">
+    <div class="wrap roster">
+      {roster.map((artist) => (
+        <a class="artist-card" href={`/artists/${artist.slug}`}>
+          <div class="hex">
+            <img src={img(artist.photo, 760, 658)} srcset={srcset(artist.photo, [480, 760, 1000], 0.866)} sizes="(max-width: 44rem) 92vw, 45vw" alt={artist.name} width="760" height="658" />
+          </div>
+          <div>
+            <h2 class="sr">{artist.name}</h2>
+            <h3 aria-hidden="true">{artist.name}</h3>
+            <p class="line">{artist.oneLiner}</p>
+            <ul class="genres">{artist.genre?.map((g) => <li>{g}</li>)}</ul>
+            <span class="more">Read {artist.name}'s story</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap closing">
+      <h2>Not on the roster? We can still help.</h2>
+      <div>
+        <p>Most of our work is with independent artists who want distribution, a release plan or marketing support. You do not need to be managed by us to work with us.</p>
+        <a class="btn btn-ink" href="/services">See what we do</a>
+      </div>
+    </div>
+  </section>
+</Site>

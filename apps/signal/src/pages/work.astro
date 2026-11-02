@@ -1,4 +1,43 @@
 ---
 import Site from '../layouts/Site.astro'
+import Paths from '../components/Paths.astro'
+
+const briefs = [
+  ['Launch something new', 'A product, a service, an event or a release that needs to land with the right people from day one.', 'Story, launch plan, campaign assets, email', 'A clear message and a rollout your team can run'],
+  ['Make a brand make sense', 'You have grown, changed or drifted, and people are no longer sure what you stand for.', 'Story, positioning, messaging, website copy', 'One sentence everyone can say, and the words to back it up'],
+  ['Run a campaign', 'You have a moment, a season or a goal, and need an idea strong enough to carry it.', 'Concept, content, paid social, reporting', 'Work that moves across channels and a report you can read'],
+  ['Keep people close', 'People find you once and then forget you. You want them to come back.', 'Email and CRM journeys, content calendar', 'Useful messages people are glad to open'],
+]
 ---
-<Site title="Work" description="See how SIGNAL. approaches story-led campaigns, content and growth work."><header class="page-head"><h1>Work should prove the idea.</h1><p>We will only publish client work with permission. Until then, this space explains the kind of problems we solve without inventing case studies.</p></header><section class="case"><img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1600&q=88" alt="Colorful campaign ideas displayed on a large wall"/><div><h2>Built around real goals.</h2><p>Launch a new offer. Clarify a brand. Build a campaign. Create a better customer journey. The form follows the problem.</p></div></section></Site>
+<Site title="Work" description="The kinds of projects SIGNAL. takes on: launches, brand messaging, campaigns and customer journeys. Client work is shown only with permission.">
+  <header class="page-hero">
+    <div class="wrap">
+      <h1>The work should prove the idea.</h1>
+      <p>We publish client work only with permission, so we do not fill this page with mock-ups. Instead, here are the problems we are built to solve.</p>
+    </div>
+    <Paths />
+  </header>
+  <section class="section">
+    <div class="wrap briefs">
+      {briefs.map(([title, problem, scope, result]) => (
+        <article class="brief">
+          <h2 style="font:clamp(1.6rem,2.4vw,2.1rem)/1.05 var(--serif);margin-bottom:.8rem">{title}</h2>
+          <p>{problem}</p>
+          <dl>
+            <dt>What we usually do</dt><dd>{scope}</dd>
+            <dt>What you walk away with</dt><dd>{result}</dd>
+          </dl>
+        </article>
+      ))}
+    </div>
+  </section>
+  <section class="section dark">
+    <div class="wrap closing">
+      <h2>Want to see more?</h2>
+      <div>
+        <p>Ask us. We are happy to walk you through relevant work on a call, with our clients' permission.</p>
+        <a class="button light" href="/contact">Book a conversation</a>
+      </div>
+    </div>
+  </section>
+</Site>

@@ -1,4 +1,23 @@
 ---
 import Site from '../layouts/Site.astro'
+import ContactForm from '../components/ContactForm.astro'
 ---
-<Site title="Contact" description="Talk to SIRYUS A.M about management, marketing or development for your music. Tell us where you are and where you want to go."><header class="page-head"><h1>Start with the music.</h1><p>Tell us who you are, what you are building and why now feels like the right time to talk.</p></header><div class="prose"><p>Email <a href="mailto:hello@siryushub.com">hello@siryushub.com</a></p></div></Site>
+<Site title="Contact" description="Start a release with SIRYUS A.M. Tell us about your music, your release date and what you need: distribution, marketing, production or management.">
+  <header class="page-hero">
+    <div class="wrap">
+      <h1>Start with the music.</h1>
+      <p>Tell us who you are, what you are releasing and where you need help. A real person reads every message.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap contact-grid">
+      <ContactForm />
+      <aside class="contact-aside">
+        <h2>Good to know</h2>
+        <p>Send new music at least three weeks before release day. It gives us time to set it up properly and pitch it.</p>
+        <p>Prefer email? Write to <a href="mailto:management@siryushub.com">management@siryushub.com</a>.</p>
+        <p>We usually reply within two working days.</p>
+      </aside>
+    </div>
+  </section>
+</Site>

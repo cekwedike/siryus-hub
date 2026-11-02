@@ -1,0 +1,30 @@
+---
+import Site from '../../layouts/Site.astro'
+import Collective from '../../components/Collective.astro'
+import { getProjects, img, srcset } from '../../lib/sanity'
+
+const projects = await getProjects()
+const cover = (p: (typeof projects)[number]) => (p.slug === 'indiba-project-series' ? p.galleryImages?.[0] ?? p.coverImage : p.coverImage)
+---
+<Site title="Projects" description="SIRYUS A.M projects: the Indiba Project Series music incubator, the Abditory Sessions and the collective's own releases.">
+  <header class="page-hero">
+    <div class="wrap">
+      <h1>Projects that build careers.</h1>
+      <p>Some of our best work happens when artists are in the room together. These projects are where that happens.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap projects">
+      {projects.map((project) => (
+        <a class="project-card" href={`/projects/${project.slug}`}>
+          <img src={img(cover(project), 1100, 760)} srcset={srcset(cover(project), [600, 1100, 1500], 0.69)} sizes="(max-width: 52rem) 92vw, 55vw" alt="" width="1100" height="760" />
+          <span class="status">{project.status}</span>
+          <h2 class="sr">{project.title}</h2>
+          <h3 aria-hidden="true">{project.title}</h3>
+          <p>{project.excerpt}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+  <Collective />
+</Site>

@@ -26,9 +26,9 @@ import { worlds } from '../data/worlds'
         <ul class="lost-worlds">
           {worlds.map((world) => (
             <li>
-              <a class:list={['lost-world', world.id]} href={world.href} target={world.external ? '_blank' : undefined} rel={world.external ? 'noopener' : undefined}>
+              <a class:list={['lost-world', world.id]} href={world.href} target="_blank" rel="noopener">
                 <span class="name">{world.name}{world.period && <span class="period" aria-hidden="true"></span>}</span>
-                <span class="go">{world.domain}{world.external && <span class="sr"> (opens in a new tab)</span>}</span>
+                <span class="go">{world.domain}<span class="sr"> (opens in a new tab)</span></span>
               </a>
             </li>
           ))}

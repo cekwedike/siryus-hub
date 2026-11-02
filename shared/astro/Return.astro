@@ -1,0 +1,21 @@
+---
+// "Back to SIRYUS": the shared way home from every SIRYUS world. Each site styles .return in its own voice.
+interface Props { variant?: 'strip' | 'footer'; label?: string }
+const { variant = 'strip', label = 'Back to SIRYUS' } = Astro.props
+const outer = 'M843.2,501.06c-23.91,29.7-37.92,67.43-37.57,107.87l-6.45-3.89l-79.27,68.77l23.71-102.23l-89.9-54.14l104.56-9.04l23.71-102.23l40.91,96.64L843.2,501.06z'
+const inner = 'M814.64,519.79c-12.4,15.41-19.68,34.99-19.5,55.98l-3.35-2.02l-41.13,35.69l12.3-53.05l-46.65-28.09l54.26-4.69l12.3-53.05l21.23,50.15L814.64,519.79z'
+---
+{variant === 'strip' ? (
+  <div class="return return--strip">
+    <a href="https://siryushub.com">
+      <svg viewBox="640 396 216 288" aria-hidden="true"><path d={outer} /><path d={inner} /></svg>
+      <span class="return-label">{label}</span>
+      <span class="return-note">Different worlds. One creative universe.</span>
+    </a>
+  </div>
+) : (
+  <a class="return return--footer" href="https://siryushub.com">
+    <svg viewBox="640 396 216 288" aria-hidden="true"><path d={outer} /><path d={inner} /></svg>
+    <span><small>A world of</small> SIRYUS</span>
+  </a>
+)}

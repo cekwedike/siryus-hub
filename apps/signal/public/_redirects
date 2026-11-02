@@ -1,0 +1,3 @@
+# Insights returns when there is writing to publish.
+/insights      /      302
+/insights/*    /      302

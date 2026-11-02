@@ -1,6 +1,10 @@
-@font-face { font-family: Machina; src: url('/fonts/NeueMachina-Regular.otf') format('opentype'); font-display: swap; }
-@font-face { font-family: Machina; src: url('/fonts/NeueMachina-Ultrabold.otf') format('opentype'); font-weight: 800; font-display: swap; }
-@font-face { font-family: Cenzo; src: url('/fonts/cenzo.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: Machina; src: url('/fonts/machina-regular.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: Machina; src: url('/fonts/machina-ultrabold.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+@font-face { font-family: Cenzo; src: url('/fonts/cenzo.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'DM Serif Display'; src: url('/fonts/dm-serif-display.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Marcellus'; src: url('/fonts/marcellus.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Sora'; src: url('/fonts/sora-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Unbounded'; src: url('/fonts/unbounded-600.woff2') format('woff2'); font-weight: 600; font-display: swap; }
 
 :root {
   --paper: #ffffff;

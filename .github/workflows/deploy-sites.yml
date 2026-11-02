@@ -1,0 +1,105 @@
+# Builds and deploys the three direct-upload Cloudflare Pages projects.
+# siryushub.com (siryus-hub) is not here: Cloudflare builds it from Git on its own.
+#
+# Triggers:
+#   - a push to main that touches a site's files deploys that site;
+#   - "Run workflow" in the Actions tab deploys any site by hand;
+#   - a Sanity webhook (repository_dispatch, type "sanity-publish") rebuilds the content sites.
+#
+# Repository secrets needed: CLOUDFLARE_API_TOKEN (Pages: Edit) and CLOUDFLARE_ACCOUNT_ID.
+name: Deploy sites
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/am/**'
+      - 'apps/signal/**'
+      - 'apps/arc/**'
+      - 'shared/**'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/deploy-sites.yml'
+  workflow_dispatch:
+    inputs:
+      site:
+        description: Which site to deploy
+        type: choice
+        options: [all, am, signal, arc]
+        default: all
+  repository_dispatch:
+    types: [sanity-publish]
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      sites: ${{ steps.pick.outputs.sites }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - id: pick
+        shell: bash
+        run: |
+          all='["am","signal","arc"]'
+          case "${{ github.event_name }}" in
+            workflow_dispatch)
+              site="${{ inputs.site }}"
+              [ "$site" = all ] && echo "sites=$all" >> "$GITHUB_OUTPUT" || echo "sites=[\"$site\"]" >> "$GITHUB_OUTPUT"
+              exit 0 ;;
+            repository_dispatch)
+              # Sanity content feeds A.M (artists, projects, journal) and ARC. (blog, events).
+              echo 'sites=["am","arc"]' >> "$GITHUB_OUTPUT"; exit 0 ;;
+          esac
+          files=$(git diff --name-only HEAD~1 HEAD || true)
+          if echo "$files" | grep -qE '^(shared/|pnpm-lock.yaml|\.github/)'; then echo "sites=$all" >> "$GITHUB_OUTPUT"; exit 0; fi
+          picked=()
+          for s in am signal arc; do echo "$files" | grep -q "^apps/$s/" && picked+=("\"$s\""); done
+          echo "sites=[$(IFS=,; echo "${picked[*]}")]" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: changes
+    if: needs.changes.outputs.sites != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        site: ${{ fromJson(needs.changes.outputs.sites) }}
+    env:
+      # Public Sanity identifiers (also visible in the browser). Not secrets.
+      PUBLIC_SANITY_PROJECT_ID: h16wl0pr
+      PUBLIC_SANITY_DATASET: production
+      PUBLIC_SANITY_ARC_PROJECT_ID: qi12mdx6
+      PUBLIC_SANITY_ARC_DATASET: production
+      PUBLIC_CANONICAL_ORIGIN: https://collective.siryushub.com
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build
+        run: |
+          case "${{ matrix.site }}" in
+            am) pnpm --filter @siryus/am build ;;
+            signal) pnpm --filter @siryus/signal build ;;
+            arc) pnpm --filter @siryus/arc build ;;
+          esac
+      - name: Deploy to Cloudflare Pages
+        working-directory: apps/${{ matrix.site }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          case "${{ matrix.site }}" in
+            am) project=siryus-artists ;;
+            signal) project=siryus-growth ;;
+            arc) project=siryus-collective ;;
+          esac
+          npx --yes wrangler@4 pages deploy dist --project-name "$project" --branch main --commit-dirty=true

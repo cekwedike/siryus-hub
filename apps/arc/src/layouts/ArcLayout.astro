@@ -1,4 +1,5 @@
 ---
+import SiryusStar from '../components/SiryusStar.astro';
 import '../styles/arc-fonts.css';
 import '../styles/arc-blog.css';
 import ArcFooter from '../components/ArcFooter.astro';
@@ -75,6 +76,7 @@ const inArcHome = currentPath === '/';
 
 <!DOCTYPE html>
 <html lang="en" class="layout-html">
+  <Fragment set:html={'<!--email_off-->'} />
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -124,7 +126,7 @@ const inArcHome = currentPath === '/';
         <a href="/arc/supporters" class={inSupporters ? 'is-active' : undefined}>Supporters</a>
         <a href="/arc/faq" class={inFaq ? 'is-active' : undefined}>FAQ</a>
         <a href="/arc/subscribe" class={inSubscribe ? 'is-active' : undefined}>Letter</a>
-        <a href="https://siryushub.com">Back to SIRYUS</a>
+        <a class="arc-siryus" href="https://siryushub.com"><SiryusStar />Back to SIRYUS</a>
       </div>
       <button
         type="button"
@@ -167,7 +169,7 @@ const inArcHome = currentPath === '/';
           <a href="/arc/supporters" class={`arc-mobile-nav__link ${inSupporters ? 'is-active' : ''}`.trim()}>Supporters</a>
           <a href="/arc/faq" class={`arc-mobile-nav__link ${inFaq ? 'is-active' : ''}`.trim()}>FAQ</a>
           <a href="/arc/subscribe" class={`arc-mobile-nav__link ${inSubscribe ? 'is-active' : ''}`.trim()}>Letter</a>
-          <a href="https://siryushub.com" class="arc-mobile-nav__link arc-mobile-nav__link--siryus">Back to SIRYUS</a>
+          <a href="https://siryushub.com" class="arc-mobile-nav__link arc-mobile-nav__link--siryus arc-siryus"><SiryusStar />Back to SIRYUS</a>
         </div>
       </div>
     </div>
@@ -177,6 +179,7 @@ const inArcHome = currentPath === '/';
     </main>
     <ArcFooter />
   </body>
+  <Fragment set:html={'<!--/email_off-->'} />
 </html>
 
 <style is:global>

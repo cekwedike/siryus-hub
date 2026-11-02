@@ -1,4 +1,177 @@
 ---
 import Site from '../layouts/Site.astro'
+import Bars from '../components/Bars.astro'
+import Collective from '../components/Collective.astro'
+import { getRoster, getProjects, getPosts, img, srcset, date } from '../lib/sanity'
+
+const [roster, projects, posts] = await Promise.all([getRoster(), getProjects(), getPosts()])
+const indiba = projects.find((p) => p.slug === 'indiba-project-series')
+const projectImage = (p: (typeof projects)[number]) => (p.slug === 'indiba-project-series' ? p.galleryImages?.[0] ?? p.coverImage : p.coverImage)
+
+const path = [
+  ['Make it', 'Produce with Jlinez if you need a producer. Mixing and mastering included, and you own the song.'],
+  ['Release it', 'We deliver your music to Spotify, Apple Music, Audiomack, YouTube Music and the other major stores, with your details set up right.'],
+  ['Pitch it', 'Editorial pitches and outreach to independent curators. Honest work, never a bought or promised placement.'],
+  ['Grow it', 'Rollout plans, content ideas and paid campaigns. You approve every budget before any money is spent.'],
+  ['Track it', 'Quarterly reports with streams, listeners, income and screenshots straight from the distribution dashboard.'],
+]
+const principles = [
+  ['You keep your masters.', 'Distribution gives us permission to release your music. It never gives us ownership of it.'],
+  ['No hidden fees.', 'What you pay is written down before work starts. Nothing is quietly taken out of your royalties.'],
+  ['You approve the money.', 'Every marketing budget comes with a breakdown, and receipts and results come back after.'],
+  ['You see the numbers.', 'Everything we can see about your releases, you can see too. Ask about any figure and we answer.'],
+]
 ---
-<Site title="Artists need more than noise" description="SIRYUS A.M supports artists with management, marketing, development and music projects."><section class="hero"><div class="hero-copy"><h1>Build the<br/><span>artist.</span><br/>Move the<br/>music.</h1><p>We help artists make clear moves, grow their audience and build careers that can last.</p></div><div class="hero-media"><img src="/images/artists/max-prodigy.webp" alt="Max Prodigy in a vivid red portrait"/><span class="stamp">Current roster<br/>02 artists</span></div></section><section class="section"><h2>Our artists</h2><div class="roster"><article class="artist"><img src="/images/artists/max-prodigy.webp" alt="Max Prodigy"/><div><h3>Max Prodigy</h3><p>Artist, producer and creative voice.</p></div></article><article class="artist"><img src="/images/hero/jlinez.webp" alt="Jlinez"/><div><h3>Jlinez</h3><p>Artist building a sound with heart and range.</p></div></article></div></section><section class="section statement"><h2>We stay close to the work.</h2><p>Good growth starts with a real story, strong music and a plan that fits the artist. We bring those parts together.</p></section><section class="section"><h2>What we do</h2><div class="cards"><article class="card"><h3>Management</h3><p>Clear choices, useful support and a plan for the full career.</p></article><article class="card"><h3>Marketing</h3><p>Campaigns that help the right people find and remember the music.</p></article><article class="card"><h3>Development</h3><p>Hands-on work around sound, identity, releases and audience growth.</p></article></div></section></Site>
+<Site
+  title="SIRYUS A.M"
+  description="SIRYUS A.M is a music management company for independent artists. Distribution, release strategy, playlist pitching, marketing and artist development, with you keeping your masters."
+>
+  <section class="hero">
+    <div class="hero-copy">
+      <h1>Your music, managed end to end.</h1>
+      <p>We release your songs, plan the rollout, pitch them to playlists and market the music. You keep your masters and see every number.</p>
+      <div class="hero-actions">
+        <a class="btn btn-ink" href="/contact">Start a release</a>
+        <a class="link" href="/artists">Meet the roster</a>
+      </div>
+    </div>
+    <div class="hero-stage">
+      <span class="hex-outline" aria-hidden="true"></span>
+      <div class="hex" data-rotate>
+        {roster.map((artist, i) => (
+          <img
+            class={i === 0 ? 'on' : undefined}
+            src={img(artist.photo, 640, 554)}
+            srcset={srcset(artist.photo, [420, 640, 900], 0.866)}
+            sizes="(max-width: 56rem) 90vw, 40vw"
+            alt={`${artist.name}, SIRYUS A.M artist`}
+            width="640"
+            height="554"
+            fetchpriority={i === 0 ? 'high' : undefined}
+            loading={i === 0 ? 'eager' : 'lazy'}
+          />
+        ))}
+      </div>
+      <p class="hero-caption"><Bars count={9} /><span>Now managing {roster.map((a) => a.name).join(' and ')}</span></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="path-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="path-title">From studio to streams.</h2>
+        <p>Pick the parts you need. Some artists only want distribution. Others want the whole path, from the first beat to the quarterly report.</p>
+      </div>
+      <ol class="path">
+        {path.map(([title, copy]) => (
+          <li><h3>{title}</h3><p>{copy}</p></li>
+        ))}
+      </ol>
+      <p class="note"><a class="link" href="/services">See everything we do</a></p>
+    </div>
+  </section>
+
+  <section class="section dark" aria-labelledby="roster-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="roster-title">The roster.</h2>
+        <p>We manage a small roster on purpose. It means real time with every artist, and plans built around the person as well as the music.</p>
+      </div>
+      <div class="roster">
+        {roster.map((artist) => (
+          <a class="artist-card" href={`/artists/${artist.slug}`}>
+            <div class="hex">
+              <img src={img(artist.photo, 760, 658)} srcset={srcset(artist.photo, [480, 760, 1000], 0.866)} sizes="(max-width: 44rem) 92vw, 45vw" alt={artist.name} width="760" height="658" loading="lazy" decoding="async" />
+            </div>
+            <div>
+              <h3>{artist.name}</h3>
+              <p class="line">{artist.oneLiner}</p>
+              <ul class="genres">{artist.genre?.map((g) => <li>{g}</li>)}</ul>
+              <span class="more">Read {artist.name}'s story</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Collective />
+
+  <section class="section lime" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="how-title">How we work with you.</h2>
+        <p>These promises are written into every agreement we sign. Nothing is hidden, and nothing applies unless it is on paper.</p>
+      </div>
+      <div class="principles">
+        {principles.map(([title, copy]) => (
+          <div><h3>{title}</h3><p>{copy}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="projects-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="projects-title">Projects that build careers.</h2>
+        <p>{indiba?.excerpt}</p>
+      </div>
+      <div class="projects">
+        {projects.map((project) => (
+          <a class="project-card" href={`/projects/${project.slug}`}>
+            <img src={img(projectImage(project), 1100, 760)} srcset={srcset(projectImage(project), [600, 1100, 1500], 0.69)} sizes="(max-width: 52rem) 92vw, 55vw" alt="" width="1100" height="760" loading="lazy" decoding="async" />
+            <span class="status">{project.status}</span>
+            <h3>{project.title}</h3>
+            <p>{project.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section mist" aria-labelledby="journal-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="journal-title">From the journal.</h2>
+          <p>Straight talk on marketing, rights and the life behind the music, written for independent artists.</p>
+        </div>
+        <div class="posts">
+          {posts.map((post) => (
+            <a class="post-card" href={`/journal/${post.slug}`}>
+              <div class="cover"><img src={img(post.coverImage, 720, 450)} srcset={srcset(post.coverImage, [420, 720], 0.625)} sizes="(max-width: 38rem) 92vw, (max-width: 60rem) 45vw, 30vw" alt="" width="720" height="450" loading="lazy" decoding="async" /></div>
+              <p class="meta">{post.category} · {date(post.publishedAt)}</p>
+              <h3>{post.title}</h3>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section dark" aria-labelledby="closing-title">
+    <div class="wrap closing">
+      <h2 id="closing-title">Got a release coming?</h2>
+      <div>
+        <p>Send it to us at least three weeks before release day. That gives us time to set it up properly and pitch it to playlists.</p>
+        <a class="btn btn-lime" href="/contact">Start a release</a>
+      </div>
+    </div>
+  </section>
+</Site>
+
+<script>
+  // Slowly alternate the roster portraits in the hero. Skipped when motion is reduced.
+  const frame = document.querySelector('[data-rotate]')
+  const shots = frame ? [...frame.querySelectorAll('img')] : []
+  if (shots.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let i = 0
+    setInterval(() => {
+      if (document.hidden) return
+      shots[i].classList.remove('on')
+      i = (i + 1) % shots.length
+      shots[i].classList.add('on')
+    }, 5000)
+  }
+</script>

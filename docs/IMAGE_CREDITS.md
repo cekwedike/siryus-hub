@@ -51,3 +51,18 @@ The SIRYUS portal cards no longer hotlink Unsplash. `scripts/fetch-portal-photos
 - `pavo-devices.webp`: `https://images.unsplash.com/photo-1551650975-87deedd944c3`
 
 PAVO Create imagery is placeholder stock until PAVO Create supplies its own product media.
+
+## SIGNAL. by SIRYUS (growth.siryushub.com)
+Self-hosted in `apps/signal/public/images/` at 800 and 1600 px wide. All are free to use under the Unsplash License (checked 2026-11-02); attribution is not required but recorded here.
+
+| File | Subject | Photographer | Source |
+|---|---|---|---|
+| billboard-night | Blank lit billboard at a bus stop at night | Patrick Robert Doyle | https://unsplash.com/photos/csDVMvtsS50 |
+| chalkboard | Two people mapping a brand strategy on a chalkboard | Vitaly Gariev | https://unsplash.com/photos/xNMveo-61Us |
+| video-camera | Camera operator filming content | Kyle Loftus | https://unsplash.com/photos/DqmXihYx5UE |
+| london-billboard | Digital billboards at Piccadilly Circus | Eleni Afiontzi | https://unsplash.com/photos/gLU8GZpHtRA |
+| sticky-wall | Team planning with sticky notes on a glass wall | Vitaly Gariev | https://unsplash.com/photos/TSyD0nGc0Bs |
+| camera-cap | Photographer at work outdoors | Muhammad-Taha Ibrahim | https://unsplash.com/photos/UOIk3LZoR9k |
+
+## SIRYUS A.M artist photos
+`apps/am/public/images/artists/` and `apps/siryus/public/images/artists/` use each artist's own profile image from their official Spotify artist page (Max Prodigy: 5DEI5M3s5NAhk2AloQlNKb, Jlinez: 1IG4PSCy1OokQbRYILUrnN), used to promote artists SIRYUS A.M manages. Replace with approved press photos when available, and update the photos in Sanity to match.

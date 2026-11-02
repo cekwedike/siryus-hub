@@ -7,24 +7,30 @@
 /contact-page-siryus           /                                                            301
 /services                      /                                                            301
 
-# SIRYUS A.M
+# SIRYUS A.M. Exact pages first; Cloudflare uses the first rule that matches.
 /siryus-am                     https://artists.siryushub.com/                               301
 /siryus-am/blog                https://artists.siryushub.com/journal                        301
-/siryus-am/blog/*              https://artists.siryushub.com/journal                        301
+/siryus-am/blog/*              https://artists.siryushub.com/journal/:splat                 301
 /am                            https://artists.siryushub.com/                               301
 /am/*                          https://artists.siryushub.com/:splat                         301
 /artists                       https://artists.siryushub.com/artists                        301
+/artists/max-prodigy           https://artists.siryushub.com/artists/max-prodigy            301
+/artists/jlinez                https://artists.siryushub.com/artists/jlinez                 301
 /artists/*                     https://artists.siryushub.com/artists                        301
-/max-prodigy                   https://artists.siryushub.com/artists                        301
+/max-prodigy                   https://artists.siryushub.com/artists/max-prodigy            301
+/jlinez                        https://artists.siryushub.com/artists/jlinez                 301
 /hidaya-morgan                 https://artists.siryushub.com/artists                        301
 /projects                      https://artists.siryushub.com/projects                       301
+/projects/indiba-project-series  https://artists.siryushub.com/projects/indiba-project-series  301
+/projects/the-abditory-sessions  https://artists.siryushub.com/projects/the-abditory-sessions  301
+# Acoustic Rwanda is retired. Its old URL lands on the projects index, never on an unrelated project.
 /projects/*                    https://artists.siryushub.com/projects                       301
-/indiba-project-series         https://artists.siryushub.com/projects                       301
+/indiba-project-series         https://artists.siryushub.com/projects/indiba-project-series 301
 /siryus-hub-projects           https://artists.siryushub.com/projects                       301
 /studio                        https://artists.siryushub.com/projects                       301
-/blog/what-independent-artists-get-wrong-about-marketing  https://artists.siryushub.com/journal  301
-/blog/copyright-vs-intellectual-property                  https://artists.siryushub.com/journal  301
-/blog/how-mental-health-impacts-your-art                  https://artists.siryushub.com/journal  301
+/blog/what-independent-artists-get-wrong-about-marketing  https://artists.siryushub.com/journal/what-independent-artists-get-wrong-about-marketing  301
+/blog/copyright-vs-intellectual-property                  https://artists.siryushub.com/journal/copyright-vs-intellectual-property  301
+/blog/how-mental-health-impacts-your-art                  https://artists.siryushub.com/journal/how-mental-health-impacts-your-art  301
 
 # ARC. Creatives keeps its /arc/* paths on its own host.
 /arc                           https://collective.siryushub.com/                            301

@@ -1,4 +1,70 @@
 ---
 import Site from '../layouts/Site.astro'
+
+const needs = ['Storytelling and messaging', 'Brand strategy', 'A campaign', 'Content and copy', 'Email and CRM', 'Growth', 'Not sure yet']
 ---
-<Site title="Contact" description="Tell SIGNAL. about your brand and your goals. We will help you find the story and the plan to grow it."><header class="page-head"><h1>What needs to be heard?</h1><p>Tell us what you are building, where it feels stuck and what a good result would change.</p></header><div class="content"><p>Email <a href="mailto:signal@siryushub.com">signal@siryushub.com</a></p></div></Site>
+<Site title="Contact" description="Tell SIGNAL. what you are building. Share your goals and we will reply with honest next steps for your story, strategy and campaigns.">
+  <header class="page-hero">
+    <div class="wrap">
+      <h1>Tell us what you're building.</h1>
+      <p>Where are you now, where does it feel stuck, and what would a good result change? A real person reads every message.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap contact-grid">
+      <form class="form" action="/api/contact" method="post" data-contact>
+        <p class="form-status full" role="status" aria-live="polite" tabindex="-1"></p>
+        <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required maxlength="120" /></div>
+        <div class="field"><label for="email">Work email</label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for="company">Company or brand</label><input id="company" name="company" autocomplete="organization" /></div>
+        <div class="field"><label for="need">What do you need?</label><select id="need" name="need">{needs.map((n) => <option>{n}</option>)}</select></div>
+        <div class="field"><label for="budget">Budget <small>(optional)</small></label><input id="budget" name="budget" placeholder="A rough range helps" /></div>
+        <div class="field"><label for="timing">Timing</label><input id="timing" name="timing" placeholder="For example, launch in March" /></div>
+        <div class="field full"><label for="message">Tell us about it</label><textarea id="message" name="message" required minlength="10"></textarea></div>
+        <div class="trap" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+        <input type="hidden" name="started" value="" />
+        <p class="full"><small>We use these details only to reply to you. See our <a href="https://siryushub.com/privacy-policy">privacy policy</a>.</small></p>
+        <button class="button" type="submit">Send message</button>
+      </form>
+      <aside class="contact-aside">
+        <h2>Prefer email?</h2>
+        <p>Write to <a href="mailto:signal@siryushub.com">signal@siryushub.com</a>.</p>
+        <p>We usually reply within two working days, with honest next steps or a short call to learn more.</p>
+      </aside>
+    </div>
+  </section>
+</Site>
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact]')
+  if (form) {
+    const status = form.querySelector<HTMLElement>('.form-status')!
+    const button = form.querySelector<HTMLButtonElement>('button')!
+    const inbox = 'signal@siryushub.com'
+    ;(form.elements.namedItem('started') as HTMLInputElement).value = String(Date.now())
+    const params = new URLSearchParams(location.search)
+    if (params.get('sent')) status.textContent = 'Thanks. Your message is on its way, and a copy is in your inbox.'
+    if (params.get('error')) {
+      status.textContent = `Something went wrong. Please try again or email ${inbox}.`
+      status.classList.add('error')
+    }
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
+      button.disabled = true
+      button.textContent = 'Sending…'
+      status.classList.remove('error')
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { accept: 'application/json' } })
+        const data = await res.json()
+        status.textContent = data.message
+        if (res.ok) form.reset()
+        else status.classList.add('error')
+      } catch {
+        status.textContent = `We could not reach the server. Please email ${inbox}.`
+        status.classList.add('error')
+      }
+      button.disabled = false
+      button.textContent = 'Send message'
+      status.focus()
+    })
+  }
+</script>

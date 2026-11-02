@@ -1,4 +1,46 @@
 ---
 import Site from '../layouts/Site.astro'
+import Paths from '../components/Paths.astro'
+import Pic from '../components/Pic.astro'
+
+const steps = [
+  ['Listen', 'We learn the business, the audience and the real problem before we reach for a format.', 'Expect questions. Some of the best answers come from your customers, your team and the things you have already tried.'],
+  ['Find the story', 'We shape the one clear idea that can guide the work and hold attention.', 'You get it in writing: what we say, who we say it to and why they should care.'],
+  ['Build the system', 'We connect campaign, content, email and growth so each part helps the next.', 'Plans come with timelines and budgets you approve before anything goes live.'],
+  ['Learn and sharpen', 'We study what people actually do, keep what works and fix what does not.', 'Reports are plain and regular. If something is not working, you hear it from us first.'],
+]
 ---
-<Site title="Approach" description="How SIGNAL. turns clear stories into connected marketing."><header class="page-head"><h1>Start with what must be heard.</h1><p>Then build the strategy, message and system that can carry it.</p></header><div class="content"><h2>Listen</h2><p>We learn the business, the audience and the real problem before we reach for a format.</p><h2>Find the signal</h2><p>We shape the one clear story that can guide the work and hold attention.</p><h2>Build the system</h2><p>We connect campaign, content, CRM and growth so each part helps the next.</p><h2>Learn and sharpen</h2><p>We study what people do, keep what works and improve what does not.</p></div></Site>
+<Site title="Approach" description="How SIGNAL. works: listen, find the story, build the system, then learn and sharpen. Story-led marketing, step by step.">
+  <header class="page-hero">
+    <div class="wrap">
+      <h1>Start with what must be heard.</h1>
+      <p>Then build the strategy, message and system that can carry it. Here is how a project with us runs.</p>
+    </div>
+    <Paths />
+  </header>
+  <section class="section">
+    <div class="wrap">
+      <ol class="steps">
+        {steps.map(([title, lead, detail]) => (
+          <li><h2>{title}</h2><div><p>{lead}</p><p>{detail}</p></div></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <section class="band" aria-labelledby="band-title">
+    <Pic name="sticky-wall" alt="A team planning a campaign with sticky notes on a glass wall" sizes="100vw" />
+    <div class="wrap">
+      <h2 id="band-title">Your team stays in the room.</h2>
+      <p>We work with you, not around you. You will know what we are doing, why, and what it costs.</p>
+    </div>
+  </section>
+  <section class="section red">
+    <div class="wrap closing">
+      <h2>Ready when you are.</h2>
+      <div>
+        <p>Tell us what you are building and we will suggest a sensible first step.</p>
+        <a class="button light" href="/contact">Start a conversation</a>
+      </div>
+    </div>
+  </section>
+</Site>

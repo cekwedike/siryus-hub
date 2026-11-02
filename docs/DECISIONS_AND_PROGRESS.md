@@ -193,3 +193,32 @@ NEEDS CONFIRMATION before the apex moves
 - This machine has a `CLOUDFLARE_ACCOUNT_ID` variable for a different account. Pass `CLOUDFLARE_ACCOUNT_ID=0d135b4b04c36b381108243eb7828b8c` when deploying SIRYUS.
 - All apps now build `page.html` files with `trailingSlash: 'never'`. Cloudflare serves `/about` directly, and links, canonicals and sitemaps all use the same slash-free URL. Before this, ARC. canonicals pointed at URLs that redirected.
 - Verified live: pages return 200, unknown paths return the custom 404 with status 404, legacy URLs 301 to their new homes, and every `pages.dev` response carries `X-Robots-Tag: noindex`.
+
+## 2026-11-02: A.M and SIGNAL. rebuilt, custom domains live
+
+Domains and builds
+- The user connected `siryushub.com`, `www`, `artists.`, `growth.` and `collective.` to the four Pages projects. All verified live.
+- The Git-connected `siryus-hub` build failed: it ran `npm run build` at the root and published the legacy root `dist`. Changed to build command `pnpm --filter @siryus/hub build`, output `apps/siryus/dist`.
+- `siryus-artists`, `siryus-growth` and `siryus-collective` are direct-upload projects, which Cloudflare cannot connect to Git. `.github/workflows/deploy-sites.yml` builds and deploys whichever of them changed on push to `main`, by hand from the Actions tab, or on a Sanity `repository_dispatch` (`sanity-publish`). It needs the repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+
+SIRYUS A.M (artists.siryushub.com), rebuilt
+- Positioned as music management and a creative collective, not only artist management. Services follow the user's distribution agreement (Annex A and B) without prices: distribution, artist profiles, release strategy, playlist pitching with no placement promises, content strategy, marketing plans, campaign management, reports, artist branding, production with Jlinez, career sessions, and management by invitation. Promises published: artists keep their masters, no hidden fees, artists approve budgets, artists see the numbers.
+- Identity from the approved business card and logo: charcoal `#313131`, lime `#d1f344`, white; Cenzo display and Montserrat body (both self-hosted woff2); hexagons and the waveform badge as motifs.
+- Content comes from the A.M Sanity project (`h16wl0pr`, the `studio/` folder): roster (Max Prodigy and Jlinez only), projects (Indiba Project Series, The Abditory Sessions; Acoustic Rwanda excluded), and the three A.M journal posts, each with its own page. `studio/` now defaults to that project ID.
+- Artist photos: the Sanity portraits did not match the artists' official Spotify profiles, so the site uses the Spotify profile images (self-hosted, see IMAGE_CREDITS.md). NEEDS CONFIRMATION: replace with approved press photos and update Sanity.
+- The collective's own releases and profiles (Spotify, Audiomack, YouTube, Instagram @siryus.am, TikTok, X) were verified live and appear on Home and Projects. The business card's `siryus_am` Instagram handle is wrong; `siryus.am` is correct.
+- Old siryushub.com artist, project and A.M post URLs now 301 to their exact new pages.
+
+SIGNAL. (growth.siryushub.com), rebuilt
+- Graphite, warm stone and red; DM Serif Display (echoing the serif wordmark) with Inter. Brand doc suggested Sora; changed because the approved wordmark is a serif. A transparent light-background lockup is generated from the approved reference by colour-to-alpha in `pnpm icons`.
+- The Paths drawn as a once-only convergence animation. Marketing photography from Unsplash replaced the generic workshop images, at the user's request.
+- No case studies are claimed; the Work page lists the problems SIGNAL. takes on. Insights redirects home (302) until there is writing.
+
+Shared
+- `shared/astro/Return.astro`: a "Back to SIRYUS" strip and footer link with the SIRYUS star, styled per brand. ARC.'s existing links gained the star in ARC. orange.
+- `shared/contact.ts`: Pages Function behind A.M and SIGNAL. contact forms. Sends through Mailjet from `noreply@siryushub.com`: a notification to the brand inbox (Reply-To the visitor) and a branded acknowledgement to the visitor (Reply-To the brand inbox). Honeypot and timing checks. Needs `MAILJET_API_KEY` and `MAILJET_SECRET_KEY` as secrets on `siryus-artists` and `siryus-growth`; until then it asks people to email instead.
+
+Speed
+- All fonts self-hosted as woff2 (Google Fonts removed from the hub). Hub, A.M and ARC. heavy photos re-encoded. Unused legacy files removed from the hub and ARC. apps (originals stay in the root `public/` and `src/`).
+- Pages are wrapped in Cloudflare `email_off` markers so Email Obfuscation no longer injects a script.
+- Lighthouse mobile, live A.M home: performance 65 to 78, accessibility 100, SEO 100. The largest remaining cost is Cloudflare's Bot Fight Mode JavaScript detection script (about 1.4 s of main-thread time), a zone setting for the owner to decide.

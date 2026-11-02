@@ -1,4 +1,33 @@
 ---
 import Site from '../layouts/Site.astro'
+import Paths from '../components/Paths.astro'
+import Pic from '../components/Pic.astro'
 ---
-<Site title="About" description="SIGNAL. is the marketing and growth agency from SIRYUS. We put story at the centre of strategy, campaigns and growth."><header class="page-head"><h1>A marketing agency built around story.</h1><p>SIGNAL. by SIRYUS helps brands choose what to say, how to say it and how to make it travel.</p></header><div class="content"><h2>Why SIGNAL.</h2><p>People meet more messages than they can hold. A clear signal cuts through because it means something. We use that idea across strategy, campaigns, CRM, content, copy and growth.</p></div></Site>
+<Site title="About" description="SIGNAL. is the marketing and growth agency from SIRYUS. We put story at the centre of strategy, campaigns, content and growth.">
+  <header class="page-hero">
+    <div class="wrap">
+      <h1>A marketing agency built around story.</h1>
+      <p>SIGNAL. by SIRYUS helps brands decide what to say, how to say it and how to make it travel.</p>
+    </div>
+    <Paths />
+  </header>
+  <section class="section">
+    <div class="wrap split">
+      <figure><Pic name="camera-cap" alt="A photographer smiling as he frames a shot outdoors" /></figure>
+      <div>
+        <h2>Why SIGNAL.</h2>
+        <p>A signal is the part of a message that gets through the noise. That is the whole job. Not more posts, more ads or more noise, but the right message reaching the right people.</p>
+        <p>Our symbol is three paths meeting at one point: strategy, creativity and execution, all aimed at the same goal. Our period is a full stop, because a good message knows when it is finished.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section dark">
+    <div class="wrap closing">
+      <h2>Part of SIRYUS.</h2>
+      <div>
+        <p>SIGNAL. is one of the SIRYUS worlds, alongside SIRYUS A.M and ARC. Creatives. We share a home, but each world has its own work and its own voice.</p>
+        <a class="button light" href="https://siryushub.com">Visit SIRYUS</a>
+      </div>
+    </div>
+  </section>
+</Site>

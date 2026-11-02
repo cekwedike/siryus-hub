@@ -1,11 +1,25 @@
 ---
 import Site from '../layouts/Site.astro'
+import Paths from '../components/Paths.astro'
 
 const routes = [
-  ['Services', 'Strategy, campaigns, content and growth', '/services'],
-  ['Work', 'See the kind of work we do', '/work'],
-  ['Approach', 'How story shapes every choice', '/approach'],
+  ['Services', 'Storytelling, strategy, campaigns and growth', '/services'],
+  ['Approach', 'How a project with us runs', '/approach'],
+  ['Work', 'The problems we are built to solve', '/work'],
   ['Contact', 'Tell us what you are building', '/contact'],
 ]
 ---
-<Site noIndex title="Page not found" description="This page moved or never existed. Find your way back to SIGNAL. by SIRYUS."><section class="lost"><div class="lost-copy"><p class="lost-tag">Error 404</p><h1>Signal lost<span class="dot" aria-hidden="true"></span></h1><p>We couldn't find that page. It may have moved, or the link may be broken. Here is where the story picks up again.</p><nav class="routes" aria-label="Pages to try">{routes.map(([name, note, href]) => <a href={href}>{name}<span>{note}</span></a>)}</nav><p><a class="button" href="/">Back to SIGNAL.</a></p></div><div class="broadcast" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b><img src="/brand/signal/symbol.png" alt=""/></div></section></Site>
+<Site noIndex title="Page not found" description="This page moved or never existed. Find your way back to SIGNAL. by SIRYUS.">
+  <section class="section">
+    <div class="wrap lost">
+      <div>
+        <h1>Signal lost<span class="dot" aria-hidden="true"></span></h1>
+        <p>We couldn't find that page. It may have moved, or the link may be broken. Here is where the story picks up again.</p>
+        <nav class="routes" aria-label="Pages to try">
+          {routes.map(([name, note, href]) => <a href={href}>{name}<span>{note}</span></a>)}
+        </nav>
+      </div>
+      <div class="broadcast" aria-hidden="true"><Paths /></div>
+    </div>
+  </section>
+</Site>

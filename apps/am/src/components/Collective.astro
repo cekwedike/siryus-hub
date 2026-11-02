@@ -1,0 +1,33 @@
+---
+// SIRYUS A.M as a recording collective, with its own profile on the streaming services.
+import Bars from './Bars.astro'
+import { profiles, tracks, spotify } from '../lib/collective'
+---
+<section class="section collective" aria-labelledby="collective-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="collective-title">We make music too.</h2>
+      <p>SIRYUS A.M is also a creative collective with its own releases. We bring artists together on shared records, many of them born in the Indiba Project Series.</p>
+    </div>
+    <div class="collective-grid">
+      <ol class="releases">
+        {tracks.map(([title, credit], i) => (
+          <li>
+            <a href={spotify} target="_blank" rel="noopener">
+              <b>{String(i + 1).padStart(2, '0')}</b>
+              <strong>{title}<small>{credit}</small></strong>
+              <span class="year">Listen</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <div class="collective-card">
+        <Bars count={12} />
+        <p>Follow SIRYUS A.M wherever you listen.</p>
+        <div class="platforms">
+          {profiles.map(([label, url]) => <a href={url} target="_blank" rel="noopener">{label}</a>)}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

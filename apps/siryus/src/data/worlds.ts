@@ -14,11 +14,11 @@ export const worlds: World[] = [
   {
     id: 'am',
     name: 'SIRYUS A.M',
-    note: 'Artist management, music and long-term growth.',
+    note: 'Music management, distribution and marketing for independent artists.',
     href: 'https://artists.siryushub.com',
     domain: 'artists.siryushub.com',
     logo: { src: '/brand/am/tile.png', width: 360, height: 333 },
-    images: ['/images/hero/siryus-violin.webp', '/images/hero/jlinez.webp', '/images/artists/max-prodigy.webp'],
+    images: ['/images/hero/siryus-violin.webp', '/images/artists/max-prodigy.webp', '/images/artists/jlinez.webp'],
   },
   {
     id: 'arc',
@@ -27,7 +27,7 @@ export const worlds: World[] = [
     href: 'https://collective.siryushub.com',
     domain: 'collective.siryushub.com',
     logo: { src: '/brand/arc/logo-on-dark.svg', width: 73, height: 77 },
-    images: ['/images/portal/arc-worship.webp', '/images/portal/arc-mic.webp', '/images/portal/arc-hands.jpg'],
+    images: ['/images/portal/arc-worship.webp', '/images/portal/arc-mic.webp', '/images/portal/arc-hands.webp'],
   },
   {
     id: 'signal',

@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Neue Machina';
-  src: url('/fonts/NeueMachina-Light.otf') format('opentype');
+  src: url('/fonts/neue-machina-light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: 'Neue Machina';
-  src: url('/fonts/NeueMachina-Regular.otf') format('opentype');
+  src: url('/fonts/neue-machina-regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -18,7 +18,7 @@
 
 @font-face {
   font-family: 'Neue Machina';
-  src: url('/fonts/NeueMachina-Ultrabold.otf') format('opentype');
+  src: url('/fonts/neue-machina-ultrabold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;

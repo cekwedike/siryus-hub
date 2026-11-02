@@ -1,0 +1,27 @@
+---
+import Site from '../../layouts/Site.astro'
+import { getPosts, img, srcset, date } from '../../lib/sanity'
+
+const posts = await getPosts()
+---
+<Site title="Journal" description="Straight talk for independent artists on marketing, copyright and the life behind the music, from SIRYUS A.M.">
+  <header class="page-hero">
+    <div class="wrap">
+      <h1>Notes for independent artists.</h1>
+      <p>What we have learned working with artists, written plainly so you can use it.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap posts">
+      {posts.map((post) => (
+        <a class="post-card" href={`/journal/${post.slug}`}>
+          <div class="cover"><img src={img(post.coverImage, 720, 450)} srcset={srcset(post.coverImage, [420, 720], 0.625)} sizes="(max-width: 38rem) 92vw, (max-width: 60rem) 45vw, 30vw" alt="" width="720" height="450" /></div>
+          <p class="meta">{post.category} · {date(post.publishedAt)}</p>
+          <h2 class="sr">{post.title}</h2>
+          <h3 aria-hidden="true">{post.title}</h3>
+          <p>{post.seoDescription ?? post.excerpt}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Site>

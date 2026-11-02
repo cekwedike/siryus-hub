@@ -1,0 +1,75 @@
+---
+import Site from '../../layouts/Site.astro'
+import { getRoster, img, type Artist } from '../../lib/sanity'
+
+export async function getStaticPaths() {
+  const roster = await getRoster()
+  return roster.map((artist) => ({ params: { slug: artist.slug }, props: { artist } }))
+}
+const { artist } = Astro.props as { artist: Artist }
+const labels: Record<string, string> = { spotify: 'Spotify', appleMusic: 'Apple Music', audiomack: 'Audiomack', youtube: 'YouTube', instagram: 'Instagram', boomplay: 'Boomplay', tiktok: 'TikTok' }
+const platforms = Object.entries(artist.platforms ?? {}).filter(([, url]) => typeof url === 'string' && url.startsWith('http'))
+const description = artist.bioParagraph1?.slice(0, 155).replace(/\s+\S*$/, '') + '…'
+const photo = img(artist.photo, 1000, 866)
+const shareImage = photo && new URL(photo, Astro.site).href
+const schema = [{
+  '@type': 'MusicGroup',
+  name: artist.name,
+  url: new URL(`/artists/${artist.slug}`, Astro.site).href,
+  image: shareImage,
+  genre: artist.genre,
+  description: artist.oneLiner,
+  sameAs: platforms.map(([, url]) => url),
+}]
+---
+<Site title={artist.name} description={description} image={shareImage} type="profile" schema={schema}>
+  <header class="page-hero">
+    <div class="wrap">
+      <a class="crumb" href="/artists">Artists</a>
+      <h1>{artist.name}</h1>
+      <p>{artist.oneLiner}</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap profile">
+      <div class="hex"><img src={photo} alt={artist.name} width="640" height="640" fetchpriority="high" /></div>
+      <div class="profile-copy">
+        <ul class="genres">{artist.genre?.map((g) => <li>{g}</li>)}{artist.location && <li>{artist.location}</li>}</ul>
+        <div class="prose" style="margin-top:1.6rem">
+          {artist.bioParagraph1 && <p>{artist.bioParagraph1}</p>}
+          {artist.bioParagraph2 && <p>{artist.bioParagraph2}</p>}
+        </div>
+        {platforms.length > 0 && (
+          <div class="platforms" aria-label={`Listen to ${artist.name}`}>
+            {platforms.map(([key, url]) => <a href={url} target="_blank" rel="noopener">{labels[key] ?? key}</a>)}
+          </div>
+        )}
+        {artist.releases?.length ? (
+          <>
+            <h2 class="sr">Releases</h2>
+            <ol class="releases">
+              {artist.releases.map((release, i) => (
+                <li>
+                  {release.spotifyUrl ? (
+                    <a href={release.spotifyUrl} target="_blank" rel="noopener"><b>{String(i + 1).padStart(2, '0')}</b><strong>{release.title}</strong><span class="year">{release.year}</span></a>
+                  ) : (
+                    <span><b>{String(i + 1).padStart(2, '0')}</b><strong>{release.title}</strong><span class="year">{release.year}</span></span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </>
+        ) : null}
+      </div>
+    </div>
+  </section>
+  <section class="section dark">
+    <div class="wrap closing">
+      <h2>Working with {artist.name}?</h2>
+      <div>
+        <p>For bookings, features, press and partnerships, talk to the SIRYUS A.M team.</p>
+        <a class="btn btn-lime" href={`/contact?about=${encodeURIComponent(artist.name)}`}>Get in touch</a>
+      </div>
+    </div>
+  </section>
+</Site>

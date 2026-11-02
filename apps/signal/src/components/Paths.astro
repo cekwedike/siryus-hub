@@ -1,0 +1,12 @@
+---
+// The Paths: three directions (strategy, creativity, execution) converging on one point.
+// Drawn once on load; static when motion is reduced.
+interface Props { class?: string }
+const { class: className } = Astro.props
+---
+<svg class:list={['paths', className]} viewBox="0 0 400 400" aria-hidden="true">
+  <path class="p p1" d="M330 24 C 300 120, 250 170, 200 200" pathLength="1" />
+  <path class="p p2" d="M372 330 C 280 330, 230 260, 200 200" pathLength="1" />
+  <path class="p p3" d="M28 300 C 110 240, 160 220, 200 200" pathLength="1" />
+  <circle class="point" cx="200" cy="200" r="15" />
+</svg>

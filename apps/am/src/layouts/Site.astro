@@ -1,31 +1,126 @@
 ---
 import '../styles/site.css'
-interface Props { title: string; description: string; noIndex?: boolean }
-const { title, description, noIndex = false } = Astro.props
-const pageTitle = `${title} | SIRYUS A.M`
-const canonical = new URL(Astro.url.pathname, Astro.site).href
-const ogImage = new URL('/og.png', Astro.site).href
-const schema = {
+import Return from '../../../../shared/astro/Return.astro'
+import { profiles } from '../lib/collective'
+
+interface Props {
+  title: string
+  description: string
+  noIndex?: boolean
+  image?: string
+  type?: 'website' | 'article' | 'profile'
+  schema?: Record<string, unknown>[]
+}
+const { title, description, noIndex = false, image, type = 'website', schema = [] } = Astro.props
+const pageTitle = title === 'SIRYUS A.M' ? title : `${title} | SIRYUS A.M`
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).href
+const ogImage = image ?? new URL('/og.png', Astro.site).href
+const org = 'https://artists.siryushub.com/#organization'
+const graph = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'Organization', '@id': 'https://artists.siryushub.com/#organization', name: 'SIRYUS A.M', url: 'https://artists.siryushub.com/', logo: new URL('/icon-512.png', Astro.site).href, description: 'Artist management, marketing, development and music projects for independent artists.', parentOrganization: { '@type': 'Organization', name: 'Siryus Creative Media Ltd', url: 'https://siryushub.com/' } },
-    { '@type': 'WebSite', '@id': 'https://artists.siryushub.com/#website', name: 'SIRYUS A.M', url: 'https://artists.siryushub.com/', publisher: { '@id': 'https://artists.siryushub.com/#organization' } },
+    {
+      '@type': 'Organization',
+      '@id': org,
+      name: 'SIRYUS A.M',
+      url: 'https://artists.siryushub.com/',
+      logo: new URL('/icon-512.png', Astro.site).href,
+      email: 'management@siryushub.com',
+      description: 'Music management company and creative collective for independent artists: distribution, release strategy, playlist pitching, marketing, artist development and management.',
+      sameAs: profiles.map(([, url]) => url),
+      parentOrganization: { '@type': 'Organization', name: 'Siryus Creative Media Ltd', url: 'https://siryushub.com/' },
+    },
+    { '@type': 'WebSite', '@id': 'https://artists.siryushub.com/#website', name: 'SIRYUS A.M', url: 'https://artists.siryushub.com/', publisher: { '@id': org } },
+    ...schema,
   ],
 }
-const nav = [['Artists', '/artists'], ['What we do', '/services'], ['Projects', '/projects'], ['Journal', '/journal'], ['About', '/about']]
+const nav = [
+  ['What we do', '/services'],
+  ['Artists', '/artists'],
+  ['Projects', '/projects'],
+  ['Journal', '/journal'],
+  ['About', '/about'],
+]
+const here = Astro.url.pathname.replace(/\/$/, '') || '/'
+const current = (href: string) => here === href || here.startsWith(`${href}/`)
 ---
 <!doctype html>
 <html lang="en">
+  <Fragment set:html={'<!--email_off-->'} />
   <head>
-    <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <meta name="description" content={description}/>
-    {noIndex ? <meta name="robots" content="noindex"/> : <link rel="canonical" href={canonical}/>}
-    <meta name="theme-color" content="#fffaf0"/>
-    <link rel="icon" href="/favicon.ico" sizes="48x48"/><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><link rel="manifest" href="/site.webmanifest"/>
-    <meta property="og:type" content="website"/><meta property="og:site_name" content="SIRYUS A.M"/><meta property="og:title" content={pageTitle}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:image" content={ogImage}/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/>
-    <meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={pageTitle}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={ogImage}/>
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)}/>
+    <meta name="description" content={description} />
+    {noIndex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#313131" />
+    <link rel="preload" href="/fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/cenzo.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://cdn.sanity.io" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="SIRYUS A.M" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    {!image && <meta property="og:image:width" content="1200" />}
+    {!image && <meta property="og:image:height" content="630" />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(graph)} />
   </head>
-  <body><a class="skip" href="#content">Skip to content</a><header class="nav"><a class="logo" href="/">SIRYUS <b>A.M</b></a><nav aria-label="Main navigation">{nav.map(([label, href]) => <a href={href}>{label}</a>)}</nav><a class="contact" href="/contact">Start a conversation</a></header><main id="content"><slot/></main><footer><a class="logo" href="/">SIRYUS <b>A.M</b></a><p>Artist management, music marketing and development built for the long road.</p><nav aria-label="Footer navigation">{nav.map(([label, href]) => <a href={href}>{label}</a>)}</nav><p>Part of SIRYUS. © 2026 Siryus Creative Media Ltd<br/><a href="https://siryushub.com/privacy-policy">Privacy policy</a></p></footer></body>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <Return />
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="SIRYUS A.M home">
+        <img src="/brand/mark.png" alt="" width="40" height="37" />
+        <span>SIRYUS <b>A.M</b></span>
+      </a>
+      <details class="menu">
+        <summary aria-label="Menu"><span></span><span></span></summary>
+        <nav aria-label="Main">
+          {nav.map(([label, href]) => <a href={href} aria-current={current(href) ? 'page' : undefined}>{label}</a>)}
+          <a class="cta" href="/contact" aria-current={current('/contact') ? 'page' : undefined}>Start a release</a>
+        </nav>
+      </details>
+    </header>
+    <main id="content">
+      <slot />
+    </main>
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="/brand/mark.png" alt="" width="56" height="52" loading="lazy" />
+          <p><b>SIRYUS A.M</b><br />Music management and a creative collective for independent artists.</p>
+        </div>
+        <nav aria-label="Footer">
+          {nav.map(([label, href]) => <a href={href}>{label}</a>)}
+          <a href="/contact">Contact</a>
+        </nav>
+        <div class="footer-contact">
+          <a href="mailto:management@siryushub.com">management@siryushub.com</a>
+          {profiles.map(([label, url]) => <a href={url} target="_blank" rel="noopener">{label}</a>)}
+        </div>
+      </div>
+      <div class="footer-base">
+        <Return variant="footer" />
+        <p>© 2026 Siryus Creative Media Ltd · <a href="https://siryushub.com/privacy-policy">Privacy</a> · <a href="https://siryushub.com/terms-of-use">Terms</a></p>
+      </div>
+    </footer>
+    <script>
+      // Close the mobile menu after choosing a link, and when Escape is pressed.
+      const menu = document.querySelector<HTMLDetailsElement>('.menu')
+      menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => (menu.open = false)))
+      document.addEventListener('keydown', (e) => e.key === 'Escape' && menu && (menu.open = false))
+    </script>
+  </body>
+  <Fragment set:html={'<!--/email_off-->'} />
 </html>

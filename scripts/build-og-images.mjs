@@ -17,7 +17,7 @@ const base = `*{box-sizing:border-box;margin:0}html,body{width:1200px;height:630
 const cards = {
   siryus: `
     <style>${base}
-      @font-face{font-family:Machina;src:url('${pub('siryus', 'fonts', 'NeueMachina-Ultrabold.otf')}');font-weight:800}
+      @font-face{font-family:Machina;src:url('${pub('siryus', 'fonts', 'machina-ultrabold.woff2')}');font-weight:800}
       body{background:#fff;color:#000;position:relative;font-family:Machina,sans-serif}
       .orbit{position:absolute;left:-140px;top:-120px;width:1480px;height:870px;border:1.5px dashed rgb(0 0 0/.28);border-radius:50%;transform:rotate(-7deg)}
       .copy{position:absolute;left:72px;top:0;bottom:0;width:430px;display:flex;flex-direction:column;justify-content:center;gap:34px}
@@ -40,19 +40,20 @@ const cards = {
 
   am: `
     <style>${base}
-      @font-face{font-family:Cenzo;src:url('${pub('am', 'fonts', 'cenzo.ttf')}')}
-      body{background:#fffaf0;color:#0c0c0c;font-family:Arial,sans-serif;display:grid;grid-template-columns:640px 1fr}
-      .copy{padding:64px 0 56px 72px;display:flex;flex-direction:column;justify-content:space-between}
-      .brand{font:34px Cenzo,Impact,sans-serif;letter-spacing:.03em}.brand b,h1 span{color:#173cff;font-weight:400}
-      h1{font:92px/.8 Cenzo,Impact,sans-serif;letter-spacing:-.03em}
-      .url{font-size:20px;font-weight:700}
-      .media{position:relative;background:#ff6547;clip-path:polygon(12% 0,100% 0,100% 100%,0 100%)}
-      .media>img:first-child{width:100%;height:100%;object-fit:cover}
-      .tile{position:absolute;left:96px;bottom:48px;width:118px}
-      .stamp{position:absolute;right:36px;top:40px;background:#ffe44a;padding:16px 18px;transform:rotate(5deg);font:900 20px/1.1 Arial,sans-serif}
+      @font-face{font-family:Cenzo;src:url('${pub('am', 'fonts', 'cenzo.woff2')}')}
+      @font-face{font-family:Montserrat;src:url('${pub('am', 'fonts', 'montserrat.woff2')}');font-weight:400 800}
+      body{background:#d1f344;color:#313131;font-family:Montserrat,Arial,sans-serif;display:grid;grid-template-columns:660px 1fr;position:relative}
+      body::after{content:'';position:absolute;inset:0 0 0 auto;width:470px;background:#313131;clip-path:polygon(26% 0,100% 0,100% 100%,0 100%);z-index:-1}
+      .copy{padding:60px 0 56px 72px;display:flex;flex-direction:column;justify-content:space-between}
+      .brand{display:flex;align-items:center;gap:16px;font:30px Cenzo,Impact,sans-serif;letter-spacing:.02em}.brand img{width:62px;background:#313131;padding:8px;border-radius:12px}
+      h1{font:78px/.95 Cenzo,Impact,sans-serif;letter-spacing:-.01em}
+      .url{font-size:22px;font-weight:700}
+      .media{display:grid;place-items:center;padding-right:40px}
+      .hex{width:430px;aspect-ratio:1/.866;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);overflow:hidden}
+      .hex img{width:100%;height:100%;object-fit:cover}
     </style>
-    <div class="copy"><p class="brand">SIRYUS <b>A.M</b></p><h1>Build the <span>artist.</span> Move the <span>music.</span></h1><p class="url">artists.siryushub.com</p></div>
-    <div class="media"><img src="${pub('am', 'images', 'artists', 'max-prodigy.webp')}"><img class="tile" src="${pub('siryus', 'brand', 'am', 'tile.png')}"><span class="stamp">Artist<br>management</span></div>`,
+    <div class="copy"><p class="brand"><img src="${pub('am', 'brand', 'mark.png')}">SIRYUS A.M</p><h1>Your music, managed end to end.</h1><p class="url">artists.siryushub.com</p></div>
+    <div class="media"><div class="hex"><img src="${pub('am', 'images', 'artists', 'max-prodigy.webp')}"></div></div>`,
 
   signal: `
     <style>${base}
@@ -67,8 +68,8 @@ const cards = {
       .media img{width:100%;height:100%;object-fit:cover}
       .media::after{content:'';position:absolute;inset:0;background:#e32620;mix-blend-mode:multiply;opacity:.24}
     </style>
-    <div class="copy"><p class="brand"><img src="${logo('SIGNAL', 'signal-symbol-transparent.png')}"><span>SIGNAL<span class="dot"></span></span></p><h1>Make your story carry<span class="dot"></span></h1><p class="url">growth.siryushub.com</p></div>
-    <div class="media"><img src="${pub('siryus', 'images', 'portal', 'signal-planning.webp')}"></div>`,
+    <div class="copy"><p class="brand"><img src="${logo('SIGNAL', 'signal-symbol-transparent.png')}"><span>SIGNAL<span class="dot"></span></span></p><h1>Make your message matter<span class="dot"></span></h1><p class="url">growth.siryushub.com</p></div>
+    <div class="media"><img src="${pub('signal', 'images', 'billboard-night-1600.webp')}"></div>`,
 
   arc: `
     <style>${base}

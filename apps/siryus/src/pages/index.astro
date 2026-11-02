@@ -47,8 +47,8 @@ const description = 'SIRYUS is home to SIRYUS A.M, ARC. Creatives and SIGNAL., w
               class:list={['shard', world.id]}
               href={world.href}
               data-domain={world.domain}
-              target={world.external ? '_blank' : undefined}
-              rel={world.external ? 'noopener' : undefined}
+              target="_blank"
+              rel="noopener"
               style={`--w:${w}`}
             >
               <span class="media" aria-hidden="true">
@@ -64,7 +64,7 @@ const description = 'SIRYUS is home to SIRYUS A.M, ARC. Creatives and SIGNAL., w
                 <span class="note">{world.note}</span>
                 <span class="go">
                   {world.domain}
-                  {world.external && <span class="sr"> (opens in a new tab)</span>}
+                  <span class="sr"> (opens in a new tab)</span>
                 </span>
                 <span class="ticks" aria-hidden="true"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i></span>
               </span>

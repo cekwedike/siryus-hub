@@ -1109,3 +1109,32 @@ body.arc-route.light-theme .arc-subscribe-form__submit {
 .arc-section-head__rule {
   display: none;
 }
+
+/* "Back to SIRYUS": ARC.'s way home, marked with the SIRYUS star in ARC. orange. */
+.arc-siryus {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--arc-accent, #f27930) !important;
+  opacity: 1 !important;
+}
+.arc-siryus .siryus-star {
+  width: 0.85em;
+  height: 1.15em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+.arc-siryus:hover .siryus-star,
+.arc-footer__brand:hover .arc-siryus .siryus-star {
+  transform: rotate(-16deg) scale(1.1);
+}
+.arc-route-nav__links .arc-siryus {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(242, 121, 48, 0.55);
+}
+.arc-route-nav__links .arc-siryus:hover {
+  background: var(--arc-accent, #f27930);
+  color: #0a0908 !important;
+}

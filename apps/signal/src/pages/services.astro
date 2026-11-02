@@ -1,5 +1,48 @@
 ---
 import Site from '../layouts/Site.astro'
-const items=[['Strategy','Positioning, audience thinking, brand planning and clear choices.'],['Campaigns','Ideas and connected rollouts built for the channels that matter.'],['Email and CRM','Useful journeys that keep people close without filling their inbox with noise.'],['Content and copy','Words, concepts and content systems that sound like one brand.'],['Growth','Testing, learning and practical ways to improve the full path.'],['Storytelling','The central idea that gives every other part meaning.']]
+import Paths from '../components/Paths.astro'
+import Pic from '../components/Pic.astro'
+import { services } from '../data/services'
+
+const schema = services.map((s) => ({
+  '@type': 'Service',
+  name: s.name,
+  description: s.long,
+  provider: { '@id': 'https://growth.siryushub.com/#organization' },
+}))
 ---
-<Site title="Services" description="SIGNAL. services across strategy, campaigns, CRM, content, growth and storytelling."><header class="page-head"><h1>Connected work. One clear signal.</h1><p>We bring the right disciplines together around the same story and goal.</p></header><section class="section"><div class="grid">{items.map(([name,copy],i)=><article class="tile"><b>0{i+1}</b><h2>{name}</h2><p>{copy}</p></article>)}</div></section></Site>
+<Site title="Services" description="SIGNAL. services: storytelling, brand strategy, campaigns, content and copy, email and CRM, and growth. Connected work around one clear message." schema={schema}>
+  <header class="page-hero">
+    <div class="wrap">
+      <h1>Connected work. One clear message.</h1>
+      <p>Each service works on its own. They work best together, because they all start from the same story.</p>
+    </div>
+    <Paths />
+  </header>
+  <section class="section">
+    <div class="wrap">
+      <ul class="index">
+        {services.map((s) => (
+          <li>
+            <h2 style="font:clamp(1.8rem,3.4vw,3rem)/1 var(--serif)">{s.name}</h2>
+            <div>
+              <p>{s.long}</p>
+              <ul aria-label={`${s.name} includes`}>{s.includes.map((i) => <li>{i}</li>)}</ul>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <section class="section dark">
+    <div class="wrap split flip">
+      <figure><Pic name="video-camera" alt="A camera operator filming content in a dark studio lit in red" /></figure>
+      <div>
+        <h2>Made for the real world.</h2>
+        <p>We plan for the budget you have, the team you have and the time you have. Ad spend is always separate from our fees, and nothing is spent without your approval.</p>
+        <p>We will not promise followers, sales or viral moments. We will promise clear thinking, careful work and honest reporting.</p>
+        <a class="button light" href="/contact">Talk about your project</a>
+      </div>
+    </div>
+  </section>
+</Site>

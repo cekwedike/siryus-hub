@@ -1,0 +1,47 @@
+---
+import Site from '../../layouts/Site.astro'
+import { getPosts, img, toHtml, date, type Post } from '../../lib/sanity'
+
+export async function getStaticPaths() {
+  const posts = await getPosts()
+  return posts.map((post, i) => ({ params: { slug: post.slug }, props: { post, next: posts[(i + 1) % posts.length] } }))
+}
+const { post, next } = Astro.props as { post: Post; next: Post }
+const description = post.seoDescription ?? post.excerpt ?? post.title
+const schema = [{
+  '@type': 'BlogPosting',
+  headline: post.title,
+  description,
+  datePublished: post.publishedAt,
+  image: img(post.coverImage, 1200, 630),
+  author: { '@type': 'Person', name: post.author ?? 'SIRYUS A.M' },
+  publisher: { '@id': 'https://artists.siryushub.com/#organization' },
+  mainEntityOfPage: new URL(`/journal/${post.slug}`, Astro.site).href,
+}]
+---
+<Site title={post.title} description={description} image={img(post.coverImage, 1200, 630)} type="article" schema={schema}>
+  <header class="page-hero">
+    <div class="wrap">
+      <a class="crumb" href="/journal">Journal</a>
+      <h1>{post.title}</h1>
+      <p class="byline">{post.author && <>By {post.author}, </>}<time datetime={post.publishedAt}>{date(post.publishedAt)}</time></p>
+    </div>
+  </header>
+  <article class="section">
+    <div class="wrap">
+      <img class="article-cover" src={img(post.coverImage, 1600, 800)} srcset={`${img(post.coverImage, 900, 450)} 900w, ${img(post.coverImage, 1600, 800)} 1600w`} sizes="(max-width: 82rem) 92vw, 82rem" alt="" width="1600" height="800" fetchpriority="high" />
+      <div class="prose" set:html={toHtml(post.body)} />
+    </div>
+  </article>
+  {next && next.slug !== post.slug && (
+    <section class="section mist">
+      <div class="wrap closing">
+        <h2>Read next</h2>
+        <a class="post-card" href={`/journal/${next.slug}`}>
+          <p class="meta">{next.category}</p>
+          <h3>{next.title}</h3>
+        </a>
+      </div>
+    </section>
+  )}
+</Site>

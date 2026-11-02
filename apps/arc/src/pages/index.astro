@@ -1,4 +1,5 @@
 ---
+import SiryusStar from '../components/SiryusStar.astro';
 import ArcAnimatedLogo from '../components/ArcAnimatedLogo.astro';
 import ArcFooter from '../components/ArcFooter.astro';
 import '../styles/arc-fonts.css';
@@ -7,6 +8,7 @@ import '../styles/arc-blog.css';
 
 <!DOCTYPE html>
 <html lang="en" class="layout-html">
+  <Fragment set:html={'<!--email_off-->'} />
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -74,7 +76,7 @@ import '../styles/arc-blog.css';
         <a href="/arc/events">Events</a>
         <a href="/arc/music">Music &amp; Projects</a>
         <a href="#arc-values">Values</a>
-        <a href="https://siryushub.com">Back to SIRYUS</a>
+        <a class="arc-siryus" href="https://siryushub.com"><SiryusStar />Back to SIRYUS</a>
       </div>
     </nav>
     <main class="arc-page">
@@ -373,6 +375,7 @@ import '../styles/arc-blog.css';
       })();
     </script>
   </body>
+  <Fragment set:html={'<!--/email_off-->'} />
 </html>
 
 <style is:global>

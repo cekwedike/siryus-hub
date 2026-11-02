@@ -1,4 +1,111 @@
 ---
 import Site from '../layouts/Site.astro'
+import Paths from '../components/Paths.astro'
+import Pic from '../components/Pic.astro'
+import { services } from '../data/services'
 ---
-<Site title="Make your story carry" description="SIGNAL. is a story-led marketing and growth agency by SIRYUS."><section class="hero"><div class="hero-copy"><h1>Make your story <em>carry.</em></h1><p>We shape strategy, campaigns, content and growth around the thing people remember: a clear story.</p><p><a class="button" href="/services">See what we do</a></p></div><div class="hero-image"><img src="https://images.unsplash.com/photo-1553484771-371a605b060b?auto=format&fit=crop&w=1800&q=88" alt="Creative team working together around a table"/><span class="orbit" aria-hidden="true"></span></div></section><section class="section"><h2>From attention to meaning.</h2><div class="services"><article class="service"><b>01</b><div><h3>Strategy</h3><p>Find the sharp idea, the right audience and the clearest way forward.</p></div></article><article class="service"><b>02</b><div><h3>Campaigns</h3><p>Turn one strong thought into work that moves across channels.</p></div></article><article class="service"><b>03</b><div><h3>Content and copy</h3><p>Give your brand a voice people can hear, trust and remember.</p></div></article><article class="service"><b>04</b><div><h3>Growth and CRM</h3><p>Build useful journeys that turn interest into a lasting relationship.</p></div></article></div></section><section class="case"><img src="https://images.unsplash.com/photo-1529119513315-c7c361862fc7?auto=format&fit=crop&w=1600&q=88" alt="Bright campaign artwork being arranged by hand"/><div><h2>Story is not the final layer.</h2><p>It shapes the choice, the message and the way every part works together. That is how a brand stops filling space and starts sending a signal.</p><a class="button" href="/approach">Our approach</a></div></section></Site>
+<Site
+  title="SIGNAL. by SIRYUS"
+  description="SIGNAL. is a story-led marketing and growth agency. We find the story people care about, shape the strategy and build campaigns that move people to act."
+  preload="billboard-night"
+>
+  <section class="hero">
+    <div class="hero-copy">
+      <h1>Make your message matter<span class="dot" aria-hidden="true"></span></h1>
+      <p>Good marketing starts with a story people care about. We find that story, shape the strategy, and build campaigns that move people to act.</p>
+      <div class="hero-actions">
+        <a class="button" href="/contact">Tell us what you're building</a>
+        <a class="text-link" href="/services">What we do</a>
+      </div>
+      <Paths />
+    </div>
+    <figure class="hero-media">
+      <Pic name="billboard-night" alt="An empty, lit billboard at a quiet bus stop at night" eager sizes="(max-width: 56rem) 100vw, 48vw" />
+      <figcaption>Every space is waiting for a message worth stopping for.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap statement">
+      <blockquote>People meet thousands of messages a day. They remember the ones that mean something.</blockquote>
+      <div>
+        <p>That is the gap SIGNAL. works in. We help brands, companies and organisations decide what to say, say it clearly, and get it in front of the people who need to hear it.</p>
+        <p>Story is not the final coat of paint. It shapes every choice, from the strategy to the subject line.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="method-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="method-title">Find the story. Shape the strategy. Move the message.</h2>
+        <p>Three paths, one point. It is how we work on every project, big or small.</p>
+      </div>
+      <ol class="method">
+        <li><h3>Find the story</h3><p>We learn the business, the audience and the real problem, then find the one idea worth building around.</p></li>
+        <li><h3>Shape the strategy</h3><p>We choose who to reach, what to say and where to say it, so every part of the plan pulls the same way.</p></li>
+        <li><h3>Move the message</h3><p>We make the campaign, the content and the journeys, then measure what happens and sharpen what works.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section paper" aria-labelledby="services-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="services-title">From the first idea to the final result.</h2>
+        <p>We connect storytelling with smart marketing. Use one discipline, or bring us in for all of it.</p>
+      </div>
+      <ul class="index">
+        {services.map((s) => (
+          <li><h3>{s.name}</h3><div><p>{s.short}</p></div></li>
+        ))}
+      </ul>
+      <p style="margin-top:2rem"><a class="text-link" href="/services">See what each service includes</a></p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="band-title">
+    <Pic name="london-billboard" alt="Large digital billboards above a busy street corner in London" sizes="100vw" />
+    <div class="wrap">
+      <h2 id="band-title">Attention is rented. Meaning is owned.</h2>
+      <p>Anyone can buy a moment on a screen. We help you build a message people carry with them after it is gone.</p>
+    </div>
+  </section>
+
+  <section class="section dark" aria-labelledby="who-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="who-title">Who we work with.</h2>
+        <p>Not just music, and not just big budgets. Anyone with something real to say and a reason to say it well.</p>
+      </div>
+      <div class="audience">
+        <div><h3>Growing brands</h3><p>Products and services ready to be known for one clear thing.</p></div>
+        <div><h3>Companies</h3><p>Teams launching, rebranding or trying to reach a new audience.</p></div>
+        <div><h3>Organisations</h3><p>Non-profits, faith groups and institutions with a cause to share.</p></div>
+        <div><h3>Creators</h3><p>Artists, founders and public voices building a name that lasts.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <figure><Pic name="chalkboard" alt="Two people mapping a brand strategy on a chalkboard wall" /></figure>
+      <div>
+        <h2>Honest work, shown with permission.</h2>
+        <p>We only publish client work when the client says yes. We will never dress up a mock-up as a result, or promise numbers no one can promise.</p>
+        <p>Ask us about the work we have done, and we will walk you through it.</p>
+        <a class="button" href="/work">How we take on projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section red" aria-labelledby="closing-title">
+    <div class="wrap closing">
+      <h2 id="closing-title">Tell us what you're building.</h2>
+      <div>
+        <p>Share where you are, where it feels stuck and what a good result would change. We will reply with honest next steps.</p>
+        <a class="button light" href="/contact">Start a conversation</a>
+      </div>
+    </div>
+  </section>
+</Site>
