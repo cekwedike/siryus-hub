@@ -5,7 +5,7 @@
 - Business: storytelling-led marketing and growth agency for brands, companies and organizations. Not just artist marketing. Studio is distinct from SIRYUS A.M, ARC. Creatives and PAVO Create.
 - Central promise: **Make your message matter.**
 - The Paths: three curved directional elements converging toward one central negative-space point. Associated ideas: strategy, creativity and execution/growth.
-- Dot after `SIGNAL` must be a **square**, not circular. The square's apparent height should align with the L's horizontal stroke thickness, positioned naturally near baseline. Refine in an actual outlined master logo; do not trust font punctuation or generative mockups for final geometry.
+- Dot after `SIGNAL` is a **circular** red period, as in the approved lockups in `logos/SIGNAL/`. Confirmed by the user on 2026-11-02; this replaces the earlier square-period instruction.
 - Palette: **Graphite `#0B0B0C`, Warm Stone `#F3EDE4`, Red `#D9232A`** as approved *direction*. Avoid purple, amber, vivid lime and default AI gradient look. Supporting black/white neutrals acceptable. Adjust specific red by deliberate visual proof and user signoff.
 - Fonts: explore Sora (display/headline) and Inter (body/UI); font availability and licensing must be checked. Do not assume the final raster wordmark is these exact fonts. Custom vector lettering preferable.
 - Tone: decisive, thoughtful, compelling, practical; show what the story means for real campaigns. Human and simple, not hype.

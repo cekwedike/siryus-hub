@@ -115,3 +115,37 @@ The repository can be built and previewed locally. Production release remains bl
 - SIRYUS A.M now uses a bright music-editorial system with its own font pairing and routes.
 - SIGNAL. now has a premium light agency system and separate Services, Approach, Work, Insights, About and Contact pages.
 - No grey text is part of the three new systems.
+
+## 2026-11-02: favicons from real logos and portal rebuild
+
+Favicons
+- `pnpm icons` (`scripts/build-brand-icons.mjs`) now builds every favicon from the original files in `logos/`, so icons can be regenerated when a logo changes.
+- SIRYUS: the double star taken from the Siryus Creative Media Ltd vector master, with strokes thickened so it reads at 16px. It sits on a white tile so it works in light and dark browser tabs.
+- SIRYUS A.M: the coloured app-tile mark cropped from `SIRYUS-A.M-PNG-coloured.png`. This replaces an invented "A" letterform SVG, which was deleted.
+- SIGNAL.: the approved `logos/SIGNAL/signal-favicon-*` exports. This replaces an invented SVG shape, which was deleted.
+- ARC. Creatives: the dark-background logo (white "arc.") on ARC's near-black. The earlier icon had white lettering on a transparent background, which disappeared in light tabs.
+- Each site ships `favicon.ico` (16/32/48), `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` and, except ARC, `site.webmanifest`.
+
+SIRYUS portal
+- The header uses the real Siryus Creative Media Ltd lockup (`brand/siryus/lockup-black.png`) instead of typed text.
+- Every shard uses the same slant offset, so the gaps stay parallel when one expands.
+- Each card shows its real mark above the name in that brand's own typeface: Cenzo (A.M), Unbounded (ARC.), DM Serif Display (SIGNAL.). PAVO Create uses Sora and shows no logo until PAVO Create supplies one. `NEEDS CONFIRMATION`: PAVO Create typeface.
+- ARC. now uses its dark-background logo straight on the image, so "arc." is legible.
+- Card numbers were removed because the four worlds are not a sequence. "Enter a different world." was removed as a standalone line.
+- The carousel images change in a left-to-right ripple. Small progress ticks in each brand's accent show the carousel position.
+- Hover or keyboard focus widens one world and turns the other three greyscale. The footer shows the destination domain.
+- Responsive layouts: 4 interlocked shards (1100px and up), a 2 x 2 interlock (700 to 1099px), and 4 diagonal bands that fill a phone screen.
+- Reduced motion shows one still image per world with no entrance motion.
+- `og.png` and social meta were added.
+
+Known issues, not changed
+- ARC pages link to `/about`, `/artists`, `/contact` and `/arc`, which do not exist in the standalone ARC app. These are leftovers from the old combined site. They need a decision before ARC is touched.
+- `package.json` pins `packageManager: pnpm@12.15.0`. On this machine that pnpm install fails to start, so builds were run with `astro build` directly in each app.
+
+## 2026-11-02: user corrections and parent decoration
+
+- Subdomains corrected everywhere: SIRYUS A.M `artists.siryushub.com`, ARC. `collective.siryushub.com`, SIGNAL. `growth.siryushub.com` (portal links, app `site` configs and the route matrix).
+- SIRYUS A.M now uses the white logo (`SIRYUS-A.M-PNG-WHITE.png`) for its favicon and portal mark, not the lime version.
+- SIGNAL.'s period is circular, matching the approved lockups. The earlier "square period" rule in AGENTS.md and the docs was updated to match.
+- The parent favicon is the Siryus Creative Media Ltd star, not the SIRYUS A.M hexagon. These are separate logos.
+- Parent decoration: a dotted double orbit (echoing the double outline of the logo star) frames the worlds, a small SIRYUS star travels it every 80 seconds, four outline sparkles twinkle in the open space, and print crop marks frame the stage on tablet and desktop. All are decorative (`aria-hidden`), and reduced motion stops the travelling star and twinkles.

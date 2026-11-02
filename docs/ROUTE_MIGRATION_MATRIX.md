@@ -183,9 +183,9 @@ This section supersedes any earlier assumption that all public routes remain ins
 | Public destination | Workspace app | Local command | Current routes |
 |---|---|---|---|
 | `siryushub.com` | `apps/siryus` | `pnpm dev:hub` | `/` |
-| `am.siryushub.com` | `apps/am` | `pnpm dev:am` | `/`, `/artists`, `/services`, `/projects`, `/journal`, `/about`, `/contact` |
-| `signal.siryushub.com` | `apps/signal` | `pnpm dev:signal` | `/`, `/services`, `/approach`, `/work`, `/insights`, `/about`, `/contact` |
-| `arc.siryushub.com` | `apps/arc` | `pnpm dev:arc` | `/` plus preserved `/arc/*` routes during path migration |
+| `artists.siryushub.com` | `apps/am` | `pnpm dev:am` | `/`, `/artists`, `/services`, `/projects`, `/journal`, `/about`, `/contact` |
+| `growth.siryushub.com` | `apps/signal` | `pnpm dev:signal` | `/`, `/services`, `/approach`, `/work`, `/insights`, `/about`, `/contact` |
+| `collective.siryushub.com` | `apps/arc` | `pnpm dev:arc` | `/` plus preserved `/arc/*` routes during path migration |
 | `pavocreate.com` | External site | Not in this repository | External navigation only |
 
 Cloudflare custom domains and DNS are not changed. The final ARC path flattening needs a preview and redirect review before production because its current approved navigation uses `/arc/*` URLs.

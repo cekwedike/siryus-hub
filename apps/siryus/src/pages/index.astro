@@ -1,30 +1,161 @@
 ---
 import '../styles/global.css'
-const worlds = [
-  { cls: 'am', name: 'SIRYUS A.M', note: 'Artists, music and long-term growth', href: 'https://am.siryushub.com', image: '/images/artists/max-prodigy.webp' },
-  { cls: 'arc', name: 'ARC. Creatives', note: 'Ascent. Refuge. Collective.', href: 'https://arc.siryushub.com', image: '/arc/hero-section.webp' },
-  { cls: 'signal', name: 'SIGNAL.', note: 'Stories that move people and brands', href: 'https://signal.siryushub.com', image: 'https://images.unsplash.com/photo-1553484771-371a605b060b?auto=format&fit=crop&w=1600&q=86' },
-  { cls: 'pavo', name: 'PAVO Create', note: 'Tools for creative work', href: 'https://pavocreate.com', image: '/brand/pavo/product-mark.png', external: true },
+
+type World = {
+  id: string
+  name: string
+  period?: boolean
+  note: string
+  href: string
+  domain: string
+  external?: boolean
+  logo?: { src: string; width: number; height: number }
+  images: string[]
+}
+
+const worlds: World[] = [
+  {
+    id: 'am',
+    name: 'SIRYUS A.M',
+    note: 'Artist management, music and long-term growth.',
+    href: 'https://artists.siryushub.com',
+    domain: 'artists.siryushub.com',
+    logo: { src: '/brand/am/tile.png', width: 360, height: 333 },
+    images: ['/images/hero/siryus-violin.webp', '/images/hero/jlinez.webp', '/images/artists/max-prodigy.webp'],
+  },
+  {
+    id: 'arc',
+    name: 'ARC. Creatives',
+    note: 'Ascent. Refuge. Collective.',
+    href: 'https://collective.siryushub.com',
+    domain: 'collective.siryushub.com',
+    logo: { src: '/brand/arc/logo-on-dark.svg', width: 73, height: 77 },
+    images: ['/arc/hero-section.webp', '/arc/arc-mic.webp', '/arc/young-and-for-christ.jpg'],
+  },
+  {
+    id: 'signal',
+    name: 'SIGNAL',
+    period: true,
+    note: 'Story-led marketing and growth for brands.',
+    href: 'https://growth.siryushub.com',
+    domain: 'growth.siryushub.com',
+    logo: { src: '/brand/signal/symbol.png', width: 425, height: 355 },
+    images: ['/images/portal/signal-workshop.webp', '/images/portal/signal-planning.webp', '/images/portal/signal-wall.webp'],
+  },
+  {
+    id: 'pavo',
+    name: 'PAVO Create',
+    note: 'The software company behind PAVO, MusicSim, ATLAS and Trackr.',
+    href: 'https://pavocreate.com',
+    domain: 'pavocreate.com',
+    external: true,
+    images: ['/images/portal/pavo-code.webp', '/images/portal/pavo-laptop.webp', '/images/portal/pavo-devices.webp'],
+  },
 ]
+
+const title = 'SIRYUS | Different worlds. One creative universe.'
+const description = 'SIRYUS is home to SIRYUS A.M, ARC. Creatives and SIGNAL., with PAVO Create alongside. Choose a world to enter.'
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Enter the SIRYUS creative ecosystem." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href="https://siryushub.com/" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <title>SIRYUS | A creative ecosystem</title>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://siryushub.com/" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://siryushub.com/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Marcellus&family=Sora:wght@700&family=Unbounded:wght@600&display=swap" />
   </head>
   <body>
     <a class="skip" href="#worlds">Skip to the worlds</a>
-    <main class="portal">
-      <header class="topbar"><a class="brand" href="/">SIRYUS</a><p>Different worlds. One creative universe.</p></header>
-      <h1 class="portal-note">Enter the SIRYUS creative universe</h1>
-      <nav class="shards" id="worlds" aria-label="SIRYUS worlds">
-        {worlds.map((world) => <a class:list={['shard', world.cls]} href={world.href} target={world.external ? '_blank' : undefined} rel={world.external ? 'noreferrer' : undefined}><img src={world.image} alt="" /><span class="shard-copy"><strong>{world.name}</strong><span>{world.note}{world.external ? ' Opens another website' : ''}</span></span></a>)}
-      </nav>
-      <footer class="foot"><p>Enter a different world.</p><p>© 2026 Siryus Creative Media Ltd</p></footer>
-    </main>
+    <div class="portal">
+      <div class="cosmos" aria-hidden="true">
+        <svg class="orbit" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <path id="orbit-path" d="M30 520a770 455 -7 1 0 1540 0a770 455 -7 1 0 -1540 0" />
+          <path class="inner" d="M78 520a722 424 -7 1 0 1444 0a722 424 -7 1 0 -1444 0" />
+          <g class="traveller">
+            <g transform="scale(.13) translate(-748 -540)"><path d="M843.2,501.06c-23.91,29.7-37.92,67.43-37.57,107.87l-6.45-3.89l-79.27,68.77l23.71-102.23l-89.9-54.14l104.56-9.04l23.71-102.23l40.91,96.64L843.2,501.06z" /><path d="M814.64,519.79c-12.4,15.41-19.68,34.99-19.5,55.98l-3.35-2.02l-41.13,35.69l12.3-53.05l-46.65-28.09l54.26-4.69l12.3-53.05l21.23,50.15L814.64,519.79z" /></g>
+            <animateMotion dur="80s" repeatCount="indefinite" rotate="0"><mpath href="#orbit-path" /></animateMotion>
+          </g>
+        </svg>
+        <svg class="sparkle s1" viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+        <svg class="sparkle s2" viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+        <svg class="sparkle s3" viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+        <svg class="sparkle s4" viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+      </div>
+      <header class="top">
+        <a class="lockup" href="/" aria-label="SIRYUS home">
+          <img src="/brand/siryus/lockup-black.png" width="1200" height="567" alt="SIRYUS" />
+        </a>
+        <h1>Different worlds. One creative universe.</h1>
+      </header>
+
+      <main class="stage">
+        <span class="crop" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <nav class="shards" id="worlds" aria-label="SIRYUS worlds">
+          {worlds.map((world, w) => (
+            <a
+              class:list={['shard', world.id]}
+              href={world.href}
+              data-domain={world.domain}
+              target={world.external ? '_blank' : undefined}
+              rel={world.external ? 'noopener' : undefined}
+              style={`--w:${w}`}
+            >
+              <span class="media" aria-hidden="true">
+                {world.images.map((src, i) => (
+                  <img src={src} alt="" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" style={`--i:${i}`} />
+                ))}
+              </span>
+              <span class="copy">
+                {world.logo && (
+                  <img class="mark" src={world.logo.src} width={world.logo.width} height={world.logo.height} alt="" />
+                )}
+                <span class="name">{world.name}{world.period && <span class="period" aria-hidden="true"></span>}</span>
+                <span class="note">{world.note}</span>
+                <span class="go">
+                  {world.domain}
+                  {world.external && <span class="sr"> (opens in a new tab)</span>}
+                </span>
+                <span class="ticks" aria-hidden="true"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i></span>
+              </span>
+            </a>
+          ))}
+        </nav>
+      </main>
+
+      <footer class="foot">
+        <p>© 2026 Siryus Creative Media Ltd</p>
+        <p class="status" aria-hidden="true" data-default="siryushub.com">siryushub.com</p>
+      </footer>
+    </div>
+
+    <script>
+      const status = document.querySelector<HTMLElement>('.status')
+      if (status) {
+        const fallback = status.dataset.default ?? ''
+        const show = (text: string) => { status.textContent = text }
+        document.querySelectorAll<HTMLAnchorElement>('.shard').forEach((shard) => {
+          const domain = shard.dataset.domain ?? fallback
+          shard.addEventListener('pointerenter', () => show(domain))
+          shard.addEventListener('focus', () => show(domain))
+          shard.addEventListener('pointerleave', () => show(fallback))
+          shard.addEventListener('blur', () => show(fallback))
+        })
+      }
+    </script>
   </body>
 </html>

@@ -7,7 +7,7 @@
 - SIRYUS parent: sophisticated creative umbrella, approved parent logo, editorial hero and immersive but simple four-brand discovery. Parent lime motif only where part of original asset.
 - SIRYUS A.M: music-centric, emotionally expressive and artist-focused. Use approved A.M logo and real covers/roster media. Do not copy parent layout.
 - ARC. Creatives: warm, human, faith-rooted, communal, editorial. Use approved ARC. Creatives orange pattern/logo; do not force SIGNAL. red or A.M lime into ARC.
-- SIGNAL.: graphite, warm stone and red; sharply art-directed, editorial and strategic; Paths symbol and square period. Storytelling core. No purple, amber or generic neon gradient look.
+- SIGNAL.: graphite, warm stone and red; sharply art-directed, editorial and strategic; Paths symbol and circular red period. Storytelling core. No purple, amber or generic neon gradient look.
 - PAVO Create: independent external site and branding; only a respectful branded card on SIRYUS. Do not recolor PAVO Create without its official assets.
 
 ## Photography and motion

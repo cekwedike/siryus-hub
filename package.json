@@ -2,7 +2,7 @@
   "name": "siryus-ecosystem",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "pnpm@12.15.0",
+  "packageManager": "pnpm@11.25.0",
   "scripts": {
     "dev": "pnpm --filter @siryus/hub dev",
     "dev:hub": "pnpm --filter @siryus/hub dev",
@@ -16,6 +16,7 @@
     "build:arc": "pnpm --filter @siryus/arc build",
     "check": "pnpm -r --filter @siryus/hub --filter @siryus/am --filter @siryus/signal --filter @siryus/arc check",
     "preview": "pnpm --filter @siryus/hub preview",
+    "icons": "node scripts/build-brand-icons.mjs",
     "lint:max-lines": "node scripts/check-line-length.mjs",
     "seed:artists": "node scripts/seed-artists.mjs",
     "seed:projects": "node scripts/seed-projects.mjs",

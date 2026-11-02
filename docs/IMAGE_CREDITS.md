@@ -40,3 +40,14 @@ The current local build uses Unsplash image delivery URLs while final owned camp
 - Creative work wall: `https://images.unsplash.com/photo-1545235617-9465d2a55698`
 
 License: `https://unsplash.com/license`
+
+### Self-hosted portal copies (2026-11-02)
+
+The SIRYUS portal cards no longer hotlink Unsplash. `scripts/fetch-portal-photos.mjs` stores WebP copies in `apps/siryus/public/images/portal/`:
+
+- `signal-workshop.webp`, `signal-planning.webp`, `signal-wall.webp`: the three SIGNAL. photos listed above.
+- `pavo-code.webp`: `https://images.unsplash.com/photo-1555066931-4365d14bab8c`
+- `pavo-laptop.webp`: `https://images.unsplash.com/photo-1516321318423-f06f85e504b3`
+- `pavo-devices.webp`: `https://images.unsplash.com/photo-1551650975-87deedd944c3`
+
+PAVO Create imagery is placeholder stock until PAVO Create supplies its own product media.

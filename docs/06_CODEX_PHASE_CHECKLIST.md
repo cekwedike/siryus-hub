@@ -9,7 +9,7 @@
 - [ ] Keep each brand's visual system independent and apply its own real logos.
 - [ ] Implement A.M with accurate roster and complete music/project/insight archive.
 - [ ] Implement ARC. Creatives with its distinct journal, events, community, DSP, newsletter, supporters and Sanity.
-- [ ] Implement SIGNAL. with Paths identity, **square period**, red/graphite/warm stone, and storytelling-led narrative.
+- [ ] Implement SIGNAL. with Paths identity, **circular red period**, red/graphite/warm stone, and storytelling-led narrative.
 - [ ] Catalog all media licenses/credits, optimize images, accessible interaction/motion.
 - [ ] Migrate CMS content and SEO route by route; test old/new routes.
 - [ ] Verify Cloudflare Pages previews and production requirements without changing email DNS.
