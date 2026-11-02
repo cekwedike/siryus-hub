@@ -1,7 +1,7 @@
 // Shared contact-form handler for the SIRYUS sites, run as a Cloudflare Pages Function.
 // Each enquiry produces two emails through Mailjet's Send API v3.1, both sent from noreply@siryushub.com:
 //   1. a notification to the brand inbox, with Reply-To set to the visitor so the team can answer directly;
-//   2. a short acknowledgement to the visitor, with Reply-To set to the brand inbox.
+//   2. a fixed acknowledgement to the visitor (no visitor text in it), with Reply-To set to the brand inbox.
 // Secrets (set per Pages project): MAILJET_API_KEY, MAILJET_SECRET_KEY.
 
 export type Brand = {
@@ -59,15 +59,16 @@ function notification(brand: Brand, data: Record<string, string>) {
   return { html, text }
 }
 
-function acknowledgement(brand: Brand, data: Record<string, string>) {
-  const first = data.name.split(/\s+/)[0]
+// The acknowledgement goes to an address nobody has verified, so it carries no visitor-supplied text at all.
+// Otherwise the form could be used to send someone else's words from our domain to strangers.
+function acknowledgement(brand: Brand) {
   const html = layout(
     brand,
-    `Thanks, ${first}. We have your message.`,
+    'Thanks. We have your message.',
     `<p style="margin:0 0 16px">A real person on the ${escape(brand.name)} team will read it and reply, usually within two working days.</p><p style="margin:0 0 16px">If you need to add anything, just reply to this email. It goes straight to ${escape(brand.inbox)}.</p><p style="margin:0">${escape(brand.signoff)}</p>`,
     { label: `Visit ${brand.name}`, href: brand.site },
   )
-  const text = `Thanks, ${first}. We have your message.\n\nA real person on the ${brand.name} team will read it and reply, usually within two working days. If you need to add anything, reply to this email. It goes straight to ${brand.inbox}.\n\n${brand.signoff}\n\n${brand.site}`
+  const text = `Thanks. We have your message.\n\nA real person on the ${brand.name} team will read it and reply, usually within two working days. If you need to add anything, reply to this email. It goes straight to ${brand.inbox}.\n\n${brand.signoff}\n\n${brand.site}`
   return { html, text }
 }
 
@@ -109,7 +110,7 @@ export function contactHandler(brand: Brand) {
     }
 
     const toTeam = notification(brand, data)
-    const toVisitor = acknowledgement(brand, data)
+    const toVisitor = acknowledgement(brand)
     const res = await fetch('https://api.mailjet.com/v3.1/send', {
       method: 'POST',
       headers: {
@@ -129,7 +130,7 @@ export function contactHandler(brand: Brand) {
           },
           {
             From: { Email: SENDER, Name: brand.name },
-            To: [{ Email: data.email, Name: data.name }],
+            To: [{ Email: data.email }],
             ReplyTo: { Email: brand.inbox, Name: brand.name },
             Subject: `We got your message | ${brand.name}`,
             TextPart: toVisitor.text,
