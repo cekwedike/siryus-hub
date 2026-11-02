@@ -1,5 +1,5 @@
 import { createClient } from '@sanity/client'
-import imageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder } from '@sanity/image-url'
 import type { SanityImageSource } from '@sanity/image-url'
 
 const projectId = import.meta.env.PUBLIC_SANITY_ARC_PROJECT_ID as string | undefined
@@ -19,7 +19,7 @@ export const sanityArcClient = configured
     })
   : null
 
-const builder = sanityArcClient ? imageUrlBuilder(sanityArcClient) : null
+const builder = sanityArcClient ? createImageUrlBuilder(sanityArcClient) : null
 
 function urlForArc(source: SanityImageSource) {
   if (!builder) throw new Error('sanityArcClient not configured')

@@ -12,9 +12,9 @@ const { title, description, canonical = 'https://www.siryushub.com/' } = Astro.p
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Siryus Creative Media Ltd',
+  name: 'SIRYUS',
+  legalName: 'Siryus Creative Media Ltd',
   url: 'https://www.siryushub.com',
-  logo: 'https://www.siryushub.com/images/logo/dark/siryus-logo-dark.png',
   email: 'management@siryushub.com',
 }
 ---
@@ -31,14 +31,11 @@ const organizationSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content="https://www.siryushub.com/images/logo/dark/siryus-logo-dark.png" />
-    <meta property="og:site_name" content="Siryus Creative Media Ltd" />
+    <meta property="og:site_name" content="SIRYUS" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://www.siryushub.com/images/logo/dark/siryus-logo-dark.png" />
-    <link rel="icon" type="image/x-icon" href="/images/logo/dark/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/dark/apple-touch-icon.png" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23090909'/%3E%3C/svg%3E" />
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
     <script is:inline defer src="https://www.googletagmanager.com/gtag/js?id=G-H882NL8BE3"></script>
     <script is:inline defer>

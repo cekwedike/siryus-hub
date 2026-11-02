@@ -10,6 +10,8 @@ export type EcosystemCard = {
   state: 'available' | 'pending'
   image: string | null
   imageAlt: string
+  mark: string | null
+  markAlt: string
 }
 
 export const ecosystemCards: EcosystemCard[] = [
@@ -24,6 +26,8 @@ export const ecosystemCards: EcosystemCard[] = [
     state: 'available',
     image: '/images/background/siryus-am.png',
     imageAlt: '',
+    mark: '/images/logo/light/siryus-logo-light.png',
+    markAlt: 'SIRYUS Artist Management',
   },
   {
     id: 'arc-creatives',
@@ -36,18 +40,21 @@ export const ecosystemCards: EcosystemCard[] = [
     state: 'available',
     image: '/arc/hero-section.webp',
     imageAlt: '',
+    mark: '/arc/arc-logo.png',
+    markAlt: 'ARC. Creatives',
   },
   {
     id: 'pavo',
     name: 'PAVO',
-    description:
-      'A creative platform that helps teams plan, make, and manage their content in one place.',
-    actionLabel: 'Visit PAVO',
-    href: 'https://pavocreate.com/',
-    linkKind: 'external',
-    state: 'available',
+    description: 'A SIRYUS product in development. Its identity and direction will be shared later.',
+    actionLabel: 'PAVO is taking shape',
+    href: null,
+    linkKind: 'none',
+    state: 'pending',
     image: null,
     imageAlt: '',
+    mark: null,
+    markAlt: '',
   },
   {
     id: 'signal',
@@ -59,5 +66,7 @@ export const ecosystemCards: EcosystemCard[] = [
     state: 'pending',
     image: null,
     imageAlt: '',
+    mark: null,
+    markAlt: '',
   },
 ]

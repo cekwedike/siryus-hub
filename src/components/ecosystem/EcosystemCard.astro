@@ -7,7 +7,6 @@ interface Props {
 }
 
 const { card, index } = Astro.props
-const number = String(index + 1).padStart(2, '0')
 const className = `ecosystem-card ecosystem-card--${card.id}`
 ---
 
@@ -30,9 +29,12 @@ const className = `ecosystem-card ecosystem-card--${card.id}`
         />
       )}
       <span class="ecosystem-card__shade" aria-hidden="true"></span>
-      <span class="ecosystem-card__number" aria-hidden="true">{number}</span>
       <span class="ecosystem-card__content">
-        <strong>{card.name}</strong>
+        {card.mark ? (
+          <img class="ecosystem-card__mark" src={card.mark} alt={card.markAlt} loading={index === 0 ? 'eager' : 'lazy'} />
+        ) : (
+          <strong>{card.name}</strong>
+        )}
         <span class="ecosystem-card__description">{card.description}</span>
         <span class="ecosystem-card__action">
           {card.actionLabel}
@@ -42,7 +44,6 @@ const className = `ecosystem-card ecosystem-card--${card.id}`
     </a>
   ) : (
     <article class={className} aria-labelledby={`ecosystem-card-${card.id}`}>
-      <span class="ecosystem-card__number" aria-hidden="true">{number}</span>
       <span class="ecosystem-card__content">
         <strong id={`ecosystem-card-${card.id}`}>{card.name}</strong>
         <span class="ecosystem-card__description">{card.description}</span>
