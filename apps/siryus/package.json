@@ -1,0 +1,7 @@
+{
+  "name": "@siryus/hub",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "astro dev", "build": "astro build", "preview": "astro preview", "check": "astro check" },
+  "dependencies": { "@astrojs/check": "^0.9.8", "@astrojs/sitemap": "^3.7.2", "astro": "^6.1.1", "typescript": "^5.9.3" }
+}

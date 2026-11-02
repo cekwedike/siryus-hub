@@ -16,6 +16,8 @@ const className = `ecosystem-card ecosystem-card--${card.id}`
       class={className}
       href={card.href}
       aria-label={card.linkKind === 'external' ? `${card.actionLabel}, external site` : card.actionLabel}
+      target={card.linkKind === 'external' ? '_blank' : undefined}
+      rel={card.linkKind === 'external' ? 'noopener noreferrer' : undefined}
     >
       {card.image && (
         <img
@@ -40,6 +42,7 @@ const className = `ecosystem-card ecosystem-card--${card.id}`
           {card.actionLabel}
           <span aria-hidden="true">↗</span>
         </span>
+        {card.externalLabel && <span class="ecosystem-card__external">{card.externalLabel}</span>}
       </span>
     </a>
   ) : (

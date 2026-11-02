@@ -3,11 +3,11 @@
 ## Current known state
 - Domain DNS is managed on Cloudflare.
 - User reports site historically on Vercel and wants Cloudflare Pages. Migration may already be partly complete. Inspect real config and Cloudflare status before acting.
-- README documents Astro `output: static`, `npm run build`, and output `dist`.
+- README documents Astro `output: static`, `pnpm build`, and output `dist`.
 - There is `vercel.json`, `public/_redirects`, Apache `.htaccess`, and potentially deployment secrets. The precise live config needs inspection.
 
 ## Architecture choice
-Start by checking if repo remains one Astro app or was already split. Cloudflare Pages can host multiple projects against one repository by separate root/build commands and watch paths. Don't split unless a verified plan accounts for current routes, asset paths, deployment previews, and Sanity. For static Astro, the normal Pages build command is `npm run build` and output directory is `dist` (adjust monorepo roots if necessary).
+Start by checking if repo remains one Astro app or was already split. Cloudflare Pages can host multiple projects against one repository by separate root/build commands and watch paths. Don't split unless a verified plan accounts for current routes, asset paths, deployment previews, and Sanity. For static Astro, the normal Pages build command is `pnpm build` and output directory is `dist` (adjust monorepo roots if necessary).
 
 ## Preflight
 1. Backup/checkpoint Git; catalog current env **variable names only** and values separately in a secure manager.

@@ -1,0 +1,30 @@
+---
+import '../styles/global.css'
+const worlds = [
+  { cls: 'am', name: 'SIRYUS A.M', note: 'Artists, music and long-term growth', href: 'https://am.siryushub.com', image: '/images/artists/max-prodigy.webp' },
+  { cls: 'arc', name: 'ARC. Creatives', note: 'Ascent. Refuge. Collective.', href: 'https://arc.siryushub.com', image: '/arc/hero-section.webp' },
+  { cls: 'signal', name: 'SIGNAL.', note: 'Stories that move people and brands', href: 'https://signal.siryushub.com', image: 'https://images.unsplash.com/photo-1553484771-371a605b060b?auto=format&fit=crop&w=1600&q=86' },
+  { cls: 'pavo', name: 'PAVO Create', note: 'Tools for creative work', href: 'https://pavocreate.com', image: '/brand/pavo/product-mark.png', external: true },
+]
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Enter the SIRYUS creative ecosystem." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>SIRYUS | A creative ecosystem</title>
+  </head>
+  <body>
+    <a class="skip" href="#worlds">Skip to the worlds</a>
+    <main class="portal">
+      <header class="topbar"><a class="brand" href="/">SIRYUS</a><p>Different worlds. One creative universe.</p></header>
+      <h1 class="portal-note">Enter the SIRYUS creative universe</h1>
+      <nav class="shards" id="worlds" aria-label="SIRYUS worlds">
+        {worlds.map((world) => <a class:list={['shard', world.cls]} href={world.href} target={world.external ? '_blank' : undefined} rel={world.external ? 'noreferrer' : undefined}><img src={world.image} alt="" /><span class="shard-copy"><strong>{world.name}</strong><span>{world.note}{world.external ? ' Opens another website' : ''}</span></span></a>)}
+      </nav>
+      <footer class="foot"><p>Enter a different world.</p><p>© 2026 Siryus Creative Media Ltd</p></footer>
+    </main>
+  </body>
+</html>

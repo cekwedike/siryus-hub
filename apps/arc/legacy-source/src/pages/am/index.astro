@@ -1,0 +1,108 @@
+---
+import BrandLayout from '../../layouts/BrandLayout.astro'
+import { getAllArtists, getAllProjects } from '../../lib/queries'
+import { FALLBACK_PROJECTS } from '../../lib/projectFallbacks'
+
+const [artistsFromSanity, projectsFromSanity] = await Promise.all([getAllArtists(), getAllProjects()])
+const artists = artistsFromSanity.length > 0
+  ? artistsFromSanity
+  : [
+      { _id: 'max-prodigy', name: 'Max Prodigy', slug: { current: 'max-prodigy' }, genre: ['Hip hop'], location: '', oneLiner: 'Independent artist building with purpose.', photo: null, featured: true, order: 1 },
+      { _id: 'jlinez', name: 'Jlinez', slug: { current: 'jlinez' }, genre: ['Afrogospel'], location: '', oneLiner: 'Faith, melody, and honest expression.', photo: null, featured: true, order: 2 },
+    ]
+const projects = projectsFromSanity.length > 0 ? projectsFromSanity : FALLBACK_PROJECTS
+
+const nav = [
+  { label: 'Artists', href: '#artists' },
+  { label: 'Services', href: '#services' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Music', href: '#music' },
+  { label: 'Insights', href: '/siryus-am/blog' },
+]
+---
+
+<BrandLayout
+  brand="am"
+  brandName="SIRYUS A.M"
+  title="SIRYUS A.M | Independent music with direction"
+  description="Artist management, development, music services, and projects for independent artists. Current managed artists are Max Prodigy and Jlinez."
+  canonical="https://www.siryushub.com/am"
+  nav={nav}
+  contactHref="#contact"
+  contactLabel="Work with us"
+>
+  <section class="brand-hero">
+    <h1>Make independent music move further.</h1>
+    <div>
+      <p class="brand-hero__intro">We help artists build clear careers around strong music. Management is focused. Services are open to the right projects.</p>
+      <div class="brand-hero__actions">
+        <a class="brand-action" href="#artists">Meet the artists</a>
+        <a class="brand-action brand-action--quiet" href="#services">See how we work</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="brand-section" id="artists" data-reveal>
+    <div class="brand-section__head">
+      <h2>Artists we manage.</h2>
+      <p>Our current managed roster is deliberately small. That gives each artist clearer attention, honest planning, and room to grow.</p>
+    </div>
+    <div class="brand-list">
+      {artists.map((artist, index) => (
+        <article class={`brand-panel ${index === 0 ? 'brand-panel--wide' : 'brand-panel--narrow'}`}>
+          <div>
+            <h3>{artist.name}</h3>
+            <p>{artist.oneLiner}</p>
+          </div>
+          <a href={`/artists/${artist.slug.current}`}>View artist</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="brand-section" id="services" data-reveal>
+    <div class="brand-section__head">
+      <h2>Support built around the music.</h2>
+      <p>We do not promise shortcuts, guaranteed streams, or guaranteed playlist placement. We build practical plans and do the work with the artist.</p>
+    </div>
+    <div class="brand-services">
+      <article class="brand-service"><h3>Management</h3><p>Focused career planning, release decisions, partnerships, and long-term direction for a small managed roster.</p></article>
+      <article class="brand-service"><h3>Artist development</h3><p>Clear feedback, identity work, release readiness, and support that helps artists make stronger choices.</p></article>
+      <article class="brand-service"><h3>Marketing</h3><p>Campaign thinking, content plans, messaging, and audience growth shaped around the artist and the release.</p></article>
+      <article class="brand-service"><h3>Distribution support</h3><p>Help preparing releases, metadata, timelines, and practical delivery decisions for digital platforms.</p></article>
+      <article class="brand-service"><h3>Playlist support</h3><p>Careful pitching and release positioning where a track is a real fit. Placement is never promised.</p></article>
+      <article class="brand-service"><h3>Growth resources</h3><p>Useful tools and clear guidance for independent artists who are building without full management.</p></article>
+    </div>
+  </section>
+
+  <section class="brand-section" id="projects" data-reveal>
+    <div class="brand-section__head">
+      <h2>Projects that create room.</h2>
+      <p>Music grows through practice, collaboration, and honest conversation. These projects make space for all three.</p>
+    </div>
+    <div class="brand-list">
+      {projects.map((project, index) => (
+        <article class={`brand-panel ${index === 0 ? 'brand-panel--wide' : 'brand-panel--narrow'}`}>
+          <div><h3>{project.title}</h3><p>{project.excerpt ?? project.description}</p></div>
+          <a href={`/projects/${project.slug.current}`}>View project</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="brand-section" id="music" data-reveal>
+    <div class="brand-callout">
+      <h2>Hear the work.</h2>
+      <p>Explore the music released through SIRYUS A.M and the artists we currently manage. Every external music link should point to a verified profile.</p>
+      <a class="brand-action" href="/studio">Explore music and sessions</a>
+    </div>
+  </section>
+
+  <section class="brand-section" id="contact" data-reveal>
+    <div class="brand-section__head">
+      <h2>Bring us the real story.</h2>
+      <p>Tell us what you have made, what stage you are at, and what kind of support you need. We will be clear about whether we are the right fit.</p>
+    </div>
+    <a class="brand-action" href="/contact">Start a conversation</a>
+  </section>
+</BrandLayout>

@@ -1,0 +1,59 @@
+---
+import type { EcosystemCard } from '../../data/ecosystem'
+
+interface Props {
+  card: EcosystemCard
+  index: number
+}
+
+const { card, index } = Astro.props
+const className = `ecosystem-card ecosystem-card--${card.id}`
+---
+
+{
+  card.href ? (
+    <a
+      class={className}
+      href={card.href}
+      aria-label={card.linkKind === 'external' ? `${card.actionLabel}, external site` : card.actionLabel}
+      target={card.linkKind === 'external' ? '_blank' : undefined}
+      rel={card.linkKind === 'external' ? 'noopener noreferrer' : undefined}
+    >
+      {card.image && (
+        <img
+          class="ecosystem-card__image"
+          src={card.image}
+          alt={card.imageAlt}
+          width="1400"
+          height="900"
+          loading={index === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      )}
+      <span class="ecosystem-card__shade" aria-hidden="true"></span>
+      <span class="ecosystem-card__content">
+        {card.mark ? (
+          <img class="ecosystem-card__mark" src={card.mark} alt={card.markAlt} loading={index === 0 ? 'eager' : 'lazy'} />
+        ) : (
+          <strong>{card.name}</strong>
+        )}
+        <span class="ecosystem-card__description">{card.description}</span>
+        <span class="ecosystem-card__action">
+          {card.actionLabel}
+          <span aria-hidden="true">↗</span>
+        </span>
+        {card.externalLabel && <span class="ecosystem-card__external">{card.externalLabel}</span>}
+      </span>
+    </a>
+  ) : (
+    <article class={className} aria-labelledby={`ecosystem-card-${card.id}`}>
+      <span class="ecosystem-card__content">
+        <strong id={`ecosystem-card-${card.id}`}>{card.name}</strong>
+        <span class="ecosystem-card__description">{card.description}</span>
+        <span class="ecosystem-card__action ecosystem-card__action--pending">
+          {card.actionLabel}
+        </span>
+      </span>
+    </article>
+  )
+}

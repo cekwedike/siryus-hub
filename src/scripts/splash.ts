@@ -160,7 +160,6 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () 
 function rotateText() {
   const transitions = getTransitionVariants();
   const currentTransition = transitions[transitionType % transitions.length];
-  const currentOption = textOptions[currentIndex];
   const fd = getFadeDuration();
 
   rotatingTextEl?.classList.add('fade-out');

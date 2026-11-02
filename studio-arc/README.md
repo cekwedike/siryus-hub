@@ -12,8 +12,8 @@ This Studio connects to a **separate Sanity project** from the main Siryus Hub C
 
 ```bash
 cd studio-arc
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 4. In the **site** repo root `.env` / Vercel env, set the Astro-facing variables (see root `.env.example`):

@@ -1,0 +1,30 @@
+/* ARC brand typography only (do not use on main Siryus hub marketing pages). */
+
+@font-face {
+  font-family: 'Neue Machina';
+  src: url('/fonts/NeueMachina-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina';
+  src: url('/fonts/NeueMachina-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Machina';
+  src: url('/fonts/NeueMachina-Ultrabold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body.arc-route {
+  --arc-font-heading: 'Neue Machina', ui-sans-serif, system-ui, sans-serif;
+  --arc-font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+}

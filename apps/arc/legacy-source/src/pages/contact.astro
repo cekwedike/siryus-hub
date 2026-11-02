@@ -1,0 +1,83 @@
+---
+import EcosystemLayout from '../layouts/EcosystemLayout.astro'
+---
+
+<EcosystemLayout
+  title="Contact SIRYUS"
+  description="Choose the right SIRYUS brand or send a general enquiry to SIRYUS."
+  canonical="https://www.siryushub.com/contact"
+>
+  <main class="parent-page">
+    <section class="parent-page__hero" aria-labelledby="contact-title">
+      <h1 id="contact-title">Start in the right place.</h1>
+      <p>Choose the brand closest to your enquiry, or use the form for a general company message.</p>
+    </section>
+
+    <section class="parent-page__section" aria-labelledby="contact-paths-title">
+      <div>
+        <h2 id="contact-paths-title">Brand enquiries</h2>
+      </div>
+      <div class="parent-page__stack">
+        <article>
+          <h3>SIRYUS A.M</h3>
+          <p>For artist management, releases, bookings, and SIRYUS A.M projects.</p>
+          <a href="/am">Go to SIRYUS A.M</a>
+        </article>
+        <article>
+          <h3>ARC. Creatives</h3>
+          <p>For the ARC. Creatives community, events, and editorial work.</p>
+          <a href="/arc">Go to ARC. Creatives</a>
+        </article>
+        <article>
+          <h3>SIGNAL. by SIRYUS</h3>
+          <p>For strategy, storytelling, campaigns, content, email, and growth work.</p>
+          <a href="/signal#contact">Go to SIGNAL.</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="parent-page__form-section" aria-labelledby="general-enquiry-title">
+      <div>
+        <h2 id="general-enquiry-title">General company enquiry</h2>
+        <p>Use this form when your message is for SIRYUS or does not fit one brand.</p>
+      </div>
+      <form action="https://formspree.io/f/xbdpynod" method="POST" class="parent-form">
+        <input type="hidden" name="_subject" value="New general enquiry from SIRYUS Hub" />
+        <input type="text" name="_gotcha" class="parent-form__trap" tabindex="-1" autocomplete="off" />
+
+        <label>
+          <span>Your name</span>
+          <input type="text" name="fullName" autocomplete="name" required />
+        </label>
+
+        <label>
+          <span>Email address</span>
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+
+        <label>
+          <span>Where should this go?</span>
+          <select name="interest" required>
+            <option value="">Choose one</option>
+            <option value="general-company">SIRYUS</option>
+            <option value="siryus-am">SIRYUS A.M</option>
+            <option value="arc-creatives">ARC. Creatives</option>
+            <option value="signal">SIGNAL. by SIRYUS</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Your message</span>
+          <textarea name="message" rows="7" required></textarea>
+        </label>
+
+        <label class="parent-form__consent">
+          <input type="checkbox" name="privacyConsent" value="agreed" required />
+          <span>I agree that SIRYUS may use these details to reply to my enquiry. Read the <a href="/privacy-policy">privacy policy</a>.</span>
+        </label>
+
+        <button type="submit">Send enquiry</button>
+      </form>
+    </section>
+  </main>
+</EcosystemLayout>

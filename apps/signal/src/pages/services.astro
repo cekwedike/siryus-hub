@@ -1,0 +1,5 @@
+---
+import Site from '../layouts/Site.astro'
+const items=[['Strategy','Positioning, audience thinking, brand planning and clear choices.'],['Campaigns','Ideas and connected rollouts built for the channels that matter.'],['Email and CRM','Useful journeys that keep people close without filling their inbox with noise.'],['Content and copy','Words, concepts and content systems that sound like one brand.'],['Growth','Testing, learning and practical ways to improve the full path.'],['Storytelling','The central idea that gives every other part meaning.']]
+---
+<Site title="Services" description="SIGNAL. services across strategy, campaigns, CRM, content, growth and storytelling."><header class="page-head"><h1>Connected work. One clear signal.</h1><p>We bring the right disciplines together around the same story and goal.</p></header><section class="section"><div class="grid">{items.map(([name,copy],i)=><article class="tile"><b>0{i+1}</b><h2>{name}</h2><p>{copy}</p></article>)}</div></section></Site>

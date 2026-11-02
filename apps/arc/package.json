@@ -1,0 +1,16 @@
+{
+  "name": "@siryus/arc",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "astro dev", "build": "astro build", "preview": "astro preview", "check": "astro check" },
+  "dependencies": {
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/sitemap": "^3.7.2",
+    "@portabletext/to-html": "^5.0.2",
+    "@portabletext/types": "^4.0.2",
+    "@sanity/client": "^7.20.0",
+    "@sanity/image-url": "^2.1.0",
+    "astro": "^6.1.1",
+    "typescript": "^5.9.3"
+  }
+}

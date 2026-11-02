@@ -1,0 +1,38 @@
+---
+import ArcLayout from '../../layouts/ArcLayout.astro'
+import { getCanonicalOrigin } from '../../lib/siteCanonical'
+
+const origin = getCanonicalOrigin()
+---
+
+<ArcLayout
+  title="Music & Projects | ARC. Creatives"
+  description="Music, gatherings, and collaborative projects from ARC. Creatives."
+  canonical={`${origin}/arc/music`}
+>
+  <div class="blog-page">
+    <section class="blog-bleed blog-hero" aria-labelledby="arc-music-title">
+      <div class="blog-hero__photo-layer" aria-hidden="true">
+        <img class="blog-hero__photo" src="/arc/arc-mic.webp" alt="" width="1200" height="800" loading="eager" />
+        <div class="blog-hero__photo-scrim"></div>
+      </div>
+      <div class="blog-inner blog-hero__shell">
+        <div class="blog-hero__inner">
+          <h1 id="arc-music-title" class="blog-hero__title">Songs, sessions, and work made together.</h1>
+          <p class="blog-hero__sub">ARC. Creatives makes room for faith-rooted work across music and other creative disciplines.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-bleed blog-section" aria-labelledby="arc-music-releases-title">
+      <div class="blog-inner">
+        <h2 id="arc-music-releases-title" class="blog-section__title">Music from the collective.</h2>
+        <p class="arc-section-head__lede">The release catalogue and listening links will be published here after each profile and credit is verified. No release will be assigned to ARC. Creatives by guesswork.</p>
+        <div class="arc-bridge__actions" style="margin-top: 2rem;">
+          <a class="arc-bridge__pill" href="/arc/events">See gatherings</a>
+          <a class="arc-bridge__pill" href="/arc/blog">Read stories</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</ArcLayout>

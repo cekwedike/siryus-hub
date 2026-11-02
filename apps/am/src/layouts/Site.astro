@@ -1,0 +1,8 @@
+---
+import '../styles/site.css'
+interface Props { title: string; description: string }
+const { title, description } = Astro.props
+const nav = [['Artists', '/artists'], ['What we do', '/services'], ['Projects', '/projects'], ['Journal', '/journal'], ['About', '/about']]
+---
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><meta name="description" content={description}/><link rel="icon" href="/favicon.svg" type="image/svg+xml"/><title>{title} | SIRYUS A.M</title></head><body><a class="skip" href="#content">Skip to content</a><header class="nav"><a class="logo" href="/">SIRYUS <b>A.M</b></a><nav aria-label="Main navigation">{nav.map(([label, href]) => <a href={href}>{label}</a>)}</nav><a class="contact" href="/contact">Start a conversation</a></header><main id="content"><slot/></main><footer><a class="logo" href="/">SIRYUS <b>A.M</b></a><p>Artist management, music marketing and development built for the long road.</p><nav aria-label="Footer navigation">{nav.map(([label, href]) => <a href={href}>{label}</a>)}</nav><p>Part of SIRYUS. © 2026 Siryus Creative Media Ltd</p></footer></body></html>

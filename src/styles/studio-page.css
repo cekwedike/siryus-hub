@@ -845,3 +845,7 @@ body.light-theme .studio-card__inner {
 body.light-theme .studio-modal__panel {
   border-color: rgba(0, 0, 0, 0.1);
 }
+
+.studio-library-head__eyebrow {
+  display: none;
+}

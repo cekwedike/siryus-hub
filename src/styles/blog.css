@@ -1273,3 +1273,14 @@ body.light-theme .blog-link {
   font-size: 0.75em;
   opacity: 0.7;
 }
+
+.blog-featured__eyebrow {
+  display: none;
+}
+
+.blog-badge,
+.blog-pagination__item,
+.blog-pagination__next,
+.blog-pagination__prev {
+  border-radius: 0;
+}

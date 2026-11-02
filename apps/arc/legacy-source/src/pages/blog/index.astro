@@ -1,0 +1,238 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/blog.css';
+import { blogCoverImageUrl } from '../../lib/sanity';
+import { getAllPosts, getFeaturedPosts } from '../../lib/queries';
+
+const pageTitle = 'Blog - Creative Industry Insights';
+const pageDescription =
+  'The Siryus Hub blog covers music industry insights, artist development, brand marketing strategy and creative production. Written by the team behind SIRYUS A.M.';
+
+const POSTS_PER_PAGE = 3;
+
+const allPosts = await getAllPosts();
+const featuredPosts = await getFeaturedPosts();
+const featured = featuredPosts[0] ?? null;
+
+const gridPosts =
+  featured && allPosts.length > 0
+    ? allPosts.filter((p) => p._id !== featured._id)
+    : allPosts;
+
+const pagePosts = gridPosts.slice(0, POSTS_PER_PAGE);
+const totalPages = Math.max(1, Math.ceil(gridPosts.length / POSTS_PER_PAGE));
+const hasNextPage = totalPages > 1;
+
+function formatDate(iso: string) {
+  try {
+    return new Date(iso).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return '';
+  }
+}
+
+function truncateExcerpt(text: string, max: number) {
+  const t = text.trim();
+  if (t.length <= max) return t;
+  return `${t.slice(0, max).trimEnd()}…`;
+}
+
+function readingTime(post: (typeof allPosts)[0]) {
+  const text = post.bodyText ?? post.excerpt ?? '';
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+function coverSrc(post: (typeof allPosts)[0]) {
+  return blogCoverImageUrl(post.coverImage, 800, 500);
+}
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonical="https://www.siryushub.com/blog" noIndex>
+  <div class="blog-page">
+    <section class="blog-bleed blog-hero blog-reveal" aria-labelledby="blog-hero-heading">
+      <div class="blog-hero__photo-layer" aria-hidden="true">
+        <img
+          class="blog-hero__photo"
+          src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="blog-hero__photo-scrim"></div>
+      </div>
+      <div class="blog-hero__glow" aria-hidden="true"></div>
+      <div class="blog-inner blog-hero__shell">
+        <div class="morph-hero-glass-panel blog-hero__glass" style="max-width: 50rem;">
+          <div class="blog-hero__inner" style="padding: 2rem 1.75rem;">
+            <span class="blog-hero__label">The Blog</span>
+            <h1 id="blog-hero-heading" class="blog-hero__title">Ideas Worth Sharing.</h1>
+            <p class="blog-hero__sub">
+              Music. Marketing. Creative industry. We write about what we know from doing it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {
+      featured && (
+        <section class="blog-bleed blog-section blog-reveal" aria-labelledby="blog-featured-heading">
+          <div class="blog-inner">
+            <h2 id="blog-featured-heading" class="visually-hidden">
+              Featured article
+            </h2>
+            <a
+              class="blog-featured"
+              href={`/blog/${featured.slug?.current ?? ''}`}
+              data-astro-prefetch
+            >
+              <div class="blog-featured__image-panel">
+                {coverSrc(featured) ? (
+                  <img src={coverSrc(featured)!} alt={`Cover image for ${featured.title}`} width="1200" height="800" loading="lazy" decoding="async" />
+                ) : null}
+                <div class="blog-featured__image-fade" aria-hidden="true"></div>
+              </div>
+              <div class="blog-featured__content">
+                <div class="blog-featured__top">
+                  <span class="blog-featured__eyebrow">Featured</span>
+                  {featured.category ? <span class="blog-badge">{featured.category}</span> : null}
+                </div>
+                <h2 class="blog-featured__title">{featured.title}</h2>
+                <p class="blog-featured__excerpt">{featured.excerpt}</p>
+                <div class="blog-featured__footer">
+                  <div class="blog-featured__meta">
+                    <span class="blog-featured__author">{featured.author}</span>
+                    <span class="blog-featured__sep" aria-hidden="true"></span>
+                    <time class="blog-featured__date" datetime={featured.publishedAt}>
+                      {formatDate(featured.publishedAt)}
+                    </time>
+                    <span class="blog-read-time">{readingTime(featured)} min read</span>
+                  </div>
+                  <span class="blog-featured__cta">
+                    Read article
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+      )
+    }
+
+    <section
+      class="blog-bleed blog-section blog-section--tight-bottom"
+      aria-labelledby="blog-all-heading"
+    >
+      <div class="blog-inner">
+        <h2 id="blog-all-heading" class="blog-section__title">All Posts</h2>
+
+        {
+          allPosts.length === 0 ? (
+            <div class="blog-empty morph-clay-card blog-reveal">
+              <p>We are working on something. First posts dropping soon.</p>
+            </div>
+          ) : (
+            <>
+              <div class="blog-grid">
+                {pagePosts.map((post) => {
+                  const href = `/blog/${post.slug?.current ?? ''}`;
+                  const img = coverSrc(post);
+                  const cardRead = readingTime(post);
+                  return (
+                    <a class="blog-card morph-clay-card blog-reveal" href={href} data-astro-prefetch>
+                      <div class="blog-card__media">
+                        {img ? (
+                          <img src={img} alt={`Cover image for ${post.title}`} width="400" height="250" loading="lazy" decoding="async" />
+                        ) : null}
+                      </div>
+                      <div class="blog-card__body">
+                        {post.category ? <span class="blog-badge">{post.category}</span> : null}
+                        <h3 class="blog-card__title">{post.title}</h3>
+                        <p class="blog-card__excerpt">{truncateExcerpt(post.excerpt, 120)}</p>
+                        <div class="blog-card__meta">
+                          <span class="blog-card__author">{post.author}</span>
+                          <div class="blog-card__date-row">
+                            <time class="blog-card__date" datetime={post.publishedAt}>
+                              {formatDate(post.publishedAt)}
+                            </time>
+                            <span class="blog-read-time">{cardRead} min read</span>
+                          </div>
+                        </div>
+                        <span class="blog-card__read">Read more</span>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+              {hasNextPage && (
+                <nav class="blog-pagination" aria-label="Blog pagination">
+                  <span class="blog-pagination__item blog-pagination__item--current" aria-current="page">1</span>
+                  {Array.from({ length: totalPages - 1 }, (_, i) => i + 2).map((p) => (
+                    <a class="blog-pagination__item" href={`/blog/page/${p}`} data-astro-prefetch>{p}</a>
+                  ))}
+                  <a class="blog-pagination__next" href="/blog/page/2" data-astro-prefetch aria-label="Next page">
+                    Next
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </nav>
+              )}
+            </>
+          )
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.blog-reveal');
+    if (reduce) {
+      els.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+    );
+    els.forEach(function (el) {
+      io.observe(el);
+    });
+  })();
+</script>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

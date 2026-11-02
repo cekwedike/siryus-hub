@@ -1,0 +1,382 @@
+<footer class="arc-footer" aria-label="ARC. footer">
+  <div class="arc-footer__texture" aria-hidden="true"></div>
+  <div class="arc-footer__inner">
+    <div class="arc-footer__main">
+      <div class="arc-footer__primary">
+        <a class="arc-footer__brand" href="https://www.siryushub.com" aria-label="Go to Siryus Hub homepage">
+          <span class="arc-footer__logo-wrap" aria-hidden="true">
+            <img
+              class="arc-footer__logo arc-footer__logo--on-dark"
+              src="/arc/arc-svg.svg"
+              alt="ARC. logo, Siryus Creative Media Ltd"
+              width="48"
+              height="48"
+              loading="lazy"
+            />
+            <img
+              class="arc-footer__logo arc-footer__logo--on-light"
+              src="/arc/arc-svg-light.svg"
+              alt="ARC. logo, Siryus Creative Media Ltd"
+              width="48"
+              height="48"
+              loading="lazy"
+            />
+          </span>
+          <div class="arc-footer__brand-text">
+            <p class="arc-footer__title">Ascent. Refuge. Collective.</p>
+            <p class="arc-footer__back">Back to siryushub.com</p>
+          </div>
+        </a>
+        <nav class="arc-footer__nav" aria-label="ARC. pages">
+          <a class="arc-footer__nav-link" href="/arc/blog">ARC. blog</a>
+          <span class="arc-footer__link-sep" aria-hidden="true">·</span>
+          <a class="arc-footer__nav-link" href="/arc/events">Events</a>
+          <a class="arc-footer__nav-link" href="/arc/music">Music &amp; Projects</a>
+          <span class="arc-footer__link-sep" aria-hidden="true">·</span>
+          <a class="arc-footer__nav-link" href="/arc/community">Community</a>
+          <span class="arc-footer__link-sep" aria-hidden="true">·</span>
+          <a class="arc-footer__nav-link" href="/arc/subscribe">Letter</a>
+          <span class="arc-footer__link-sep" aria-hidden="true">·</span>
+          <a class="arc-footer__nav-link" href="/arc/about">About</a>
+          <span class="arc-footer__link-sep" aria-hidden="true">·</span>
+          <a class="arc-footer__nav-link" href="/arc/supporters">Supporters</a>
+          <span class="arc-footer__link-sep" aria-hidden="true">·</span>
+          <a class="arc-footer__nav-link" href="/arc/faq">FAQ</a>
+        </nav>
+      </div>
+
+      <div class="arc-footer__aside">
+        <div class="arc-footer__socials" aria-label="ARC. social links">
+          <a
+            href="https://www.instagram.com/wearearc.creatives/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ARC. on Instagram"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm8.95 1.45a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z"/></svg>
+          </a>
+          <a
+            href="https://www.youtube.com/@wearearc.creatives?sub_confirmation=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ARC. on YouTube"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.92 2.92 0 0 0-2.06-2.06C17.75 4.6 12 4.6 12 4.6s-5.75 0-7.54.54A2.92 2.92 0 0 0 2.4 7.2 30.9 30.9 0 0 0 1.9 12a30.9 30.9 0 0 0 .5 4.8 2.92 2.92 0 0 0 2.06 2.06c1.79.54 7.54.54 7.54.54s5.75 0 7.54-.54a2.92 2.92 0 0 0 2.06-2.06 30.9 30.9 0 0 0 .5-4.8 30.9 30.9 0 0 0-.5-4.8ZM10.1 15.25V8.75L15.8 12l-5.7 3.25Z"/></svg>
+          </a>
+        </div>
+        <div class="arc-footer__theme-toggle" role="group" aria-label="Theme">
+          <button type="button" data-theme="dark">Dark</button>
+          <button type="button" data-theme="light">Light</button>
+          <button type="button" data-theme="device">System</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="arc-footer__legal">
+      <p class="arc-footer__attribution">
+        An initiative of
+        <a href="https://www.siryushub.com">Siryus Creative Media Ltd</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .arc-footer {
+    position: relative;
+    overflow: hidden;
+    background: var(--arc-bg, #0d0b09);
+    border-top: 1px solid var(--arc-border, rgba(242, 121, 48, 0.28));
+    color: var(--arc-fg, #ffffff);
+    padding: 2.75rem 1.25rem 2.5rem;
+    font-family: var(--arc-font-body);
+  }
+
+  .arc-footer__texture {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 12% 28%,
+        color-mix(in srgb, var(--arc-accent, #f27930) 14%, transparent),
+        transparent 33%
+      ),
+      radial-gradient(
+        circle at 84% 76%,
+        color-mix(in srgb, var(--arc-accent, #f27930) 10%, transparent),
+        transparent 35%
+      );
+    pointer-events: none;
+  }
+
+  .arc-footer__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .arc-footer__main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: clamp(1.5rem, 4vw, 2.75rem);
+  }
+
+  .arc-footer__primary {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .arc-footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .arc-footer__brand-text {
+    min-width: 0;
+  }
+
+  .arc-footer__logo-wrap {
+    position: relative;
+    flex-shrink: 0;
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .arc-footer__logo {
+    width: 3.25rem;
+    height: 3.25rem;
+    object-fit: contain;
+    display: block;
+  }
+
+  .arc-footer__logo--on-light {
+    display: none;
+  }
+
+  :global(body.arc-route.light-theme) .arc-footer__logo--on-dark {
+    display: none;
+  }
+
+  :global(body.arc-route.light-theme) .arc-footer__logo--on-light {
+    display: block;
+  }
+
+  .arc-footer__title {
+    margin: 0;
+    font-family: var(--arc-font-heading);
+    letter-spacing: 0.03em;
+    font-size: 1.22rem;
+    font-weight: 600;
+  }
+
+  .arc-footer__back {
+    margin: 0.15rem 0 0;
+    font-size: 0.92rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--arc-accent, #f27930);
+  }
+
+  .arc-footer__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0 0 0 calc(3.25rem + 0.75rem);
+    list-style: none;
+  }
+
+  .arc-footer__link-sep {
+    opacity: 0.45;
+    user-select: none;
+  }
+
+  .arc-footer__nav-link {
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--arc-accent, #f27930);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .arc-footer__nav-link:hover {
+    text-decoration: none;
+  }
+
+  .arc-footer__aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .arc-footer__legal {
+    margin-top: 1.65rem;
+    padding-top: 1.35rem;
+    border-top: 1px solid var(--arc-border, rgba(242, 121, 48, 0.22));
+  }
+
+  .arc-footer__attribution {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.45;
+    color: var(--arc-fg, #ffffff);
+    max-width: 42rem;
+  }
+
+  .arc-footer__attribution a,
+  .arc-footer__socials a {
+    color: var(--arc-fg, #ffffff);
+    text-decoration: none;
+  }
+
+  .arc-footer__socials {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .arc-footer__socials a {
+    width: 2.15rem;
+    height: 2.15rem;
+    border: 1px solid var(--arc-border, rgba(242, 121, 48, 0.5));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    text-decoration: none;
+  }
+
+  .arc-footer__socials a.arc-footer__social--placeholder {
+    pointer-events: none;
+    opacity: 0.42;
+  }
+
+  .arc-footer__socials a:hover:not(.arc-footer__social--placeholder) {
+    background: var(--arc-accent, #f27930);
+    color: var(--arc-bg, #0d0b09);
+    border-color: var(--arc-accent, #f27930);
+    transform: translateY(-2px);
+  }
+
+  .arc-footer__socials svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    fill: currentColor;
+  }
+
+  .arc-footer__theme-toggle {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .arc-footer__theme-toggle button {
+    border: 1px solid var(--arc-border, rgba(242, 121, 48, 0.5));
+    background: var(--arc-card, rgba(13, 11, 9, 0.42));
+    color: var(--arc-fg, #ffffff);
+    font: inherit;
+    font-size: 0.92rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.7rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .arc-footer__theme-toggle button:hover {
+    border-color: color-mix(in srgb, var(--arc-accent, #f27930) 85%, transparent);
+  }
+
+  .arc-footer__theme-toggle button.active {
+    background: var(--arc-accent, #f27930);
+    color: var(--arc-bg, #0d0b09);
+    border-color: var(--arc-accent, #f27930);
+  }
+
+  :global(body.arc-route.light-theme) .arc-footer__socials a:hover:not(.arc-footer__social--placeholder) {
+    color: #ffffff;
+  }
+
+  @media (max-width: 720px) {
+    .arc-footer__main {
+      grid-template-columns: 1fr;
+    }
+
+    .arc-footer__aside {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .arc-footer__nav {
+      padding-left: 0;
+    }
+
+    .arc-footer__theme-toggle {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .arc-footer__theme-toggle button {
+      font-size: 0.86rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const THEMES = { dark: 'dark', light: 'light', device: 'device' };
+    const buttons = Array.from(document.querySelectorAll('.arc-footer__theme-toggle button[data-theme]'));
+    if (buttons.length === 0) return;
+    const getResolvedTheme = (theme) => {
+      if (theme === THEMES.device) return media.matches ? THEMES.dark : THEMES.light;
+      return theme;
+    };
+    const applyTheme = (theme) => {
+      const resolved = getResolvedTheme(theme);
+      if (resolved === THEMES.light) document.body.classList.add('light-theme');
+      else document.body.classList.remove('light-theme');
+      localStorage.setItem('theme', theme);
+    };
+    const applyActive = () => {
+      const saved = localStorage.getItem('theme') || THEMES.dark;
+      buttons.forEach((button) => {
+        button.classList.toggle('active', button.getAttribute('data-theme') === saved);
+      });
+    };
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const theme = button.getAttribute('data-theme');
+        if (!theme) return;
+        applyTheme(theme);
+        applyActive();
+      });
+    });
+    media.addEventListener('change', () => {
+      const saved = localStorage.getItem('theme') || THEMES.dark;
+      if (saved === THEMES.device) applyTheme(THEMES.device);
+      applyActive();
+    });
+    applyTheme(localStorage.getItem('theme') || THEMES.dark);
+    applyActive();
+    document.addEventListener('astro:page-load', () => {
+      applyTheme(localStorage.getItem('theme') || THEMES.dark);
+      applyActive();
+    });
+  })();
+</script>

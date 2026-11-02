@@ -336,6 +336,372 @@ a {
   }
 }
 
+/* 2026 ecosystem composition */
+.ecosystem-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.ecosystem-hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: -12vw;
+  bottom: 4vh;
+  width: min(52vw, 48rem);
+  aspect-ratio: 1;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(211, 233, 60, 0.18), transparent 42%),
+    conic-gradient(from 45deg, transparent, rgba(255, 255, 255, 0.08), transparent 42%);
+  filter: blur(1px);
+  transform: rotate(-14deg);
+  animation: universe-drift 16s ease-in-out infinite alternate;
+}
+
+.ecosystem-hero h1 {
+  max-width: 10.5ch;
+}
+
+.ecosystem-grid {
+  scroll-margin-top: 2rem;
+}
+
+.ecosystem-card {
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1), filter 420ms ease;
+}
+
+.ecosystem-card:hover {
+  transform: translateY(-0.35rem);
+  filter: brightness(1.04);
+}
+
+.ecosystem-card__external {
+  color: currentColor;
+  font-size: 0.78rem;
+  opacity: 0.62;
+}
+
+.ecosystem-card--signal {
+  background: #0b0b0c;
+}
+
+.ecosystem-card--signal::before {
+  content: '';
+  position: absolute;
+  inset: 8% -10% auto auto;
+  width: min(58%, 28rem);
+  aspect-ratio: 1;
+  background: url('/brand/signal/symbol.png') center / contain no-repeat;
+  opacity: 0.12;
+  transform: rotate(-8deg);
+}
+
+.ecosystem-card--signal .ecosystem-card__mark {
+  max-width: min(82%, 32rem);
+  max-height: 7rem;
+}
+
+.ecosystem-card--signal .ecosystem-card__action {
+  color: #ef3f43;
+}
+
+.ecosystem-card--pavo-create {
+  background: #f2f0ea;
+  color: #11110f;
+}
+
+.ecosystem-card--pavo-create .ecosystem-card__mark {
+  width: clamp(7rem, 17vw, 14rem);
+  height: auto;
+  filter: grayscale(1) contrast(1.4);
+}
+
+.ecosystem-card--pavo-create strong {
+  max-width: 8ch;
+  font-size: clamp(3.5rem, 8vw, 9rem);
+}
+
+.ecosystem-card--pavo-create .ecosystem-card__description {
+  color: #45433e;
+}
+
+.parent-page__stack article {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), background-color 300ms ease;
+}
+
+.parent-page__stack article:hover {
+  transform: translateX(0.4rem);
+  background: #1d1d1a;
+}
+
+@keyframes universe-drift {
+  from { transform: rotate(-14deg) translate3d(0, 0, 0); }
+  to { transform: rotate(4deg) translate3d(-3vw, -2vh, 0); }
+}
+
+@media (max-width: 850px) {
+  .ecosystem-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: clamp(2rem, 8vw, 4rem);
+  }
+
+  .ecosystem-hero h1,
+  .ecosystem-hero__summary {
+    position: static;
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .ecosystem-header__nav a:first-child {
+    display: none;
+  }
+
+  .ecosystem-hero {
+    min-height: calc(100svh - 7rem);
+    padding: 4rem 0 3.5rem;
+    gap: 2rem;
+  }
+
+  .ecosystem-hero h1 {
+    max-width: 9ch;
+    font-size: clamp(3.25rem, 15vw, 4.65rem);
+    line-height: 0.9;
+    letter-spacing: -0.075em;
+  }
+
+  .ecosystem-hero__summary {
+    max-width: 30ch;
+    font-size: 1rem;
+  }
+
+  .ecosystem-grid__intro {
+    min-height: 14rem;
+  }
+
+  .ecosystem-card--pavo-create {
+    min-height: 28rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ecosystem-hero::before {
+    animation: none;
+  }
+}
+
+/* Fractured universe marquee */
+.shard-marquee {
+  position: relative;
+  min-height: clamp(34rem, 62vw, 58rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.07), transparent 28%),
+    linear-gradient(180deg, #090909, #060706 72%, #090909);
+  perspective: 1500px;
+  isolation: isolate;
+}
+
+.shard-marquee::before,
+.shard-marquee::after {
+  content: '';
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  width: clamp(2rem, 9vw, 10rem);
+  pointer-events: none;
+}
+
+.shard-marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, #090909, transparent);
+}
+
+.shard-marquee::after {
+  right: 0;
+  background: linear-gradient(-90deg, #090909, transparent);
+}
+
+.shard-marquee__light {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 28%;
+  width: min(70vw, 70rem);
+  height: 55%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, rgba(210, 229, 80, 0.11), rgba(255, 255, 255, 0.035) 38%, transparent 70%);
+  filter: blur(2rem);
+  animation: shard-ambient 8s ease-in-out infinite alternate;
+}
+
+.shard-marquee__scene {
+  --pointer-x: 0deg;
+  --pointer-y: 0deg;
+  --light-x: 50%;
+  position: absolute;
+  inset: 3% 0 8%;
+  display: flex;
+  align-items: center;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--pointer-y)) rotateY(var(--pointer-x));
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shard-marquee__track {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.65rem, 1.6vw, 1.5rem);
+  padding-inline: 2vw;
+  transform-style: preserve-3d;
+  animation: shard-marquee 38s linear infinite;
+  will-change: transform;
+}
+
+.shard-marquee:hover .shard-marquee__track {
+  animation-play-state: paused;
+}
+
+.mirror-shard {
+  --shard-width: clamp(11rem, 19vw, 21rem);
+  position: relative;
+  flex: 0 0 var(--shard-width);
+  width: var(--shard-width);
+  height: calc(var(--shard-width) * 1.22);
+  transform-style: preserve-3d;
+  transform:
+    translateY(calc((var(--depth) - 3) * 1.65rem))
+    translateZ(calc((var(--depth) - 3) * 2.2rem))
+    rotateY(var(--tilt))
+    rotateZ(calc((var(--depth) - 3) * 1.3deg));
+  filter: drop-shadow(0 2.4rem 1.8rem rgba(0, 0, 0, 0.58));
+}
+
+.mirror-shard--a { clip-path: polygon(16% 2%, 91% 13%, 100% 75%, 64% 100%, 4% 84%, 0 26%); }
+.mirror-shard--b { clip-path: polygon(4% 14%, 68% 0, 100% 29%, 86% 90%, 38% 100%, 0 72%); }
+.mirror-shard--c { clip-path: polygon(30% 0, 91% 8%, 100% 48%, 72% 100%, 8% 88%, 0 24%); }
+.mirror-shard--d { clip-path: polygon(8% 5%, 78% 0, 100% 42%, 92% 93%, 23% 100%, 0 63%); }
+.mirror-shard--e { clip-path: polygon(0 21%, 41% 0, 96% 16%, 100% 79%, 71% 100%, 9% 91%); }
+.mirror-shard--f { clip-path: polygon(11% 0, 92% 19%, 100% 67%, 74% 100%, 0 82%, 4% 28%); }
+
+.mirror-shard__image,
+.mirror-shard__reflection,
+.mirror-shard__edge {
+  position: absolute;
+  inset: 0;
+  clip-path: inherit;
+}
+
+.mirror-shard__image {
+  background-image: var(--image);
+  background-size: cover;
+  background-position: center;
+  transform: translateZ(1px) scale(1.015);
+  filter: saturate(0.72) contrast(1.14) brightness(0.78);
+}
+
+.mirror-shard--signal-paths .mirror-shard__image,
+.mirror-shard--red .mirror-shard__image {
+  background-size: 68%;
+  background-repeat: no-repeat;
+  background-color: #0b0b0c;
+  filter: none;
+}
+
+.mirror-shard__reflection {
+  z-index: 2;
+  background:
+    linear-gradient(112deg, transparent 8%, rgba(255, 255, 255, 0.24) 19%, transparent 31%),
+    linear-gradient(168deg, rgba(255, 255, 255, 0.1), transparent 34%, rgba(0, 0, 0, 0.24) 76%),
+    radial-gradient(circle at var(--light-x) 18%, rgba(255, 255, 255, 0.18), transparent 28%);
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  animation: shard-glint 7s ease-in-out infinite;
+  animation-delay: calc(var(--order) * -0.6s);
+}
+
+.mirror-shard__edge {
+  z-index: 3;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+    inset 0.45rem 0.2rem 0.7rem rgba(255, 255, 255, 0.09),
+    inset -0.55rem -0.25rem 0.8rem rgba(0, 0, 0, 0.42);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09), transparent 35%, rgba(255, 255, 255, 0.04));
+}
+
+.mirror-shard--lime .mirror-shard__edge { box-shadow: inset 0 0 0 1px rgba(215, 243, 47, 0.42), inset 0.5rem 0 0.9rem rgba(215, 243, 47, 0.08); }
+.mirror-shard--orange .mirror-shard__edge { box-shadow: inset 0 0 0 1px rgba(242, 121, 48, 0.48), inset 0.5rem 0 0.9rem rgba(242, 121, 48, 0.1); }
+.mirror-shard--red .mirror-shard__edge { box-shadow: inset 0 0 0 1px rgba(217, 35, 42, 0.5), inset 0.5rem 0 0.9rem rgba(217, 35, 42, 0.11); }
+
+.shard-marquee__caption {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: clamp(1.5rem, 4vw, 3rem);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 2rem);
+  margin: 0;
+  color: rgba(243, 241, 232, 0.66);
+  font-size: clamp(0.78rem, 1vw, 0.95rem);
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+@keyframes shard-marquee {
+  to { transform: translateX(calc(-50% - 0.375rem)); }
+}
+
+@keyframes shard-glint {
+  0%, 38%, 100% { opacity: 0.46; transform: translateX(-8%); }
+  52% { opacity: 0.86; transform: translateX(7%); }
+}
+
+@keyframes shard-ambient {
+  to { transform: translateX(-46%) scale(1.12); opacity: 0.78; }
+}
+
+@media (max-width: 700px) {
+  .shard-marquee {
+    min-height: 31rem;
+  }
+
+  .shard-marquee__scene {
+    inset-block: 1% 10%;
+  }
+
+  .mirror-shard {
+    --shard-width: clamp(9rem, 42vw, 12rem);
+    transform:
+      translateY(calc((var(--depth) - 3) * 0.8rem))
+      translateZ(calc((var(--depth) - 3) * 1rem))
+      rotateY(calc(var(--tilt) * 0.55))
+      rotateZ(calc((var(--depth) - 3) * 0.8deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shard-marquee__track {
+    animation: none;
+    transform: translateX(-8%);
+  }
+
+  .mirror-shard__reflection,
+  .shard-marquee__light {
+    animation: none;
+  }
+
+  .shard-marquee__scene {
+    transform: none;
+  }
+}
+
 @media (max-width: 560px) {
   .ecosystem-header {
     align-items: flex-start;
@@ -797,6 +1163,20 @@ a {
   font: inherit;
   font-weight: 800;
   cursor: pointer;
+}
+
+.parent-form__consent {
+  grid-template-columns: auto 1fr !important;
+  align-items: start;
+  font-weight: 400 !important;
+  line-height: 1.5;
+}
+
+.parent-form__consent input {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.15rem;
+  accent-color: #d1df4b;
 }
 
 .parent-form__trap {

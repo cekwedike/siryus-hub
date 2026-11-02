@@ -1080,3 +1080,31 @@ body.arc-route.light-theme .arc-subscribe-form__submit {
 .arc-subscribe-form__success.is-visible {
   display: block;
 }
+
+/* ARC. Creatives editorial refinements */
+.blog-featured__eyebrow,
+.arc-section-head__eyebrow,
+.blog-hero__label {
+  display: none;
+}
+
+.blog-badge,
+.arc-bridge__pill,
+.arc-event-cta,
+.blog-pagination__item,
+.blog-pagination__next,
+.blog-pagination__prev {
+  border-radius: 0;
+}
+
+.arc-bridge__pill {
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.arc-section-head__rule {
+  display: none;
+}

@@ -105,15 +105,17 @@ const inArcHome = currentPath === '/arc';
   <body class="arc-route">
     <a href="#main-content" class="arc-skip-link">Skip to main content</a>
     <nav class="arc-route-nav arc-route-nav--always" aria-label="ARC page navigation">
-      <a href="/arc" class={`arc-route-nav__brand ${inArcHome ? 'is-active' : ''}`.trim()}>ARC.</a>
+      <a href="/arc" class={`arc-route-nav__brand ${inArcHome ? 'is-active' : ''}`.trim()}>ARC. Creatives</a>
       <div class="arc-route-nav__links">
         <a href="/arc" class={inArcHome ? 'is-active' : undefined}>Home</a>
         <a href="/arc/blog" class={inBlog ? 'is-active' : undefined}>Blog</a>
         <a href="/arc/events" class={inEvents ? 'is-active' : undefined}>Events</a>
+        <a href="/arc/music" class={currentPath === '/arc/music' ? 'is-active' : undefined}>Music &amp; Projects</a>
         <a href="/arc/community" class={inCommunity ? 'is-active' : undefined}>Community</a>
         <a href="/arc/about" class={inAbout ? 'is-active' : undefined}>About</a>
         <a href="/arc/supporters" class={inSupporters ? 'is-active' : undefined}>Supporters</a>
         <a href="/arc/faq" class={inFaq ? 'is-active' : undefined}>FAQ</a>
+        <a href="/arc/subscribe" class={inSubscribe ? 'is-active' : undefined}>Letter</a>
         <a href="https://www.siryushub.com">Back to SiryusHub</a>
       </div>
       <button
@@ -142,7 +144,7 @@ const inArcHome = currentPath === '/arc';
       <button class="arc-mobile-nav__overlay" type="button" aria-label="Close menu" data-arc-nav-close></button>
       <div class="arc-mobile-nav__panel" role="dialog" aria-modal="true" aria-label="ARC menu">
         <div class="arc-mobile-nav__head">
-          <span class="arc-mobile-nav__title">ARC.</span>
+          <span class="arc-mobile-nav__title">ARC. Creatives</span>
           <button class="arc-mobile-nav__close" type="button" aria-label="Close menu" data-arc-nav-close>
             <span aria-hidden="true">×</span>
           </button>
@@ -151,10 +153,12 @@ const inArcHome = currentPath === '/arc';
           <a href="/arc" class={`arc-mobile-nav__link ${inArcHome ? 'is-active' : ''}`.trim()}>Home</a>
           <a href="/arc/blog" class={`arc-mobile-nav__link ${inBlog ? 'is-active' : ''}`.trim()}>Blog</a>
           <a href="/arc/events" class={`arc-mobile-nav__link ${inEvents ? 'is-active' : ''}`.trim()}>Events</a>
+          <a href="/arc/music" class={`arc-mobile-nav__link ${currentPath === '/arc/music' ? 'is-active' : ''}`.trim()}>Music &amp; Projects</a>
           <a href="/arc/community" class={`arc-mobile-nav__link ${inCommunity ? 'is-active' : ''}`.trim()}>Community</a>
           <a href="/arc/about" class={`arc-mobile-nav__link ${inAbout ? 'is-active' : ''}`.trim()}>About</a>
           <a href="/arc/supporters" class={`arc-mobile-nav__link ${inSupporters ? 'is-active' : ''}`.trim()}>Supporters</a>
           <a href="/arc/faq" class={`arc-mobile-nav__link ${inFaq ? 'is-active' : ''}`.trim()}>FAQ</a>
+          <a href="/arc/subscribe" class={`arc-mobile-nav__link ${inSubscribe ? 'is-active' : ''}`.trim()}>Letter</a>
           <a href="https://www.siryushub.com" class="arc-mobile-nav__link arc-mobile-nav__link--siryus">Back to SiryusHub</a>
         </div>
       </div>
@@ -240,7 +244,7 @@ const inArcHome = currentPath === '/arc';
     background: transparent;
     border: 1px solid rgba(242, 121, 48, 0.42);
     padding: 0.45rem 0.55rem;
-    border-radius: 999px;
+    border-radius: 0;
     cursor: pointer;
     color: inherit;
   }
@@ -405,7 +409,7 @@ const inArcHome = currentPath === '/arc';
     color: #ffffff;
     width: 2.25rem;
     height: 2.25rem;
-    border-radius: 999px;
+    border-radius: 0;
     cursor: pointer;
     display: inline-flex;
     align-items: center;

@@ -382,3 +382,7 @@ body.light-theme .indiba-cta__copy {
   opacity: 1;
   transform: none;
 }
+
+.indiba-project :where(.project-detail-pill, .project-detail-hero__badge) {
+  border-radius: 0;
+}

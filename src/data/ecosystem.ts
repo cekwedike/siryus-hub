@@ -1,4 +1,4 @@
-export type EcosystemCardId = 'siryus-am' | 'arc-creatives' | 'pavo' | 'signal'
+export type EcosystemCardId = 'siryus-am' | 'arc-creatives' | 'signal' | 'pavo-create'
 
 export type EcosystemCard = {
   id: EcosystemCardId
@@ -12,6 +12,7 @@ export type EcosystemCard = {
   imageAlt: string
   mark: string | null
   markAlt: string
+  externalLabel?: string
 }
 
 export const ecosystemCards: EcosystemCard[] = [
@@ -21,7 +22,7 @@ export const ecosystemCards: EcosystemCard[] = [
     description:
       'Artist management for Max Prodigy and Jlinez, built around steady careers and clear creative direction.',
     actionLabel: 'Explore SIRYUS A.M',
-    href: '/siryus-am',
+    href: '/am',
     linkKind: 'internal',
     state: 'available',
     image: '/images/background/siryus-am.png',
@@ -44,29 +45,30 @@ export const ecosystemCards: EcosystemCard[] = [
     markAlt: 'ARC. Creatives',
   },
   {
-    id: 'pavo',
-    name: 'PAVO',
-    description: 'A SIRYUS product in development. Its identity and direction will be shared later.',
-    actionLabel: 'PAVO is taking shape',
-    href: null,
-    linkKind: 'none',
-    state: 'pending',
+    id: 'signal',
+    name: 'SIGNAL. by SIRYUS',
+    description: 'A storytelling-led marketing and growth agency for brands, companies, and organizations.',
+    actionLabel: 'Explore SIGNAL.',
+    href: '/signal',
+    linkKind: 'internal',
+    state: 'available',
     image: null,
     imageAlt: '',
-    mark: null,
-    markAlt: '',
+    mark: '/brand/signal/wordmark.png',
+    markAlt: 'SIGNAL. by SIRYUS',
   },
   {
-    id: 'signal',
-    name: 'SIGNAL.',
-    description: 'A new part of the SIRYUS ecosystem. Its direction is still taking shape.',
-    actionLabel: 'SIGNAL. is taking shape',
-    href: null,
-    linkKind: 'none',
-    state: 'pending',
+    id: 'pavo-create',
+    name: 'PAVO Create',
+    description: 'A separate software company building focused digital products and experiences.',
+    actionLabel: 'Visit PAVO Create',
+    href: 'https://pavocreate.com',
+    linkKind: 'external',
+    state: 'available',
     image: null,
     imageAlt: '',
     mark: null,
     markAlt: '',
+    externalLabel: 'Opens pavocreate.com',
   },
 ]

@@ -1,0 +1,42 @@
+# Image and asset register
+
+Last reviewed: 2026-11-02
+
+This register covers images currently used by the rebuilt parent, SIRYUS A.M, ARC. Creatives, and SIGNAL. experiences. A file being present in the repository is not proof of a transferable stock-photo license. Do not add a new public image until its source and usage rights are recorded here.
+
+| Asset group | Current use | Source status | Required action |
+|---|---|---|---|
+| `public/images/logo/` | SIRYUS identity and favicons | Existing project assets | Preserve originals. Confirm the preferred public parent lockup before final production export. |
+| `public/images/background/siryus-am*` | SIRYUS A.M marks and atmosphere | Existing project assets | Treated as user-supplied brand material. Preserve original files and verify final crop on each viewport. |
+| `public/images/artists/max-prodigy.webp` | Max Prodigy profile | Existing project media | Confirm photographer/owner approval before a new campaign or third-party reuse. |
+| `public/images/hero/jlinez.webp` | Jlinez profile and hero media | Existing project media | Confirm photographer/owner approval before a new campaign or third-party reuse. |
+| `public/arc/*` | ARC. Creatives pages, events, faith and community imagery | Existing project media, individual licenses not documented | `NEEDS CONFIRMATION`: identify original source, photographer, subject consent, and reuse terms for every photograph. Do not claim a stock subject is an ARC member. |
+| `public/brand/signal/*` | SIGNAL. by SIRYUS identity | Copied from repository `logos/SIGNAL/` working exports | Development use only. Compare against the approved reference board and replace with a verified outlined master before trademark or production use. |
+| `public/brand/pavo/product-mark.png` | PAVO product mark shown inside the external PAVO Create card | Copied from repository `logos/PAVO Create/PAVO/` | The stored asset is a PAVO product mark, not confirmed as the PAVO Create company logo. Keep the card text explicit and replace the mark when a company-level asset is approved. |
+| Sanity image assets | Artist, project, post, event, supporter, and studio content | Managed in current Sanity datasets | Preserve asset references and alt text during migration. Record rights in the relevant document before publishing new media. |
+
+## Rules for new media
+
+- Prefer real approved project, artist, event, and campaign media.
+- Record source URL, creator, license, download date, intended placement, and any attribution requirement.
+- Do not use watermarked images.
+- Do not use generated people as real team members, artists, clients, or event attendees.
+- Export responsive AVIF or WebP derivatives while preserving the approved source master.
+- Provide useful alt text for informative images and empty alt text for decorative images.
+# Image credits
+
+## Existing project media
+
+- SIRYUS A.M artist portraits use the supplied repository files in `public/images/artists` and `public/images/hero`.
+- ARC. Creatives uses the supplied repository files in `public/arc`. Its approved design and image selection were not changed.
+- PAVO Create uses the supplied product mark in `public/brand/pavo`.
+
+## SIGNAL. and SIRYUS portal photography
+
+The current local build uses Unsplash image delivery URLs while final owned campaign photography is being selected. Unsplash permits free commercial use under its license. Keep the source record with the project and replace any image if the final brand review rejects it.
+
+- Strategy workshop and open publication: `https://images.unsplash.com/photo-1553484771-371a605b060b`
+- Campaign planning by hand: `https://images.unsplash.com/photo-1529119513315-c7c361862fc7`
+- Creative work wall: `https://images.unsplash.com/photo-1545235617-9465d2a55698`
+
+License: `https://unsplash.com/license`

@@ -1,0 +1,120 @@
+@import './brand-tokens.css';
+@import './morphism.css';
+
+body.error-404-body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  background: var(--brand-gradient-page);
+  background-color: var(--brand-bg-base);
+  color: var(--brand-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-5);
+  text-align: center;
+}
+
+.error-404 {
+  max-width: 56rem;
+  width: 100%;
+}
+
+.error-404__num {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 22vw, 12rem);
+  font-weight: 900;
+  line-height: 0.95;
+  color: var(--brand-accent-ink);
+  opacity: 0.35;
+  margin: 0 0 var(--space-6);
+  letter-spacing: -0.04em;
+}
+
+.error-404__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 800;
+  margin: 0 0 var(--space-4);
+  color: var(--brand-text);
+}
+
+.error-404__sub {
+  margin: 0 auto var(--space-12);
+  max-width: 32rem;
+  font-size: var(--text-lg);
+  color: var(--brand-text-muted);
+  line-height: 1.6;
+}
+
+.error-404__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-10);
+}
+
+@media (max-width: 900px) {
+  .error-404__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .error-404__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.error-404__card {
+  display: block;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.error-404__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+body.light-theme .error-404__card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.error-404__card-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 800;
+  margin: 0 0 var(--space-2);
+  color: var(--brand-text);
+}
+
+.error-404__card-desc {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--brand-text-muted);
+  line-height: 1.5;
+}
+
+.error-404__email {
+  font-size: var(--text-sm);
+  color: var(--brand-text-faint);
+  margin: 0;
+}
+
+.error-404__email a {
+  color: var(--brand-accent-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.error-404__email a:hover {
+  color: var(--brand-accent-ink-hover);
+}

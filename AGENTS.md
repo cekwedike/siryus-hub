@@ -41,7 +41,7 @@ Make a backup branch or commit before significant refactors. Never delete origin
 ## Work process
 1. Produce current-state audit and change matrix.
 2. Implement one small phase at a time, with files touched and rationale.
-3. Validate with `npm run build`, existing lint/test commands, type checks if available, visual checks at mobile/tablet/desktop, link crawl, accessibility and reduced-motion tests.
+3. Validate with `pnpm build`, existing lint/test commands, type checks if available, visual checks at mobile/tablet/desktop, link crawl, accessibility and reduced-motion tests.
 4. Show the result and discrepancies before continuing to another phase. Do not mark unverified work as done.
 5. Record decisions and progress in `docs/DECISIONS_AND_PROGRESS.md`.
 

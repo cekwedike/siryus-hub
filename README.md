@@ -51,8 +51,8 @@ Representative routes:
 
 ### Scripts and tooling
 
-- `npm run build` / `npm run dev` / `npm run preview`
-- `npm run lint:max-lines`: guards file length under `src/` (see `package.json`)
+- `pnpm build` / `pnpm dev` / `pnpm preview`
+- `pnpm lint:max-lines`: guards file length under `src/` (see `package.json`)
 
 ---
 
@@ -80,16 +80,16 @@ siryus-hub/
 **Requirements:** Node 18+ (or 20+).
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 - Splash: `http://localhost:4321/`
 - Home: `http://localhost:4321/home`
 
 ```bash
-npm run build
-npm run preview
+pnpm build
+pnpm preview
 ```
 
 ---

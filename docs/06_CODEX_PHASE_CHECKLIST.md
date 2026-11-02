@@ -2,7 +2,7 @@
 
 - [ ] Read repository rules, provided docs, current source, all existing commits/changes.
 - [ ] Record actual route + component + Sanity + DNS/deployment inventory.
-- [ ] Run baseline `npm run build` and project lint/test (if available), record issues rather than hiding them.
+- [ ] Run baseline `pnpm build` and project lint/test (if available), record issues rather than hiding them.
 - [ ] Create audit and status matrix with KEEP, REWRITE, MOVE, MERGE, RETIRE, INVESTIGATE.
 - [ ] Repair broken links, build errors, inaccurate naming, premature PAVO/artist claims without destructive rewrites.
 - [ ] Implement SIRYUS parent hero/minimal nav/four cards with correct URLs and no broken links.
