@@ -7,5 +7,8 @@ const unlisted = /\/(privacy-policy|terms-of-use|cookie-policy)\/?$/
 export default defineConfig({
   site: 'https://siryushub.com',
   output: 'static',
+  // Clean URLs without trailing slashes, matching how Cloudflare Pages serves page.html files.
+  trailingSlash: 'never',
+  build: { format: 'file' },
   integrations: [sitemap({ filter: (page) => !unlisted.test(page) })],
 })

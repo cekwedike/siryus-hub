@@ -186,3 +186,10 @@ NEEDS CONFIRMATION before the apex moves
 - The three old A.M blog articles have no new home yet. They redirect to the A.M Journal page, which loses their individual search ranking unless the articles are rebuilt on `artists.siryushub.com`.
 - Old `/contact` and `/services` redirect to the SIRYUS homepage.
 - The legal text dates from March 2025 and names Nigeria as the place of incorporation. Owner review is needed.
+
+## 2026-11-02: first Cloudflare Pages deployment
+
+- Deployed by direct upload to the SIRYUS Cloudflare account (siryus.marketing). Projects: `siryus-hub` (siryus-hub-2i3.pages.dev), `siryus-artists`, `siryus-growth` and `siryus-collective` (each at `<name>.pages.dev`). No custom domains or DNS records were changed.
+- This machine has a `CLOUDFLARE_ACCOUNT_ID` variable for a different account. Pass `CLOUDFLARE_ACCOUNT_ID=0d135b4b04c36b381108243eb7828b8c` when deploying SIRYUS.
+- All apps now build `page.html` files with `trailingSlash: 'never'`. Cloudflare serves `/about` directly, and links, canonicals and sitemaps all use the same slash-free URL. Before this, ARC. canonicals pointed at URLs that redirected.
+- Verified live: pages return 200, unknown paths return the custom 404 with status 404, legacy URLs 301 to their new homes, and every `pages.dev` response carries `X-Robots-Tag: noindex`.

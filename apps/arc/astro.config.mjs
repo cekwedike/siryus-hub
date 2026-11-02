@@ -4,6 +4,8 @@ import sitemap from '@astrojs/sitemap'
 export default defineConfig({
   site: 'https://collective.siryushub.com',
   output: 'static',
+  // Clean URLs without trailing slashes, matching how Cloudflare Pages serves page.html files.
+  trailingSlash: 'never',
   integrations: [
     sitemap({
       filter: (page) => {
@@ -22,6 +24,7 @@ export default defineConfig({
     }),
   ],
   build: {
+    format: 'file',
     inlineStylesheets: 'auto',
   },
   vite: {
