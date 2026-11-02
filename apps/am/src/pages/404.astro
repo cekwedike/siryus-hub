@@ -1,22 +1,24 @@
 ---
 import Site from '../layouts/Site.astro'
+import Cosmos from '../components/Cosmos.astro'
 
 const tracks = [
-  ['What we do', 'Distribution, marketing, production and management', '/services'],
-  ['Artists', 'Meet Max Prodigy and Jlinez', '/artists'],
-  ['Projects', 'The Indiba Project Series and more', '/projects'],
-  ['Contact', 'Start a release with us', '/contact'],
+  ['Services', 'Release, grow and build', '/services'],
+  ['Artists', 'Meet the roster', '/artists'],
+  ['Music', 'Releases from the collective', '/music'],
+  ['Book a meeting', 'Talk to the team', '/contact'],
 ]
 ---
 <Site noIndex title="Page not found" description="This page moved or never existed. Find your way back to SIRYUS A.M.">
-  <section class="section">
-    <div class="wrap lost">
+  <section class="lost">
+    <Cosmos />
+    <div class="wrap">
       <div>
-        <h1>This track isn't on the record.</h1>
-        <p>The page moved or never existed. Pick another track and keep listening.</p>
-        <ol class="tracks">
-          {tracks.map(([name, note, href], i) => (
-            <li><a href={href}><b>{String(i + 1).padStart(2, '0')}</b><span>{name}<small>{note}</small></span></a></li>
+        <h1 data-split>This track isn't on the record.</h1>
+        <p data-reveal>The page moved or never existed. Pick another track and keep listening.</p>
+        <ol class="tracklist">
+          {tracks.map(([name, note, href]) => (
+            <li data-reveal><a href={href}><span><strong>{name}</strong><small>{note}</small></span><span></span></a></li>
           ))}
         </ol>
       </div>

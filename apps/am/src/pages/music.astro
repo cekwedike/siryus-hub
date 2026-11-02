@@ -1,0 +1,42 @@
+---
+import Site from '../layouts/Site.astro'
+import Cosmos from '../components/Cosmos.astro'
+import Wave from '../components/Wave.astro'
+import Releases from '../components/Releases.astro'
+import { releases, features, spotify } from '../lib/collective'
+
+const schema = [{
+  '@type': 'MusicGroup',
+  '@id': 'https://artists.siryushub.com/#organization',
+  album: releases.map((r) => ({ '@type': 'MusicAlbum', name: r.title, byArtist: r.credit, datePublished: r.date, url: r.apple, image: new URL(r.cover, Astro.site).href })),
+}]
+---
+<Site title="Music" description="Music from SIRYUS A.M, the collective: Me & You, Nyongorera, LAVO and Tarama, made with Jlinez, Hidaya Morgan, Couronne., Max Prodigy, ARC. Creatives and more." schema={schema}>
+  <header class="page-hero" style="padding-bottom:clamp(8rem,16vw,12rem)">
+    <Cosmos />
+    <div class="wrap" style="position:relative;z-index:1">
+      <h1 data-split>We make music too.</h1>
+      <p class="lede" data-reveal>SIRYUS A.M is a creative collective as well as a management company. We release our own records and bring artists together on them.</p>
+      <div class="actions" data-reveal><a class="btn solid" href={spotify} target="_blank" rel="noopener">Follow on Spotify</a></div>
+    </div>
+    <Wave count={56} />
+  </header>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="head"><h2 data-split>Releases.</h2><p data-reveal>Tap a cover to listen on Apple Music, or follow us on your favourite platform.</p></div>
+      <Releases />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><h2 data-split>Also featured on.</h2></div>
+      <ol class="tracklist">
+        {features.map(([title, credit]) => (
+          <li data-reveal><a href={spotify} target="_blank" rel="noopener"><span><strong>{title}</strong><small>{credit}</small></span><span>Listen</span></a></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</Site>

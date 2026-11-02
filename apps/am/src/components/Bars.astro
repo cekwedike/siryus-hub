@@ -1,8 +1,0 @@
----
-// Animated sound bars echoing the waveform badge on the A.M mark. Timing differs per bar so they never move in step.
-interface Props { count?: number }
-const { count = 7 } = Astro.props
----
-<span class="bars" aria-hidden="true">
-  {Array.from({ length: count }, (_, i) => <i style={`animation-delay:${(-i * 0.23).toFixed(2)}s`}></i>)}
-</span>

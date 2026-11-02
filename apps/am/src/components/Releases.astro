@@ -1,0 +1,19 @@
+---
+import { releases, profiles, year } from '../lib/collective'
+interface Props { limit?: number }
+const { limit } = Astro.props
+const list = limit ? releases.slice(0, limit) : releases
+---
+<div class="releases">
+  {list.map((r, i) => (
+    <a class="release" href={r.apple} target="_blank" rel="noopener" data-reveal style={`--d:${i}`}>
+      <div class="cover"><img src={r.cover} alt={`${r.title} cover art`} width="800" height="800" loading="lazy" decoding="async" /></div>
+      <p class="when">{r.type}, {year(r.date)}</p>
+      <h3>{r.title}</h3>
+      <p>{r.credit}</p>
+    </a>
+  ))}
+</div>
+<div class="profiles">
+  {profiles.slice(0, 4).map(([label, url]) => <a href={url} target="_blank" rel="noopener">Listen on {label}</a>)}
+</div>

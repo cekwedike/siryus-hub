@@ -83,6 +83,24 @@ const description = 'SIRYUS is home to SIRYUS A.M, ARC. Creatives and SIGNAL., w
     </div>
 
     <script>
+      // Hover controller: the card under the pointer opens, and stays open while the pointer crosses the
+      // slanted gaps between cards. Everything closes only when the pointer leaves the row.
+      const row = document.querySelector<HTMLElement>('.shards')
+      if (row && matchMedia('(hover: hover)').matches) {
+        let open: HTMLElement | null = null
+        const set = (shard: HTMLElement | null) => {
+          if (shard === open) return
+          open?.classList.remove('on')
+          shard?.classList.add('on')
+          row.classList.toggle('has-on', !!shard)
+          open = shard
+        }
+        row.addEventListener('pointerover', (e) => {
+          const shard = (e.target as HTMLElement).closest<HTMLElement>('.shard')
+          if (shard) set(shard)
+        })
+        row.addEventListener('pointerleave', () => set(null))
+      }
       const status = document.querySelector<HTMLElement>('.status')
       if (status) {
         const fallback = status.dataset.default ?? ''

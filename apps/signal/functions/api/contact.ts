@@ -11,5 +11,5 @@ export const onRequestPost = contactHandler({
   accentInk: '#ffffff',
   font: "Inter, 'Helvetica Neue', Arial, sans-serif",
   signoff: 'Talk soon. The SIGNAL. team',
-  fields: { company: 'Company or brand', need: 'Looking for', budget: 'Budget', timing: 'Timing' },
+  fields: { company: 'Company or brand', need: 'Wants to talk about', budget: 'Budget', timing: 'Best time to meet' },
 })

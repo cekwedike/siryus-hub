@@ -1,5 +1,6 @@
 ---
 import Site from '../../layouts/Site.astro'
+import Cosmos from '../../components/Cosmos.astro'
 import { getRoster, img, type Artist } from '../../lib/sanity'
 
 export async function getStaticPaths() {
@@ -9,52 +10,39 @@ export async function getStaticPaths() {
 const { artist } = Astro.props as { artist: Artist }
 const labels: Record<string, string> = { spotify: 'Spotify', appleMusic: 'Apple Music', audiomack: 'Audiomack', youtube: 'YouTube', instagram: 'Instagram', boomplay: 'Boomplay', tiktok: 'TikTok' }
 const platforms = Object.entries(artist.platforms ?? {}).filter(([, url]) => typeof url === 'string' && url.startsWith('http'))
-const description = artist.bioParagraph1?.slice(0, 155).replace(/\s+\S*$/, '') + '…'
-const photo = img(artist.photo, 1000, 866)
-const shareImage = photo && new URL(photo, Astro.site).href
-const schema = [{
-  '@type': 'MusicGroup',
-  name: artist.name,
-  url: new URL(`/artists/${artist.slug}`, Astro.site).href,
-  image: shareImage,
-  genre: artist.genre,
-  description: artist.oneLiner,
-  sameAs: platforms.map(([, url]) => url),
-}]
+const description = (artist.bioParagraph1 ?? artist.oneLiner ?? artist.name).slice(0, 155).replace(/\s+\S*$/, '') + '…'
+const photo = img(artist.photo, 900)!
+const share = new URL(photo, Astro.site).href
+const schema = [{ '@type': 'MusicGroup', name: artist.name, url: new URL(`/artists/${artist.slug}`, Astro.site).href, image: share, genre: artist.genre, description: artist.oneLiner, sameAs: platforms.map(([, url]) => url) }]
 ---
-<Site title={artist.name} description={description} image={shareImage} type="profile" schema={schema}>
+<Site title={artist.name} description={description} image={share} type="profile" schema={schema}>
   <header class="page-hero">
-    <div class="wrap">
+    <Cosmos />
+    <div class="wrap" style="position:relative">
       <a class="crumb" href="/artists">Artists</a>
-      <h1>{artist.name}</h1>
-      <p>{artist.oneLiner}</p>
+      <h1 data-split>{artist.name}</h1>
+      <p class="lede" data-reveal>{artist.oneLiner}</p>
     </div>
   </header>
-  <section class="section">
+  <section class="section white">
     <div class="wrap profile">
-      <div class="hex"><img src={photo} alt={artist.name} width="640" height="640" fetchpriority="high" /></div>
-      <div class="profile-copy">
-        <ul class="genres">{artist.genre?.map((g) => <li>{g}</li>)}{artist.location && <li>{artist.location}</li>}</ul>
-        <div class="prose" style="margin-top:1.6rem">
+      <div class="frame" data-reveal><img src={photo} alt={artist.name} width="640" height="640" fetchpriority="high" /></div>
+      <div>
+        <ul class="chips" data-reveal>{artist.genre?.map((g) => <li>{g}</li>)}{artist.location && <li>{artist.location}</li>}</ul>
+        <div class="prose" style="margin-top:1.8rem" data-reveal>
           {artist.bioParagraph1 && <p>{artist.bioParagraph1}</p>}
           {artist.bioParagraph2 && <p>{artist.bioParagraph2}</p>}
         </div>
-        {platforms.length > 0 && (
-          <div class="platforms" aria-label={`Listen to ${artist.name}`}>
-            {platforms.map(([key, url]) => <a href={url} target="_blank" rel="noopener">{labels[key] ?? key}</a>)}
-          </div>
-        )}
+        {platforms.length > 0 && <div class="profiles" data-reveal>{platforms.map(([key, url]) => <a href={url} target="_blank" rel="noopener">{labels[key] ?? key}</a>)}</div>}
         {artist.releases?.length ? (
           <>
             <h2 class="sr">Releases</h2>
-            <ol class="releases">
-              {artist.releases.map((release, i) => (
-                <li>
-                  {release.spotifyUrl ? (
-                    <a href={release.spotifyUrl} target="_blank" rel="noopener"><b>{String(i + 1).padStart(2, '0')}</b><strong>{release.title}</strong><span class="year">{release.year}</span></a>
-                  ) : (
-                    <span><b>{String(i + 1).padStart(2, '0')}</b><strong>{release.title}</strong><span class="year">{release.year}</span></span>
-                  )}
+            <ol class="tracklist light" style="background:none">
+              {artist.releases.map((r) => (
+                <li data-reveal>
+                  {r.spotifyUrl
+                    ? <a href={r.spotifyUrl} target="_blank" rel="noopener"><strong>{r.title}</strong><span>{r.year}</span></a>
+                    : <span class="row"><strong>{r.title}</strong><span>{r.year}</span></span>}
                 </li>
               ))}
             </ol>
@@ -63,13 +51,12 @@ const schema = [{
       </div>
     </div>
   </section>
-  <section class="section dark">
-    <div class="wrap closing">
-      <h2>Working with {artist.name}?</h2>
-      <div>
-        <p>For bookings, features, press and partnerships, talk to the SIRYUS A.M team.</p>
-        <a class="btn btn-lime" href={`/contact?about=${encodeURIComponent(artist.name)}`}>Get in touch</a>
-      </div>
+  <section class="cta">
+    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <h2 data-split>{`Working with ${artist.name}?`}</h2>
+      <p data-reveal>For bookings, features, press and partnerships, talk to the SIRYUS A.M team.</p>
+      <a class="btn solid" href={`/contact?about=${encodeURIComponent(artist.name)}`} data-reveal><span class="dot" aria-hidden="true"></span>Get in touch</a>
     </div>
   </section>
 </Site>

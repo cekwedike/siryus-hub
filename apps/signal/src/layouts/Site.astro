@@ -1,18 +1,20 @@
 ---
 import '../styles/site.css'
 import Return from '../../../../shared/astro/Return.astro'
+import { services } from '../data/services'
 
 interface Props {
   title: string
   description: string
   noIndex?: boolean
+  image?: string
   schema?: Record<string, unknown>[]
   preload?: string
 }
-const { title, description, noIndex = false, schema = [], preload } = Astro.props
-const pageTitle = title === 'SIGNAL. by SIRYUS' ? title : `${title} | SIGNAL. by SIRYUS`
+const { title, description, noIndex = false, image, schema = [], preload } = Astro.props
+const pageTitle = title === 'SIGNAL. by SIRYUS' ? 'SIGNAL. by SIRYUS | Story-led marketing and growth' : `${title} | SIGNAL. by SIRYUS`
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).href
-const ogImage = new URL('/og.png', Astro.site).href
+const ogImage = image ?? new URL('/og.png', Astro.site).href
 const org = 'https://growth.siryushub.com/#organization'
 const graph = {
   '@context': 'https://schema.org',
@@ -25,8 +27,8 @@ const graph = {
       url: 'https://growth.siryushub.com/',
       logo: new URL('/icon-512.png', Astro.site).href,
       email: 'signal@siryushub.com',
-      description: 'A story-led marketing and growth agency: brand strategy, campaigns, content and copy, email and CRM, growth and storytelling.',
-      knowsAbout: ['Brand strategy', 'Marketing campaigns', 'Content marketing', 'Copywriting', 'Email marketing', 'CRM', 'Growth marketing', 'Storytelling'],
+      description: 'A story-led marketing and growth agency: storytelling, strategy, campaigns, content and copy, email and CRM, and growth.',
+      knowsAbout: services.map((s) => s.name),
       parentOrganization: { '@type': 'Organization', name: 'Siryus Creative Media Ltd', url: 'https://siryushub.com/' },
     },
     { '@type': 'WebSite', '@id': 'https://growth.siryushub.com/#website', name: 'SIGNAL. by SIRYUS', url: 'https://growth.siryushub.com/', publisher: { '@id': org } },
@@ -34,12 +36,12 @@ const graph = {
   ],
 }
 const nav = [
-  ['Services', '/services'],
   ['Approach', '/approach'],
   ['Work', '/work'],
   ['About', '/about'],
 ]
 const here = Astro.url.pathname.replace(/\/$/, '') || '/'
+const current = (href: string) => here === href || here.startsWith(`${href}/`)
 ---
 <!doctype html>
 <html lang="en">
@@ -50,10 +52,14 @@ const here = Astro.url.pathname.replace(/\/$/, '') || '/'
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {noIndex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
-    <meta name="theme-color" content="#f3ede4" />
+    <meta name="theme-color" content="#0b0b0c" />
+    <script is:inline>
+      document.documentElement.classList.add('js')
+      setTimeout(() => document.documentElement.classList.contains('motion-ready') || document.documentElement.classList.add('motion-fallback'), 2500)
+    </script>
     <link rel="preload" href="/fonts/dm-serif-display.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
-    {preload && <link rel="preload" as="image" imagesrcset={`/images/${preload}-800.webp 800w, /images/${preload}-1600.webp 1600w`} imagesizes="(max-width: 56rem) 100vw, 48vw" fetchpriority="high" />}
+    {preload && <link rel="preload" as="image" imagesrcset={`/images/${preload}-800.webp 800w, /images/${preload}-1600.webp 1600w`} imagesizes="(max-width: 62rem) 100vw, 28vw" fetchpriority="high" />}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -65,8 +71,8 @@ const here = Astro.url.pathname.replace(/\/$/, '') || '/'
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    {!image && <meta property="og:image:width" content="1200" />}
+    {!image && <meta property="og:image:height" content="630" />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
@@ -76,45 +82,95 @@ const here = Astro.url.pathname.replace(/\/$/, '') || '/'
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <Return />
-    <header class="masthead">
-      <a class="brand" href="/" aria-label="SIGNAL. by SIRYUS home">
-        <img src="/brand/signal/lockup-light.webp" alt="" width="156" height="52" />
-      </a>
-      <details class="menu">
-        <summary aria-label="Menu"><span></span><span></span></summary>
-        <nav aria-label="Main">
-          {nav.map(([label, href]) => <a href={href} aria-current={here === href ? 'page' : undefined}>{label}</a>)}
-          <a class="cta" href="/contact" aria-current={here === '/contact' ? 'page' : undefined}>Talk to us</a>
+    <header class="nav" data-nav>
+      <div class="nav-inner">
+        <a class="brand" href="/" aria-label="SIGNAL. by SIRYUS home">
+          <img src="/brand/signal/lockup-dark.webp" alt="" width="520" height="130" />
+          <span>SIGNAL.</span>
+        </a>
+        <nav class="links" aria-label="Main">
+          <div class="drop">
+            <button type="button" aria-haspopup="true" aria-current={current('/services') ? 'page' : undefined}>
+              Services
+              <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+            </button>
+            <div class="panel" style="grid-template-columns:1fr 1fr 1.1fr">
+              <div>{services.slice(0, 3).map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}</div>
+              <div>{services.slice(3).map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}</div>
+              <div class="feature">
+                <p>Not sure where to start? Begin with the story.</p>
+                <a href="/services">All services</a>
+              </div>
+            </div>
+          </div>
+          {nav.map(([label, href]) => <a href={href} aria-current={current(href) ? 'page' : undefined}>{label}</a>)}
         </nav>
-      </details>
+        <a class="btn solid nav-cta" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
+      </div>
     </header>
+    <div class="drawer" id="drawer">
+      <nav aria-label="Mobile">
+        <a href="/services">Services</a>
+        {nav.map(([label, href]) => <a href={href}>{label}</a>)}
+        <a href="/contact">Book a meeting</a>
+      </nav>
+      <div class="sub">{services.map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}</div>
+    </div>
+
     <main id="main">
       <slot />
     </main>
+
     <footer class="footer">
-      <div class="footer-top">
-        <div>
-          <img src="/brand/signal/lockup-dark.webp" alt="SIGNAL. by SIRYUS" width="208" height="52" loading="lazy" />
-          <p>Make your message matter.</p>
+      <div class="wrap">
+        <div class="footer-top">
+          <div>
+            <h2>Make your message matter.</h2>
+            <a class="btn" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+          </div>
+          <div>
+            <h3>Services</h3>
+            <nav aria-label="Services">{services.map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}</nav>
+          </div>
+          <div>
+            <h3>SIGNAL.</h3>
+            <nav aria-label="Footer">{nav.map(([label, href]) => <a href={href}>{label}</a>)}<a href="/contact">Contact</a></nav>
+          </div>
+          <div>
+            <h3>New project?</h3>
+            <div class="list"><a href="mailto:signal@siryushub.com">signal@siryushub.com</a></div>
+          </div>
         </div>
-        <nav aria-label="Footer">
-          {nav.map(([label, href]) => <a href={href}>{label}</a>)}
-          <a href="/contact">Contact</a>
-        </nav>
-        <div class="footer-contact">
-          <p>New project?</p>
-          <a href="mailto:signal@siryushub.com">signal@siryushub.com</a>
+        <p class="footer-mark" aria-hidden="true">SIGNAL.</p>
+        <div class="footer-base">
+          <Return variant="footer" />
+          <nav aria-label="Legal">
+            <a href="https://siryushub.com/privacy-policy">Privacy</a>
+            <a href="https://siryushub.com/terms-of-use">Terms</a>
+            <a href="https://siryushub.com/cookie-policy">Cookies</a>
+          </nav>
+          <p>© 2026 Siryus Creative Media Ltd</p>
         </div>
-      </div>
-      <div class="footer-base">
-        <Return variant="footer" />
-        <p>© 2026 Siryus Creative Media Ltd. <a href="https://siryushub.com/privacy-policy">Privacy</a> <a href="https://siryushub.com/terms-of-use">Terms</a></p>
       </div>
     </footer>
     <script>
-      const menu = document.querySelector<HTMLDetailsElement>('.menu')
-      menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => (menu.open = false)))
-      document.addEventListener('keydown', (e) => e.key === 'Escape' && menu && (menu.open = false))
+      import '../../../../shared/motion'
+      document.documentElement.classList.add('motion-ready')
+      const nav = document.querySelector<HTMLElement>('[data-nav]')!
+      const toggle = nav.querySelector<HTMLButtonElement>('.menu-toggle')!
+      const setOpen = (open: boolean) => {
+        nav.classList.toggle('open', open)
+        toggle.setAttribute('aria-expanded', String(open))
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
+        document.body.style.overflow = open ? 'hidden' : ''
+      }
+      toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')))
+      document.querySelectorAll('#drawer a').forEach((a) => a.addEventListener('click', () => setOpen(false)))
+      addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false))
+      const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40)
+      addEventListener('scroll', onScroll, { passive: true })
+      onScroll()
     </script>
   </body>
   <Fragment set:html={'<!--/email_off-->'} />

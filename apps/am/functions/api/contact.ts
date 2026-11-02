@@ -11,5 +11,5 @@ export const onRequestPost = contactHandler({
   accentInk: '#d1f344',
   font: "Montserrat, 'Helvetica Neue', Arial, sans-serif",
   signoff: 'Keep making the music. We will be in touch soon.',
-  fields: { artist: 'Artist or project', need: 'Looking for', release: 'Release date', link: 'Music link' },
+  fields: { artist: 'Artist or project', need: 'Wants to talk about', meeting: 'Best time to meet', link: 'Music link' },
 })

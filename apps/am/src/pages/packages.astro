@@ -1,0 +1,60 @@
+---
+import Site from '../layouts/Site.astro'
+import Cosmos from '../components/Cosmos.astro'
+import { packages, services } from '../data/services'
+
+const featured = ['release-strategy', 'playlist-pitching', 'content-strategy', 'marketing-plans'].map((s) => services.find((x) => x.slug === s)!)
+---
+<Site title="Release packages" description="SIRYUS A.M release packages for singles and EPs: release strategy, playlist pitching, content strategy and a marketing plan, shaped around your music. Book a meeting to get started.">
+  <header class="page-hero">
+    <Cosmos />
+    <div class="wrap" style="position:relative">
+      <h1 data-split>One release. Everything it needs.</h1>
+      <p class="lede" data-reveal>Our packages bring the four things every release needs into one plan, so nothing gets missed and every part works together.</p>
+      <div class="actions" data-reveal><a class="btn solid" href="/contact?service=single-release"><span class="dot" aria-hidden="true"></span>Book a meeting</a></div>
+    </div>
+  </header>
+
+  <section class="section light">
+    <div class="wrap packages">
+      {packages.map((p, i) => (
+        <article class="pack" data-reveal style={`--d:${i}`}>
+          <span class="tag">{i === 0 ? 'For a single' : 'For an EP'}</span>
+          <h2 style="font:clamp(2rem,3.8vw,3.4rem)/.95 var(--display)">{p.name}</h2>
+          <p>{p.line}</p>
+          <ul>{p.includes.map((x) => <li>{x}</li>)}</ul>
+          <a class="btn solid" href={`/contact?service=${p.slug}`}><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+          <span class="big" aria-hidden="true">{i === 0 ? '01' : 'EP'}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="head">
+        <h2 data-split>What goes into a package.</h2>
+        <p data-reveal>Each part is a full service on its own. Together, they cover the whole release.</p>
+      </div>
+      <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))">
+        {featured.map((s, i) => (
+          <a class="card" href={`/services/${s.slug}`} data-reveal style={`--d:${i}`}>
+            <div class="img"><img src={`/images/scenes/${s.image}-800.webp`} alt="" width="800" height="533" loading="lazy" decoding="async" /></div>
+            <h3>{s.name}</h3>
+            <p>{s.line}</p>
+          </a>
+        ))}
+      </div>
+      <p data-reveal style="margin-top:2.5rem;max-width:40rem">Advertising budgets are always separate and only spent with your approval. Every package is priced for your project after a short meeting.</p>
+    </div>
+  </section>
+
+  <section class="cta" aria-labelledby="cta-title">
+    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <h2 id="cta-title" data-split>Plan your next release.</h2>
+      <p data-reveal>Tell us about the song or the project, and when you want it out.</p>
+      <a class="btn solid" href="/contact?service=single-release" data-reveal><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+    </div>
+  </section>
+</Site>

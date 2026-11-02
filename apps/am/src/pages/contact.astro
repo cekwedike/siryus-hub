@@ -1,22 +1,24 @@
 ---
 import Site from '../layouts/Site.astro'
+import Cosmos from '../components/Cosmos.astro'
 import ContactForm from '../components/ContactForm.astro'
 ---
-<Site title="Contact" description="Start a release with SIRYUS A.M. Tell us about your music, your release date and what you need: distribution, marketing, production or management.">
+<Site title="Book a meeting" description="Book a meeting with SIRYUS A.M. Tell us about your music and what you need: release strategy, playlist pitching, content, marketing, branding, distribution or management.">
   <header class="page-hero">
-    <div class="wrap">
-      <h1>Start with the music.</h1>
-      <p>Tell us who you are, what you are releasing and where you need help. A real person reads every message.</p>
+    <Cosmos />
+    <div class="wrap" style="position:relative">
+      <h1 data-split>Let's talk about your music.</h1>
+      <p class="lede" data-reveal>Tell us who you are and what you are working on. We will reply to set up a meeting, usually within two working days.</p>
     </div>
   </header>
-  <section class="section">
+  <section class="section white">
     <div class="wrap contact-grid">
       <ContactForm />
-      <aside class="contact-aside">
+      <aside class="contact-aside" data-reveal>
         <h2>Good to know</h2>
-        <p>Send new music at least three weeks before release day. It gives us time to set it up properly and pitch it.</p>
+        <p>Planning a release? Reach out at least three weeks before release day so there is time to plan and pitch it properly.</p>
         <p>Prefer email? Write to <a href="mailto:management@siryushub.com">management@siryushub.com</a>.</p>
-        <p>We usually reply within two working days.</p>
+        <p>Every meeting is free and comes with no obligation.</p>
       </aside>
     </div>
   </section>

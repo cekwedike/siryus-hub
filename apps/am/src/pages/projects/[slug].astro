@@ -9,35 +9,36 @@ export async function getStaticPaths() {
 const { project } = Astro.props as { project: Project }
 const body = project.longDescription?.length ? toHtml(project.longDescription) : project.description ? `<p>${project.description}</p>` : ''
 const hero = project.slug === 'indiba-project-series' ? project.galleryImages?.[0] ?? project.coverImage : project.coverImage
-const gallery = (project.galleryImages ?? []).filter((g) => g !== hero)
+// Artwork carries its own text, so the headline sits over a music scene and the artwork is shown in the gallery.
+const scene = project.slug === 'the-abditory-sessions' ? 'condenser-mic' : 'concert'
+const gallery = [project.coverImage, ...(project.galleryImages ?? [])].filter(Boolean)
 ---
 <Site title={project.title} description={project.excerpt ?? project.title} image={img(hero, 1200, 630)} type="article">
-  <header class="page-hero">
+  <section class="feature" style="min-height:clamp(32rem,90vh,56rem)">
+    <div class="bg" data-speed="0.12"><img src={`/images/scenes/${scene}-1600.webp`} srcset={`/images/scenes/${scene}-800.webp 800w, /images/scenes/${scene}-1600.webp 1600w`} sizes="100vw" alt="" width="1600" height="1067" fetchpriority="high" /></div>
     <div class="wrap">
-      <a class="crumb" href="/projects">Projects</a>
-      <h1>{project.title}</h1>
-      <p>{project.excerpt}</p>
-      <ul class="genres">{[project.status, project.category].filter(Boolean).map((t) => <li>{t}</li>)}</ul>
-    </div>
-  </header>
-  <section class="section">
-    <div class="wrap">
-      <img class="article-cover" src={img(hero, 1600, 800)} srcset={`${img(hero, 900, 450)} 900w, ${img(hero, 1600, 800)} 1600w`} sizes="(max-width: 82rem) 92vw, 82rem" alt={hero?.alt ?? project.title} width="1600" height="800" fetchpriority="high" />
-      <div class="prose" set:html={body} />
-      {gallery.length > 0 && (
-        <div class="gallery">
-          {gallery.map((g) => <img src={img(g, 800, 800)} alt={g.alt ?? project.title} width="800" height="800" loading="lazy" />)}
-        </div>
-      )}
+      <div>
+        <a class="crumb" href="/projects" style="display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.06em;margin-bottom:1.4rem;text-decoration:none">Projects</a>
+        <h1 data-split style="font:clamp(2.8rem,7vw,6.6rem)/.9 var(--display)">{project.title}</h1>
+      </div>
+      <div data-reveal>
+        <ul class="chips" style="margin-bottom:1rem">{[project.status, project.category, project.year].filter(Boolean).map((t) => <li>{t}</li>)}</ul>
+        <p>{project.excerpt}</p>
+      </div>
     </div>
   </section>
-  <section class="section dark">
-    <div class="wrap closing">
-      <h2>{project.registrationOpen ? 'Applications are open.' : 'Want in on the next one?'}</h2>
-      <div>
-        <p>{project.registrationClosedText ?? 'Tell us about yourself and your music, and we will let you know when the next edition opens.'}</p>
-        <a class="btn btn-lime" href={`/contact?about=${encodeURIComponent(project.title)}`}>Get in touch</a>
-      </div>
+  <section class="section white">
+    <div class="wrap">
+      <div class="prose" set:html={body} />
+      {gallery.length > 0 && <div class="gallery">{gallery.map((g) => <img src={img(g, 900, 900)} alt={typeof g === 'string' ? project.title : g.alt ?? project.title} width="900" height="900" loading="lazy" data-reveal />)}</div>}
+    </div>
+  </section>
+  <section class="cta">
+    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <h2 data-split>{project.registrationOpen ? 'Applications are open.' : 'Want in on the next one?'}</h2>
+      <p data-reveal>{project.registrationClosedText ?? 'Tell us about yourself and your music, and we will let you know when the next edition opens.'}</p>
+      <a class="btn solid" href={`/contact?about=${encodeURIComponent(project.title)}`} data-reveal><span class="dot" aria-hidden="true"></span>Get in touch</a>
     </div>
   </section>
 </Site>

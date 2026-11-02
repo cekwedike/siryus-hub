@@ -1,0 +1,90 @@
+---
+import Site from '../../layouts/Site.astro'
+import Cosmos from '../../components/Cosmos.astro'
+import Pic from '../../components/Pic.astro'
+import { services, type Service } from '../../data/services'
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }))
+}
+const { service } = Astro.props as { service: Service }
+const i = services.indexOf(service)
+const others = [1, 2, 3].map((n) => services[(i + n) % services.length])
+const schema = [{
+  '@type': 'Service',
+  name: service.name,
+  description: service.long,
+  serviceType: service.name,
+  url: new URL(`/services/${service.slug}`, Astro.site).href,
+  provider: { '@id': 'https://growth.siryushub.com/#organization' },
+  areaServed: 'Worldwide',
+}]
+---
+<Site title={service.name} description={`${service.short} ${service.long}`.slice(0, 158)} image={new URL(`/images/${service.image}-1600.webp`, Astro.site).href} schema={schema}>
+  <header class="page-hero split">
+    <Cosmos />
+    <div class="wrap">
+      <div>
+        <a class="crumb" href="/services">Services</a>
+        <h1 data-split>{service.name}<span class="dot-red keep" aria-hidden="true"></span></h1>
+        <p class="lede" data-reveal>{service.short}</p>
+        <div class="actions" data-reveal>
+          <a class="btn solid" href={`/contact?service=${service.slug}`}><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+          <a class="btn" href="/services">All services</a>
+        </div>
+      </div>
+      <div class="media" data-reveal><Pic name={service.image} alt={service.alt} eager sizes="(max-width: 52rem) 92vw, 42vw" /></div>
+    </div>
+  </header>
+
+  <section class="section white">
+    <div class="wrap detail">
+      <div>
+        <h2 data-split>What it is.</h2>
+        <p class="for-who" data-reveal>{service.long}</p>
+      </div>
+      <div>
+        <h2 data-split>What you get.</h2>
+        <ul class="includes">{service.includes.map((x, n) => <li data-reveal style={`--d:${n}`}>{x}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head">
+        <h2 data-split>Who it's for.</h2>
+        <p data-reveal>{service.forWho}</p>
+      </div>
+      <ol class="steps">
+        <li data-reveal style="--d:0"><h3>Book a meeting</h3><p>Tell us about the business, the audience and what you want to change.</p></li>
+        <li data-reveal style="--d:1"><h3>Agree the plan</h3><p>We put scope, timeline and price in writing before any work begins.</p></li>
+        <li data-reveal style="--d:2"><h3>We do the work</h3><p>We deliver, report in plain language and sharpen what works.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section white" aria-labelledby="more">
+    <div class="wrap">
+      <div class="head"><h2 id="more" data-split>Pairs well with.</h2></div>
+      <div class="cards">
+        {others.map((s, n) => (
+          <a class="card" href={`/services/${s.slug}`} data-reveal style={`--d:${n}`}>
+            <div class="img"><img src={`/images/${s.image}-800.webp`} alt="" width="800" height="533" loading="lazy" decoding="async" /></div>
+            <h3>{s.name}</h3>
+            <p>{s.short}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta red" aria-labelledby="cta-title">
+    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <h2 id="cta-title" data-split>Let's talk about it.</h2>
+      <p data-reveal>Book a meeting and tell us what you are building. You will leave with honest next steps, whether we work together or not.</p>
+      <a class="btn solid" href={`/contact?service=${service.slug}`} data-reveal><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+    </div>
+  </section>
+</Site>

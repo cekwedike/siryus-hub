@@ -96,6 +96,7 @@ console.log('Brand icons written for siryus, am, signal and arc. Social preview 
 
 // SIRYUS A.M site header/footer mark (white tile for its charcoal surfaces).
 await out(app('am', 'brand', 'mark.png'), await sharp(amMark).resize({ width: 112 }).png({ compressionLevel: 9, palette: true }).toBuffer())
+await out(app('am', 'brand', 'mark-dark.png'), await sharp(amMark).resize({ width: 112 }).negate({ alpha: false }).png({ compressionLevel: 9, palette: true }).toBuffer())
 
 // SIGNAL. lockups for the growth site. For light backgrounds the approved light reference render is
 // converted colour-to-alpha against its stone background, so all three path colours and the red period

@@ -1,7 +1,8 @@
 ---
 import Site from '../layouts/Site.astro'
-import Paths from '../components/Paths.astro'
+import Cosmos from '../components/Cosmos.astro'
 import Pic from '../components/Pic.astro'
+import Paths from '../components/Paths.astro'
 
 const steps = [
   ['Listen', 'We learn the business, the audience and the real problem before we reach for a format.', 'Expect questions. Some of the best answers come from your customers, your team and the things you have already tried.'],
@@ -12,35 +13,41 @@ const steps = [
 ---
 <Site title="Approach" description="How SIGNAL. works: listen, find the story, build the system, then learn and sharpen. Story-led marketing, step by step.">
   <header class="page-hero">
-    <div class="wrap">
-      <h1>Start with what must be heard.</h1>
-      <p>Then build the strategy, message and system that can carry it. Here is how a project with us runs.</p>
+    <Cosmos />
+    <div class="wrap" style="position:relative;z-index:1">
+      <h1 data-split>Start with what must be heard.</h1>
+      <p class="lede" data-reveal>Then build the strategy, message and system that can carry it. Here is how a project with us runs.</p>
     </div>
-    <Paths />
+    <Paths class="corner" />
   </header>
-  <section class="section">
+  <section class="section white">
     <div class="wrap">
-      <ol class="steps">
-        {steps.map(([title, lead, detail]) => (
-          <li><h2>{title}</h2><div><p>{lead}</p><p>{detail}</p></div></li>
+      <ol class="steps" style="grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))">
+        {steps.map(([title, lead, detail], i) => (
+          <li data-reveal style={`--d:${i}`}><h3 style="font:clamp(1.6rem,2.4vw,2.2rem)/1.05 var(--display);margin-bottom:.8rem">{title}</h3><p>{lead}</p><p style="margin-top:.8rem">{detail}</p></li>
         ))}
       </ol>
     </div>
   </section>
-  <section class="band" aria-labelledby="band-title">
-    <Pic name="sticky-wall" alt="A team planning a campaign with sticky notes on a glass wall" sizes="100vw" />
+  <section class="feature" aria-labelledby="band-title">
+    <div class="bg" data-speed="0.12"><Pic name="sticky-wall" alt="" sizes="100vw" /></div>
     <div class="wrap">
-      <h2 id="band-title">Your team stays in the room.</h2>
-      <p>We work with you, not around you. You will know what we are doing, why, and what it costs.</p>
-    </div>
-  </section>
-  <section class="section red">
-    <div class="wrap closing">
-      <h2>Ready when you are.</h2>
-      <div>
-        <p>Tell us what you are building and we will suggest a sensible first step.</p>
-        <a class="button light" href="/contact">Start a conversation</a>
+      <h2 id="band-title" data-split>Your team stays in the room.</h2>
+      <div data-reveal>
+        <p>We work with you, not around you. You will always know what we are doing, why, and what it costs.</p>
+        <a class="btn" href="/contact">Book a meeting</a>
       </div>
     </div>
   </section>
+  <section class="cta red">
+    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <h2 data-split>Ready when you are.</h2>
+      <p data-reveal>Tell us what you are building and we will suggest a sensible first step.</p>
+      <a class="btn solid" href="/contact" data-reveal><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+    </div>
+  </section>
 </Site>
+<style>
+  .corner { position: absolute; right: var(--gutter); bottom: -4rem; width: clamp(10rem, 24vw, 20rem); z-index: 0; }
+</style>

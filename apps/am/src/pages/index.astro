@@ -1,93 +1,116 @@
 ---
 import Site from '../layouts/Site.astro'
-import Bars from '../components/Bars.astro'
-import Collective from '../components/Collective.astro'
+import Cosmos from '../components/Cosmos.astro'
+import Marquee from '../components/Marquee.astro'
+import Ring from '../components/Ring.astro'
+import Wave from '../components/Wave.astro'
+import Releases from '../components/Releases.astro'
 import { getRoster, getProjects, getPosts, img, srcset, date } from '../lib/sanity'
+import { services, packages } from '../data/services'
 
 const [roster, projects, posts] = await Promise.all([getRoster(), getProjects(), getPosts()])
 const indiba = projects.find((p) => p.slug === 'indiba-project-series')
-const projectImage = (p: (typeof projects)[number]) => (p.slug === 'indiba-project-series' ? p.galleryImages?.[0] ?? p.coverImage : p.coverImage)
-
-const path = [
-  ['Make it', 'Produce with Jlinez if you need a producer. Mixing and mastering included, and you own the song.'],
-  ['Release it', 'We deliver your music to Spotify, Apple Music, Audiomack, YouTube Music and the other major stores, with your details set up right.'],
-  ['Pitch it', 'Editorial pitches and outreach to independent curators. Honest work, never a bought or promised placement.'],
-  ['Grow it', 'Rollout plans, content ideas and paid campaigns. You approve every budget before any money is spent.'],
-  ['Track it', 'Quarterly reports with streams, listeners, income and screenshots straight from the distribution dashboard.'],
-]
-const principles = [
-  ['You keep your masters.', 'Distribution gives us permission to release your music. It never gives us ownership of it.'],
-  ['No hidden fees.', 'What you pay is written down before work starts. Nothing is quietly taken out of your royalties.'],
-  ['You approve the money.', 'Every marketing budget comes with a breakdown, and receipts and results come back after.'],
-  ['You see the numbers.', 'Everything we can see about your releases, you can see too. Ask about any figure and we answer.'],
-]
+const heroShots = ['/images/scenes/singer-stage-1600.webp', ...roster.map((a) => img(a.photo, 640)!)]
+const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
 ---
 <Site
   title="SIRYUS A.M"
-  description="SIRYUS A.M is a music management company for independent artists. Distribution, release strategy, playlist pitching, marketing and artist development, with you keeping your masters."
+  description="SIRYUS A.M is a music management company and creative collective. Release strategy, playlist pitching, content, marketing, artist branding and distribution for independent artists."
 >
-  <section class="hero">
-    <div class="hero-copy">
-      <h1>Your music, managed end to end.</h1>
-      <p>We release your songs, plan the rollout, pitch them to playlists and market the music. You keep your masters and see every number.</p>
-      <div class="hero-actions">
-        <a class="btn btn-ink" href="/contact">Start a release</a>
-        <a class="link" href="/artists">Meet the roster</a>
-      </div>
-    </div>
-    <div class="hero-stage">
-      <span class="hex-outline" aria-hidden="true"></span>
-      <div class="hex" data-rotate>
-        {roster.map((artist, i) => (
-          <img
-            class={i === 0 ? 'on' : undefined}
-            src={img(artist.photo, 640, 554)}
-            srcset={srcset(artist.photo, [420, 640, 900], 0.866)}
-            sizes="(max-width: 56rem) 90vw, 40vw"
-            alt={`${artist.name}, SIRYUS A.M artist`}
-            width="640"
-            height="554"
-            fetchpriority={i === 0 ? 'high' : undefined}
-            loading={i === 0 ? 'eager' : 'lazy'}
-          />
+  <section class="hero" data-scrub>
+    <Cosmos />
+    <p class="hero-ghost" aria-hidden="true" data-speed="-0.15">A.M</p>
+    <div class="hero-stage" data-speed="0.08">
+      <div class="hero-hex" data-rotate>
+        {heroShots.map((src, i) => (
+          <img class={i === 0 ? 'on' : undefined} src={src} alt="" width="800" height="800" fetchpriority={i === 0 ? 'high' : undefined} loading={i === 0 ? 'eager' : 'lazy'} />
         ))}
       </div>
-      <p class="hero-caption"><Bars count={9} /><span>Now managing {roster.map((a) => a.name).join(' and ')}</span></p>
+      <div class="hero-ring"><Ring /></div>
+    </div>
+    <div class="wrap hero-copy">
+      <h1 data-split>We move music.</h1>
+      <div class="hero-sub">
+        <p data-reveal style="--d:4">SIRYUS A.M is a music management company and creative collective. We plan releases, pitch to playlists, build content and run the marketing, so the right people hear your music.</p>
+        <div class="hero-actions" data-reveal style="--d:6">
+          <a class="btn solid" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+          <a class="btn" href="/services">Explore services</a>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-cue" aria-hidden="true">Scroll</span>
+    <Wave />
+  </section>
+
+  <Marquee items={services.map((s) => s.name)} />
+
+  <section class="section white">
+    <Cosmos />
+    <div class="wrap statement-row">
+      <p class="statement" data-split>Great songs don't find people by accident. We plan the path from release day to the long run.</p>
+      <div class="side" data-reveal>
+        <p>From a single to a full EP, from your first release to your next big move. Tell us where you are and we will show you the way forward.</p>
+        <a class="btn solid" href="/about">About SIRYUS A.M</a>
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="path-title">
+  <section class="section" aria-labelledby="svc-title">
     <div class="wrap">
-      <div class="section-head">
-        <h2 id="path-title">From studio to streams.</h2>
-        <p>Pick the parts you need. Some artists only want distribution. Others want the whole path, from the first beat to the quarterly report.</p>
+      <div class="head">
+        <h2 id="svc-title" data-split>What we do for artists.</h2>
+        <p data-reveal>Book one service or bring us in for the whole release. Every service starts with a conversation.</p>
       </div>
-      <ol class="path">
-        {path.map(([title, copy]) => (
-          <li><h3>{title}</h3><p>{copy}</p></li>
+      <ul class="svc-list" data-preview>
+        {services.map((s) => (
+          <li data-reveal>
+            <a href={`/services/${s.slug}`} data-img={`/images/scenes/${s.image}-800.webp`}>
+              <span class="grp">{s.group}</span>
+              <h3>{s.name}</h3>
+              <p>{s.line}</p>
+              <span class="go" set:html={arrow} />
+            </a>
+          </li>
         ))}
-      </ol>
-      <p class="note"><a class="link" href="/services">See everything we do</a></p>
+      </ul>
     </div>
   </section>
 
-  <section class="section dark" aria-labelledby="roster-title">
+  <section class="section light" aria-labelledby="pack-title">
     <div class="wrap">
-      <div class="section-head">
-        <h2 id="roster-title">The roster.</h2>
-        <p>We manage a small roster on purpose. It means real time with every artist, and plans built around the person as well as the music.</p>
+      <div class="head">
+        <h2 id="pack-title" data-split>Release packages.</h2>
+        <p data-reveal>Put the essentials together for one release. We shape each package around your music in a short meeting.</p>
+      </div>
+      <div class="packages">
+        {packages.map((p, i) => (
+          <article class="pack" data-reveal style={`--d:${i}`}>
+            <span class="tag">{i === 0 ? 'For a single' : 'For an EP'}</span>
+            <h3>{p.name}</h3>
+            <p>{p.line}</p>
+            <ul>{p.includes.map((x) => <li>{x}</li>)}</ul>
+            <a class="btn solid" href={`/contact?service=${p.slug}`}><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+            <span class="big" aria-hidden="true">{i === 0 ? '01' : 'EP'}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="roster-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="roster-title" data-split>The roster.</h2>
+        <p data-reveal>A small roster on purpose. Every artist gets real time and a plan built around who they are.</p>
       </div>
       <div class="roster">
-        {roster.map((artist) => (
-          <a class="artist-card" href={`/artists/${artist.slug}`}>
-            <div class="hex">
-              <img src={img(artist.photo, 760, 658)} srcset={srcset(artist.photo, [480, 760, 1000], 0.866)} sizes="(max-width: 44rem) 92vw, 45vw" alt={artist.name} width="760" height="658" loading="lazy" decoding="async" />
-            </div>
-            <div>
-              <h3>{artist.name}</h3>
-              <p class="line">{artist.oneLiner}</p>
-              <ul class="genres">{artist.genre?.map((g) => <li>{g}</li>)}</ul>
-              <span class="more">Read {artist.name}'s story</span>
+        {roster.map((a) => (
+          <a class="artist" href={`/artists/${a.slug}`} data-reveal>
+            <div class="frame"><img src={img(a.photo, 900)} alt={a.name} width="640" height="640" loading="lazy" decoding="async" data-speed="0.06" /></div>
+            <h3>{a.name}</h3>
+            <div class="meta">
+              <p class="line">{a.oneLiner}</p>
+              <ul class="chips">{a.genre?.map((g) => <li>{g}</li>)}</ul>
             </div>
           </a>
         ))}
@@ -95,52 +118,40 @@ const principles = [
     </div>
   </section>
 
-  <Collective />
-
-  <section class="section lime" aria-labelledby="how-title">
+  <section class="section white" aria-labelledby="music-title">
     <div class="wrap">
-      <div class="section-head">
-        <h2 id="how-title">How we work with you.</h2>
-        <p>These promises are written into every agreement we sign. Nothing is hidden, and nothing applies unless it is on paper.</p>
+      <div class="head">
+        <h2 id="music-title" data-split>We make music too.</h2>
+        <p data-reveal>SIRYUS A.M is also a creative collective with its own releases, made with artists we believe in.</p>
       </div>
-      <div class="principles">
-        {principles.map(([title, copy]) => (
-          <div><h3>{title}</h3><p>{copy}</p></div>
-        ))}
-      </div>
+      <Releases />
     </div>
   </section>
 
-  <section class="section" aria-labelledby="projects-title">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="projects-title">Projects that build careers.</h2>
-        <p>{indiba?.excerpt}</p>
+  {indiba && (
+    <section class="feature" aria-labelledby="indiba-title">
+      <div class="bg" data-speed="0.12"><img src="/images/scenes/crowd-lights-1600.webp" srcset="/images/scenes/crowd-lights-800.webp 800w, /images/scenes/crowd-lights-1600.webp 1600w" sizes="100vw" alt="" width="1600" height="1067" loading="lazy" /></div>
+      <div class="wrap">
+        <h2 id="indiba-title" data-split>The Indiba Project Series.</h2>
+        <div data-reveal>
+          <p>{indiba.excerpt}</p>
+          <a class="btn" href="/projects/indiba-project-series">Discover Indiba</a>
+        </div>
       </div>
-      <div class="projects">
-        {projects.map((project) => (
-          <a class="project-card" href={`/projects/${project.slug}`}>
-            <img src={img(projectImage(project), 1100, 760)} srcset={srcset(projectImage(project), [600, 1100, 1500], 0.69)} sizes="(max-width: 52rem) 92vw, 55vw" alt="" width="1100" height="760" loading="lazy" decoding="async" />
-            <span class="status">{project.status}</span>
-            <h3>{project.title}</h3>
-            <p>{project.excerpt}</p>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   {posts.length > 0 && (
-    <section class="section mist" aria-labelledby="journal-title">
+    <section class="section" aria-labelledby="journal-title">
       <div class="wrap">
-        <div class="section-head">
-          <h2 id="journal-title">From the journal.</h2>
-          <p>Straight talk on marketing, rights and the life behind the music, written for independent artists.</p>
+        <div class="head">
+          <h2 id="journal-title" data-split>From the journal.</h2>
+          <p data-reveal><a class="btn" href="/journal">All articles</a></p>
         </div>
-        <div class="posts">
-          {posts.map((post) => (
-            <a class="post-card" href={`/journal/${post.slug}`}>
-              <div class="cover"><img src={img(post.coverImage, 720, 450)} srcset={srcset(post.coverImage, [420, 720], 0.625)} sizes="(max-width: 38rem) 92vw, (max-width: 60rem) 45vw, 30vw" alt="" width="720" height="450" loading="lazy" decoding="async" /></div>
+        <div class="cards">
+          {posts.map((post, i) => (
+            <a class="card" href={`/journal/${post.slug}`} data-reveal style={`--d:${i}`}>
+              <div class="img"><img src={img(post.coverImage, 720, 540)} srcset={srcset(post.coverImage, [420, 720], 0.75)} sizes="(max-width: 38rem) 92vw, 30vw" alt="" width="720" height="540" loading="lazy" decoding="async" /></div>
               <p class="meta">{post.category} · {date(post.publishedAt)}</p>
               <h3>{post.title}</h3>
             </a>
@@ -150,19 +161,18 @@ const principles = [
     </section>
   )}
 
-  <section class="section dark" aria-labelledby="closing-title">
-    <div class="wrap closing">
-      <h2 id="closing-title">Got a release coming?</h2>
-      <div>
-        <p>Send it to us at least three weeks before release day. That gives us time to set it up properly and pitch it to playlists.</p>
-        <a class="btn btn-lime" href="/contact">Start a release</a>
-      </div>
+  <section class="cta white" aria-labelledby="cta-title">
+    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <h2 id="cta-title" data-split>Have a release coming?</h2>
+      <p data-reveal>Book a meeting with the team. Tell us about the music and we will plan the next move together.</p>
+      <a class="btn solid" href="/contact" data-reveal><span class="dot" aria-hidden="true"></span>Book a meeting</a>
     </div>
   </section>
 </Site>
 
 <script>
-  // Slowly alternate the roster portraits in the hero. Skipped when motion is reduced.
+  // Cycle the hero portraits slowly. Skipped when motion is reduced.
   const frame = document.querySelector('[data-rotate]')
   const shots = frame ? [...frame.querySelectorAll('img')] : []
   if (shots.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -172,6 +182,6 @@ const principles = [
       shots[i].classList.remove('on')
       i = (i + 1) % shots.length
       shots[i].classList.add('on')
-    }, 5000)
+    }, 5200)
   }
 </script>

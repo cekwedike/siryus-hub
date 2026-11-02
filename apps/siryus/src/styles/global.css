@@ -62,7 +62,7 @@ img { display: block; max-width: 100%; }
 .constellation { width: clamp(7rem, 12vw, 12rem); top: clamp(1.1rem, 2.6vh, 1.8rem); left: 21%; }
 .constellation polyline { stroke-width: .9; opacity: .55; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.6s .5s var(--ease) forwards; }
 .constellation .node { fill: var(--ink); stroke: none; transform-box: fill-box; transform-origin: center; animation: twinkle 5s ease-in-out infinite; animation-delay: calc(var(--n) * -.8s); }
-.planet { width: clamp(2.6rem, 4vw, 3.6rem); bottom: .65rem; left: 31%; }
+.planet { width: clamp(2.6rem, 4vw, 3.6rem); bottom: .65rem; left: 50%; }
 .planet circle { fill: var(--paper); }
 .moon { width: clamp(1.1rem, 1.6vw, 1.5rem); bottom: 1.1rem; right: 24%; }
 .meteor { position: absolute; top: 1rem; left: 60%; width: 6rem; height: 1px; background: linear-gradient(90deg, rgb(0 0 0 / 0), var(--ink)); opacity: 0; animation: meteor 12s 2.5s linear infinite; }
@@ -87,7 +87,7 @@ img { display: block; max-width: 100%; }
   margin-left: calc(var(--gap) - var(--slant));
   clip-path: polygon(var(--slant) 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
   background: #1a1a1a; color: var(--on-image); text-decoration: none; outline: none;
-  transition: flex-grow .7s var(--ease);
+  transition: flex-grow .85s cubic-bezier(.22, 1, .36, 1);
   animation: rise 1.1s calc(.35s + var(--w) * .09s) var(--ease) both;
 }
 .shard:first-child { margin-left: 0; clip-path: polygon(0 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%); }
@@ -97,7 +97,9 @@ img { display: block; max-width: 100%; }
 .signal { --accent: var(--signal); }
 .pavo { --accent: var(--pavo); }
 
-.media { position: absolute; inset: 0; z-index: -1; transition: filter .6s var(--ease); }
+/* Each photo keeps one fixed size (wide enough for an open card); growing a card reveals more of it instead of
+   rescaling it every frame. The dimming filter runs on its own compositor layer. */
+.media { position: absolute; top: 0; bottom: 0; left: 50%; width: max(100%, 46cqi); translate: -50% 0; z-index: -1; transition: filter .6s var(--ease); will-change: filter; }
 .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; animation: slide var(--cycle) linear infinite; animation-delay: calc(var(--i) * var(--cycle) / 3 - var(--cycle) - (4 - var(--w)) * .35s); }
 .media img:first-child { opacity: 1; }
 .media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 0) 30%, rgb(0 0 0 / .42) 58%, rgb(0 0 0 / .9) 100%); }
@@ -121,15 +123,17 @@ img { display: block; max-width: 100%; }
 .ticks i::after { content: ''; position: absolute; inset: 0; background: var(--accent); transform: scaleX(0); transform-origin: left; animation: tick var(--cycle) linear infinite; animation-delay: calc(var(--i) * var(--cycle) / 3 - var(--cycle) - (4 - var(--w)) * .35s); }
 
 /* Hover and keyboard focus share one state: the chosen world opens up, the rest step back. */
+/* .on is set by a small pointer controller (index.astro) that keeps the open card open while the pointer
+   crosses the slanted gaps between cards, which belong to no card and used to make the row flicker. */
 @media (hover: hover) {
-  .shard:hover { flex-grow: 1.7; }
-  .shards:has(.shard:hover) .shard:not(:hover) .media { filter: grayscale(1) brightness(.72); }
+  .shard.on { flex-grow: 1.7; }
+  .shards.has-on .shard:not(.on) .media { filter: grayscale(1) brightness(.72); }
 }
 .shard:focus-visible { flex-grow: 1.7; }
 .shards:has(.shard:focus-visible) .shard:not(:focus-visible) .media { filter: grayscale(1) brightness(.72); }
-.shard:hover .go, .shard:focus-visible .go { background-size: 100% 2px; }
+.shard.on .go, .shard:focus-visible .go { background-size: 100% 2px; }
 .shard:focus-visible .copy { outline: 2px solid var(--on-image); outline-offset: .6rem; }
-.shard:hover .media img, .shard:hover .ticks i::after { animation-play-state: paused; }
+.shard.on .media img, .shard.on .ticks i::after { animation-play-state: paused; }
 
 /* 404: the same sky, one clear way back. */
 .lost { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem var(--gutter) 3rem; }
@@ -233,3 +237,18 @@ img { display: block; max-width: 100%; }
 .legal p, .legal li { font-size: 1rem; line-height: 1.7; }
 .legal a { text-underline-offset: .2em; }
 .legal-page__meta { font-size: .8rem; font-weight: 800; }
+
+/* Footer text sits on paper so the orbiting star and doodles pass behind it, never across the links. */
+.foot > * { position: relative; background: var(--paper); box-shadow: 0 0 0 .6rem var(--paper); border-radius: .4rem; }
+
+/* Legal documents: numbered sections, a contents list and data tables that scroll on small screens. */
+.legal h3 { margin: 1.6rem 0 .4rem; font-size: 1.05rem; font-weight: 800; }
+.legal ul, .legal ol { padding-left: 1.25rem; }
+.legal li + li { margin-top: .35rem; }
+.legal .toc { margin: 2rem 0 0; padding: 1.25rem 1.5rem; border: 1px solid currentColor; border-radius: .5rem; columns: 2 14rem; }
+.legal .toc li { break-inside: avoid; }
+.legal .table { overflow-x: auto; margin: 1rem 0; }
+.legal table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 34rem; }
+.legal th, .legal td { text-align: left; vertical-align: top; padding: .65rem .75rem; border-bottom: 1px solid rgb(0 0 0 / .14); }
+.legal th { font-weight: 800; }
+.legal .summary { margin: 1.5rem 0 0; padding: 1.25rem 1.5rem; background: rgb(0 0 0 / .04); border-radius: .5rem; }

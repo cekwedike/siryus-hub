@@ -99,8 +99,19 @@ export const getRoster = async () =>
   (await query<Artist[]>(`*[_type == "artist" && slug.current in $slugs] | order(coalesce(order, 999) asc) { ${artistFields} }`, { slugs: rosterSlugs }))
     .map((artist) => ({ ...artist, photo: officialPhotos[artist.slug] ?? artist.photo }))
 
-export const getProjects = () =>
-  query<Project[]>(`*[_type == "project" && slug.current in $slugs] | order(featured desc) { ..., "slug": slug.current }`, { slugs: projectSlugs })
+// Corrections confirmed by the owner on 2026-11-02 that are not yet made in the Studio. Winny Ezeme was a
+// facilitator in the first Indiba cohort, not one of its artists, and won The Gospel Icons Africa 2023.
+// Once the Studio text is fixed these replacements simply stop matching.
+const corrections: [string, string][] = [
+  ['Hidaya Morgan, Max Prodigy, Winny Ezeme, Couronne,', 'Hidaya Morgan, Max Prodigy, Couronne,'],
+  ['Winny Ezeme, Gospel Icons Africa Season 1 winner, contributed her story and voice to the cohort as both artist and facilitator.', 'Winny Ezeme, winner of The Gospel Icons Africa 2023, joined as a facilitator and shared her journey as a gospel artist with the cohort.'],
+]
+const correct = (blocks: Block[] = []) =>
+  blocks.map((b) => ({ ...b, children: b.children?.map((c) => ({ ...c, text: corrections.reduce((t, [from, to]) => t.replace(from, to), c.text) })) }))
+
+export const getProjects = async () =>
+  (await query<Project[]>(`*[_type == "project" && slug.current in $slugs] | order(featured desc) { ..., "slug": slug.current }`, { slugs: projectSlugs }))
+    .map((p) => ({ ...p, longDescription: p.longDescription && correct(p.longDescription) }))
 
 export const getPosts = () =>
   query<Post[]>(`*[_type == "blogPost" && slug.current in $slugs] | order(publishedAt desc) { ..., "slug": slug.current }`, { slugs: journalSlugs })

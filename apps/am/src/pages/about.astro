@@ -1,40 +1,53 @@
 ---
 import Site from '../layouts/Site.astro'
-import Bars from '../components/Bars.astro'
+import Cosmos from '../components/Cosmos.astro'
+import Marquee from '../components/Marquee.astro'
 ---
-<Site title="About" description="SIRYUS A.M is the music management company and creative collective of Siryus Creative Media Ltd, based in Abuja, Nigeria.">
-  <header class="page-hero">
+<Site title="About" description="SIRYUS A.M is the music management company and creative collective of Siryus Creative Media Ltd, based in Abuja, Nigeria, working with artists across Africa.">
+  <header class="page-hero split">
+    <Cosmos />
     <div class="wrap">
-      <h1>Music people, working for artists.</h1>
-      <p>SIRYUS A.M is the music arm of Siryus Creative Media Ltd. We are a music management company and a creative collective, based in Abuja, Nigeria, and working with artists across Africa.</p>
+      <div>
+        <h1 data-split>Music people, working for artists.</h1>
+        <p class="lede" data-reveal>SIRYUS A.M is the music arm of Siryus Creative Media Ltd: a music management company and a creative collective, based in Abuja, Nigeria, working with artists across Africa.</p>
+        <div class="actions" data-reveal><a class="btn solid" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a></div>
+      </div>
+      <div class="media" data-reveal><img src="/images/scenes/drummer-1600.webp" srcset="/images/scenes/drummer-800.webp 800w, /images/scenes/drummer-1600.webp 1600w" sizes="(max-width: 52rem) 92vw, 42vw" alt="A drummer playing at an outdoor event" width="1600" height="1067" fetchpriority="high" data-speed="0.08" /></div>
     </div>
   </header>
+
+  <Marquee items={['Release', 'Grow', 'Build', 'Music management', 'Creative collective']} />
+
+  <section class="section white">
+    <div class="wrap statement-row">
+      <p class="statement" data-split>Too much great music goes unheard. Not because the songs are weak, but because nobody planned the release.</p>
+      <div class="side" data-reveal>
+        <p>That is the gap we close. We plan releases, pitch to playlists, build content, run marketing and help artists build their brand. For a small roster, we manage the whole career.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
-    <div class="wrap closing">
-      <h2>Why we exist.</h2>
-      <div class="prose">
-        <p>Too many independent artists make great music that goes nowhere. Not because the songs are weak, but because nobody planned the release, nobody pitched it, and nobody explained the business side.</p>
-        <p>We fix that. We distribute releases, plan rollouts, pitch to playlists, run marketing and help artists build their brand. For a small roster, we go further and manage the whole career.</p>
-        <p>We also make music ourselves. Through the Indiba Project Series and our own releases, we bring artists together to record, learn and grow as a group.</p>
+    <div class="wrap detail">
+      <div data-reveal>
+        <h2>A management company.</h2>
+        <p>Artists book us for one service, a full release package or complete management. Every engagement starts with a meeting and a clear plan, agreed in writing before any work begins.</p>
+        <p style="margin-top:1.5rem"><a class="btn" href="/services">Our services</a></p>
+      </div>
+      <div data-reveal style="--d:1">
+        <h2>A creative collective.</h2>
+        <p>We make music too. SIRYUS A.M has its own releases on every major platform, and we run projects like the Indiba Project Series that bring artists together to create and grow.</p>
+        <p style="margin-top:1.5rem"><a class="btn" href="/music">Our music</a></p>
       </div>
     </div>
   </section>
-  <section class="section lime">
-    <div class="wrap closing">
-      <h2>Fair by design.</h2>
-      <div class="prose">
-        <p>Artists keep their masters. Fees are agreed in writing before any work starts. Every budget is approved by the artist, and every report comes with proof. If it is not written down, it does not apply.</p>
-        <Bars count={14} />
-      </div>
-    </div>
-  </section>
-  <section class="section dark">
-    <div class="wrap closing">
-      <h2>Part of something bigger.</h2>
-      <div>
-        <p>SIRYUS A.M sits alongside ARC. Creatives and SIGNAL. in the SIRYUS family of creative brands. Different worlds, one creative universe.</p>
-        <a class="btn btn-lime" href="https://siryushub.com">Visit SIRYUS</a>
-      </div>
+
+  <section class="cta white">
+    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <h2 data-split>Part of SIRYUS.</h2>
+      <p data-reveal>SIRYUS A.M sits alongside ARC. Creatives and SIGNAL. in the SIRYUS family. Different worlds, one creative universe.</p>
+      <a class="btn solid" href="https://siryushub.com" data-reveal>Visit SIRYUS</a>
     </div>
   </section>
 </Site>

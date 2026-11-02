@@ -1,0 +1,56 @@
+---
+import Site from '../../layouts/Site.astro'
+import Cosmos from '../../components/Cosmos.astro'
+import Paths from '../../components/Paths.astro'
+import { services, engagements } from '../../data/services'
+
+const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
+const schema = services.map((s) => ({ '@type': 'Service', name: s.name, description: s.long, url: new URL(`/services/${s.slug}`, Astro.site).href, provider: { '@id': 'https://growth.siryushub.com/#organization' } }))
+---
+<Site title="Services" description="SIGNAL. services: storytelling, brand strategy, campaigns, content and copy, email and CRM, and growth. Connected marketing around one clear message." schema={schema}>
+  <header class="page-hero">
+    <Cosmos />
+    <div class="wrap" style="position:relative;z-index:1">
+      <h1 data-split>Connected work. One clear message.</h1>
+      <p class="lede" data-reveal>Each service works on its own. They work best together, because they all start from the same story.</p>
+      <div class="actions" data-reveal><a class="btn solid" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a></div>
+    </div>
+    <Paths class="corner" />
+  </header>
+  <section class="section white">
+    <div class="wrap">
+      <ul class="svc-list" data-preview>
+        {services.map((s, i) => (
+          <li data-reveal>
+            <a href={`/services/${s.slug}`} data-img={`/images/${s.image}-800.webp`}>
+              <span class="grp">{String(i + 1).padStart(2, '0')}</span>
+              <h2 style="font:clamp(1.6rem,3.6vw,3.2rem)/1 var(--display)">{s.name}</h2>
+              <p>{s.short}</p>
+              <span class="go" set:html={arrow} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <section class="section" aria-labelledby="ways-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="ways-title" data-split>Ways to work with us.</h2>
+        <p data-reveal>Scope and price are agreed in writing after a short meeting. Ad budgets are always separate and only spent with your approval.</p>
+      </div>
+      <div class="ways">
+        {engagements.map((e, i) => (
+          <article class="way" data-reveal style={`--d:${i};border-color:var(--line-w)`}>
+            <h3>{e.name}</h3>
+            <p>{e.line}</p>
+            <a class="btn solid" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Site>
+<style>
+  .corner { position: absolute; right: var(--gutter); bottom: -4rem; width: clamp(10rem, 24vw, 20rem); z-index: 0; }
+</style>

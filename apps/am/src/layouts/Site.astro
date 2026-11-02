@@ -2,6 +2,7 @@
 import '../styles/site.css'
 import Return from '../../../../shared/astro/Return.astro'
 import { profiles } from '../lib/collective'
+import { services, groups } from '../data/services'
 
 interface Props {
   title: string
@@ -12,7 +13,7 @@ interface Props {
   schema?: Record<string, unknown>[]
 }
 const { title, description, noIndex = false, image, type = 'website', schema = [] } = Astro.props
-const pageTitle = title === 'SIRYUS A.M' ? title : `${title} | SIRYUS A.M`
+const pageTitle = title === 'SIRYUS A.M' ? 'SIRYUS A.M | Music management for independent artists' : `${title} | SIRYUS A.M`
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).href
 const ogImage = image ?? new URL('/og.png', Astro.site).href
 const org = 'https://artists.siryushub.com/#organization'
@@ -20,14 +21,15 @@ const graph = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'Organization',
+      '@type': ['Organization', 'MusicGroup'],
       '@id': org,
       name: 'SIRYUS A.M',
       url: 'https://artists.siryushub.com/',
       logo: new URL('/icon-512.png', Astro.site).href,
       email: 'management@siryushub.com',
-      description: 'Music management company and creative collective for independent artists: distribution, release strategy, playlist pitching, marketing, artist development and management.',
+      description: 'Music management company and creative collective: release strategy, playlist pitching, content strategy, marketing, artist branding, distribution and artist management.',
       sameAs: profiles.map(([, url]) => url),
+      address: { '@type': 'PostalAddress', addressLocality: 'Abuja', addressCountry: 'NG' },
       parentOrganization: { '@type': 'Organization', name: 'Siryus Creative Media Ltd', url: 'https://siryushub.com/' },
     },
     { '@type': 'WebSite', '@id': 'https://artists.siryushub.com/#website', name: 'SIRYUS A.M', url: 'https://artists.siryushub.com/', publisher: { '@id': org } },
@@ -35,8 +37,8 @@ const graph = {
   ],
 }
 const nav = [
-  ['What we do', '/services'],
   ['Artists', '/artists'],
+  ['Music', '/music'],
   ['Projects', '/projects'],
   ['Journal', '/journal'],
   ['About', '/about'],
@@ -53,10 +55,13 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {noIndex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
-    <meta name="theme-color" content="#313131" />
-    <link rel="preload" href="/fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#0a0a0a" />
+    <script is:inline>
+      document.documentElement.classList.add('js')
+      setTimeout(() => document.documentElement.classList.contains('motion-ready') || document.documentElement.classList.add('motion-fallback'), 2500)
+    </script>
     <link rel="preload" href="/fonts/cenzo.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://cdn.sanity.io" />
+    <link rel="preload" href="/fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -79,47 +84,103 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
   <body>
     <a class="skip" href="#content">Skip to content</a>
     <Return />
-    <header class="masthead">
-      <a class="brand" href="/" aria-label="SIRYUS A.M home">
-        <img src="/brand/mark.png" alt="" width="40" height="37" />
-        <span>SIRYUS <b>A.M</b></span>
-      </a>
-      <details class="menu">
-        <summary aria-label="Menu"><span></span><span></span></summary>
-        <nav aria-label="Main">
+    <header class="nav" data-nav>
+      <div class="nav-inner">
+        <a class="brand" href="/" aria-label="SIRYUS A.M home">
+          <img src="/brand/mark.png" alt="" width="112" height="104" />
+          <span>SIRYUS A.M</span>
+        </a>
+        <nav class="links" aria-label="Main">
+          <div class="drop">
+            <button type="button" aria-haspopup="true" aria-current={current('/services') || current('/packages') ? 'page' : undefined}>
+              Services
+              <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+            </button>
+            <div class="panel">
+              {groups.map((g) => (
+                <div>
+                  <h4>{g}</h4>
+                  {services.filter((s) => s.group === g).map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}
+                </div>
+              ))}
+              <div class="feature">
+                <p>Release packages for singles and EPs.</p>
+                <a href="/packages">See the packages</a>
+              </div>
+            </div>
+          </div>
           {nav.map(([label, href]) => <a href={href} aria-current={current(href) ? 'page' : undefined}>{label}</a>)}
-          <a class="cta" href="/contact" aria-current={current('/contact') ? 'page' : undefined}>Start a release</a>
         </nav>
-      </details>
+        <a class="btn solid nav-cta" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
+      </div>
     </header>
+    <div class="drawer" id="drawer">
+      <nav aria-label="Mobile">
+        <a href="/services">Services</a>
+        <a href="/packages">Packages</a>
+        {nav.map(([label, href]) => <a href={href}>{label}</a>)}
+        <a href="/contact">Book a meeting</a>
+      </nav>
+      <div class="sub">{services.map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}</div>
+    </div>
+
     <main id="content">
       <slot />
     </main>
+
     <footer class="footer">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <img src="/brand/mark.png" alt="" width="56" height="52" loading="lazy" />
-          <p><b>SIRYUS A.M</b><br />Music management and a creative collective for independent artists.</p>
+      <div class="wrap">
+        <div class="footer-top">
+          <div>
+            <h2>Let's move your music.</h2>
+            <a class="btn" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+          </div>
+          <div>
+            <h3>Services</h3>
+            <nav aria-label="Services">{services.slice(0, 6).map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}<a href="/packages">Packages</a></nav>
+          </div>
+          <div>
+            <h3>SIRYUS A.M</h3>
+            <nav aria-label="Footer">{nav.map(([label, href]) => <a href={href}>{label}</a>)}<a href="/contact">Contact</a></nav>
+          </div>
+          <div>
+            <h3>Follow</h3>
+            <div class="list">
+              {profiles.map(([label, url]) => <a href={url} target="_blank" rel="noopener">{label}</a>)}
+              <a href="mailto:management@siryushub.com">management@siryushub.com</a>
+            </div>
+          </div>
         </div>
-        <nav aria-label="Footer">
-          {nav.map(([label, href]) => <a href={href}>{label}</a>)}
-          <a href="/contact">Contact</a>
-        </nav>
-        <div class="footer-contact">
-          <a href="mailto:management@siryushub.com">management@siryushub.com</a>
-          {profiles.map(([label, url]) => <a href={url} target="_blank" rel="noopener">{label}</a>)}
+        <p class="footer-mark" aria-hidden="true">SIRYUS A.M</p>
+        <div class="footer-base">
+          <Return variant="footer" />
+          <nav aria-label="Legal">
+            <a href="https://siryushub.com/privacy-policy">Privacy</a>
+            <a href="https://siryushub.com/terms-of-use">Terms</a>
+            <a href="https://siryushub.com/cookie-policy">Cookies</a>
+          </nav>
+          <p>© 2026 Siryus Creative Media Ltd</p>
         </div>
-      </div>
-      <div class="footer-base">
-        <Return variant="footer" />
-        <p>© 2026 Siryus Creative Media Ltd · <a href="https://siryushub.com/privacy-policy">Privacy</a> · <a href="https://siryushub.com/terms-of-use">Terms</a></p>
       </div>
     </footer>
     <script>
-      // Close the mobile menu after choosing a link, and when Escape is pressed.
-      const menu = document.querySelector<HTMLDetailsElement>('.menu')
-      menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => (menu.open = false)))
-      document.addEventListener('keydown', (e) => e.key === 'Escape' && menu && (menu.open = false))
+      import '../../../../shared/motion'
+      document.documentElement.classList.add('motion-ready')
+      const nav = document.querySelector<HTMLElement>('[data-nav]')!
+      const toggle = nav.querySelector<HTMLButtonElement>('.menu-toggle')!
+      const setOpen = (open: boolean) => {
+        nav.classList.toggle('open', open)
+        toggle.setAttribute('aria-expanded', String(open))
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
+        document.body.style.overflow = open ? 'hidden' : ''
+      }
+      toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')))
+      document.querySelectorAll('#drawer a').forEach((a) => a.addEventListener('click', () => setOpen(false)))
+      addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false))
+      const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40)
+      addEventListener('scroll', onScroll, { passive: true })
+      onScroll()
     </script>
   </body>
   <Fragment set:html={'<!--/email_off-->'} />

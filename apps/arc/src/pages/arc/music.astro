@@ -3,13 +3,59 @@ import ArcLayout from '../../layouts/ArcLayout.astro'
 import { getCanonicalOrigin } from '../../lib/siteCanonical'
 
 const origin = getCanonicalOrigin()
+
+// Releases credited to ARC. Creatives, checked against Apple Music on 2026-11-02.
+const spotify = 'https://open.spotify.com/artist/6JujQRVWUPspGwmKWo3cgp'
+const appleArtist = 'https://music.apple.com/us/artist/arc-creatives/6789002500'
+const releases = [
+  {
+    title: 'BAGAJIYA: The Remix Collection',
+    credit: 'Jlinez featuring ARC. Creatives',
+    type: 'Remix album',
+    date: '2026-09-25',
+    cover: '/arc/releases/bagajiya-remix-collection.webp',
+    alt: 'BAGAJIYA: The Remix Collection cover, gold lettering over streaks of pink and gold light',
+    apple: 'https://music.apple.com/us/album/bagajiya-the-remix-collection/6812407089',
+    note: 'Six remixes of Jlinez\'s BAGAJIYA from Mon Anthony, Light Fred, David Penuel, Max Prodigy, Emonexx and Jenifa BBB, plus the original.',
+    tracks: [
+      'BAGAJIYA (David Penuel Remix)',
+      'BAGAJIYA (Prodigees Remix)',
+      'BAGAJIYA (Emonexx Remix)',
+      'BAGAJIYA (Jenifa Remix)',
+      'BAGAJIYA (Mon Anthony Remix)',
+      'BAGAJIYA (Light Remix)',
+      'BAGAJIYA',
+    ],
+  },
+  {
+    title: 'Me & You',
+    credit: 'SIRYUS A.M featuring Jlinez and ARC. Creatives',
+    type: 'Single',
+    date: '2026-07-24',
+    cover: '/arc/releases/me-and-you.webp',
+    alt: 'Me and You cover, two figures walking side by side through mist',
+    apple: 'https://music.apple.com/us/album/me-you-feat-jlinez-arc-creatives-single/6789002497',
+    note: 'A single from SIRYUS A.M, Jlinez and ARC. Creatives.',
+    tracks: ['Me & You'],
+  },
+]
+const fmt = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: 'ARC. Creatives',
+  url: `${origin}/arc/music`,
+  sameAs: [spotify, appleArtist],
+  album: releases.map((r) => ({ '@type': 'MusicAlbum', name: r.title, datePublished: r.date, url: r.apple, image: `${origin}${r.cover}`, numTracks: r.tracks.length })),
+}
 ---
 
 <ArcLayout
-  title="Music & Projects | ARC. Creatives"
-  description="Music, gatherings, and collaborative projects from ARC. Creatives."
+  title="Music | ARC. Creatives"
+  description="Listen to ARC. Creatives on Spotify and Apple Music: BAGAJIYA: The Remix Collection with Jlinez, and Me & You with SIRYUS A.M and Jlinez."
   canonical={`${origin}/arc/music`}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   <div class="blog-page">
     <section class="blog-bleed blog-hero" aria-labelledby="arc-music-title">
       <div class="blog-hero__photo-layer" aria-hidden="true">
@@ -18,16 +64,46 @@ const origin = getCanonicalOrigin()
       </div>
       <div class="blog-inner blog-hero__shell">
         <div class="blog-hero__inner">
-          <h1 id="arc-music-title" class="blog-hero__title">Songs, sessions, and work made together.</h1>
-          <p class="blog-hero__sub">ARC. Creatives makes room for faith-rooted work across music and other creative disciplines.</p>
+          <h1 id="arc-music-title" class="blog-hero__title">Songs made together, for His glory.</h1>
+          <p class="blog-hero__sub">ARC. Creatives releases music with artists across the collective. Stream it wherever you listen.</p>
+          <div class="arc-bridge__actions arc-music__follow">
+            <a class="arc-bridge__pill" href={spotify} target="_blank" rel="noopener">Follow on Spotify</a>
+            <a class="arc-bridge__pill" href={appleArtist} target="_blank" rel="noopener">Apple Music</a>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="blog-bleed blog-section" aria-labelledby="arc-music-releases-title">
       <div class="blog-inner">
-        <h2 id="arc-music-releases-title" class="blog-section__title">Music from the collective.</h2>
-        <p class="arc-section-head__lede">The release catalogue and listening links will be published here after each profile and credit is verified. No release will be assigned to ARC. Creatives by guesswork.</p>
+        <h2 id="arc-music-releases-title" class="blog-section__title">Releases</h2>
+        <div class="arc-releases">
+          {releases.map((r) => (
+            <article class="arc-release" data-reveal>
+              <a class="arc-release__cover" href={r.apple} target="_blank" rel="noopener" aria-label={`Listen to ${r.title} on Apple Music`}>
+                <img src={r.cover} alt={r.alt} width="800" height="800" loading="lazy" decoding="async" />
+              </a>
+              <div class="arc-release__body">
+                <p class="arc-release__meta">{r.type}, {fmt(r.date)}</p>
+                <h3 class="arc-release__title">{r.title}</h3>
+                <p class="arc-release__credit">{r.credit}</p>
+                <p class="arc-release__note">{r.note}</p>
+                <ol class="arc-release__tracks">{r.tracks.map((t) => <li>{t}</li>)}</ol>
+                <div class="arc-bridge__actions">
+                  <a class="arc-bridge__pill" href={r.apple} target="_blank" rel="noopener">Listen on Apple Music</a>
+                  <a class="arc-bridge__pill" href={spotify} target="_blank" rel="noopener">Find it on Spotify</a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-bleed blog-section" aria-labelledby="arc-music-next-title">
+      <div class="blog-inner">
+        <h2 id="arc-music-next-title" class="blog-section__title">More from the collective.</h2>
+        <p class="arc-section-head__lede">Music is one part of what we make. Come to a gathering, or read stories from creatives in the community.</p>
         <div class="arc-bridge__actions" style="margin-top: 2rem;">
           <a class="arc-bridge__pill" href="/arc/events">See gatherings</a>
           <a class="arc-bridge__pill" href="/arc/blog">Read stories</a>
@@ -36,3 +112,25 @@ const origin = getCanonicalOrigin()
     </section>
   </div>
 </ArcLayout>
+
+<style>
+  .arc-music__follow { margin-top: 1.8rem; }
+  .arc-releases { display: grid; gap: clamp(3rem, 7vw, 6rem); margin-top: 2.5rem; }
+  .arc-release { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(1.8rem, 5vw, 4.5rem); align-items: center; }
+  .arc-release:nth-child(even) .arc-release__cover { order: 2; }
+  .arc-release__cover { display: block; overflow: hidden; border: 1px solid var(--arc-border); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45); }
+  .arc-release__cover img { width: 100%; height: auto; display: block; transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.1, 1); }
+  .arc-release__cover:hover img { transform: scale(1.04); }
+  .arc-release__meta { margin: 0; color: var(--arc-accent); font-size: 0.85rem; letter-spacing: 0.06em; }
+  .arc-release__title { margin: 0.6rem 0 0; font-family: var(--arc-font-heading, inherit); font-size: clamp(1.9rem, 4vw, 3.2rem); line-height: 1.02; color: var(--arc-fg); }
+  .arc-release__credit { margin: 0.7rem 0 0; color: var(--arc-fg); font-weight: 600; }
+  .arc-release__note { margin: 1rem 0 0; color: var(--arc-muted); max-width: 34rem; line-height: 1.65; }
+  .arc-release__tracks { margin: 1.4rem 0 1.8rem; padding: 0; list-style: none; counter-reset: t; border-top: 1px solid var(--arc-border); max-width: 34rem; }
+  .arc-release__tracks li { counter-increment: t; display: flex; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--arc-border); color: var(--arc-fg); }
+  .arc-release__tracks li::before { content: counter(t, decimal-leading-zero); color: var(--arc-accent); font-variant-numeric: tabular-nums; }
+  @media (max-width: 52rem) {
+    .arc-release { grid-template-columns: 1fr; }
+    .arc-release:nth-child(even) .arc-release__cover { order: 0; }
+    .arc-release__cover { max-width: 30rem; }
+  }
+</style>

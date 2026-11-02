@@ -66,3 +66,19 @@ Self-hosted in `apps/signal/public/images/` at 800 and 1600 px wide. All are fre
 
 ## SIRYUS A.M artist photos
 `apps/am/public/images/artists/` and `apps/siryus/public/images/artists/` use each artist's own profile image from their official Spotify artist page (Max Prodigy: 5DEI5M3s5NAhk2AloQlNKb, Jlinez: 1IG4PSCy1OokQbRYILUrnN), used to promote artists SIRYUS A.M manages. Replace with approved press photos when available, and update the photos in Sanity to match.
+
+## SIRYUS A.M scenes (artists.siryushub.com)
+Self-hosted in `apps/am/public/images/scenes/` at 800 and 1600 px. Free to use under the Unsplash License (checked 2026-11-02).
+
+| File | Subject | Photographer | Source |
+|---|---|---|---|
+| singer-stage | Performer singing into a microphone on stage | Albert Luphahla | https://unsplash.com/photos/nay71NHJcd4 |
+| condenser-mic | Studio condenser microphone with pop filter | Leo Wieling | https://unsplash.com/photos/bG8U3kaZltE |
+| crowd-lights | Concert crowd under stage lights | CHRSNDRSN | https://unsplash.com/photos/XdgjISWC2Bg |
+| mixer | Studio mixing console | Marc Fanelli-Isla | https://unsplash.com/photos/xo4ValczbuA |
+| production | Music production workspace | Elijah Merrell | https://unsplash.com/photos/-qFWOJEEQh4 |
+| heart-hands | Fan making a heart with their hands at a concert | Anthony Delanoix | https://unsplash.com/photos/hzgs56Ze49s |
+| concert | Crowd facing a lit stage | Nainoa Shizuru | https://unsplash.com/photos/NcdG9mK3PBY |
+| drummer | Drummer playing at an outdoor event | Michael Umoh | https://unsplash.com/photos/s32L5adnJ24 |
+
+Release artwork in `apps/am/public/images/releases/` and `apps/arc/public/arc/releases/` is the official cover art from Apple Music, used to promote SIRYUS A.M and ARC. Creatives' own releases.

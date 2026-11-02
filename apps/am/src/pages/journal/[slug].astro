@@ -1,5 +1,6 @@
 ---
 import Site from '../../layouts/Site.astro'
+import Cosmos from '../../components/Cosmos.astro'
 import { getPosts, img, toHtml, date, type Post } from '../../lib/sanity'
 
 export async function getStaticPaths() {
@@ -21,26 +22,24 @@ const schema = [{
 ---
 <Site title={post.title} description={description} image={img(post.coverImage, 1200, 630)} type="article" schema={schema}>
   <header class="page-hero">
-    <div class="wrap">
-      <a class="crumb" href="/journal">Journal</a>
-      <h1>{post.title}</h1>
-      <p class="byline">{post.author && <>By {post.author}, </>}<time datetime={post.publishedAt}>{date(post.publishedAt)}</time></p>
+    <Cosmos />
+    <div class="wrap" style="position:relative">
+      <a class="crumb" href="/journal">Journal / {post.category}</a>
+      <h1 data-split style="max-width:18ch;font-size:clamp(2.4rem,6vw,5.4rem)">{post.title}</h1>
+      <p class="lede" data-reveal>{post.author && <>By {post.author}, </>}<time datetime={post.publishedAt}>{date(post.publishedAt)}</time></p>
     </div>
   </header>
-  <article class="section">
+  <article class="section white" style="padding-top:clamp(2rem,5vw,4rem)">
     <div class="wrap">
-      <img class="article-cover" src={img(post.coverImage, 1600, 800)} srcset={`${img(post.coverImage, 900, 450)} 900w, ${img(post.coverImage, 1600, 800)} 1600w`} sizes="(max-width: 82rem) 92vw, 82rem" alt="" width="1600" height="800" fetchpriority="high" />
+      <img class="cover-img" src={img(post.coverImage, 1600, 800)} srcset={`${img(post.coverImage, 900, 450)} 900w, ${img(post.coverImage, 1600, 800)} 1600w`} sizes="(max-width: 88rem) 92vw, 88rem" alt="" width="1600" height="800" fetchpriority="high" />
       <div class="prose" set:html={toHtml(post.body)} />
     </div>
   </article>
   {next && next.slug !== post.slug && (
-    <section class="section mist">
-      <div class="wrap closing">
-        <h2>Read next</h2>
-        <a class="post-card" href={`/journal/${next.slug}`}>
-          <p class="meta">{next.category}</p>
-          <h3>{next.title}</h3>
-        </a>
+    <section class="section">
+      <div class="wrap statement-row">
+        <a href={`/journal/${next.slug}`} class="statement" style="text-decoration:none">{next.title}</a>
+        <div class="side"><p>Read next</p><a class="btn" href={`/journal/${next.slug}`}>Read the article</a></div>
       </div>
     </section>
   )}

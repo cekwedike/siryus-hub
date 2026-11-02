@@ -1,0 +1,14 @@
+---
+// The parent SIRYUS sky (dashed orbits and four-point sparkles), carried into SIGNAL. so it reads as a SIRYUS world.
+const sparks = [
+  { x: 9, y: 16, s: 12, t: 0 },
+  { x: 52, y: 8, s: 9, t: 1.1 },
+  { x: 90, y: 30, s: 14, t: 2 },
+  { x: 70, y: 78, s: 10, t: 0.6 },
+  { x: 22, y: 70, s: 8, t: 1.6 },
+]
+---
+<div class="cosmos" aria-hidden="true">
+  <span class="orbit"></span><span class="orbit"></span>
+  {sparks.map((p) => <i class="spark" style={`left:${p.x}%;top:${p.y}%;--s:${p.s}px;--t:${p.t}s`}></i>)}
+</div>

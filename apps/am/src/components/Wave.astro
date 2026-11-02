@@ -1,0 +1,8 @@
+---
+// Equaliser bars along the bottom of the hero. Each bar is a CSS animation on transform only.
+interface Props { count?: number }
+const { count = 72 } = Astro.props
+---
+<div class="wave" aria-hidden="true">
+  {Array.from({ length: count }, (_, i) => <i style={`animation-delay:${(-(i * 37) % 23) / 10}s`}></i>)}
+</div>
