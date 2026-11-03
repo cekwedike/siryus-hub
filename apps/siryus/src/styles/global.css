@@ -4,6 +4,7 @@
 @font-face { font-family: 'DM Serif Display'; src: url('/fonts/dm-serif-display.woff2') format('woff2'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'Marcellus'; src: url('/fonts/marcellus.woff2') format('woff2'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'Sora'; src: url('/fonts/sora-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('/fonts/inter.woff2') format('woff2'); font-weight: 400 600; font-display: swap; }
 @font-face { font-family: 'Unbounded'; src: url('/fonts/unbounded-600.woff2') format('woff2'); font-weight: 600; font-display: swap; }
 
 :root {
@@ -124,6 +125,8 @@ img { display: block; max-width: 100%; }
 .arc .name { font: 600 clamp(1.2rem, 2.25cqi, 2.5rem)/1.02 Unbounded, 'Arial Black', sans-serif; letter-spacing: -.02em; }
 .signal .name { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.7rem, 3.4cqi, 3.8rem); letter-spacing: -.02em; }
 .pavo .name { font: 700 clamp(1.4rem, 2.8cqi, 3.1rem)/.98 Sora, 'Helvetica Neue', Arial, sans-serif; letter-spacing: -.04em; }
+/* PAVO Create's own type: Sora for the name, Inter for the supporting text. */
+.pavo .note, .pavo .go { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-weight: 500; letter-spacing: 0; }
 .period { color: var(--signal); }
 .note { display: block; margin-top: .65rem; font-size: clamp(.78rem, .95cqi, .92rem); line-height: 1.4; max-width: 30ch; }
 .go { display: inline-flex; align-items: center; gap: .35rem; margin-top: 1rem; font-size: .74rem; font-weight: 800; letter-spacing: .01em; padding-bottom: .3rem; background: linear-gradient(var(--accent), var(--accent)) left bottom / 1.25rem 2px no-repeat; transition: background-size .5s var(--ease); }
@@ -216,7 +219,6 @@ img { display: block; max-width: 100%; }
   .arc .name { font-size: clamp(1.05rem, 5vw, 1.4rem); }
   .note { margin-top: .3rem; font-size: .76rem; max-width: 34ch; }
   .copy > :not(.mark) { grid-column: 2; }
-  .pavo .copy > * { grid-column: 1 / -1; }
   .go { margin-top: .45rem; padding-bottom: .2rem; }
   .ticks { position: absolute; right: 0; top: -1.2rem; margin: 0; }
   .ticks i { width: 1rem; }

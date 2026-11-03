@@ -42,7 +42,7 @@ export const worlds: World[] = [
   {
     id: 'pavo',
     name: 'PAVO Create',
-    note: 'The software company behind PAVO, MusicSim, ATLAS and Trackr.',
+    note: 'A technology company building software and digital products.',
     href: 'https://pavocreate.com',
     domain: 'pavocreate.com',
     external: true,
