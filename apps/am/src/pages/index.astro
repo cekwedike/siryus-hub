@@ -108,7 +108,7 @@ const letters = ['A', 'B', 'C']
       <div class="packs" data-reveal>
         {packages.map((p, i) => (
           <article class="pack">
-            <p class="for">{i === 0 ? 'For a single' : 'For an EP'}</p>
+            <p class="for">{i === 0 ? 'For a single' : 'For an EP/Album'}</p>
             <h3>{p.name}</h3>
             <p>{p.line}</p>
             <ul>{p.includes.map((x) => <li>{x}</li>)}</ul>

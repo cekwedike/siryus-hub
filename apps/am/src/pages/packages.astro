@@ -20,7 +20,7 @@ const featured = ['release-strategy', 'playlist-pitching', 'content-strategy', '
       <div class="packs" data-reveal>
         {packages.map((p, i) => (
           <article class="pack">
-            <p class="for">{i === 0 ? 'For a single' : 'For an EP'}</p>
+            <p class="for">{i === 0 ? 'For a single' : 'For an EP/Album'}</p>
             <h2 style="font:clamp(2.2rem,4.4vw,4rem)/.9 var(--display)">{p.name}</h2>
             <p>{p.line}</p>
             <ul>{p.includes.map((x) => <li>{x}</li>)}</ul>
