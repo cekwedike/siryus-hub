@@ -103,7 +103,7 @@ Files:
 - `src/pages/about.astro`
 - `src/data/ecosystem.ts`
 
-The homepage H1 is `Ideas need the right home.` The mandatory parent line is `Different worlds. One creative universe.` The current summary also frames SIRYUS as serving artists, creators, and creative teams without explaining the approved independent-world relationship. The About description repeats the incorrect PAVO relationship.
+The homepage H1 is `Ideas need the right home.` The mandatory parent line is `Different Worlds. One Creative Universe.` The current summary also frames SIRYUS as serving artists, creators, and creative teams without explaining the approved independent-world relationship. The About description repeats the incorrect PAVO relationship.
 
 Correction: use the approved H1, revise the short supporting copy, and keep legal company naming to the footer, About, and legal contexts.
 
@@ -317,7 +317,7 @@ The passing build does not validate redirects, Formspree delivery, Cloudflare be
 ### P0: factual and release blockers
 
 1. Correct PAVO Create ownership, name, external link behavior, and contact routing in the parent data/pages.
-2. Replace the parent H1 with `Different worlds. One creative universe.` and use accurate supporting copy.
+2. Replace the parent H1 with `Different Worlds. One Creative Universe.` and use accurate supporting copy.
 3. Present SIGNAL. by SIRYUS as defined but not yet launched, using a reviewed supplied identity asset.
 4. Repair the parent mobile hero overlap and verify current desktop/mobile behavior in Playwright.
 5. Remove the dead ARC pagination link.

@@ -30,7 +30,7 @@ const cards = {
       .shards span:last-child{clip-path:polygon(46px 0,100% 0,100% 100%,0 100%)}
     </style>
     <div class="orbit"></div>
-    <div class="copy"><img src="${pub('siryus', 'brand', 'siryus', 'lockup-black.png')}"><h1>Different worlds. One creative universe.</h1><p class="url">siryushub.com</p></div>
+    <div class="copy"><img src="${pub('siryus', 'brand', 'siryus', 'lockup-black.png')}"><h1>Different Worlds. One Creative Universe.</h1><p class="url">siryushub.com</p></div>
     <div class="shards">
       <span style="background-image:url('${pub('siryus', 'images', 'hero', 'siryus-violin.webp')}')"></span>
       <span style="background-image:url('${pub('siryus', 'images', 'portal', 'arc-worship.webp')}')"></span>

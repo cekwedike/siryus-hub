@@ -38,8 +38,8 @@ export const artistPhotos: Record<string, { src: string; large?: string; alt: st
     { src: '/images/artists/max-prodigy-3-640.webp', alt: 'Max Prodigy looking up in a dark room' },
   ],
   jlinez: [
-    { src: '/images/artists/jlinez-1-640.webp', alt: 'Jlinez in a cream shirt against a dark backdrop' },
     { src: '/images/artists/jlinez-2-640.webp', large: '/images/artists/jlinez-2-1200.webp', alt: 'Jlinez seated in a cream shirt in the studio' },
+    { src: '/images/artists/jlinez-1-640.webp', alt: 'Jlinez in a cream shirt against a dark backdrop' },
     { src: '/images/artists/jlinez-3-640.webp', alt: 'Jlinez in a navy top against a white wall' },
   ],
   'hidaya-morgan': [
@@ -49,6 +49,14 @@ export const artistPhotos: Record<string, { src: string; large?: string; alt: st
   ],
 }
 export const photosOf = (slug: string) => artistPhotos[slug] ?? []
+
+// Graded 4:5 portraits for the roster panels: cropped to the subject, more contrast, deeper blacks, light sharpening
+// (generated from the sharpest available source of each photo above).
+export const panelPhotos: Record<string, { src: string; srcset: string; width: number; height: number; alt: string }> = {
+  'max-prodigy': { src: '/images/artists/max-prodigy-panel-800.webp', srcset: '/images/artists/max-prodigy-panel-800.webp 512w', width: 512, height: 640, alt: 'Max Prodigy in profile, wearing dark glasses and an embroidered cap' },
+  jlinez: { src: '/images/artists/jlinez-panel-800.webp', srcset: '/images/artists/jlinez-panel-800.webp 800w, /images/artists/jlinez-panel-1400.webp 920w', width: 800, height: 1000, alt: 'Jlinez seated in a cream shirt in the studio' },
+  'hidaya-morgan': { src: '/images/artists/hidaya-morgan-panel-800.webp', srcset: '/images/artists/hidaya-morgan-panel-800.webp 800w, /images/artists/hidaya-morgan-panel-1400.webp 1220w', width: 800, height: 1000, alt: 'Hidaya Morgan posing with her arm above her head' },
+}
 
 // Turns an image reference into a resized CDN URL. Sanity serves WebP or AVIF when the browser supports it.
 export function img(ref: ImageRef | undefined, width: number, height?: number): string | undefined {

@@ -41,7 +41,7 @@ The rebuild is continuing on `phase-1-pnpm-static-foundation`. Changes remain un
 
 ### Parent SIRYUS
 
-- Applied the approved headline `Different worlds. One creative universe.`
+- Applied the approved headline `Different Worlds. One Creative Universe.`
 - Corrected PAVO Create ownership and external-link behavior.
 - Replaced the undefined SIGNAL. card with the approved storytelling-led identity and a working local preview.
 - Added parent Open Graph and Twitter image metadata.

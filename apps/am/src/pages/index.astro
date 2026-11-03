@@ -1,4 +1,5 @@
 ---
+import ArtistPanel from '../components/ArtistPanel.astro'
 import Site from '../layouts/Site.astro'
 import Disc from '../components/Disc.astro'
 import Ticker from '../components/Ticker.astro'
@@ -88,22 +89,7 @@ const letters = ['A', 'B', 'C']
       </div>
     </div>
     <div class="stack">
-      {roster.map((a) => {
-        const shot = photosOf(a.slug)[0]
-        return (
-          <article class="panel-artist">
-            <div class="shot"><img class="bw" src={shot?.src ?? String(a.photo)} alt={shot?.alt ?? a.name} width="640" height="640" loading="lazy" decoding="async" /></div>
-            <div class="info">
-              <div>
-                <h3>{a.name}</h3>
-                <p class="genre">{[...(a.genre ?? []), a.location].filter(Boolean).join(', ')}</p>
-              </div>
-              <p class="line">{a.oneLiner}</p>
-              <div class="actions"><a class="btn" href={`/artists/${a.slug}`}>Meet {a.name}</a></div>
-            </div>
-          </article>
-        )
-      })}
+      {roster.map((a) => <ArtistPanel artist={a} heading="h3" />)}
     </div>
   </section>
 

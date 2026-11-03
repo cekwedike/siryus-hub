@@ -1,6 +1,7 @@
 ---
+import ArtistPanel from '../../components/ArtistPanel.astro'
 import Site from '../../layouts/Site.astro'
-import { getRoster, getAlumni, photosOf } from '../../lib/sanity'
+import { getRoster, getAlumni } from '../../lib/sanity'
 
 const [roster, alumni] = await Promise.all([getRoster(), getAlumni()])
 const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
@@ -14,22 +15,7 @@ const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5
   </header>
 
   <div class="stack">
-    {roster.map((a, i) => {
-      const shot = photosOf(a.slug)[0]
-      return (
-        <article class="panel-artist">
-          <div class="shot"><img class="bw" src={shot?.src ?? String(a.photo)} alt={shot?.alt ?? a.name} width="640" height="640" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" /></div>
-          <div class="info">
-            <div>
-              <h2 class="display" style="font-size:clamp(3.2rem,8vw,8rem)">{a.name}</h2>
-              <p class="genre">{[...(a.genre ?? []), a.location].filter(Boolean).join(', ')}</p>
-            </div>
-            <p class="line">{a.oneLiner}</p>
-            <div class="actions"><a class="btn" href={`/artists/${a.slug}`}>Meet {a.name}</a></div>
-          </div>
-        </article>
-      )
-    })}
+    {roster.map((a, i) => <ArtistPanel artist={a} heading="h2" eager={i === 0} />)}
   </div>
 
   {alumni.length > 0 && (

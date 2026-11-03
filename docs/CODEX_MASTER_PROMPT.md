@@ -21,7 +21,7 @@ Read `AGENTS.md`, all `docs/*.md`, `README.md`, `package.json`, `astro.config.mj
 
 ### PHASE 2: THE PARENT, `siryushub.com`
 - Website brand is **SIRYUS**, NOT “Siryus Creative Media Ltd” in primary branding. Legal company name only in About/legal/footer, e.g. `© 2026 Siryus Creative Media Ltd`.
-- Headline **“Different worlds. One creative universe.”** Create a striking, refined, lightweight hero that feels original, cinematic and editorial. Clear invitation to explore. Avoid copying Bending Spoons or applying their design verbatim.
+- Headline **“Different Worlds. One Creative Universe.”** Create a striking, refined, lightweight hero that feels original, cinematic and editorial. Clear invitation to explore. Avoid copying Bending Spoons or applying their design verbatim.
 - Parent navigation must be minimal: **Our Universe** (home anchor), **About**, **Contact**. Optionally collapse into icon menu on small screens. **No generic parent Services page**. Journal can be footer/internal link, not required in top bar.
 - Four visibly distinct venture cards with accessible focus states, meaningful descriptions, genuine logos from `/logos` and reliable destinations:
   1. **SIRYUS A.M** → `https://artists.siryushub.com` (proposed, only enable when live)

@@ -1,7 +1,7 @@
 # Approved SIRYUS structure
 
 ## Brand hierarchy (public versus legal)
-- Public hub: **SIRYUS**, `https://siryushub.com`; line: **Different worlds. One creative universe.** Legal footer: `© 2026 Siryus Creative Media Ltd`.
+- Public hub: **SIRYUS**, `https://siryushub.com`; line: **Different Worlds. One Creative Universe.** Legal footer: `© 2026 Siryus Creative Media Ltd`.
 - Venture: **SIRYUS A.M**, artist-focused collective and management/music services, proposed `https://artists.siryushub.com`.
 - Venture: **ARC. Creatives**, faith-rooted creative collective, proposed `https://collective.siryushub.com`.
 - Venture: **SIGNAL. by SIRYUS**, storytelling-led marketing agency, proposed `https://growth.siryushub.com`.

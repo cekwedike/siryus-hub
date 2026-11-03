@@ -1,0 +1,36 @@
+---
+// One full-height roster panel: a framed, colour-graded portrait beside the artist's name, line, latest
+// releases and links. Panels stack on scroll (see .panel-artist in site.css).
+import { panelPhotos, photosOf, type Artist } from '../lib/sanity'
+
+interface Props { artist: Artist; heading?: 'h2' | 'h3'; eager?: boolean }
+const { artist: a, heading = 'h3', eager = false } = Astro.props
+const Heading = heading
+const panel = panelPhotos[a.slug]
+const fallback = photosOf(a.slug)[0]
+const latest = (a.releases ?? []).slice(0, 3)
+const spotify = a.platforms?.spotify
+---
+<article class="panel-artist">
+  <figure class="frame">
+    {panel
+      ? <img src={panel.src} srcset={panel.srcset} sizes="(max-width: 52rem) 92vw, 40vw" alt={panel.alt} width={panel.width} height={panel.height} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+      : <img src={fallback?.src ?? String(a.photo)} alt={fallback?.alt ?? a.name} width="640" height="640" loading={eager ? 'eager' : 'lazy'} decoding="async" />}
+  </figure>
+  <div class="info">
+    <div>
+      <Heading class="display name">{a.name}</Heading>
+      <p class="genre">{[...(a.genre ?? []), a.location].filter(Boolean).join(', ')}</p>
+    </div>
+    <p class="line">{a.oneLiner}</p>
+    {latest.length > 0 && (
+      <ol class="latest" aria-label={`Latest releases by ${a.name}`}>
+        {latest.map((r) => <li><span>{r.title}</span>{r.year && <span>{r.year}</span>}</li>)}
+      </ol>
+    )}
+    <div class="actions">
+      <a class="btn" href={`/artists/${a.slug}`}>Meet {a.name}</a>
+      {spotify && <a class="more" href={spotify} target="_blank" rel="noopener">Listen on Spotify</a>}
+    </div>
+  </div>
+</article>

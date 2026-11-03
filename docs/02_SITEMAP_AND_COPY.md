@@ -12,7 +12,7 @@ No proposed route is guaranteed live. Audit actual `src/pages` first; record old
 
 ## Parent concept
 - Navigation label: `SIRYUS` (or approved parent logo).
-- Hero H1: `Different worlds. One creative universe.`
+- Hero H1: `Different Worlds. One Creative Universe.`
 - Subhead: `Independent ideas. Distinct identities. Connected by a belief in what creativity can become.` This is **proposed editorial copy**; revise for natural tone and truthfulness.
 - CTA: `Explore the universe`, anchor to venture selection.
 - SIRYUS A.M card: `For independent artists building lasting music careers.`
