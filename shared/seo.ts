@@ -57,6 +57,7 @@ export const pavo = {
   '@id': ids.pavo,
   name: 'PAVO Create',
   url: 'https://pavocreate.com/',
+  logo: 'https://siryushub.com/brand/pavo/icon-512.png',
   founder: { '@id': ids.founder },
 }
 

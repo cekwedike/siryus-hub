@@ -20,7 +20,7 @@ const { title, description, noIndex = false, image, schema = [], preload } = Ast
 const pageTitle = title === 'SIGNAL. by SIRYUS' ? 'SIGNAL. by SIRYUS | Story-led marketing and growth' : title.length > 46 ? title : `${title} | SIGNAL. by SIRYUS`
 const metaDescription = description.length <= 160 ? description : `${description.slice(0, 157).replace(/\s+\S*$/, '')}...`
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).href
-const ogImage = image ?? new URL('/og.png', Astro.site).href
+const ogImage = image ?? new URL('/share.jpg', Astro.site).href
 const org = ids.signal
 const graph = {
   '@context': 'https://schema.org',

@@ -81,7 +81,7 @@ let pageTitle = 'Event not found';
 let pageDescription =
   'That ARC event could not be found. Browse all events on the ARC events page.';
 let canonicalUrl = `${origin}/arc/events`;
-let ogImagePath = '/og.png';
+let ogImagePath = '/share.jpg';
 let eventSchema: Record<string, unknown> | undefined;
 let bodyHtml = '';
 let heroCover: string | null = null;
@@ -93,7 +93,7 @@ if (event) {
   pageTitle = event.seoTitle?.trim() ? event.seoTitle.trim() : `${event.title} | ARC Events`;
   pageDescription = event.seoDescription?.trim() ? event.seoDescription : event.excerpt;
   canonicalUrl = `${origin}/arc/events/${event.slug.current}`;
-  ogImagePath = blogCoverImageUrlArc(event.coverImage, 1200, 630) ?? '/og.png';
+  ogImagePath = blogCoverImageUrlArc(event.coverImage, 1200, 630) ?? '/share.jpg';
 
   bodyHtml = portableTextToArcHtml(event.body ?? []);
 

@@ -23,5 +23,5 @@ https://:version.:project.pages.dev/*
 /brand/*
   Cache-Control: public, max-age=604800
 
-/og.png
+/share.jpg
   Cache-Control: public, max-age=86400

@@ -59,7 +59,7 @@ let pageTitle = 'Article not found';
 let pageDescription =
   'That ARC post could not be found. Browse all posts on the ARC blog.';
 let canonicalUrl = `${origin}/arc/blog`;
-let ogImagePath = '/og.png';
+let ogImagePath = '/share.jpg';
 let articleSchema: Record<string, unknown> | undefined;
 let bodyHtml = '';
 let readMinutes = 1;
@@ -71,7 +71,7 @@ if (post) {
   pageTitle = post.seoTitle?.trim() ? post.seoTitle.trim() : `${post.title} | ARC Blog`;
   pageDescription = post.seoDescription?.trim() ? post.seoDescription : post.excerpt;
   canonicalUrl = `${origin}/arc/blog/${post.slug.current}`;
-  ogImagePath = postCover(1200, 630) ?? '/og.png';
+  ogImagePath = postCover(1200, 630) ?? '/share.jpg';
 
   bodyHtml = portableTextToArcHtml(post.body ?? []);
   const plain = portableTextToPlainText(post.body ?? []);

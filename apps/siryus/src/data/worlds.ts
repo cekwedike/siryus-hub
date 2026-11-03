@@ -46,6 +46,7 @@ export const worlds: World[] = [
     href: 'https://pavocreate.com',
     domain: 'pavocreate.com',
     external: true,
+    logo: { src: '/brand/pavo/symbol.svg', width: 450, height: 440 },
     images: ['/images/portal/pavo-code.webp', '/images/portal/pavo-laptop.webp', '/images/portal/pavo-devices.webp'],
   },
 ]

@@ -23,7 +23,7 @@ const photos = shotsOf(artist)
 const discs = await discographyOf(artist)
 const shown = discs.slice(0, 12)
 const more = discs.slice(12)
-const share = new URL(photos[0]?.large ?? photos[0]?.src ?? '/og.png', Astro.site).href
+const share = new URL(photos[0]?.large ?? photos[0]?.src ?? '/share.jpg', Astro.site).href
 const statusLine = { managed: 'Managed by SIRYUS A.M', distributed: 'Distributed by SIRYUS A.M', alumni: 'SIRYUS A.M alumni' }[status]
 const schema = [{ '@type': 'MusicGroup', name: artist.name, url: new URL(`/artists/${artist.slug}`, Astro.site).href, image: share, genre: artist.genre, description: artist.oneLiner, sameAs: platforms.map(([, url]) => url) }]
 ---
