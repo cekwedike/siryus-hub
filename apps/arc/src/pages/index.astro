@@ -2,6 +2,8 @@
 import SiryusStar from '../components/SiryusStar.astro';
 import ArcAnimatedLogo from '../components/ArcAnimatedLogo.astro';
 import ArcFooter from '../components/ArcFooter.astro';
+import ArcMenuButton from '../components/ArcMenuButton.astro';
+import ArcMobileMenu from '../components/ArcMobileMenu.astro';
 import { arcGraph } from '../lib/arcSchema';
 import '../styles/arc-fonts.css';
 import '../styles/arc-blog.css';
@@ -62,7 +64,9 @@ import '../styles/arc-x.css';
         <a href="#arc-values">Values</a>
         <a class="arc-siryus" href="https://siryushub.com"><SiryusStar />Back to SIRYUS</a>
       </div>
+      <ArcMenuButton />
     </nav>
+    <ArcMobileMenu />
     <main class="arc-page">
       <h1 class="sr-only">ARC. Creatives. Ascent. Refuge. Collective.</h1>
       <section class="arc-hero">
