@@ -84,3 +84,6 @@ html.x-motion [data-x-reveal]:not(.is-in) { opacity: 0; transform: translateY(1.
 .x-section { padding: clamp(5rem, 11vw, 9rem) 0; }
 @media (max-width: 860px) { .x-tiles { grid-template-columns: 1fr 1fr; } .x-tiles .x-path { aspect-ratio: 4 / 5; } }
 @media (max-width: 520px) { .x-tiles { grid-template-columns: 1fr; } .x-tiles .x-path { aspect-ratio: 16 / 11; } }
+
+.x-note { margin: 2rem 0 0; padding-top: 1.2rem; border-top: 1px solid var(--x-line); color: var(--x-muted); max-width: 32rem; font-size: 0.98rem; }
+.x-note a { color: #f27930; font-weight: 700; }
