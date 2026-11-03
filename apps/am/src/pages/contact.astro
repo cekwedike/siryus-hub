@@ -1,24 +1,22 @@
 ---
 import Site from '../layouts/Site.astro'
-import Cosmos from '../components/Cosmos.astro'
 import ContactForm from '../components/ContactForm.astro'
 ---
 <Site title="Book a meeting" description="Book a meeting with SIRYUS A.M. Tell us about your music and what you need: release strategy, playlist pitching, content, marketing, branding, distribution or management.">
-  <header class="page-hero">
-    <Cosmos />
-    <div class="wrap" style="position:relative">
+  <header class="phero">
+    <div class="wrap grid">
       <h1 data-split>Let's talk about your music.</h1>
       <p class="lede" data-reveal>Tell us who you are and what you are working on. We will reply to set up a meeting, usually within two working days.</p>
     </div>
   </header>
-  <section class="section white">
-    <div class="wrap contact-grid">
+  <section class="section">
+    <div class="wrap contact">
       <ContactForm />
-      <aside class="contact-aside" data-reveal>
+      <aside class="aside" data-reveal>
         <h2>Good to know</h2>
         <p>Planning a release? Reach out at least three weeks before release day so there is time to plan and pitch it properly.</p>
         <p>Prefer email? Write to <a href="mailto:management@siryushub.com">management@siryushub.com</a>.</p>
-        <p>Every meeting is free and comes with no obligation.</p>
+        <p>Every first meeting is free and comes with no obligation.</p>
       </aside>
     </div>
   </section>

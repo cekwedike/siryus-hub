@@ -1,43 +1,56 @@
 ---
 import Site from '../../layouts/Site.astro'
-import Cosmos from '../../components/Cosmos.astro'
-import { getRoster, img, type Artist } from '../../lib/sanity'
+import { getRoster, getAlumni, photosOf, type Artist } from '../../lib/sanity'
 
+// Profiles for the current roster and for alumni. Alumni pages say plainly that the relationship has ended.
 export async function getStaticPaths() {
-  const roster = await getRoster()
-  return roster.map((artist) => ({ params: { slug: artist.slug }, props: { artist } }))
+  const [roster, alumni] = await Promise.all([getRoster(), getAlumni()])
+  return [
+    ...roster.map((artist) => ({ params: { slug: artist.slug }, props: { artist, isAlumni: false } })),
+    ...alumni.map((artist) => ({ params: { slug: artist.slug }, props: { artist, isAlumni: true } })),
+  ]
 }
-const { artist } = Astro.props as { artist: Artist }
+
+const { artist, isAlumni } = Astro.props as { artist: Artist; isAlumni: boolean }
 const labels: Record<string, string> = { spotify: 'Spotify', appleMusic: 'Apple Music', audiomack: 'Audiomack', youtube: 'YouTube', instagram: 'Instagram', boomplay: 'Boomplay', tiktok: 'TikTok' }
 const platforms = Object.entries(artist.platforms ?? {}).filter(([, url]) => typeof url === 'string' && url.startsWith('http'))
-const description = (artist.bioParagraph1 ?? artist.oneLiner ?? artist.name).slice(0, 155).replace(/\s+\S*$/, '') + '…'
-const photo = img(artist.photo, 900)!
-const share = new URL(photo, Astro.site).href
+const description = (isAlumni ? `${artist.name}, SIRYUS A.M alumni. ` : '') + (artist.bioParagraph1 ?? artist.oneLiner ?? artist.name)
+const photos = photosOf(artist.slug)
+const share = new URL(photos[0]?.src ?? '/og.png', Astro.site).href
 const schema = [{ '@type': 'MusicGroup', name: artist.name, url: new URL(`/artists/${artist.slug}`, Astro.site).href, image: share, genre: artist.genre, description: artist.oneLiner, sameAs: platforms.map(([, url]) => url) }]
 ---
-<Site title={artist.name} description={description} image={share} type="profile" schema={schema}>
-  <header class="page-hero">
-    <Cosmos />
-    <div class="wrap" style="position:relative">
-      <a class="crumb" href="/artists">Artists</a>
-      <h1 data-split>{artist.name}</h1>
+<Site title={isAlumni ? `${artist.name}, alumni` : artist.name} description={description.slice(0, 155).replace(/\s+\S*$/, '') + '…'} image={share} type="profile" schema={schema}>
+  <header class="phero">
+    <div class="wrap grid">
+      <div>
+        <a class="crumb" href={isAlumni ? '/artists#alumni' : '/artists'}>{isAlumni ? 'Artists, alumni' : 'Artists'}</a>
+        <h1 data-split>{artist.name}</h1>
+      </div>
       <p class="lede" data-reveal>{artist.oneLiner}</p>
     </div>
   </header>
-  <section class="section white">
+
+  <section class="section">
     <div class="wrap profile">
-      <div class="frame" data-reveal><img src={photo} alt={artist.name} width="640" height="640" fetchpriority="high" /></div>
+      <div class="photos" data-reveal>
+        {photos.map((p, i) => <img class="bw" src={i === 0 ? p.large ?? p.src : p.src} alt={p.alt} width="640" height="640" fetchpriority={i === 0 ? 'high' : undefined} loading={i === 0 ? 'eager' : 'lazy'} />)}
+      </div>
       <div>
-        <ul class="chips" data-reveal>{artist.genre?.map((g) => <li>{g}</li>)}{artist.location && <li>{artist.location}</li>}</ul>
-        <div class="prose" style="margin-top:1.8rem" data-reveal>
+        <p class="facts" data-reveal>
+          {isAlumni ? <span>SIRYUS A.M alumni</span> : <span>Managed by SIRYUS A.M</span>}
+          {artist.location && <span>{artist.location}</span>}
+          {artist.genre?.length ? <span>{artist.genre.join(', ')}</span> : null}
+        </p>
+        {isAlumni && <p data-reveal style="font-size:1.15rem;font-weight:700;margin-bottom:1.6rem">{artist.alumniNote}{artist.alumniPeriod ? ` ${artist.alumniPeriod}.` : ''}</p>}
+        <div class="prose" data-reveal>
           {artist.bioParagraph1 && <p>{artist.bioParagraph1}</p>}
           {artist.bioParagraph2 && <p>{artist.bioParagraph2}</p>}
         </div>
-        {platforms.length > 0 && <div class="profiles" data-reveal>{platforms.map(([key, url]) => <a href={url} target="_blank" rel="noopener">{labels[key] ?? key}</a>)}</div>}
+        {platforms.length > 0 && <div class="platforms" data-reveal>{platforms.map(([key, url]) => <a class="more" href={url} target="_blank" rel="noopener">{labels[key] ?? key}</a>)}</div>}
         {artist.releases?.length ? (
           <>
             <h2 class="sr">Releases</h2>
-            <ol class="tracklist light" style="background:none">
+            <ol class="tracklist">
               {artist.releases.map((r) => (
                 <li data-reveal>
                   {r.spotifyUrl
@@ -51,12 +64,26 @@ const schema = [{ '@type': 'MusicGroup', name: artist.name, url: new URL(`/artis
       </div>
     </div>
   </section>
-  <section class="cta">
-    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <section class="ink final">
     <div class="wrap">
-      <h2 data-split>{`Working with ${artist.name}?`}</h2>
-      <p data-reveal>For bookings, features, press and partnerships, talk to the SIRYUS A.M team.</p>
-      <a class="btn solid" href={`/contact?about=${encodeURIComponent(artist.name)}`} data-reveal><span class="dot" aria-hidden="true"></span>Get in touch</a>
+      {isAlumni ? (
+        <>
+          <h2 data-split><a href="/artists">Meet the roster.</a></h2>
+          <div class="row">
+            <p data-reveal>{artist.name} is no longer managed by SIRYUS A.M. For bookings and press, please contact {artist.name} directly through the profiles above.</p>
+            <a class="btn" href="/artists" data-reveal>Current artists</a>
+          </div>
+        </>
+      ) : (
+        <>
+          <h2 data-split><a href={`/contact?about=${encodeURIComponent(artist.name)}`}>Work with {artist.name}.</a></h2>
+          <div class="row">
+            <p data-reveal>For bookings, features, press and partnerships, talk to the SIRYUS A.M team.</p>
+            <a class="btn" href={`/contact?about=${encodeURIComponent(artist.name)}`} data-reveal>Get in touch</a>
+          </div>
+        </>
+      )}
     </div>
   </section>
 </Site>

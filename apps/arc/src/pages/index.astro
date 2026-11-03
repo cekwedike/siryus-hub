@@ -4,6 +4,7 @@ import ArcAnimatedLogo from '../components/ArcAnimatedLogo.astro';
 import ArcFooter from '../components/ArcFooter.astro';
 import '../styles/arc-fonts.css';
 import '../styles/arc-blog.css';
+import '../styles/arc-x.css';
 ---
 
 <!DOCTYPE html>
@@ -91,7 +92,7 @@ import '../styles/arc-blog.css';
         <div class="arc-hero__grain" aria-hidden="true"></div>
         <div class="arc-hero__content">
           <ArcAnimatedLogo />
-          <p>A community for Christian creatives who are serious about their craft and their faith.</p>
+          <p>A community supporting Christian creatives as they grow in craft and faith, together.</p>
         </div>
         <div class="arc-hero__ticker arc-hero__ticker--top" aria-hidden="true">
           <div class="arc-hero__ticker-track">
@@ -111,43 +112,35 @@ import '../styles/arc-blog.css';
         </div>
       </section>
 
-      <section class="arc-manifesto">
-        <div class="manifesto-rule" aria-hidden="true"></div>
-        <div class="arc-manifesto__content">
-          <p class="arc-manifesto__lead">ARC. is a community.</p>
-          <div class="arc-manifesto__copy">
-            <p>A place where independent Christian creatives across music, film, poetry, movement, and design come together to grow, collaborate, and build something that lasts.</p>
-            <p>We are not a label. Not a management company. Not a platform looking for content.</p>
-            <p>ARC. is a home. For the talented ones building quietly. For the faithful ones who haven't found their people yet. For the serious ones who refuse to compromise their craft or their values to get ahead.</p>
-            <p>We exist to give them structure, community, and room to develop without the pressure to perform before they are ready.</p>
-            <p>ARC. operates from Nigeria and Rwanda, and grows globally.</p>
+      <section class="x-intro" aria-labelledby="x-intro-title">
+        <div class="x-wrap x-intro__grid">
+          <div class="x-intro__copy">
+            <h2 id="x-intro-title" class="x-display" data-x-reveal>A home for Christian creatives.</h2>
+            <p class="x-lede" data-x-reveal>Musicians, filmmakers, poets, dancers and designers, growing in craft and faith together. Not a label. Not a platform hungry for content. A community, from Nigeria and Rwanda to the world.</p>
+            <div class="x-actions" data-x-reveal>
+              <a class="x-btn" href="/arc/subscribe">Join the Letter</a>
+              <a class="x-link" href="/arc/about">Our story</a>
+            </div>
+          </div>
+          <div class="x-collage" aria-hidden="true">
+            <img class="x-collage__a" src="/arc/prayer-time.jpg" alt="" width="900" height="1200" loading="lazy" decoding="async" data-x-speed="-0.06" />
+            <img class="x-collage__b" src="/arc/arc-write.webp" alt="" width="900" height="900" loading="lazy" decoding="async" data-x-speed="0.08" />
+            <img class="x-collage__c" src="/arc/arc-mic.webp" alt="" width="900" height="900" loading="lazy" decoding="async" data-x-speed="0.14" />
           </div>
         </div>
       </section>
 
-      <section class="arc-problem">
-        <h2>The Problem</h2>
-        <div class="problem-list">
-          <article class="problem-item">
-            <span aria-hidden="true">01</span>
-            <h3>No Structure, No Support</h3>
-            <p>Many gifted creatives never touch proper tools, mentorship, or rooms that sharpen their craft. Potential fades when structure never arrives.</p>
-          </article>
-          <article class="problem-item">
-            <span aria-hidden="true">02</span>
-            <h3>Building Alone in Silence</h3>
-            <p>People with real calling are building in silence, disconnected from peers who understand both faith and craft. Isolation drains confidence before work matures.</p>
-          </article>
-          <article class="problem-item">
-            <span aria-hidden="true">03</span>
-            <h3>Pushed to Shine Before You're Ready</h3>
-            <p>Visibility culture rewards noise over formation. Creatives are pushed to appear successful before their voice and character are fully formed.</p>
-          </article>
-          <article class="problem-item">
-            <span aria-hidden="true">04</span>
-            <h3>Overlooked Until You're Already There</h3>
-            <p>Builders from overlooked scenes are often ignored until they are already undeniable. ARC. invests in conviction before applause.</p>
-          </article>
+      <section class="x-why" aria-labelledby="x-why-title">
+        <div class="x-why__photo"><img src="/arc/refuge.arc.jpg" alt="A creative working alone in a dim studio" width="1200" height="1500" loading="lazy" decoding="async" /></div>
+        <div class="x-why__copy">
+          <h2 id="x-why-title" class="x-display" data-x-reveal>Too many gifted people build alone.</h2>
+          <ul class="x-why__list">
+            <li data-x-reveal><strong>No structure.</strong> Talent without tools, mentors or rooms that sharpen it.</li>
+            <li data-x-reveal><strong>No people.</strong> Faith and craft, with no one around who understands both.</li>
+            <li data-x-reveal><strong>No time to grow.</strong> Pushed to look successful before the voice is formed.</li>
+            <li data-x-reveal><strong>No one watching.</strong> Ignored until they are already undeniable.</li>
+          </ul>
+          <p class="x-why__close" data-x-reveal>ARC. invests in conviction before applause.</p>
         </div>
       </section>
 
@@ -159,7 +152,7 @@ import '../styles/arc-blog.css';
             <div class="horizontal-overlay"></div>
             <div class="horizontal-copy">
               <p class="panel-word">Ascent.</p>
-              <p class="panel-sub">Growth is not an accident. ARC. provides the structure, mentorship, and creative direction that helps independent Christian creatives move from potential to impact. Steady progress. No shortcuts. The global stage without losing your soul getting there.</p>
+              <p class="panel-sub">Structure, mentorship and direction that move you from potential to impact. Steady progress, no shortcuts.</p>
             </div>
           </article>
           <article class="horizontal-panel">
@@ -167,7 +160,7 @@ import '../styles/arc-blog.css';
             <div class="horizontal-overlay"></div>
             <div class="horizontal-copy">
               <p class="panel-word">Refuge.</p>
-              <p class="panel-sub">ARC. is a safe place. Creatives are allowed to learn, struggle, experiment, and mature without the pressure to perform or impress. Faith is lived honestly here, not staged for approval. We protect the creator so the art can become what it was always meant to be.</p>
+              <p class="panel-sub">A safe place to learn, struggle and grow without performing. Faith lived honestly, not staged.</p>
             </div>
           </article>
           <article class="horizontal-panel">
@@ -175,7 +168,7 @@ import '../styles/arc-blog.css';
             <div class="horizontal-overlay"></div>
             <div class="horizontal-copy">
               <p class="panel-word">Collective.</p>
-              <p class="panel-sub">No creative is meant to build alone. ARC. brings musicians, filmmakers, poets, dancers, designers, and storytellers under one roof. Not to compete, but to carry each other. Connection over competition. Always.</p>
+              <p class="panel-sub">Every discipline under one roof. Not to compete, but to carry each other.</p>
             </div>
           </article>
         </div>
@@ -212,42 +205,52 @@ import '../styles/arc-blog.css';
         </div>
       </section>
 
-      <section class="arc-values" data-value-stack id="arc-values">
-        <div class="arc-values__lead">
-          <p class="arc-values__kicker">Core Values</p>
-          <h2>The code we build by.</h2>
+      <section class="x-values" id="arc-values" aria-labelledby="x-values-title">
+        <div class="x-values__bg" aria-hidden="true"><img src="/arc/the-cross-arc.avif" alt="" width="1600" height="1000" loading="lazy" decoding="async" data-x-speed="0.1" /></div>
+        <div class="x-wrap">
+          <h2 id="x-values-title" class="x-display" data-x-reveal>The code we build by.</h2>
+          <ul class="x-values__grid">
+            <li data-x-reveal><h3>Faith without performance</h3><p>Honest faith, never posturing.</p></li>
+            <li data-x-reveal><h3>Excellence without ego</h3><p>Craft matters. So does humility.</p></li>
+            <li data-x-reveal><h3>Growth without pressure</h3><p>We never rush what isn't ready.</p></li>
+            <li data-x-reveal><h3>Community without exploitation</h3><p>Creatives are people, not products.</p></li>
+            <li data-x-reveal><h3>Integrity over visibility</h3><p>Character outlasts numbers.</p></li>
+            <li data-x-reveal><h3>Grassroots first</h3><p>For the overlooked and the independent.</p></li>
+          </ul>
         </div>
-        <div class="arc-values__list">
-          <article class="value-item" data-value-item>
-            <p class="value-item__index">01</p>
-            <h3>Faith Without Performance</h3>
-            <p>We encourage honest faith, not spiritual posturing. No one here needs to look more spiritual than they are.</p>
-          </article>
-          <article class="value-item" data-value-item>
-            <p class="value-item__index">02</p>
-            <h3>Excellence Without Ego</h3>
-            <p>Quality matters. Mastery of craft matters. But neither should come at the cost of community or humility.</p>
-          </article>
-          <article class="value-item" data-value-item>
-            <p class="value-item__index">03</p>
-            <h3>Growth Without Pressure</h3>
-            <p>Formation takes time. We protect the creative process and refuse to rush what isn't ready.</p>
-          </article>
-          <article class="value-item" data-value-item>
-            <p class="value-item__index">04</p>
-            <h3>Community Without Exploitation</h3>
-            <p>Relationships built on trust, mutual respect, and genuine care. Creatives are people, not products.</p>
-          </article>
-          <article class="value-item" data-value-item>
-            <p class="value-item__index">05</p>
-            <h3>Integrity Over Visibility</h3>
-            <p>We measure success by character and sustainability, not by numbers or trends.</p>
-          </article>
-          <article class="value-item" data-value-item>
-            <p class="value-item__index">06</p>
-            <h3>Grassroots First</h3>
-            <p>We are committed to the underdog, the overlooked, and the independent voice building in silence.</p>
-          </article>
+      </section>
+
+      <section class="x-music" aria-labelledby="x-music-title">
+        <div class="x-wrap x-music__grid">
+          <div>
+            <h2 id="x-music-title" class="x-display" data-x-reveal>Now playing.</h2>
+            <p class="x-lede" data-x-reveal>ARC. Creatives is on every major platform. Our latest is BAGAJIYA: The Remix Collection, with Jlinez.</p>
+            <div class="x-actions" data-x-reveal>
+              <a class="x-btn" href="/arc/music">Listen to our music</a>
+              <a class="x-link" href="https://open.spotify.com/artist/6JujQRVWUPspGwmKWo3cgp" target="_blank" rel="noopener">Follow on Spotify</a>
+            </div>
+          </div>
+          <a class="x-music__covers" href="/arc/music" aria-label="Our releases">
+            <img src="/arc/releases/bagajiya-remix-collection.webp" alt="BAGAJIYA: The Remix Collection cover art" width="800" height="800" loading="lazy" decoding="async" />
+            <img src="/arc/releases/me-and-you.webp" alt="Me &amp; You cover art" width="800" height="800" loading="lazy" decoding="async" />
+          </a>
+        </div>
+      </section>
+
+      <section class="x-paths" aria-label="Find your way in">
+        <div class="x-wrap x-paths__grid">
+          <a class="x-path" href="/arc/events" data-x-reveal><img src="/arc/young-christians.webp" alt="" width="900" height="1100" loading="lazy" decoding="async" /><span><strong>Events</strong>Gather, learn and make things together.</span></a>
+          <a class="x-path" href="/arc/blog" data-x-reveal><img src="/arc/the-bible.avif" alt="" width="900" height="1100" loading="lazy" decoding="async" /><span><strong>Journal</strong>Stories and lessons from the collective.</span></a>
+          <a class="x-path" href="/arc/community" data-x-reveal><img src="/arc/praise-god.avif" alt="" width="900" height="1100" loading="lazy" decoding="async" /><span><strong>Community</strong>Find your people and plug in.</span></a>
+        </div>
+      </section>
+
+      <section class="x-cta" aria-labelledby="x-cta-title">
+        <img class="x-cta__bg" src="/arc/praise-and-pray.jpg" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
+        <div class="x-wrap">
+          <h2 id="x-cta-title" class="x-display" data-x-reveal>Build with us.</h2>
+          <p class="x-lede" data-x-reveal>The ARC. Letter brings events, spotlights and open doors to your inbox first.</p>
+          <div class="x-actions" data-x-reveal><a class="x-btn" href="/arc/subscribe">Join the ARC. Letter</a></div>
         </div>
       </section>
 
@@ -317,20 +320,27 @@ import '../styles/arc-blog.css';
     </script>
 
     <script is:inline>
+      // Reveal and gentle parallax for the photo-led sections. Off with reduced motion or without support.
       (() => {
-        const items = Array.from(document.querySelectorAll('[data-value-item]'));
-        if (items.length === 0) return;
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            const item = entry.target;
-            if (entry.isIntersecting) {
-              item.classList.add('is-in');
-            } else {
-              item.classList.remove('is-in');
-            }
-          });
-        }, { threshold: 0.2, rootMargin: '0px 0px -5% 0px' });
-        items.forEach((item) => observer.observe(item));
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const items = document.querySelectorAll('[data-x-reveal]');
+        if (reduce || !('IntersectionObserver' in window)) { items.forEach((el) => el.classList.add('is-in')); return; }
+        document.documentElement.classList.add('x-motion');
+        const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+        items.forEach((el) => io.observe(el));
+        const layers = [...document.querySelectorAll('[data-x-speed]')];
+        let ticking = false;
+        const update = () => {
+          ticking = false;
+          const vh = innerHeight;
+          for (const el of layers) {
+            const box = el.parentElement.getBoundingClientRect();
+            if (box.bottom < -200 || box.top > vh + 200) continue;
+            el.style.transform = `translate3d(0, ${((box.top + box.height / 2 - vh / 2) * Number(el.dataset.xSpeed)).toFixed(1)}px, 0)`;
+          }
+        };
+        addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+        update();
       })();
     </script>
 
@@ -390,6 +400,7 @@ import '../styles/arc-blog.css';
     color: #000000;
   }
   body.arc-route .arc-route-nav {
+    box-sizing: border-box;
     position: fixed;
     top: 1rem;
     left: 50%;
@@ -397,7 +408,7 @@ import '../styles/arc-blog.css';
     opacity: 0;
     pointer-events: none;
     z-index: 60;
-    width: min(1100px, calc(100vw - 1.4rem));
+    width: min(1180px, calc(100% - 1.4rem));
     padding: 0.65rem 0.9rem;
     border: 1px solid rgba(242, 121, 48, 0.42);
     background: rgba(13, 11, 9, 0.92);
@@ -412,6 +423,7 @@ import '../styles/arc-blog.css';
     pointer-events: auto;
   }
   body.arc-route .arc-route-nav__brand {
+    white-space: nowrap;
     color: #f27930;
     text-decoration: none;
     font-family: var(--arc-font-heading);
@@ -441,18 +453,17 @@ import '../styles/arc-blog.css';
   body.arc-route.light-theme .arc-route-nav__links a {
     color: #000000;
   }
-  @media (max-width: 940px) {
+  @media (max-width: 1180px) {
     body.arc-route .arc-route-nav {
       top: 0.55rem;
-      width: calc(100vw - 1rem);
-      padding: 0.55rem 0.62rem;
+      width: calc(100% - 1rem);
+      padding: 0.55rem 0.7rem;
     }
     body.arc-route .arc-route-nav__brand {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
     }
-    body.arc-route .arc-route-nav__links a {
-      font-size: 0.68rem;
-      letter-spacing: 0.05em;
+    body.arc-route .arc-route-nav__links {
+      display: none;
     }
   }
 </style>
@@ -589,41 +600,13 @@ import '../styles/arc-blog.css';
   .arc-hero__ticker span {
     display: inline-block;
   }
-  .arc-manifesto {
-    display: grid;
-    grid-template-columns: 2px minmax(0, 1fr);
-    align-items: start;
-    gap: 1.4rem;
-    background: #0d0b09;
-    padding: clamp(2.7rem, 5vw, 4.5rem) clamp(1.25rem, 8vw, 10rem);
-  }
-  .manifesto-rule { width: 2px; height: 100%; background: rgba(242, 121, 48, 0.5); }
-  .arc-manifesto__content {
-    display: grid;
-    grid-template-columns: minmax(220px, 0.6fr) minmax(0, 1fr);
-    gap: clamp(1.1rem, 3vw, 3rem);
-    align-items: start;
-  }
-  .arc-manifesto__lead {
-    margin: 0;
-    font-family: var(--arc-font-heading);
-    font-size: clamp(2.1rem, 4.2vw, 3.3rem);
-    line-height: 0.98;
-    letter-spacing: 0.01em;
-  }
-  .arc-manifesto__copy {
-    max-width: 56ch;
-    display: grid;
-    gap: 0.75rem;
-  }
-  .arc-manifesto__copy p {
-    margin: 0;
-    font-family: var(--arc-font-body);
-    font-size: clamp(1.25rem, 2vw, 1.78rem);
-    line-height: 1.17;
-    letter-spacing: 0.006em;
-  }
-  .arc-problem { padding: clamp(3rem, 6vw, 6rem) 0; }
+
+
+
+
+
+
+
   .arc-problem h2,
   .arc-disciplines h2 {
     font-family: var(--arc-font-heading);
@@ -632,27 +615,12 @@ import '../styles/arc-blog.css';
     margin: 0 0 2rem;
     padding-inline: clamp(1.25rem, 8vw, 10rem);
   }
-  .problem-list { display: grid; }
-  .problem-item {
-    position: relative;
-    padding: clamp(2rem, 4vw, 3.2rem) clamp(1.25rem, 8vw, 10rem);
-    border-top: 1px solid rgba(242, 121, 48, 0.22);
-    overflow: hidden;
-  }
-  .problem-item:nth-child(even) { background: rgba(245, 240, 232, 0.03); }
-  .problem-item span {
-    position: absolute;
-    right: clamp(1rem, 7vw, 9rem);
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: var(--arc-font-heading);
-    font-size: clamp(5rem, 16vw, 12rem);
-    color: rgba(242, 121, 48, 0.08);
-    line-height: 1;
-    pointer-events: none;
-  }
-  .problem-item h3 { position: relative; margin: 0 0 0.8rem; font-size: clamp(1.3rem, 2.3vw, 2rem); z-index: 1; }
-  .problem-item p { position: relative; margin: 0; max-width: 62ch; z-index: 1; }
+
+
+
+
+
+
   .arc-horizontal {
     height: 300vh;
     position: relative;
@@ -715,9 +683,9 @@ import '../styles/arc-blog.css';
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    clip-path: inset(0 0 100% 0);
-    transition: opacity 0.45s ease, clip-path 0.45s ease;
+    opacity: 0.55;
+    transform: scale(1.04);
+    transition: opacity 0.6s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: -1;
   }
   .tile::after {
@@ -725,12 +693,12 @@ import '../styles/arc-blog.css';
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg, rgba(13, 11, 9, 0.15), rgba(13, 11, 9, 0.82));
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.35s ease;
     z-index: -1;
   }
   .tile:hover img,
-  .tile.is-revealed img { opacity: 1; clip-path: inset(0 0 0 0); }
+  .tile.is-revealed img { opacity: 1; transform: scale(1); }
   .tile:hover::after,
   .tile.is-revealed::after { opacity: 1; }
   .tile h3 { margin: 0; font-family: var(--arc-font-heading); font-size: clamp(1.8rem, 4vw, 3rem); }
@@ -741,145 +709,35 @@ import '../styles/arc-blog.css';
   .tile-vision { grid-column: span 8; min-height: 250px; }
   .tile-design { grid-column: span 6; min-height: 230px; }
   .tile-experimental { grid-column: span 6; min-height: 280px; }
-  .arc-values {
-    padding: clamp(3rem, 7vw, 5.5rem) clamp(1.15rem, 5vw, 2.5rem);
-    display: grid;
-    grid-template-columns: minmax(180px, 0.42fr) minmax(0, 1fr);
-    gap: clamp(2rem, 5vw, 3.5rem);
-    align-items: start;
-    max-width: min(1120px, 100%);
-    margin-inline: auto;
-  }
-  .arc-values__lead {
-    position: sticky;
-    top: 5.5rem;
-  }
-  .arc-values__kicker {
-    margin: 0;
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #f27930;
-    font-family: var(--arc-font-body);
-    font-weight: 600;
-  }
-  .arc-values__lead h2 {
-    margin: 0.65rem 0 0;
-    font-family: var(--arc-font-heading);
-    font-size: clamp(1.45rem, 2.4vw + 0.6rem, 2.15rem);
-    font-weight: 700;
-    line-height: 1.12;
-    letter-spacing: -0.02em;
-    max-width: min(28ch, 100%);
-  }
-  .arc-values__list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .value-item {
-    --value-shift: -14px;
-    display: grid;
-    grid-template-columns: minmax(2.75rem, 3.25rem) minmax(0, 1fr);
-    column-gap: clamp(0.75rem, 2vw, 1.25rem);
-    row-gap: 0.45rem;
-    align-items: start;
-    padding: clamp(1.1rem, 2.5vw, 1.45rem) 0 clamp(1.25rem, 3vw, 1.65rem);
-    border-top: 1px solid rgba(242, 121, 48, 0.22);
-    transform: translateX(var(--value-shift));
-    opacity: 0.35;
-    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease;
-  }
-  .value-item:nth-child(even) {
-    --value-shift: 10px;
-  }
-  .value-item.is-in {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  .value-item > p.value-item__index {
-    margin: 0;
-    grid-column: 1;
-    grid-row: 1;
-    align-self: start;
-    justify-self: start;
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 3.25rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    color: #f27930;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-family: var(--arc-font-body);
-    line-height: 1.25;
-    padding-top: 0.2em;
-  }
-  .value-item h3 {
-    margin: 0;
-    grid-column: 2;
-    grid-row: 1;
-    min-width: 0;
-    position: relative;
-    z-index: 1;
-    font-family: var(--arc-font-heading);
-    font-size: clamp(1.05rem, 1.1vw + 0.85rem, 1.45rem);
-    font-weight: 700;
-    line-height: 1.22;
-    letter-spacing: -0.01em;
-  }
-  .value-item > p:not(.value-item__index) {
-    margin: 0;
-    grid-column: 1 / -1;
-    grid-row: 2;
-    position: relative;
-    z-index: 1;
-    font-family: var(--arc-font-body);
-    font-size: clamp(0.94rem, 0.35vw + 0.88rem, 1.05rem);
-    line-height: 1.6;
-    letter-spacing: 0.01em;
-    color: rgba(221, 214, 206, 0.95);
-    max-width: 56ch;
-  }
-  @media (min-width: 640px) {
-    .value-item > p:not(.value-item__index) {
-      grid-column: 2;
-      grid-row: 2;
-    }
-  }
-  body.arc-route.light-theme .arc-manifesto {
-    background: #ffffff;
-    color: #000000;
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
   body.arc-route.light-theme .arc-problem,
   body.arc-route.light-theme .arc-disciplines,
   body.arc-route.light-theme .arc-values {
     background: #ffffff;
     color: #000000;
   }
-  body.arc-route.light-theme .problem-item {
-    border-top-color: rgba(0, 0, 0, 0.18);
-  }
-  body.arc-route.light-theme .problem-item:nth-child(even) {
-    background: rgba(0, 0, 0, 0.035);
-  }
-  body.arc-route.light-theme .problem-item span {
-    color: rgba(160, 82, 45, 0.14);
-  }
+
+
+
   body.arc-route.light-theme .tile {
     border-color: rgba(0, 0, 0, 0.22);
   }
-  body.arc-route.light-theme .value-item {
-    border-top-color: rgba(0, 0, 0, 0.18);
-  }
-  body.arc-route.light-theme .value-item > p:not(.value-item__index) {
-    color: #312821;
-  }
+
+
   body.arc-route.light-theme .arc-values__kicker,
-  body.arc-route.light-theme .value-item > p.value-item__index {
-    color: #a0522d;
-  }
+
   body.arc-route.light-theme .arc-hero__edge-note {
     color: #ffffff;
   }
@@ -893,7 +751,7 @@ import '../styles/arc-blog.css';
   }
   body.arc-route.light-theme .tile h3,
   body.arc-route.light-theme .tile p {
-    color: #000000;
+    color: #ffffff;
   }
   body.arc-route.light-theme .tile.is-revealed h3,
   body.arc-route.light-theme .tile.is-revealed p,
@@ -961,57 +819,26 @@ import '../styles/arc-blog.css';
       font-size: clamp(0.95rem, 3.5vw, 1.12rem);
       line-height: 1.55;
     }
-    .arc-values {
-      grid-template-columns: 1fr;
-      gap: clamp(1.5rem, 4vw, 2rem);
-      padding-inline: clamp(1rem, 4vw, 1.5rem);
-    }
-    .arc-values__lead {
-      position: static;
-      max-width: 36rem;
-    }
-    .arc-values__lead h2 {
-      max-width: none;
-    }
-    .value-item {
-      grid-template-columns: minmax(2.35rem, 3rem) minmax(0, 1fr);
-      column-gap: 0.7rem;
-      padding-top: 1rem;
-      padding-bottom: 1.15rem;
-    }
-    .value-item:nth-child(even) {
-      --value-shift: -14px;
-    }
+
+
+
+
+
     .discipline-mosaic { grid-template-columns: 1fr; }
     .tile-sound, .tile-words, .tile-movement, .tile-vision, .tile-design, .tile-experimental {
       grid-column: span 1;
       min-height: 220px;
     }
-    .arc-manifesto {
-      gap: 1rem;
-      padding-top: clamp(2.3rem, 8vw, 3rem);
-      padding-bottom: clamp(2.3rem, 8vw, 3rem);
-    }
-    .arc-manifesto__content {
-      grid-template-columns: minmax(150px, 0.46fr) minmax(0, 1fr);
-      gap: 0.85rem;
-    }
-    .arc-manifesto__lead { font-size: clamp(1.65rem, 4.1vw, 2.2rem); }
-    .arc-manifesto__copy { gap: 0.55rem; }
-    .arc-manifesto__copy p { font-size: clamp(1rem, 3.3vw, 1.18rem); line-height: 1.18; }
+
+
+
+
+
   }
-  @media (max-width: 700px) {
-    .arc-manifesto {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    .manifesto-rule { width: 82px; height: 2px; }
-    .arc-manifesto__content { grid-template-columns: 1fr; gap: 0.75rem; }
-    .arc-manifesto__lead { font-size: clamp(1.75rem, 8vw, 2.4rem); }
-    .arc-manifesto__copy p { font-size: clamp(1rem, 4.2vw, 1.2rem); line-height: 1.18; }
-  }
+
   @keyframes arcTicker {
     from { transform: translateX(0); }
     to { transform: translateX(-100%); }
   }
+
 </style>

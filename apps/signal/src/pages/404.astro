@@ -1,7 +1,5 @@
 ---
 import Site from '../layouts/Site.astro'
-import Cosmos from '../components/Cosmos.astro'
-import Paths from '../components/Paths.astro'
 
 const routes = [
   ['Services', 'Storytelling, strategy, campaigns and growth', '/services'],
@@ -12,18 +10,14 @@ const routes = [
 ---
 <Site noIndex title="Page not found" description="This page moved or never existed. Find your way back to SIGNAL. by SIRYUS.">
   <section class="lost">
-    <Cosmos />
     <div class="wrap">
-      <div>
-        <h1 data-split>Signal lost<span class="dot-red keep" aria-hidden="true"></span></h1>
-        <p data-reveal>We couldn't find that page. It may have moved, or the link may be broken. Here is where the story picks up again.</p>
-        <ol class="tracklist">
-          {routes.map(([name, note, href]) => (
-            <li data-reveal><a href={href}><span><strong>{name}</strong><small>{note}</small></span><span></span></a></li>
-          ))}
-        </ol>
-      </div>
-      <Paths />
+      <h1 data-split>Signal lost<span class="pd keep">.</span></h1>
+      <p data-reveal>We couldn't find that page. It may have moved, or the link may be broken. Here is where the story picks up again.</p>
+      <ul>
+        {routes.map(([name, note, href]) => (
+          <li data-reveal><a href={href}><strong>{name}</strong><span>{note}</span></a></li>
+        ))}
+      </ul>
     </div>
   </section>
 </Site>

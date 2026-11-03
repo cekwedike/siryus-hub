@@ -1,48 +1,50 @@
 ---
 import Site from '../layouts/Site.astro'
-import Cosmos from '../components/Cosmos.astro'
 import Pic from '../components/Pic.astro'
-import Marquee from '../components/Marquee.astro'
+import Sig from '../components/Sig.astro'
+import Arrow from '../components/Arrow.astro'
 ---
 <Site title="About" description="SIGNAL. is the marketing and growth agency from SIRYUS. We put story at the centre of strategy, campaigns, content and growth.">
-  <header class="page-hero split">
-    <Cosmos />
-    <div class="wrap">
+  <header class="phero">
+    <div class="wrap grid">
+      <h1 data-split>A marketing agency built around story<span class="pd keep">.</span></h1>
       <div>
-        <h1 data-split>A marketing agency built around story.</h1>
-        <p class="lede" data-reveal>SIGNAL. by SIRYUS helps brands decide what to say, how to say it and how to make it travel.</p>
-        <div class="actions" data-reveal><a class="btn solid" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a></div>
+        <p class="lede" data-reveal><Sig /> by SIRYUS helps brands decide what to say, how to say it and how to make it travel.</p>
+        <div class="actions" data-reveal style="margin-top:1.6rem"><a class="btn" href="/contact">Book a meeting <Arrow /></a></div>
       </div>
-      <div class="media" data-reveal><Pic name="camera-cap" alt="A photographer smiling as he frames a shot outdoors" eager sizes="(max-width: 52rem) 92vw, 42vw" /></div>
     </div>
   </header>
-  <Marquee items={['Find the story', 'Shape the strategy', 'Move the message']} />
-  <section class="section white">
-    <div class="wrap statement-row">
-      <p class="statement" data-split>A signal is the part of a message that gets through the noise. That is the whole job.</p>
-      <div class="side" data-reveal>
-        <p>Not more posts, more ads or more noise. The right message, reaching the right people, in a way they remember.</p>
+  <div class="cover"><div data-speed="0.08" style="position:absolute;inset:0"><Pic name="camera-cap" alt="A photographer smiling as he frames a shot outdoors" eager sizes="100vw" /></div></div>
+
+  <section class="section stone manifesto" data-scrub>
+    <div class="wrap">
+      <p data-reveal>A signal is the part of a message that gets through the noise. That is the whole job.</p>
+      <div class="after">
+        <p data-reveal>Not more posts, more ads or more noise. The right message, reaching the right people, in a way they remember.</p>
       </div>
     </div>
   </section>
+
   <section class="section">
-    <div class="wrap detail">
+    <div class="wrap cols">
       <div data-reveal>
-        <h2>Three paths, one point.</h2>
-        <p>Our symbol is three paths meeting at one point: strategy, creativity and execution, all aimed at the same goal.</p>
+        <h2>Three paths, one point<span class="pd">.</span></h2>
+        <p style="color:var(--slate)">Our symbol is three paths meeting at one point: strategy, creativity and execution, all aimed at the same goal.</p>
       </div>
       <div data-reveal style="--d:1">
-        <h2>A full stop.</h2>
-        <p>Our red period is there on purpose. A good message knows what it wants to say, and when it is finished.</p>
+        <h2>A full stop<span class="pd">.</span></h2>
+        <p style="color:var(--slate)">Our red full stop is there on purpose. A good message knows what it wants to say, and when it is finished.</p>
       </div>
     </div>
   </section>
-  <section class="cta white">
-    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <section class="call">
     <div class="wrap">
-      <h2 data-split>Part of SIRYUS.</h2>
-      <p data-reveal>SIGNAL. is one of the SIRYUS worlds, alongside SIRYUS A.M and ARC. Creatives. We share a home, but each world has its own work and its own voice.</p>
-      <a class="btn solid" href="https://siryushub.com" data-reveal>Visit SIRYUS</a>
+      <h2 data-split>Part of SIRYUS<span class="pd keep">.</span></h2>
+      <div class="row">
+        <p data-reveal><Sig /> is one of the SIRYUS worlds, alongside SIRYUS A.M and ARC. Creatives. We share a home, but each world has its own work and its own voice.</p>
+        <a class="btn" href="https://siryushub.com" data-reveal>Visit SIRYUS <Arrow /></a>
+      </div>
     </div>
   </section>
 </Site>

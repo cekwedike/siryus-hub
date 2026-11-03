@@ -1,7 +1,6 @@
 ---
 import Site from '../layouts/Site.astro'
-import Cosmos from '../components/Cosmos.astro'
-import Paths from '../components/Paths.astro'
+import Arrow from '../components/Arrow.astro'
 
 const briefs = [
   ['Launch something new', 'A product, a service, an event or a release that needs to land with the right people from day one.', 'Story, launch plan, campaign assets, email', 'A clear message and a rollout your team can run'],
@@ -11,36 +10,34 @@ const briefs = [
 ]
 ---
 <Site title="Work" description="The kinds of projects SIGNAL. takes on: launches, brand messaging, campaigns and customer journeys. Client work is shown only with permission.">
-  <header class="page-hero">
-    <Cosmos />
-    <div class="wrap" style="position:relative;z-index:1">
-      <h1 data-split>The work should prove the idea.</h1>
+  <header class="phero">
+    <div class="wrap grid">
+      <h1 data-split>The work should prove the idea<span class="pd keep">.</span></h1>
       <p class="lede" data-reveal>We publish client work only with permission, so you will not find mock-ups dressed up as results here. Instead, these are the problems we are built to solve.</p>
     </div>
-    <Paths class="corner" />
   </header>
-  <section class="section white">
-    <div class="wrap ways" style="grid-template-columns:repeat(auto-fit,minmax(20rem,1fr))">
+  <section class="section stone">
+    <div class="wrap briefs">
       {briefs.map(([title, problem, scope, result], i) => (
-        <article class="way" data-reveal style={`--d:${i}`}>
-          <h2 style="font:clamp(1.9rem,3vw,2.6rem)/1 var(--display)">{title}</h2>
+        <article class="brief" data-reveal style={`--d:${i % 2}`}>
+          <h2>{title}<span class="pd">.</span></h2>
           <p>{problem}</p>
-          <p><strong>What we usually do:</strong> {scope}</p>
-          <p><strong>What you walk away with:</strong> {result}</p>
-          <a class="btn solid" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+          <dl>
+            <div><dt>What we usually do</dt><dd>{scope}</dd></div>
+            <div><dt>What you walk away with</dt><dd>{result}</dd></div>
+          </dl>
+          <a class="text-link" href="/contact" style="align-self:start;margin-top:.6rem">Book a meeting</a>
         </article>
       ))}
     </div>
   </section>
-  <section class="cta">
-    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+  <section class="call">
     <div class="wrap">
-      <h2 data-split>Want to see more?</h2>
-      <p data-reveal>Ask us. We are happy to walk you through relevant work on a call, with our clients' permission.</p>
-      <a class="btn solid" href="/contact" data-reveal><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+      <h2 data-split>Want to see more<span class="pd keep">?</span></h2>
+      <div class="row">
+        <p data-reveal>Ask us. We are happy to walk you through relevant work on a call, with our clients' permission.</p>
+        <a class="btn" href="/contact" data-reveal>Book a meeting <Arrow /></a>
+      </div>
     </div>
   </section>
 </Site>
-<style>
-  .corner { position: absolute; right: var(--gutter); bottom: -4rem; width: clamp(10rem, 24vw, 20rem); z-index: 0; }
-</style>

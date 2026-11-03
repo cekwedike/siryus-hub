@@ -1,15 +1,15 @@
 ---
 import Site from '../../layouts/Site.astro'
-import Cosmos from '../../components/Cosmos.astro'
+import Disc from '../../components/Disc.astro'
 import { services, packages, type Service } from '../../data/services'
 
 export function getStaticPaths() {
   return services.map((service) => ({ params: { slug: service.slug }, props: { service } }))
 }
+
 const { service } = Astro.props as { service: Service }
 const others = services.filter((s) => s.slug !== service.slug && s.group === service.group).concat(services.filter((s) => s.group !== service.group)).slice(0, 3)
-const inPackages = packages.filter((p) => p.includes.some((x) => x.toLowerCase().startsWith(service.name.toLowerCase().split(' ')[0])))
-const shot = `/images/scenes/${service.image}`
+const inPackages = packages.some((p) => p.includes.some((x) => x.toLowerCase().startsWith(service.name.toLowerCase().split(' ')[0])))
 const schema = [{
   '@type': 'Service',
   name: service.name,
@@ -20,44 +20,39 @@ const schema = [{
   areaServed: 'Worldwide',
 }]
 ---
-<Site title={service.name} description={`${service.line} ${service.intro}`.slice(0, 158)} image={new URL(`${shot}-1600.webp`, Astro.site).href} schema={schema}>
-  <header class="page-hero split">
-    <Cosmos />
-    <div class="wrap">
+<Site title={service.name} description={`${service.line} ${service.intro}`.slice(0, 158)} schema={schema}>
+  <header class="phero">
+    <div class="wrap grid">
       <div>
-        <a class="crumb" href="/services">Services / {service.group}</a>
+        <a class="crumb" href="/services">Services, {service.group}</a>
         <h1 data-split>{service.name}</h1>
-        <p class="lede" data-reveal>{service.line}</p>
-        <div class="actions" data-reveal>
-          <a class="btn solid" href={`/contact?service=${service.slug}`}><span class="dot" aria-hidden="true"></span>Book a meeting</a>
-          <a class="btn" href="/services">All services</a>
+        <p class="lede" data-reveal style="margin-top:1.6rem">{service.line}</p>
+        <div class="actions" data-reveal style="margin-top:1.8rem">
+          <a class="btn" href={`/contact?service=${service.slug}`}>Book a meeting</a>
+          <a class="more" href="/services">All services</a>
         </div>
       </div>
-      <div class="media" data-reveal>
-        <img src={`${shot}-1600.webp`} srcset={`${shot}-800.webp 800w, ${shot}-1600.webp 1600w`} sizes="(max-width: 52rem) 92vw, 42vw" alt={service.alt} width="1600" height="1067" fetchpriority="high" data-speed="0.08" />
-      </div>
+      <div class="mini"><Disc /></div>
     </div>
   </header>
 
-  <section class="section white">
-    <div class="wrap detail">
+  <section class="section">
+    <div class="wrap split">
       <div>
         <h2 data-split>What it is.</h2>
-        <p class="for-who" data-reveal>{service.intro}</p>
+        <p data-reveal>{service.intro}</p>
+        <p data-reveal style="margin-top:1.4rem;font-weight:700">{service.forWho}</p>
       </div>
       <div>
         <h2 data-split>What you get.</h2>
-        <ul class="includes">{service.includes.map((x, i) => <li data-reveal style={`--d:${i}`}>{x}</li>)}</ul>
+        <ul class="ticks">{service.includes.map((x, i) => <li data-reveal style={`--d:${i}`}>{x}</li>)}</ul>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section smoke">
     <div class="wrap">
-      <div class="head">
-        <h2 data-split>Who it's for.</h2>
-        <p data-reveal>{service.forWho}</p>
-      </div>
+      <div class="title"><h2 data-split>How it works.</h2></div>
       <ol class="steps">
         <li data-reveal style="--d:0"><h3>Book a meeting</h3><p>Tell us about your music, your goals and your timeline.</p></li>
         <li data-reveal style="--d:1"><h3>Get a clear plan</h3><p>We agree what we will do, by when, and what it costs, in writing.</p></li>
@@ -66,40 +61,37 @@ const schema = [{
     </div>
   </section>
 
-  {inPackages.length > 0 && (
-    <section class="section light">
-      <div class="wrap statement-row">
-        <p class="statement" data-split>{service.name} is part of our release packages.</p>
-        <div class="side" data-reveal>
-          <p>Bundle it with the other essentials for a single or an EP.</p>
-          <a class="btn solid" href="/packages">See the packages</a>
-        </div>
+  {inPackages && (
+    <section class="section ink">
+      <div class="wrap band">
+        <h2 data-split>{service.name} is part of our release packages.</h2>
+        <div class="actions" data-reveal><a class="btn" href="/packages">See the packages</a></div>
       </div>
     </section>
   )}
 
-  <section class="section white" aria-labelledby="more">
+  <section class="section" aria-labelledby="more">
     <div class="wrap">
-      <div class="head"><h2 id="more" data-split>More services.</h2></div>
-      <div class="cards">
+      <div class="title"><h2 id="more" data-split>More services.</h2></div>
+      <div class="svc-grid">
         {others.map((s, i) => (
-          <a class="card" href={`/services/${s.slug}`} data-reveal style={`--d:${i}`}>
-            <div class="img"><img src={`/images/scenes/${s.image}-800.webp`} alt="" width="800" height="533" loading="lazy" decoding="async" /></div>
-            <p class="meta">{s.group}</p>
+          <a class="svc" href={`/services/${s.slug}`} data-reveal style={`--d:${i}`}>
             <h3>{s.name}</h3>
             <p>{s.line}</p>
+            <span class="grp">{s.group}</span>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="cta" aria-labelledby="cta-title">
-    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+  <section class="ink final" aria-labelledby="cta-title">
     <div class="wrap">
-      <h2 id="cta-title" data-split>Let's talk about it.</h2>
-      <p data-reveal>Book a meeting and tell us what you are working on. No pressure, just a clear conversation about what fits.</p>
-      <a class="btn solid" href={`/contact?service=${service.slug}`} data-reveal><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+      <h2 id="cta-title" data-split><a href={`/contact?service=${service.slug}`}>Let's talk.</a></h2>
+      <div class="row">
+        <p data-reveal>Book a meeting and tell us what you are working on. No pressure, just a clear conversation about what fits.</p>
+        <a class="btn" href={`/contact?service=${service.slug}`} data-reveal>Book a meeting</a>
+      </div>
     </div>
   </section>
 </Site>

@@ -64,21 +64,23 @@ Self-hosted in `apps/signal/public/images/` at 800 and 1600 px wide. All are fre
 | sticky-wall | Team planning with sticky notes on a glass wall | Vitaly Gariev | https://unsplash.com/photos/TSyD0nGc0Bs |
 | camera-cap | Photographer at work outdoors | Muhammad-Taha Ibrahim | https://unsplash.com/photos/UOIk3LZoR9k |
 
-## SIRYUS A.M artist photos
-`apps/am/public/images/artists/` and `apps/siryus/public/images/artists/` use each artist's own profile image from their official Spotify artist page (Max Prodigy: 5DEI5M3s5NAhk2AloQlNKb, Jlinez: 1IG4PSCy1OokQbRYILUrnN), used to promote artists SIRYUS A.M manages. Replace with approved press photos when available, and update the photos in Sanity to match.
+## SIRYUS A.M artist photos (updated 2026-11-03)
+On the owner's instruction, SIRYUS A.M shows only real photos of its artists: Max Prodigy and Jlinez (current roster) and Hidaya Morgan (alumna). The stock "scenes" set (singer-stage, condenser-mic, crowd-lights and the rest) was removed.
 
-## SIRYUS A.M scenes (artists.siryushub.com)
-Self-hosted in `apps/am/public/images/scenes/` at 800 and 1600 px. Free to use under the Unsplash License (checked 2026-11-02).
+Files in `apps/am/public/images/artists/{slug}-{n}-640.webp` (plus `-1200` where the source allowed), copied from each artist's official profiles to promote artists SIRYUS A.M manages or managed:
 
-| File | Subject | Photographer | Source |
-|---|---|---|---|
-| singer-stage | Performer singing into a microphone on stage | Albert Luphahla | https://unsplash.com/photos/nay71NHJcd4 |
-| condenser-mic | Studio condenser microphone with pop filter | Leo Wieling | https://unsplash.com/photos/bG8U3kaZltE |
-| crowd-lights | Concert crowd under stage lights | CHRSNDRSN | https://unsplash.com/photos/XdgjISWC2Bg |
-| mixer | Studio mixing console | Marc Fanelli-Isla | https://unsplash.com/photos/xo4ValczbuA |
-| production | Music production workspace | Elijah Merrell | https://unsplash.com/photos/-qFWOJEEQh4 |
-| heart-hands | Fan making a heart with their hands at a concert | Anthony Delanoix | https://unsplash.com/photos/hzgs56Ze49s |
-| concert | Crowd facing a lit stage | Nainoa Shizuru | https://unsplash.com/photos/NcdG9mK3PBY |
-| drummer | Drummer playing at an outdoor event | Michael Umoh | https://unsplash.com/photos/s32L5adnJ24 |
+| File | Source |
+|---|---|
+| max-prodigy-1 | Spotify artist profile 5DEI5M3s5NAhk2AloQlNKb |
+| max-prodigy-2 | Apple Music artist image (id 1540379359) |
+| max-prodigy-3 | A.M Sanity artist photo |
+| jlinez-1 | Apple Music artist image (id 1540379360) |
+| jlinez-2 | A.M Sanity artist photo |
+| jlinez-3 | Spotify artist profile 1IG4PSCy1OokQbRYILUrnN |
+| hidaya-morgan-1 | Apple Music artist image (id 1714798790) |
+| hidaya-morgan-2 | A.M Sanity artist photo |
+| hidaya-morgan-3 | Spotify artist profile 67Vu6E8FcRU2I531Atn6Zr |
+
+The hub card for A.M (`apps/siryus/public/images/artists/`) uses max-prodigy.webp, jlinez-studio.webp and max-prodigy-hands.webp from the same set. Replace with approved press photos when available.
 
 Release artwork in `apps/am/public/images/releases/` and `apps/arc/public/arc/releases/` is the official cover art from Apple Music, used to promote SIRYUS A.M and ARC. Creatives' own releases.

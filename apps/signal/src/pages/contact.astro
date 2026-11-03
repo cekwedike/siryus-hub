@@ -1,20 +1,19 @@
 ---
 import Site from '../layouts/Site.astro'
-import Cosmos from '../components/Cosmos.astro'
+import Arrow from '../components/Arrow.astro'
 import { services } from '../data/services'
 
 const options = [...services.map((s) => [s.slug, s.name]), ['not-sure', 'Not sure yet']]
 ---
 <Site title="Book a meeting" description="Book a meeting with SIGNAL. Tell us what you are building and we will reply with honest next steps for your story, strategy and campaigns.">
-  <header class="page-hero">
-    <Cosmos />
-    <div class="wrap" style="position:relative">
-      <h1 data-split>Tell us what you're building.</h1>
+  <header class="phero">
+    <div class="wrap grid">
+      <h1 data-split>Tell us what you're building<span class="pd keep">.</span></h1>
       <p class="lede" data-reveal>Where are you now, where does it feel stuck, and what would a good result change? We will reply to set up a meeting, usually within two working days.</p>
     </div>
   </header>
-  <section class="section white">
-    <div class="wrap contact-grid">
+  <section class="section stone">
+    <div class="wrap contact">
       <form class="form" action="/api/contact" method="post" data-contact>
         <p class="form-status full" role="status" aria-live="polite" tabindex="-1"></p>
         <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required maxlength="120" /></div>
@@ -27,9 +26,9 @@ const options = [...services.map((s) => [s.slug, s.name]), ['not-sure', 'Not sur
         <div class="trap" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
         <input type="hidden" name="started" value="" />
         <p class="full"><small>We use these details only to reply and arrange your meeting. See our <a href="https://siryushub.com/privacy-policy">privacy policy</a>.</small></p>
-        <button class="btn solid" type="submit"><span class="dot" aria-hidden="true"></span>Request a meeting</button>
+        <button class="btn" type="submit">Request a meeting <Arrow /></button>
       </form>
-      <aside class="contact-aside" data-reveal>
+      <aside class="aside" data-reveal>
         <h2>Prefer email?</h2>
         <p>Write to <a href="mailto:signal@siryushub.com">signal@siryushub.com</a>.</p>
         <p>Every first meeting is free and comes with no obligation. You will leave with honest next steps either way.</p>

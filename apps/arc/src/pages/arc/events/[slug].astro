@@ -47,10 +47,10 @@ function formatWhen(isoStart: string, isoEnd: string | null) {
     });
     const timeOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
     if (!end) {
-      return `${datePart} · ${start.toLocaleTimeString('en-US', timeOpts)}`;
+      return `${datePart}, ${start.toLocaleTimeString('en-US', timeOpts)}`;
     }
     if (sameDay) {
-      return `${datePart} · ${start.toLocaleTimeString('en-US', timeOpts)} – ${end.toLocaleTimeString('en-US', timeOpts)}`;
+      return `${datePart}, ${start.toLocaleTimeString('en-US', timeOpts)} – ${end.toLocaleTimeString('en-US', timeOpts)}`;
     }
     return `${start.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })} – ${end.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })}`;
   } catch {
@@ -394,7 +394,7 @@ if (event) {
     align-items: center;
     justify-content: center;
     padding: 0.55rem 1.15rem;
-    border-radius: 999px;
+    border-radius: 0;
     background: #f27930;
     color: #0d0b09;
     font-size: 0.78rem;

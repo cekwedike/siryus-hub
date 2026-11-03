@@ -3,8 +3,12 @@
 const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'h16wl0pr'
 const dataset = import.meta.env.PUBLIC_SANITY_DATASET || 'production'
 
-// Only these two artists are currently managed. Hidaya Morgan (alumna) and Winny Ezeme (not signed) stay off the roster.
+// Who appears where. The Studio's "Relationship" field decides this once it is filled in; until then these
+// lists apply. Max Prodigy and Jlinez are the current roster. Hidaya Morgan is an alumna: SIRYUS A.M managed
+// and distributed her music for a year. Winny Ezeme is not signed and stays off the site.
 export const rosterSlugs = ['max-prodigy', 'jlinez']
+export const alumniSlugs = ['hidaya-morgan']
+const alumniNotes: Record<string, string> = { 'hidaya-morgan': 'Managed and distributed by SIRYUS A.M for a year.' }
 // Posts written for artists. The other posts in the dataset belong to ARC. Creatives.
 export const journalSlugs = [
   'what-independent-artists-get-wrong-about-marketing',
@@ -24,12 +28,27 @@ export async function query<T>(groq: string, params: Record<string, unknown> = {
 
 export type ImageRef = { asset?: { _ref: string }; alt?: string } | string
 
-// Each artist's photo comes from their official Spotify profile (checked 2026-11-02) and is self-hosted.
-// The portraits stored in Sanity did not match those profiles, so these take priority.
-const officialPhotos: Record<string, string> = {
-  'max-prodigy': '/images/artists/max-prodigy.webp',
-  jlinez: '/images/artists/jlinez.webp',
+// Official artist photos, self-hosted from each artist's Spotify, Apple Music and Sanity profiles (checked
+// 2026-11-03). The first is the main portrait. Files: /images/artists/{slug}-{n}-640.webp, plus -1200 where
+// the source was large enough. These are the only people pictured on the site.
+export const artistPhotos: Record<string, { src: string; large?: string; alt: string }[]> = {
+  'max-prodigy': [
+    { src: '/images/artists/max-prodigy-1-640.webp', alt: 'Max Prodigy in profile, wearing dark glasses and an embroidered cap' },
+    { src: '/images/artists/max-prodigy-2-640.webp', large: '/images/artists/max-prodigy-2-1200.webp', alt: 'Max Prodigy covering his face with both hands in low light' },
+    { src: '/images/artists/max-prodigy-3-640.webp', alt: 'Max Prodigy looking up in a dark room' },
+  ],
+  jlinez: [
+    { src: '/images/artists/jlinez-1-640.webp', alt: 'Jlinez in a cream shirt against a dark backdrop' },
+    { src: '/images/artists/jlinez-2-640.webp', large: '/images/artists/jlinez-2-1200.webp', alt: 'Jlinez seated in a cream shirt in the studio' },
+    { src: '/images/artists/jlinez-3-640.webp', alt: 'Jlinez in a navy top against a white wall' },
+  ],
+  'hidaya-morgan': [
+    { src: '/images/artists/hidaya-morgan-1-640.webp', alt: 'Hidaya Morgan, close portrait with one arm raised' },
+    { src: '/images/artists/hidaya-morgan-2-640.webp', large: '/images/artists/hidaya-morgan-2-1200.webp', alt: 'Hidaya Morgan posing with her arm above her head' },
+    { src: '/images/artists/hidaya-morgan-3-640.webp', alt: 'Hidaya Morgan in a green and white jacket' },
+  ],
 }
+export const photosOf = (slug: string) => artistPhotos[slug] ?? []
 
 // Turns an image reference into a resized CDN URL. Sanity serves WebP or AVIF when the browser supports it.
 export function img(ref: ImageRef | undefined, width: number, height?: number): string | undefined {
@@ -64,6 +83,9 @@ export type Artist = {
   photo?: ImageRef
   platforms?: Record<string, string>
   releases?: { title: string; year?: string; spotifyUrl?: string }[]
+  relationship?: 'current' | 'alumni' | 'hidden'
+  alumniPeriod?: string
+  alumniNote?: string
 }
 
 export type Project = {
@@ -95,9 +117,15 @@ export type Post = {
 }
 
 const artistFields = '..., "slug": slug.current'
+const withPhoto = (artist: Artist) => ({ ...artist, photo: photosOf(artist.slug)[0]?.src ?? artist.photo, bioParagraph2: artist.bioParagraph2 && correctText(artist.bioParagraph2) })
+
 export const getRoster = async () =>
-  (await query<Artist[]>(`*[_type == "artist" && slug.current in $slugs] | order(coalesce(order, 999) asc) { ${artistFields} }`, { slugs: rosterSlugs }))
-    .map((artist) => ({ ...artist, photo: officialPhotos[artist.slug] ?? artist.photo }))
+  (await query<Artist[]>(`*[_type == "artist" && (relationship == "current" || (!defined(relationship) && slug.current in $slugs))] | order(coalesce(order, 999) asc) { ${artistFields} }`, { slugs: rosterSlugs })).map(withPhoto)
+
+export const getAlumni = async () =>
+  (await query<Artist[]>(`*[_type == "artist" && (relationship == "alumni" || (!defined(relationship) && slug.current in $slugs))] | order(coalesce(order, 999) asc) { ${artistFields} }`, { slugs: alumniSlugs }))
+    .map(withPhoto)
+    .map((a) => ({ ...a, alumniNote: a.alumniNote ?? alumniNotes[a.slug] ?? 'A past SIRYUS A.M artist.' }))
 
 // Corrections confirmed by the owner on 2026-11-02 that are not yet made in the Studio. Winny Ezeme was a
 // facilitator in the first Indiba cohort, not one of its artists, and won The Gospel Icons Africa 2023.
@@ -105,9 +133,12 @@ export const getRoster = async () =>
 const corrections: [string, string][] = [
   ['Hidaya Morgan, Max Prodigy, Winny Ezeme, Couronne,', 'Hidaya Morgan, Max Prodigy, Couronne,'],
   ['Winny Ezeme, Gospel Icons Africa Season 1 winner, contributed her story and voice to the cohort as both artist and facilitator.', 'Winny Ezeme, winner of The Gospel Icons Africa 2023, joined as a facilitator and shared her journey as a gospel artist with the cohort.'],
+  // Hidaya Morgan's Studio bio still reads as if she is on the roster.
+  ['She is managed by SIRYUS A.M.', 'SIRYUS A.M managed and distributed her music for a year.'],
 ]
+const correctText = (text: string) => corrections.reduce((t, [from, to]) => t.replace(from, to), text)
 const correct = (blocks: Block[] = []) =>
-  blocks.map((b) => ({ ...b, children: b.children?.map((c) => ({ ...c, text: corrections.reduce((t, [from, to]) => t.replace(from, to), c.text) })) }))
+  blocks.map((b) => ({ ...b, children: b.children?.map((c) => ({ ...c, text: correctText(c.text) })) }))
 
 export const getProjects = async () =>
   (await query<Project[]>(`*[_type == "project" && slug.current in $slugs] | order(featured desc) { ..., "slug": slug.current }`, { slugs: projectSlugs }))

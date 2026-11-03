@@ -55,7 +55,7 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {noIndex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#ffffff" />
     <script is:inline>
       document.documentElement.classList.add('js')
       setTimeout(() => document.documentElement.classList.contains('motion-ready') || document.documentElement.classList.add('motion-fallback'), 2500)
@@ -87,7 +87,7 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
     <header class="nav" data-nav>
       <div class="nav-inner">
         <a class="brand" href="/" aria-label="SIRYUS A.M home">
-          <img src="/brand/mark.png" alt="" width="112" height="104" />
+          <img src="/brand/mark-dark.png" alt="" width="112" height="104" />
           <span>SIRYUS A.M</span>
         </a>
         <nav class="links" aria-label="Main">
@@ -103,24 +103,21 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
                   {services.filter((s) => s.group === g).map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}
                 </div>
               ))}
-              <div class="feature">
-                <p>Release packages for singles and EPs.</p>
+              <div class="pk">
+                <p>Two release packages that put the essentials together for a single or an EP.</p>
                 <a href="/packages">See the packages</a>
               </div>
             </div>
           </div>
           {nav.map(([label, href]) => <a href={href} aria-current={current(href) ? 'page' : undefined}>{label}</a>)}
         </nav>
-        <a class="btn solid nav-cta" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
-        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
+        <a class="btn nav-cta" href="/contact">Book a meeting</a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="sheet"><span>Menu</span><i aria-hidden="true"></i></button>
       </div>
     </header>
-    <div class="drawer" id="drawer">
+    <div class="sheet" id="sheet">
       <nav aria-label="Mobile">
-        <a href="/services">Services</a>
-        <a href="/packages">Packages</a>
-        {nav.map(([label, href]) => <a href={href}>{label}</a>)}
-        <a href="/contact">Book a meeting</a>
+        {[['Services', '/services'], ['Packages', '/packages'], ...nav, ['Book a meeting', '/contact']].map(([label, href], i) => <a href={href} style={`--i:${i}`}>{label}</a>)}
       </nav>
       <div class="sub">{services.map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}</div>
     </div>
@@ -134,7 +131,7 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
         <div class="footer-top">
           <div>
             <h2>Let's move your music.</h2>
-            <a class="btn" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+            <a class="btn" href="/contact">Book a meeting</a>
           </div>
           <div>
             <h3>Services</h3>
@@ -142,7 +139,7 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
           </div>
           <div>
             <h3>SIRYUS A.M</h3>
-            <nav aria-label="Footer">{nav.map(([label, href]) => <a href={href}>{label}</a>)}<a href="/contact">Contact</a></nav>
+            <nav aria-label="Footer">{nav.map(([label, href]) => <a href={href}>{label}</a>)}<a href="/artists#alumni">Alumni</a><a href="/contact">Contact</a></nav>
           </div>
           <div>
             <h3>Follow</h3>
@@ -172,13 +169,13 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
       const setOpen = (open: boolean) => {
         nav.classList.toggle('open', open)
         toggle.setAttribute('aria-expanded', String(open))
-        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
+        toggle.querySelector('span')!.textContent = open ? 'Close' : 'Menu'
         document.body.style.overflow = open ? 'hidden' : ''
       }
       toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')))
-      document.querySelectorAll('#drawer a').forEach((a) => a.addEventListener('click', () => setOpen(false)))
+      document.querySelectorAll('#sheet a').forEach((a) => a.addEventListener('click', () => setOpen(false)))
       addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false))
-      const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40)
+      const onScroll = () => nav.classList.toggle('scrolled', scrollY > 10)
       addEventListener('scroll', onScroll, { passive: true })
       onScroll()
     </script>

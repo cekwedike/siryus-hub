@@ -1,6 +1,8 @@
 ---
 import '../styles/site.css'
 import Return from '../../../../shared/astro/Return.astro'
+import Arrow from '../components/Arrow.astro'
+import Sig from '../components/Sig.astro'
 import { services } from '../data/services'
 
 interface Props {
@@ -52,14 +54,14 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {noIndex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
-    <meta name="theme-color" content="#0b0b0c" />
+    <meta name="theme-color" content="#1a1a1c" />
     <script is:inline>
       document.documentElement.classList.add('js')
       setTimeout(() => document.documentElement.classList.contains('motion-ready') || document.documentElement.classList.add('motion-fallback'), 2500)
     </script>
     <link rel="preload" href="/fonts/dm-serif-display.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
-    {preload && <link rel="preload" as="image" imagesrcset={`/images/${preload}-800.webp 800w, /images/${preload}-1600.webp 1600w`} imagesizes="(max-width: 62rem) 100vw, 28vw" fetchpriority="high" />}
+    {preload && <link rel="preload" as="image" imagesrcset={`/images/${preload}-800.webp 800w, /images/${preload}-1600.webp 1600w`} imagesizes="(max-width: 56rem) 40vw, 20vw" fetchpriority="high" />}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -86,7 +88,6 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
       <div class="nav-inner">
         <a class="brand" href="/" aria-label="SIGNAL. by SIRYUS home">
           <img src="/brand/signal/lockup-dark.webp" alt="" width="520" height="130" />
-          <span>SIGNAL.</span>
         </a>
         <nav class="links" aria-label="Main">
           <div class="drop">
@@ -94,29 +95,25 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
               Services
               <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
             </button>
-            <div class="panel" style="grid-template-columns:1fr 1fr 1.1fr">
-              <div>{services.slice(0, 3).map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}</div>
-              <div>{services.slice(3).map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}</div>
-              <div class="feature">
-                <p>Not sure where to start? Begin with the story.</p>
-                <a href="/services">All services</a>
-              </div>
+            <div class="panel">
+              {services.map((s) => <a href={`/services/${s.slug}`}><strong>{s.name}</strong><span>{s.short}</span></a>)}
             </div>
           </div>
           {nav.map(([label, href]) => <a href={href} aria-current={current(href) ? 'page' : undefined}>{label}</a>)}
         </nav>
-        <a class="btn solid nav-cta" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
-        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
+        <a class="btn nav-cta" href="/contact">Book a meeting <Arrow /></a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="side-menu"><span></span><span></span></button>
       </div>
     </header>
-    <div class="drawer" id="drawer">
+    <div class="scrim" data-scrim></div>
+    <aside class="side-menu" id="side-menu" aria-label="Menu">
       <nav aria-label="Mobile">
         <a href="/services">Services</a>
         {nav.map(([label, href]) => <a href={href}>{label}</a>)}
         <a href="/contact">Book a meeting</a>
       </nav>
       <div class="sub">{services.map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}</div>
-    </div>
+    </aside>
 
     <main id="main">
       <slot />
@@ -126,23 +123,19 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
       <div class="wrap">
         <div class="footer-top">
           <div>
-            <h2>Make your message matter.</h2>
-            <a class="btn" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+            <h2>Make your message matter<span class="pd">.</span></h2>
+            <a class="btn" href="/contact">Book a meeting <Arrow /></a>
           </div>
           <div>
             <h3>Services</h3>
             <nav aria-label="Services">{services.map((s) => <a href={`/services/${s.slug}`}>{s.name}</a>)}</nav>
           </div>
           <div>
-            <h3>SIGNAL.</h3>
-            <nav aria-label="Footer">{nav.map(([label, href]) => <a href={href}>{label}</a>)}<a href="/contact">Contact</a></nav>
-          </div>
-          <div>
-            <h3>New project?</h3>
-            <div class="list"><a href="mailto:signal@siryushub.com">signal@siryushub.com</a></div>
+            <h3><Sig /></h3>
+            <nav aria-label="Footer">{nav.map(([label, href]) => <a href={href}>{label}</a>)}<a href="/contact">Contact</a><a href="mailto:signal@siryushub.com">signal@siryushub.com</a></nav>
           </div>
         </div>
-        <p class="footer-mark" aria-hidden="true">SIGNAL.</p>
+        <p class="footer-mark" aria-hidden="true">SIGNAL<span class="pd">.</span></p>
         <div class="footer-base">
           <Return variant="footer" />
           <nav aria-label="Legal">
@@ -166,11 +159,9 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
         document.body.style.overflow = open ? 'hidden' : ''
       }
       toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')))
-      document.querySelectorAll('#drawer a').forEach((a) => a.addEventListener('click', () => setOpen(false)))
+      document.querySelector('[data-scrim]')!.addEventListener('click', () => setOpen(false))
+      document.querySelectorAll('#side-menu a').forEach((a) => a.addEventListener('click', () => setOpen(false)))
       addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false))
-      const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40)
-      addEventListener('scroll', onScroll, { passive: true })
-      onScroll()
     </script>
   </body>
   <Fragment set:html={'<!--/email_off-->'} />

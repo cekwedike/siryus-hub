@@ -42,18 +42,19 @@ const cards = {
     <style>${base}
       @font-face{font-family:Cenzo;src:url('${pub('am', 'fonts', 'cenzo.woff2')}')}
       @font-face{font-family:Montserrat;src:url('${pub('am', 'fonts', 'montserrat.woff2')}');font-weight:400 800}
-      body{background:#d1f344;color:#313131;font-family:Montserrat,Arial,sans-serif;display:grid;grid-template-columns:660px 1fr;position:relative}
-      body::after{content:'';position:absolute;inset:0 0 0 auto;width:470px;background:#313131;clip-path:polygon(26% 0,100% 0,100% 100%,0 100%);z-index:-1}
+      body{background:#fff;color:#000;font-family:Montserrat,Arial,sans-serif;display:grid;grid-template-columns:640px 1fr}
       .copy{padding:60px 0 56px 72px;display:flex;flex-direction:column;justify-content:space-between}
-      .brand{display:flex;align-items:center;gap:16px;font:30px Cenzo,Impact,sans-serif;letter-spacing:.02em}.brand img{width:62px;background:#313131;padding:8px;border-radius:12px}
-      h1{font:78px/.95 Cenzo,Impact,sans-serif;letter-spacing:-.01em}
-      .url{font-size:22px;font-weight:700}
-      .media{display:grid;place-items:center;padding-right:40px}
-      .hex{width:430px;aspect-ratio:1/.866;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);overflow:hidden}
-      .hex img{width:100%;height:100%;object-fit:cover}
+      .brand{display:flex;align-items:center;gap:14px;font:30px Cenzo,Impact,sans-serif;letter-spacing:.02em}.brand img{width:54px}
+      h1{font:104px/.86 Cenzo,Impact,sans-serif;letter-spacing:-.02em}
+      .url{font-size:22px;font-weight:700;border-top:2px solid #000;padding-top:18px}
+      .media{position:relative}
+      .disc{position:absolute;left:150px;top:112px;width:380px;height:380px;border-radius:50%;background:repeating-radial-gradient(circle,#0b0b0b 0 1.2px,#1c1c1c 1.6px 2.6px)}
+      .disc::after{content:'';position:absolute;inset:33%;border-radius:50%;background:#fff}
+      .sleeve{position:absolute;left:24px;top:100px;width:404px;height:404px;overflow:hidden;box-shadow:0 30px 50px -24px rgba(0,0,0,.5);transform:rotate(-3deg)}
+      .sleeve img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06)}
     </style>
-    <div class="copy"><p class="brand"><img src="${pub('am', 'brand', 'mark.png')}">SIRYUS A.M</p><h1>Your music, managed end to end.</h1><p class="url">artists.siryushub.com</p></div>
-    <div class="media"><div class="hex"><img src="${pub('am', 'images', 'artists', 'max-prodigy.webp')}"></div></div>`,
+    <div class="copy"><p class="brand"><img src="${pub('am', 'brand', 'mark-dark.png')}">SIRYUS A.M</p><h1>We move music.</h1><p class="url">artists.siryushub.com</p></div>
+    <div class="media"><div class="disc"></div><div class="sleeve"><img src="${pub('am', 'images', 'artists', 'max-prodigy-2-1200.webp')}"></div></div>`,
 
   signal: `
     <style>${base}

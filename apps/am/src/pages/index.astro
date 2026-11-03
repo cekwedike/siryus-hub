@@ -1,187 +1,241 @@
 ---
 import Site from '../layouts/Site.astro'
-import Cosmos from '../components/Cosmos.astro'
-import Marquee from '../components/Marquee.astro'
-import Ring from '../components/Ring.astro'
-import Wave from '../components/Wave.astro'
+import Disc from '../components/Disc.astro'
+import Ticker from '../components/Ticker.astro'
 import Releases from '../components/Releases.astro'
-import { getRoster, getProjects, getPosts, img, srcset, date } from '../lib/sanity'
-import { services, packages } from '../data/services'
+import { getRoster, getAlumni, getProjects, getPosts, photosOf, date } from '../lib/sanity'
+import { services, packages, groups, groupLines } from '../data/services'
 
-const [roster, projects, posts] = await Promise.all([getRoster(), getProjects(), getPosts()])
+const [roster, alumni, projects, posts] = await Promise.all([getRoster(), getAlumni(), getProjects(), getPosts()])
 const indiba = projects.find((p) => p.slug === 'indiba-project-series')
-const heroShots = ['/images/scenes/singer-stage-1600.webp', ...roster.map((a) => img(a.photo, 640)!)]
+// The hero sleeve cycles through the current roster, two portraits each.
+const sleeve = roster.flatMap((a) => photosOf(a.slug).slice(0, 2).map((p) => ({ ...p, name: a.name })))
 const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
+const letters = ['A', 'B', 'C']
 ---
 <Site
   title="SIRYUS A.M"
   description="SIRYUS A.M is a music management company and creative collective. Release strategy, playlist pitching, content, marketing, artist branding and distribution for independent artists."
 >
   <section class="hero" data-scrub>
-    <Cosmos />
-    <p class="hero-ghost" aria-hidden="true" data-speed="-0.15">A.M</p>
-    <div class="hero-stage" data-speed="0.08">
-      <div class="hero-hex" data-rotate>
-        {heroShots.map((src, i) => (
-          <img class={i === 0 ? 'on' : undefined} src={src} alt="" width="800" height="800" fetchpriority={i === 0 ? 'high' : undefined} loading={i === 0 ? 'eager' : 'lazy'} />
-        ))}
-      </div>
-      <div class="hero-ring"><Ring /></div>
-    </div>
-    <div class="wrap hero-copy">
-      <h1 data-split>We move music.</h1>
-      <div class="hero-sub">
-        <p data-reveal style="--d:4">SIRYUS A.M is a music management company and creative collective. We plan releases, pitch to playlists, build content and run the marketing, so the right people hear your music.</p>
-        <div class="hero-actions" data-reveal style="--d:6">
-          <a class="btn solid" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a>
-          <a class="btn" href="/services">Explore services</a>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <h1 data-split>We move music.</h1>
+          <p class="hero-lede" data-reveal style="--d:4">SIRYUS A.M is a music management company and creative collective. We plan releases, pitch to playlists, build content and run the marketing, so the right people hear your music.</p>
+          <div class="actions" data-reveal style="--d:6">
+            <a class="btn" href="/contact">Book a meeting</a>
+            <a class="more" href="/services">Explore services</a>
+          </div>
+        </div>
+        <div class="stage" data-reveal style="--d:2">
+          <div class="disc-slot"><Disc /></div>
+          <div class="sleeve" data-sleeve>
+            {sleeve.map((shot, i) => (
+              <img class={i === 0 ? 'on bw' : 'bw'} src={shot.large ?? shot.src} alt={shot.alt} width="640" height="640" data-name={shot.name} fetchpriority={i === 0 ? 'high' : undefined} loading={i === 0 ? 'eager' : 'lazy'} />
+            ))}
+            <p class="cap"><span><strong data-sleeve-name>{sleeve[0]?.name}</strong>On the SIRYUS A.M roster</span></p>
+          </div>
         </div>
       </div>
-    </div>
-    <span class="scroll-cue" aria-hidden="true">Scroll</span>
-    <Wave />
-  </section>
-
-  <Marquee items={services.map((s) => s.name)} />
-
-  <section class="section white">
-    <Cosmos />
-    <div class="wrap statement-row">
-      <p class="statement" data-split>Great songs don't find people by accident. We plan the path from release day to the long run.</p>
-      <div class="side" data-reveal>
-        <p>From a single to a full EP, from your first release to your next big move. Tell us where you are and we will show you the way forward.</p>
-        <a class="btn solid" href="/about">About SIRYUS A.M</a>
+      <div class="now" aria-hidden="true">
+        <span class="eq">{Array.from({ length: 5 }, (_, i) => <b style={`--i:${i}`}></b>)}</span>
+        <span>Now playing</span>
+        <span class="bar"><i data-sleeve-bar></i></span>
+        <span data-sleeve-count>01 / {String(sleeve.length).padStart(2, '0')}</span>
       </div>
     </div>
   </section>
+
+  <Ticker items={services.map((s) => s.name)} />
 
   <section class="section" aria-labelledby="svc-title">
     <div class="wrap">
-      <div class="head">
-        <h2 id="svc-title" data-split>What we do for artists.</h2>
-        <p data-reveal>Book one service or bring us in for the whole release. Every service starts with a conversation.</p>
+      <div class="title">
+        <h2 id="svc-title" data-split>The tracklist.</h2>
+        <p data-reveal>Nine services in three sides. Book one, or bring us in for the whole release. Every service starts with a meeting.</p>
       </div>
-      <ul class="svc-list" data-preview>
-        {services.map((s) => (
-          <li data-reveal>
-            <a href={`/services/${s.slug}`} data-img={`/images/scenes/${s.image}-800.webp`}>
-              <span class="grp">{s.group}</span>
-              <h3>{s.name}</h3>
-              <p>{s.line}</p>
-              <span class="go" set:html={arrow} />
-            </a>
-          </li>
+      <div class="sides">
+        {groups.map((g, gi) => (
+          <div class="side">
+            <div class="side-head" data-reveal>
+              <span class="glyph" aria-hidden="true">{letters[gi]}</span>
+              <h3>Side {letters[gi]}: {g}</h3>
+              <p>{groupLines[g]}</p>
+            </div>
+            <ul class="tracks">
+              {services.filter((s) => s.group === g).map((s, i) => (
+                <li class="track" data-reveal style={`--d:${i}`}>
+                  <a href={`/services/${s.slug}`}>
+                    <h4>{s.name}</h4>
+                    <p>{s.line}</p>
+                    <span class="go" set:html={arrow} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   </section>
 
-  <section class="section light" aria-labelledby="pack-title">
-    <div class="wrap">
-      <div class="head">
-        <h2 id="pack-title" data-split>Release packages.</h2>
-        <p data-reveal>Put the essentials together for one release. We shape each package around your music in a short meeting.</p>
+  <section aria-labelledby="roster-title">
+    <div class="wrap section" style="padding-bottom:clamp(2.5rem,5vw,4rem)">
+      <div class="title" style="margin:0">
+        <h2 id="roster-title" data-split>The roster.</h2>
+        <p data-reveal>A small roster on purpose. Every artist gets real time and a plan built around who they are.</p>
       </div>
-      <div class="packages">
+    </div>
+    <div class="stack">
+      {roster.map((a) => {
+        const shot = photosOf(a.slug)[0]
+        return (
+          <article class="panel-artist">
+            <div class="shot"><img class="bw" src={shot?.src ?? String(a.photo)} alt={shot?.alt ?? a.name} width="640" height="640" loading="lazy" decoding="async" /></div>
+            <div class="info">
+              <div>
+                <h3>{a.name}</h3>
+                <p class="genre">{[...(a.genre ?? []), a.location].filter(Boolean).join(', ')}</p>
+              </div>
+              <p class="line">{a.oneLiner}</p>
+              <div class="actions"><a class="btn" href={`/artists/${a.slug}`}>Meet {a.name}</a></div>
+            </div>
+          </article>
+        )
+      })}
+    </div>
+  </section>
+
+  <section class="section smoke" aria-labelledby="pack-title">
+    <div class="wrap">
+      <div class="title">
+        <h2 id="pack-title" data-split>Release packages.</h2>
+        <p data-reveal>The essentials for one release, put together. We shape each package around your music in a short meeting.</p>
+      </div>
+      <div class="packs" data-reveal>
         {packages.map((p, i) => (
-          <article class="pack" data-reveal style={`--d:${i}`}>
-            <span class="tag">{i === 0 ? 'For a single' : 'For an EP'}</span>
+          <article class="pack">
+            <p class="for">{i === 0 ? 'For a single' : 'For an EP'}</p>
             <h3>{p.name}</h3>
             <p>{p.line}</p>
             <ul>{p.includes.map((x) => <li>{x}</li>)}</ul>
-            <a class="btn solid" href={`/contact?service=${p.slug}`}><span class="dot" aria-hidden="true"></span>Book a meeting</a>
-            <span class="big" aria-hidden="true">{i === 0 ? '01' : 'EP'}</span>
+            <a class="btn" href={`/contact?service=${p.slug}`}>Book a meeting</a>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="roster-title">
+  <section class="section" aria-labelledby="music-title">
     <div class="wrap">
-      <div class="head">
-        <h2 id="roster-title" data-split>The roster.</h2>
-        <p data-reveal>A small roster on purpose. Every artist gets real time and a plan built around who they are.</p>
-      </div>
-      <div class="roster">
-        {roster.map((a) => (
-          <a class="artist" href={`/artists/${a.slug}`} data-reveal>
-            <div class="frame"><img src={img(a.photo, 900)} alt={a.name} width="640" height="640" loading="lazy" decoding="async" data-speed="0.06" /></div>
-            <h3>{a.name}</h3>
-            <div class="meta">
-              <p class="line">{a.oneLiner}</p>
-              <ul class="chips">{a.genre?.map((g) => <li>{g}</li>)}</ul>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section white" aria-labelledby="music-title">
-    <div class="wrap">
-      <div class="head">
-        <h2 id="music-title" data-split>We make music too.</h2>
-        <p data-reveal>SIRYUS A.M is also a creative collective with its own releases, made with artists we believe in.</p>
+      <div class="title">
+        <h2 id="music-title" data-split>We make records too.</h2>
+        <p data-reveal>SIRYUS A.M is also a creative collective with its own releases on every major platform, made with artists we believe in.</p>
       </div>
       <Releases />
     </div>
   </section>
 
-  {indiba && (
-    <section class="feature" aria-labelledby="indiba-title">
-      <div class="bg" data-speed="0.12"><img src="/images/scenes/crowd-lights-1600.webp" srcset="/images/scenes/crowd-lights-800.webp 800w, /images/scenes/crowd-lights-1600.webp 1600w" sizes="100vw" alt="" width="1600" height="1067" loading="lazy" /></div>
+  {alumni.length > 0 && (
+    <section class="section ink" id="alumni" aria-labelledby="alumni-title">
       <div class="wrap">
-        <h2 id="indiba-title" data-split>The Indiba Project Series.</h2>
-        <div data-reveal>
-          <p>{indiba.excerpt}</p>
-          <a class="btn" href="/projects/indiba-project-series">Discover Indiba</a>
+        <div class="title">
+          <h2 id="alumni-title" data-split>Alumni.</h2>
+          <p data-reveal>Artists we have managed and released with before. The work stays part of our story.</p>
         </div>
+        {alumni.slice(0, 1).map((a) => {
+          const shots = photosOf(a.slug)
+          return (
+            <article class="alumni">
+              <div class="shots" data-reveal>
+                {shots.slice(0, 2).map((s) => <img class="bw" src={s.src} alt={s.alt} width="640" height="640" loading="lazy" decoding="async" />)}
+              </div>
+              <div data-reveal style="--d:2">
+                <h3>{a.name}</h3>
+                <p class="note">{a.alumniNote}{a.alumniPeriod ? ` ${a.alumniPeriod}.` : ''}</p>
+                <p class="bio">{a.oneLiner} {a.bioParagraph1?.split('. ').slice(1, 2).join('')}.</p>
+                <a class="btn" href={`/artists/${a.slug}`}>Read {a.name}'s profile</a>
+              </div>
+            </article>
+          )
+        })}
+        {alumni.length > 1 && (
+          <div class="alumni-list">{alumni.slice(1).map((a) => <a href={`/artists/${a.slug}`}><span>{a.name}</span><span set:html={arrow} /></a>)}</div>
+        )}
+      </div>
+    </section>
+  )}
+
+  {indiba && (
+    <section class="section indiba" data-scrub aria-labelledby="indiba-title">
+      <p class="big" aria-hidden="true">Indiba <span>Project</span> Series</p>
+      <div class="wrap body">
+        <h2 id="indiba-title" class="sr">The Indiba Project Series</h2>
+        <p data-reveal>{indiba.excerpt}</p>
+        <div data-reveal style="--d:1"><a class="btn line" href="/projects/indiba-project-series">Discover Indiba</a></div>
       </div>
     </section>
   )}
 
   {posts.length > 0 && (
-    <section class="section" aria-labelledby="journal-title">
+    <section class="section smoke" aria-labelledby="journal-title">
       <div class="wrap">
-        <div class="head">
+        <div class="title">
           <h2 id="journal-title" data-split>From the journal.</h2>
-          <p data-reveal><a class="btn" href="/journal">All articles</a></p>
+          <p data-reveal><a class="more" href="/journal">All articles</a></p>
         </div>
-        <div class="cards">
-          {posts.map((post, i) => (
-            <a class="card" href={`/journal/${post.slug}`} data-reveal style={`--d:${i}`}>
-              <div class="img"><img src={img(post.coverImage, 720, 540)} srcset={srcset(post.coverImage, [420, 720], 0.75)} sizes="(max-width: 38rem) 92vw, 30vw" alt="" width="720" height="540" loading="lazy" decoding="async" /></div>
-              <p class="meta">{post.category} · {date(post.publishedAt)}</p>
-              <h3>{post.title}</h3>
-            </a>
+        <ul class="notes">
+          {posts.map((post) => (
+            <li class="note-row" data-reveal>
+              <a href={`/journal/${post.slug}`}>
+                <time datetime={post.publishedAt}>{date(post.publishedAt)}</time>
+                <h3>{post.title}</h3>
+                <span class="go" set:html={arrow} />
+                {post.excerpt && <p>{post.excerpt}</p>}
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )}
 
-  <section class="cta white" aria-labelledby="cta-title">
-    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+  <section class="ink final" aria-labelledby="cta-title">
     <div class="wrap">
-      <h2 id="cta-title" data-split>Have a release coming?</h2>
-      <p data-reveal>Book a meeting with the team. Tell us about the music and we will plan the next move together.</p>
-      <a class="btn solid" href="/contact" data-reveal><span class="dot" aria-hidden="true"></span>Book a meeting</a>
+      <h2 id="cta-title" data-split><a href="/contact">Book a meeting.</a></h2>
+      <div class="row">
+        <p data-reveal>Have a release coming? Tell us about the music and we will plan the next move together.</p>
+        <a class="more" href="mailto:management@siryushub.com" data-reveal>management@siryushub.com</a>
+      </div>
     </div>
   </section>
 </Site>
 
 <script>
-  // Cycle the hero portraits slowly. Skipped when motion is reduced.
-  const frame = document.querySelector('[data-rotate]')
-  const shots = frame ? [...frame.querySelectorAll('img')] : []
-  if (shots.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  // Turn the sleeve: crossfade portraits, update the name and run the progress bar. Skipped with reduced motion.
+  const sleeve = document.querySelector<HTMLElement>('[data-sleeve]')
+  const shots = sleeve ? [...sleeve.querySelectorAll<HTMLImageElement>('img')] : []
+  const name = document.querySelector<HTMLElement>('[data-sleeve-name]')
+  const bar = document.querySelector<HTMLElement>('[data-sleeve-bar]')
+  const count = document.querySelector<HTMLElement>('[data-sleeve-count]')
+  const total = String(shots.length).padStart(2, '0')
+  if (shots.length > 1 && bar && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     let i = 0
-    setInterval(() => {
-      if (document.hidden) return
+    const run = () => {
+      bar.classList.remove('run')
+      void bar.offsetWidth
+      bar.classList.add('run')
+    }
+    run()
+    bar.addEventListener('animationend', () => {
+      if (document.hidden) return run()
       shots[i].classList.remove('on')
       i = (i + 1) % shots.length
       shots[i].classList.add('on')
-    }, 5200)
+      if (name) name.textContent = shots[i].dataset.name ?? ''
+      if (count) count.textContent = `${String(i + 1).padStart(2, '0')} / ${total}`
+      run()
+    })
   }
 </script>

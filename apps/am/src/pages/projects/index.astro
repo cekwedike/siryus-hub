@@ -1,32 +1,26 @@
 ---
 import Site from '../../layouts/Site.astro'
-import Cosmos from '../../components/Cosmos.astro'
-import { getProjects } from '../../lib/sanity'
+import { getProjects, img } from '../../lib/sanity'
 
 const projects = await getProjects()
-// Project artwork carries its own text, so headlines sit over music scenes instead; the artwork is shown on each project page.
-const scene: Record<string, string> = { 'indiba-project-series': 'concert', 'the-abditory-sessions': 'condenser-mic' }
 ---
 <Site title="Projects" description="SIRYUS A.M projects: the Indiba Project Series music incubator for independent African artists, and The Abditory Sessions.">
-  <header class="page-hero">
-    <Cosmos />
-    <div class="wrap" style="position:relative">
+  <header class="phero">
+    <div class="wrap grid">
       <h1 data-split>Projects that build careers.</h1>
       <p class="lede" data-reveal>Some of our best work happens when artists are in the room together. These projects are where that happens.</p>
     </div>
   </header>
   {projects.map((p, i) => (
-    <section class="feature" aria-labelledby={`p-${p.slug}`}>
-      <div class="bg" data-speed="0.12"><img src={`/images/scenes/${scene[p.slug] ?? 'concert'}-1600.webp`} srcset={`/images/scenes/${scene[p.slug] ?? 'concert'}-800.webp 800w, /images/scenes/${scene[p.slug] ?? 'concert'}-1600.webp 1600w`} sizes="100vw" alt="" width="1600" height="1067" loading={i === 0 ? 'eager' : 'lazy'} /></div>
-      <div class="wrap">
+    <section class:list={['section', i % 2 === 1 && 'smoke']} aria-labelledby={`p-${p.slug}`}>
+      <div class="wrap split" style="align-items:center">
         <div>
-          <ul class="chips" data-reveal style="margin-bottom:1.2rem">{[p.status, p.category].filter(Boolean).map((t) => <li>{t}</li>)}</ul>
-          <h2 id={`p-${p.slug}`} data-split>{p.title}</h2>
+          <p class="facts" data-reveal>{[p.status, p.category, p.year].filter(Boolean).map((t) => <span>{t}</span>)}</p>
+          <h2 id={`p-${p.slug}`} data-split style="font-size:clamp(2.6rem,6vw,5.6rem)">{p.title}</h2>
+          <p data-reveal>{p.excerpt}</p>
+          <div class="actions" data-reveal style="margin-top:1.8rem"><a class="btn" href={`/projects/${p.slug}`}>Read more</a></div>
         </div>
-        <div data-reveal>
-          <p>{p.excerpt}</p>
-          <a class="btn" href={`/projects/${p.slug}`}>Read more</a>
-        </div>
+        {p.coverImage && <img class="artwork" src={img(p.coverImage, 900)} alt={`${p.title} artwork`} width="900" height="570" loading={i === 0 ? 'eager' : 'lazy'} data-reveal />}
       </div>
     </section>
   ))}

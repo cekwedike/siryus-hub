@@ -42,10 +42,10 @@ function formatWhen(isoStart: string, isoEnd: string | null) {
     });
     const timeOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
     if (!end) {
-      return `${datePart} · ${start.toLocaleTimeString('en-US', timeOpts)}`;
+      return `${datePart}, ${start.toLocaleTimeString('en-US', timeOpts)}`;
     }
     if (sameDay) {
-      return `${datePart} · ${start.toLocaleTimeString('en-US', timeOpts)} – ${end.toLocaleTimeString('en-US', timeOpts)}`;
+      return `${datePart}, ${start.toLocaleTimeString('en-US', timeOpts)} – ${end.toLocaleTimeString('en-US', timeOpts)}`;
     }
     return `${start.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })} – ${end.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })}`;
   } catch {
@@ -101,12 +101,8 @@ function coverSrc(e: ArcEventSummary) {
       <div class="blog-inner blog-hero__shell">
         <div class="morph-hero-glass-panel blog-hero__glass" style="max-width: 50rem;">
           <div class="blog-hero__inner" style="padding: 2rem 1.75rem;">
-            <span class="blog-hero__label">ARC</span>
             <h1 id="arc-events-hero-heading" class="blog-hero__title">Events &amp; gatherings.</h1>
             <p class="blog-hero__sub">Workshops, meetups, and space to show up for your craft and your faith.</p>
-            <p class="blog-hero__sub" style="margin-top: 0.75rem;">
-              <a href="/" style="color: inherit; text-decoration: none;">← Back to ARC</a>
-            </p>
           </div>
         </div>
       </div>
@@ -247,7 +243,7 @@ function coverSrc(e: ArcEventSummary) {
                 </p>
                 <div class="arc-empty-state__foot">
                   <a href="/arc/blog">Read the journal</a>
-                  <span aria-hidden="true">·</span>
+                  <span aria-hidden="true">/</span>
                   <a href="/">ARC home</a>
                 </div>
               </div>

@@ -35,5 +35,13 @@ const { title, description, path } = Astro.props
         </nav>
       </footer>
     </div>
+    <script>
+      // Label every cell with its column name so tables can stack on small screens.
+      document.querySelectorAll<HTMLTableElement>('.legal table').forEach((table) => {
+        const labels = [...table.querySelectorAll('thead th')].map((th) => th.textContent ?? '')
+        table.querySelectorAll('tbody tr').forEach((row) => [...row.children].forEach((cell, i) => cell.setAttribute('data-label', labels[i] ?? '')))
+        table.classList.add('stack')
+      })
+    </script>
   </body>
 </html>

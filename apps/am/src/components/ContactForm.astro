@@ -19,7 +19,7 @@ const options = [...services.map((s) => [s.slug, s.name]), ...packages.map((p) =
   <div class="trap" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
   <input type="hidden" name="started" value="" />
   <p class="full"><small>We use these details only to reply and arrange your meeting. See our <a href="https://siryushub.com/privacy-policy">privacy policy</a>.</small></p>
-  <button class="btn solid" type="submit"><span class="dot" aria-hidden="true"></span>Request a meeting</button>
+  <button class="btn" type="submit">Request a meeting</button>
 </form>
 <script>
   const form = document.querySelector<HTMLFormElement>('[data-contact]')

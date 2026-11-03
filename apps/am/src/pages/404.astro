@@ -1,28 +1,28 @@
 ---
 import Site from '../layouts/Site.astro'
-import Cosmos from '../components/Cosmos.astro'
+import Disc from '../components/Disc.astro'
 
+const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
 const tracks = [
   ['Services', 'Release, grow and build', '/services'],
   ['Artists', 'Meet the roster', '/artists'],
-  ['Music', 'Releases from the collective', '/music'],
+  ['Music', 'Records from the collective', '/music'],
   ['Book a meeting', 'Talk to the team', '/contact'],
 ]
 ---
 <Site noIndex title="Page not found" description="This page moved or never existed. Find your way back to SIRYUS A.M.">
   <section class="lost">
-    <Cosmos />
-    <div class="wrap">
+    <div class="wrap grid">
       <div>
         <h1 data-split>This track isn't on the record.</h1>
         <p data-reveal>The page moved or never existed. Pick another track and keep listening.</p>
-        <ol class="tracklist">
+        <ul class="tracks">
           {tracks.map(([name, note, href]) => (
-            <li data-reveal><a href={href}><span><strong>{name}</strong><small>{note}</small></span><span></span></a></li>
+            <li class="track" data-reveal><a href={href}><h2 class="display" style="font-size:clamp(1.45rem,2.6vw,2.2rem);line-height:1">{name}</h2><p>{note}</p><span class="go" set:html={arrow} /></a></li>
           ))}
-        </ol>
+        </ul>
       </div>
-      <div class="record" aria-hidden="true"></div>
+      <div class="disc-wrap"><Disc /></div>
     </div>
   </section>
 </Site>

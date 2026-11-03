@@ -1,61 +1,46 @@
 ---
 import Site from '../../layouts/Site.astro'
-import Cosmos from '../../components/Cosmos.astro'
-import { services, packages, groups, groupLines } from '../../data/services'
+import Disc from '../../components/Disc.astro'
+import { services, groups, groupLines } from '../../data/services'
 
-const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
 const schema = services.map((s) => ({ '@type': 'Service', name: s.name, description: s.intro, url: new URL(`/services/${s.slug}`, Astro.site).href, provider: { '@id': 'https://artists.siryushub.com/#organization' } }))
 ---
 <Site title="Services" description="Music services from SIRYUS A.M: distribution, release strategy, playlist pitching, content strategy, marketing plans, campaign management, artist branding, career sessions and artist management." schema={schema}>
-  <header class="page-hero">
-    <Cosmos />
-    <div class="wrap" style="position:relative">
-      <h1 data-split>Services for every stage.</h1>
-      <p class="lede" data-reveal>Release, grow and build. Pick the service you need now, or let us put a full plan together for your next release.</p>
-      <div class="actions" data-reveal><a class="btn solid" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a><a class="btn" href="/packages">See packages</a></div>
+  <header class="phero">
+    <div class="wrap grid">
+      <div>
+        <h1 data-split>Services for every stage.</h1>
+        <p class="lede" data-reveal style="margin-top:1.6rem">Release, grow and build. Pick the service you need now, or let us put a full plan together for your next release.</p>
+        <div class="actions" data-reveal style="margin-top:1.8rem"><a class="btn" href="/contact">Book a meeting</a><a class="more" href="/packages">See packages</a></div>
+      </div>
+      <div class="mini"><Disc /></div>
     </div>
   </header>
 
   {groups.map((g, gi) => (
-    <section class:list={['section', gi % 2 === 0 ? 'white' : '']} aria-labelledby={`g-${g}`}>
+    <section class:list={['section', gi === 1 && 'smoke']} aria-labelledby={`g-${g}`}>
       <div class="wrap">
-        <div class="head">
+        <div class="title">
           <h2 id={`g-${g}`} data-split>{g}.</h2>
           <p data-reveal>{groupLines[g]}</p>
         </div>
-        <ul class="svc-list" data-preview>
-          {services.filter((s) => s.group === g).map((s) => (
-            <li data-reveal>
-              <a href={`/services/${s.slug}`} data-img={`/images/scenes/${s.image}-800.webp`}>
-                <span class="grp">{g}</span>
-                <h3>{s.name}</h3>
-                <p>{s.line}</p>
-                <span class="go" set:html={arrow} />
-              </a>
-            </li>
+        <div class="svc-grid">
+          {services.filter((s) => s.group === g).map((s, i) => (
+            <a class="svc" href={`/services/${s.slug}`} data-reveal style={`--d:${i}`}>
+              <h3>{s.name}</h3>
+              <p>{s.line}</p>
+              <span class="grp">Read more</span>
+            </a>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   ))}
 
-  <section class="section light" aria-labelledby="pk">
-    <div class="wrap">
-      <div class="head">
-        <h2 id="pk" data-split>Or take a package.</h2>
-        <p data-reveal>Release packages bring the essentials together for a single or an EP.</p>
-      </div>
-      <div class="packages">
-        {packages.map((p, i) => (
-          <article class="pack" data-reveal style={`--d:${i}`}>
-            <span class="tag">{i === 0 ? 'For a single' : 'For an EP'}</span>
-            <h3>{p.name}</h3>
-            <p>{p.line}</p>
-            <ul>{p.includes.map((x) => <li>{x}</li>)}</ul>
-            <a class="btn solid" href={`/contact?service=${p.slug}`}><span class="dot" aria-hidden="true"></span>Book a meeting</a>
-          </article>
-        ))}
-      </div>
+  <section class="section ink" aria-labelledby="pk">
+    <div class="wrap band">
+      <h2 id="pk" data-split>Or take a package for your next single or EP.</h2>
+      <div class="actions" data-reveal><a class="btn" href="/packages">See the packages</a></div>
     </div>
   </section>
 </Site>

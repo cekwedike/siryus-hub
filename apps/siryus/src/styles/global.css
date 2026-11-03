@@ -10,7 +10,7 @@
   --paper: #ffffff;
   --ink: #000000;
   --on-image: #ffffff;
-  --am: #d8f23a;
+  --am: #ffffff;
   --arc: #f27930;
   --signal: #e32620;
   --pavo: #ffffff;
@@ -115,7 +115,7 @@ img { display: block; max-width: 100%; }
 .arc .name { font: 600 clamp(1.2rem, 2.25cqi, 2.5rem)/1.02 Unbounded, 'Arial Black', sans-serif; letter-spacing: -.02em; }
 .signal .name { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.7rem, 3.4cqi, 3.8rem); letter-spacing: -.02em; }
 .pavo .name { font: 700 clamp(1.4rem, 2.8cqi, 3.1rem)/.98 Sora, 'Helvetica Neue', Arial, sans-serif; letter-spacing: -.04em; }
-.period { display: inline-block; width: .2em; height: .2em; margin-left: .06em; border-radius: 50%; background: var(--signal); }
+.period { color: var(--signal); }
 .note { display: block; margin-top: .65rem; font-size: clamp(.78rem, .95cqi, .92rem); line-height: 1.4; max-width: 30ch; }
 .go { display: inline-flex; align-items: center; gap: .35rem; margin-top: 1rem; font-size: .74rem; font-weight: 800; letter-spacing: .01em; padding-bottom: .3rem; background: linear-gradient(var(--accent), var(--accent)) left bottom / 1.25rem 2px no-repeat; transition: background-size .5s var(--ease); }
 .ticks { display: flex; gap: .3rem; margin-top: 1rem; }
@@ -147,7 +147,7 @@ img { display: block; max-width: 100%; }
 .lost .pavo { --accent: var(--ink); }
 .lost-world .go { margin-top: 0; }
 .lost-world:hover .go, .lost-world:focus-visible .go { background-size: 100% 2px; }
-.home { margin-top: clamp(1.75rem, 4vh, 2.75rem); padding: .9rem 1.5rem; border: 1px solid var(--ink); border-radius: 999px; font-size: .85rem; font-weight: 800; text-decoration: none; transition: background-color .3s, color .3s; }
+.home { margin-top: clamp(1.75rem, 4vh, 2.75rem); padding: .9rem 1.5rem; border: 1px solid var(--ink); border-radius: 0; font-size: .85rem; font-weight: 800; text-decoration: none; transition: background-color .3s, color .3s; }
 .home:hover, .home:focus-visible { background: var(--ink); color: var(--paper); }
 
 @keyframes rise { from { opacity: 0; transform: translateY(2.5rem); } to { opacity: 1; transform: none; } }
@@ -229,9 +229,9 @@ img { display: block; max-width: 100%; }
 .legal-links { display: flex; gap: 1rem; font-size: .75rem; }
 .legal-links a { text-decoration: none; }
 .legal-links a:hover, .legal-links a:focus-visible { text-decoration: underline; }
-.legal-shell { min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; }
+.legal-shell { min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr); }
 .legal-shell .home { margin-top: 0; }
-.legal { width: 100%; max-width: 44rem; margin: 0 auto; padding: clamp(2rem, 6vh, 4rem) var(--gutter) 5rem; }
+.legal { width: 100%; min-width: 0; max-width: 44rem; overflow-wrap: break-word; margin: 0 auto; padding: clamp(2rem, 6vh, 4rem) var(--gutter) 5rem; }
 .legal h1 { margin: 0 0 .75rem; font: 400 clamp(2.4rem, 5vw, 3.6rem)/1.05 Marcellus, 'Times New Roman', serif; }
 .legal h2 { margin: 2.5rem 0 .6rem; font: 400 1.45rem/1.2 Marcellus, 'Times New Roman', serif; }
 .legal p, .legal li { font-size: 1rem; line-height: 1.7; }
@@ -245,10 +245,20 @@ img { display: block; max-width: 100%; }
 .legal h3 { margin: 1.6rem 0 .4rem; font-size: 1.05rem; font-weight: 800; }
 .legal ul, .legal ol { padding-left: 1.25rem; }
 .legal li + li { margin-top: .35rem; }
-.legal .toc { margin: 2rem 0 0; padding: 1.25rem 1.5rem; border: 1px solid currentColor; border-radius: .5rem; columns: 2 14rem; }
+.legal .toc { margin: 2rem 0 0; padding: 1.25rem 1.5rem 1.25rem 2.6rem; border: 1px solid currentColor; border-radius: .5rem; columns: 2 14rem; }
 .legal .toc li { break-inside: avoid; }
 .legal .table { overflow-x: auto; margin: 1rem 0; }
 .legal table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 34rem; }
 .legal th, .legal td { text-align: left; vertical-align: top; padding: .65rem .75rem; border-bottom: 1px solid rgb(0 0 0 / .14); }
 .legal th { font-weight: 800; }
+/* On phones each table row becomes a stacked card; the column name comes from data-label (set in Legal.astro). */
+@media (max-width: 40rem) {
+  .legal table.stack { min-width: 0; }
+  .legal table.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .legal table.stack tr { display: block; padding: .9rem 0; border-bottom: 1px solid rgb(0 0 0 / .14); }
+  .legal table.stack td { display: block; padding: .2rem 0; border: 0; }
+  .legal table.stack td::before { content: attr(data-label); display: block; font-size: .72rem; font-weight: 800; opacity: .65; }
+  .legal .toc { columns: 1; padding: 1rem 1rem 1rem 2.4rem; }
+  .legal-shell .top { flex-wrap: wrap; }
+}
 .legal .summary { margin: 1.5rem 0 0; padding: 1.25rem 1.5rem; background: rgb(0 0 0 / .04); border-radius: .5rem; }

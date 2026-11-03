@@ -1,53 +1,53 @@
 ---
 import Site from '../layouts/Site.astro'
-import Cosmos from '../components/Cosmos.astro'
-import Marquee from '../components/Marquee.astro'
+import Ticker from '../components/Ticker.astro'
+import { photosOf } from '../lib/sanity'
+
+const wall = [...photosOf('max-prodigy').slice(1, 3), ...photosOf('jlinez').slice(1, 2), ...photosOf('hidaya-morgan').slice(0, 1)]
 ---
 <Site title="About" description="SIRYUS A.M is the music management company and creative collective of Siryus Creative Media Ltd, based in Abuja, Nigeria, working with artists across Africa.">
-  <header class="page-hero split">
-    <Cosmos />
-    <div class="wrap">
+  <header class="phero">
+    <div class="wrap grid">
+      <h1 data-split>Music people, working for artists.</h1>
       <div>
-        <h1 data-split>Music people, working for artists.</h1>
         <p class="lede" data-reveal>SIRYUS A.M is the music arm of Siryus Creative Media Ltd: a music management company and a creative collective, based in Abuja, Nigeria, working with artists across Africa.</p>
-        <div class="actions" data-reveal><a class="btn solid" href="/contact"><span class="dot" aria-hidden="true"></span>Book a meeting</a></div>
+        <div class="actions" data-reveal style="margin-top:1.8rem"><a class="btn" href="/contact">Book a meeting</a></div>
       </div>
-      <div class="media" data-reveal><img src="/images/scenes/drummer-1600.webp" srcset="/images/scenes/drummer-800.webp 800w, /images/scenes/drummer-1600.webp 1600w" sizes="(max-width: 52rem) 92vw, 42vw" alt="A drummer playing at an outdoor event" width="1600" height="1067" fetchpriority="high" data-speed="0.08" /></div>
     </div>
   </header>
 
-  <Marquee items={['Release', 'Grow', 'Build', 'Music management', 'Creative collective']} />
-
-  <section class="section white">
-    <div class="wrap statement-row">
-      <p class="statement" data-split>Too much great music goes unheard. Not because the songs are weak, but because nobody planned the release.</p>
-      <div class="side" data-reveal>
-        <p>That is the gap we close. We plan releases, pitch to playlists, build content, run marketing and help artists build their brand. For a small roster, we manage the whole career.</p>
+  <section class="section">
+    <div class="wrap">
+      <p class="display" data-split style="font-size:clamp(2rem,4.6vw,4.2rem);line-height:1;max-width:22ch">Too much great music goes unheard. Not because the songs are weak, but because nobody planned the release.</p>
+      <div class="split" style="margin-top:clamp(3rem,6vw,5rem)">
+        <div data-reveal>
+          <h2>A management company.</h2>
+          <p>Artists book us for one service, a full release package or complete management. Every engagement starts with a meeting and a clear plan, agreed in writing before any work begins.</p>
+          <div class="actions" style="margin-top:1.6rem"><a class="more" href="/services">Our services</a></div>
+        </div>
+        <div data-reveal style="--d:1">
+          <h2>A creative collective.</h2>
+          <p>We make records too. SIRYUS A.M has its own releases on every major platform, and we run projects like the Indiba Project Series that bring artists together to create and grow.</p>
+          <div class="actions" style="margin-top:1.6rem"><a class="more" href="/music">Our music</a></div>
+        </div>
       </div>
     </div>
   </section>
+
+  <section class="section ink" aria-label="Artists we have worked with">
+    <div class="wrap">
+      <div class="gallery" style="margin:0;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr))">
+        {wall.map((p, i) => <img class="bw" src={p.src} alt={p.alt} width="640" height="640" loading="lazy" data-reveal style={`--d:${i}`} />)}
+      </div>
+    </div>
+  </section>
+
+  <Ticker items={['Release', 'Grow', 'Build', 'Music management', 'Creative collective']} />
 
   <section class="section">
-    <div class="wrap detail">
-      <div data-reveal>
-        <h2>A management company.</h2>
-        <p>Artists book us for one service, a full release package or complete management. Every engagement starts with a meeting and a clear plan, agreed in writing before any work begins.</p>
-        <p style="margin-top:1.5rem"><a class="btn" href="/services">Our services</a></p>
-      </div>
-      <div data-reveal style="--d:1">
-        <h2>A creative collective.</h2>
-        <p>We make music too. SIRYUS A.M has its own releases on every major platform, and we run projects like the Indiba Project Series that bring artists together to create and grow.</p>
-        <p style="margin-top:1.5rem"><a class="btn" href="/music">Our music</a></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta white">
-    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="wrap">
-      <h2 data-split>Part of SIRYUS.</h2>
-      <p data-reveal>SIRYUS A.M sits alongside ARC. Creatives and SIGNAL. in the SIRYUS family. Different worlds, one creative universe.</p>
-      <a class="btn solid" href="https://siryushub.com" data-reveal>Visit SIRYUS</a>
+    <div class="wrap band">
+      <h2 data-split>Part of SIRYUS. Different worlds, one creative universe.</h2>
+      <div class="actions" data-reveal><a class="btn line" href="https://siryushub.com">Visit SIRYUS</a></div>
     </div>
   </section>
 </Site>

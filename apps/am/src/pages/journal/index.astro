@@ -1,28 +1,31 @@
 ---
 import Site from '../../layouts/Site.astro'
-import Cosmos from '../../components/Cosmos.astro'
-import { getPosts, img, srcset, date } from '../../lib/sanity'
+import { getPosts, date } from '../../lib/sanity'
 
 const posts = await getPosts()
+const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
 ---
 <Site title="Journal" description="Straight talk for independent artists on marketing, copyright and the life behind the music, from SIRYUS A.M.">
-  <header class="page-hero">
-    <Cosmos />
-    <div class="wrap" style="position:relative">
+  <header class="phero">
+    <div class="wrap grid">
       <h1 data-split>Notes for independent artists.</h1>
       <p class="lede" data-reveal>What we have learned working with artists, written plainly so you can use it.</p>
     </div>
   </header>
-  <section class="section white">
-    <div class="wrap cards">
-      {posts.map((post, i) => (
-        <a class="card" href={`/journal/${post.slug}`} data-reveal style={`--d:${i}`}>
-          <div class="img"><img src={img(post.coverImage, 720, 540)} srcset={srcset(post.coverImage, [420, 720], 0.75)} sizes="(max-width: 38rem) 92vw, 30vw" alt="" width="720" height="540" /></div>
-          <p class="meta">{post.category} · {date(post.publishedAt)}</p>
-          <h2 style="font:800 1.35rem/1.2 var(--body)">{post.title}</h2>
-          <p>{post.seoDescription ?? post.excerpt}</p>
-        </a>
-      ))}
+  <section class="section">
+    <div class="wrap">
+      <ul class="notes">
+        {posts.map((post) => (
+          <li class="note-row" data-reveal>
+            <a href={`/journal/${post.slug}`}>
+              <time datetime={post.publishedAt}>{date(post.publishedAt)}</time>
+              <h2 class="display" style="font-size:clamp(1.5rem,2.8vw,2.5rem);line-height:1.02">{post.title}</h2>
+              <span class="go" set:html={arrow} />
+              <p>{post.seoDescription ?? post.excerpt}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 </Site>

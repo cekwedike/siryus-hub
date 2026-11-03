@@ -1,0 +1,10 @@
+---
+// A slow ticker of words, alternating solid and outlined. Doubled so the loop is seamless.
+interface Props { items: string[] }
+const { items } = Astro.props
+---
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    {[...items, ...items].map((item) => <span>{item}</span>)}
+  </div>
+</div>

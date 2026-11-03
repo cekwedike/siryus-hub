@@ -1,38 +1,62 @@
 ---
 import Site from '../../layouts/Site.astro'
-import Cosmos from '../../components/Cosmos.astro'
-import { getRoster, img } from '../../lib/sanity'
+import { getRoster, getAlumni, photosOf } from '../../lib/sanity'
 
-const roster = await getRoster()
+const [roster, alumni] = await Promise.all([getRoster(), getAlumni()])
+const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
 ---
-<Site title="Artists" description={`Meet ${roster.map((a) => a.name).join(' and ')}, the artists managed by SIRYUS A.M.`}>
-  <header class="page-hero">
-    <Cosmos />
-    <div class="wrap" style="position:relative">
+<Site title="Artists" description={`Meet ${roster.map((a) => a.name).join(' and ')}, the artists managed by SIRYUS A.M, and the alumni we have worked with before.`}>
+  <header class="phero">
+    <div class="wrap grid">
       <h1 data-split>Artists with a world of their own.</h1>
       <p class="lede" data-reveal>We keep the roster small on purpose. Every artist gets real time, a plan built around who they are, and a team that stays close.</p>
     </div>
   </header>
-  <section class="section" style="padding-top:0">
-    <div class="wrap roster">
-      {roster.map((a) => (
-        <a class="artist" href={`/artists/${a.slug}`} data-reveal>
-          <div class="frame"><img src={img(a.photo, 900)} alt={a.name} width="640" height="640" data-speed="0.06" /></div>
-          <h2 style="font:clamp(2.2rem,5.2vw,4.8rem)/.9 var(--display);margin-top:-.55em;position:relative;padding-left:.2rem">{a.name}</h2>
-          <div class="meta">
+
+  <div class="stack">
+    {roster.map((a, i) => {
+      const shot = photosOf(a.slug)[0]
+      return (
+        <article class="panel-artist">
+          <div class="shot"><img class="bw" src={shot?.src ?? String(a.photo)} alt={shot?.alt ?? a.name} width="640" height="640" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" /></div>
+          <div class="info">
+            <div>
+              <h2 class="display" style="font-size:clamp(3.2rem,8vw,8rem)">{a.name}</h2>
+              <p class="genre">{[...(a.genre ?? []), a.location].filter(Boolean).join(', ')}</p>
+            </div>
             <p class="line">{a.oneLiner}</p>
-            <ul class="chips">{a.genre?.map((g) => <li>{g}</li>)}</ul>
+            <div class="actions"><a class="btn" href={`/artists/${a.slug}`}>Meet {a.name}</a></div>
           </div>
-        </a>
-      ))}
-    </div>
-  </section>
-  <section class="cta white">
-    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="wrap">
+        </article>
+      )
+    })}
+  </div>
+
+  {alumni.length > 0 && (
+    <section class="section ink" id="alumni" aria-labelledby="alumni-title">
+      <div class="wrap">
+        <div class="title">
+          <h2 id="alumni-title" data-split>Alumni.</h2>
+          <p data-reveal>Artists we have managed, distributed or released with before. Their work is part of our story, and we are proud of it.</p>
+        </div>
+        <ul class="alumni-list" style="margin-top:0">
+          {alumni.map((a) => (
+            <li data-reveal>
+              <a href={`/artists/${a.slug}`}>
+                <span>{a.name}<small style="display:block;font:500 .9rem/1.5 var(--body);margin-top:.5rem;opacity:.75">{a.alumniNote}{a.alumniPeriod ? ` ${a.alumniPeriod}.` : ''}</small></span>
+                <span set:html={arrow} style="width:1.2rem;flex:none" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="wrap band">
       <h2 data-split>Not on the roster? We can still help.</h2>
-      <p data-reveal>Most of our work is with independent artists who book a single service or a release package.</p>
-      <a class="btn solid" href="/services" data-reveal>See our services</a>
+      <div class="actions" data-reveal><a class="btn" href="/services">See our services</a></div>
     </div>
   </section>
 </Site>

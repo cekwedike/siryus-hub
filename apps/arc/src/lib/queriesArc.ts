@@ -224,7 +224,7 @@ export async function getAllArcSupporters(): Promise<ArcSupporter[]> {
      A: ARC stands for Ascent. Refuge. Collective. It is a faith-rooted creative community built to support, protect, and develop Christian creatives across every form of artistic expression. Not a label. Not a management company. A movement.
 
   2) Q: Who is ARC for?
-     A: ARC is built exclusively for Christian creatives: musicians, producers, poets, spoken word artists, filmmakers, dancers, designers, and anyone creating from a place of genuine faith. If your work is rooted in your relationship with God and you are serious about your craft, you belong here.
+     A: ARC is built exclusively for Christian creatives: musicians, producers, poets, spoken word artists, filmmakers, dancers, designers, and anyone creating from a place of genuine faith. If your work is rooted in your relationship with God and you want to grow in your craft, you belong here.
 
   3) Q: Is ARC a label or management company?
      A: No. ARC does not sign artists or take a cut of your revenue. It is a community and ecosystem built to develop creatives, connect them to each other, and provide the structure and support that independent artists rarely have access to.
@@ -236,7 +236,7 @@ export async function getAllArcSupporters(): Promise<ArcSupporter[]> {
      A: Start by subscribing to The ARC Letter at /arc/subscribe. That is where community updates, event announcements, and opportunities to get more involved are shared. From there, show up to sessions and collaboration labs when they open.
 
   6) Q: Is ARC only for established creatives?
-     A: No. ARC is built for the overlooked and the independent, people who are serious about their craft but have not had the structure or support to grow. Formation before visibility is a core value here. You do not need to be established to belong.
+     A: No. ARC is built for the overlooked and the independent, people who care about their craft but have not had the structure or support to grow. Formation before visibility is a core value here. You do not need to be established to belong.
 
   7) Q: What is Apartment Sessions?
      A: Apartment Sessions are intimate creative gatherings hosted in a rented space, bringing together 10 to 15 independent Christian creatives to make music together. Sessions are produced by Jlinez and music released through SIRYUS A.M and The Orchard. The first session is planned for mid-2026 in Kigali.

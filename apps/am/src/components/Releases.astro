@@ -1,19 +1,22 @@
 ---
+import Disc from './Disc.astro'
 import { releases, profiles, year } from '../lib/collective'
 interface Props { limit?: number }
 const { limit } = Astro.props
 const list = limit ? releases.slice(0, limit) : releases
 ---
-<div class="releases">
+<div class="crate">
   {list.map((r, i) => (
-    <a class="release" href={r.apple} target="_blank" rel="noopener" data-reveal style={`--d:${i}`}>
-      <div class="cover"><img src={r.cover} alt={`${r.title} cover art`} width="800" height="800" loading="lazy" decoding="async" /></div>
-      <p class="when">{r.type}, {year(r.date)}</p>
+    <a class="record" href={r.apple} target="_blank" rel="noopener" data-reveal style={`--d:${i}`}>
+      <div class="art">
+        <img src={r.cover} alt={`${r.title} cover art`} width="800" height="800" loading="lazy" decoding="async" />
+        <Disc />
+      </div>
       <h3>{r.title}</h3>
-      <p>{r.credit}</p>
+      <p>{r.type}, {year(r.date)}. {r.credit}</p>
     </a>
   ))}
 </div>
-<div class="profiles">
-  {profiles.slice(0, 4).map(([label, url]) => <a href={url} target="_blank" rel="noopener">Listen on {label}</a>)}
+<div class="listen">
+  {profiles.slice(0, 4).map(([label, url]) => <a class="more" href={url} target="_blank" rel="noopener">Listen on {label}</a>)}
 </div>

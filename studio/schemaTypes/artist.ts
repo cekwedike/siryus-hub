@@ -114,6 +114,36 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'relationship',
+      title: 'Relationship with SIRYUS A.M',
+      description: 'Current roster shows on the Artists page. Alumni shows in the Alumni section for artists we have worked with before. Hidden keeps the profile off the site.',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Current roster', value: 'current' },
+          { title: 'Alumni (worked with us before)', value: 'alumni' },
+          { title: 'Hidden', value: 'hidden' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'current',
+    }),
+    defineField({
+      name: 'alumniPeriod',
+      title: 'When we worked together',
+      description: 'For example "2024 to 2025".',
+      type: 'string',
+      hidden: ({ document }) => document?.relationship !== 'alumni',
+    }),
+    defineField({
+      name: 'alumniNote',
+      title: 'What we did together',
+      description: 'One short sentence, for example "Managed and distributed by SIRYUS A.M for a year."',
+      type: 'text',
+      rows: 2,
+      hidden: ({ document }) => document?.relationship !== 'alumni',
+    }),
+    defineField({
       name: 'featured',
       title: 'Featured',
       type: 'boolean',
@@ -134,8 +164,14 @@ export default defineType({
   preview: {
     select: {
       title: 'name',
-      subtitle: 'location',
+      relationship: 'relationship',
+      location: 'location',
       media: 'photo',
     },
+    prepare: ({ title, relationship, location, media }) => ({
+      title,
+      subtitle: [relationship === 'alumni' ? 'Alumni' : relationship === 'hidden' ? 'Hidden' : 'Current roster', location].filter(Boolean).join(', '),
+      media,
+    }),
   },
 })
