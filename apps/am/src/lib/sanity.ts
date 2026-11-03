@@ -15,7 +15,8 @@ export const journalSlugs = [
   'copyright-vs-intellectual-property',
   'how-mental-health-impacts-your-art',
 ]
-export const projectSlugs = ['indiba-project-series', 'the-abditory-sessions']
+// Projects never shown, whatever is in the Studio (Acoustic Rwanda left the SIRYUS ecosystem).
+const hiddenProjects = ['acoustic-rwanda']
 
 export async function query<T>(groq: string, params: Record<string, unknown> = {}): Promise<T> {
   const url = new URL(`https://${projectId}.apicdn.sanity.io/v2024-01-01/data/query/${dataset}`)
@@ -110,6 +111,8 @@ export type Project = {
   longDescription?: Block[]
   description?: string
   registrationOpen?: boolean
+  registrationUrl?: string
+  registrationButtonText?: string
   registrationClosedText?: string
   albums?: Release[]
 }
@@ -203,7 +206,7 @@ const correct = (blocks: Block[] = []) =>
   })
 
 export const getProjects = async () =>
-  (await query<Project[]>(`*[_type == "project" && slug.current in $slugs] | order(featured desc) { ..., "slug": slug.current, "albums": albums[]-> }`, { slugs: projectSlugs }))
+  (await query<Project[]>(`*[_type == "project" && defined(slug.current) && !(slug.current in $hidden)] | order(featured desc, _createdAt asc) { ..., "slug": slug.current, "albums": albums[]-> }`, { hidden: hiddenProjects }))
     .map((p) => ({ ...p, longDescription: p.longDescription && correct(p.longDescription) }))
 
 // Journal posts: any post with "Show on the SIRYUS A.M journal" switched on, plus the three original A.M posts

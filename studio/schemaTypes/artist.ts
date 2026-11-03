@@ -1,192 +1,111 @@
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
+
+// An artist SIRYUS A.M works with. "Relationship" decides where they appear on artists.siryushub.com:
+// managed artists get a full panel, distribution artists a list entry, alumni the Alumni section.
+// Their full catalogue is read from Apple Music automatically using the Apple Music link.
+const altField = defineField({ name: 'alt', title: 'Alternative text', description: 'Describe the photo for screen readers.', type: 'string' })
 
 export default defineType({
   name: 'artist',
   title: 'Artist',
   type: 'document',
+  groups: [
+    { name: 'profile', title: 'Profile', default: true },
+    { name: 'photos', title: 'Photos' },
+    { name: 'links', title: 'Links' },
+  ],
   fields: [
-    defineField({
-      name: 'name',
-      title: 'Name',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'name',
-        maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'genre',
-      title: 'Genre Tags',
-      type: 'array',
-      of: [{ type: 'string' }],
-      validation: (Rule) => Rule.required().min(1),
-    }),
-    defineField({
-      name: 'location',
-      title: 'Location',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'oneLiner',
-      title: 'One Line Bio',
-      type: 'string',
-      validation: (Rule) => Rule.required().max(100),
-    }),
-    defineField({
-      name: 'bioParagraph1',
-      title: 'Bio Paragraph 1',
-      type: 'text',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'bioParagraph2',
-      title: 'Bio Paragraph 2',
-      type: 'text',
-    }),
-    defineField({
-      name: 'photo',
-      title: 'Photo',
-      type: 'image',
-      readOnly: false,
-      options: { hotspot: true },
-      fields: [
-        defineField({
-          name: 'alt',
-          title: 'Alternative text',
-          type: 'string',
-        }),
-      ],
-    }),
-    defineField({
-      name: 'gallery',
-      title: 'More photos',
-      description: 'Extra photos for the profile page. The first photo is also used on the Artists page if there is no main photo.',
-      type: 'array',
-      of: [
-        {
-          type: 'image',
-          options: { hotspot: true },
-          fields: [defineField({ name: 'alt', title: 'Alternative text', type: 'string' })],
-        },
-      ],
-    }),
-    defineField({
-      name: 'managementLabel',
-      title: 'Management Label',
-      type: 'string',
-      initialValue: 'SIRYUS A.M Artist',
-    }),
-    defineField({
-      name: 'releases',
-      title: 'Releases',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'title',
-              title: 'Title',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'year',
-              title: 'Year',
-              type: 'string',
-            }),
-            defineField({
-              name: 'spotifyUrl',
-              title: 'Spotify URL',
-              type: 'url',
-            }),
-          ],
-        },
-      ],
-    }),
-    defineField({
-      name: 'platforms',
-      title: 'Platforms',
-      type: 'object',
-      fields: [
-        defineField({ name: 'spotify', title: 'Spotify', type: 'url' }),
-        defineField({ name: 'youtube', title: 'YouTube', type: 'url' }),
-        defineField({ name: 'appleMusic', title: 'Apple Music', type: 'url' }),
-        defineField({ name: 'instagram', title: 'Instagram', type: 'url' }),
-        defineField({ name: 'audiomack', title: 'Audiomack', type: 'url' }),
-        defineField({ name: 'tiktok', title: 'TikTok', type: 'url' }),
-        defineField({ name: 'x', title: 'X (Twitter)', type: 'url' }),
-        defineField({ name: 'boomplay', title: 'Boomplay', type: 'url' }),
-      ],
-    }),
+    defineField({ name: 'name', title: 'Name', type: 'string', group: 'profile', validation: (Rule) => Rule.required() }),
+    defineField({ name: 'slug', title: 'Web address', type: 'slug', group: 'profile', options: { source: 'name', maxLength: 96 }, validation: (Rule) => Rule.required() }),
     defineField({
       name: 'relationship',
       title: 'Relationship with SIRYUS A.M',
-      description: 'Managed artists get a full panel on the Artists page. Distribution artists are listed as artists we release music for. Alumni are artists we worked with before. Hidden keeps the profile off the site.',
       type: 'string',
+      group: 'profile',
       options: {
         list: [
           { title: 'Managed artist (current roster)', value: 'current' },
           { title: 'Distribution artist (we release their music)', value: 'distributed' },
           { title: 'Alumni (worked with us before)', value: 'alumni' },
-          { title: 'Hidden', value: 'hidden' },
+          { title: 'Hidden (not on the site)', value: 'hidden' },
         ],
         layout: 'radio',
       },
       initialValue: 'current',
-    }),
-    defineField({
-      name: 'alumniPeriod',
-      title: 'When we worked together',
-      description: 'For example "2024 to 2025".',
-      type: 'string',
-      hidden: ({ document }) => document?.relationship !== 'alumni',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'alumniNote',
       title: 'What we did together',
       description: 'One short sentence, for example "Managed and distributed by SIRYUS A.M for a year."',
-      type: 'text',
-      rows: 2,
+      type: 'string',
+      group: 'profile',
       hidden: ({ document }) => document?.relationship !== 'alumni',
     }),
     defineField({
-      name: 'featured',
-      title: 'Featured',
-      type: 'boolean',
-      initialValue: false,
+      name: 'alumniPeriod',
+      title: 'When we worked together',
+      description: 'Optional, for example "2024 to 2025".',
+      type: 'string',
+      group: 'profile',
+      hidden: ({ document }) => document?.relationship !== 'alumni',
     }),
-    defineField({
-      name: 'active',
-      title: 'Active on Roster',
-      type: 'boolean',
-      initialValue: true,
-    }),
+    defineField({ name: 'oneLiner', title: 'One line', description: 'Shown under their name.', type: 'string', group: 'profile', validation: (Rule) => Rule.required().max(120) }),
+    defineField({ name: 'bioParagraph1', title: 'Bio', type: 'text', rows: 5, group: 'profile', validation: (Rule) => Rule.required() }),
+    defineField({ name: 'bioParagraph2', title: 'Bio, second paragraph', type: 'text', rows: 5, group: 'profile' }),
+    defineField({ name: 'genre', title: 'Genres', type: 'array', group: 'profile', of: [defineArrayMember({ type: 'string' })], options: { layout: 'tags' } }),
+    defineField({ name: 'location', title: 'Country', type: 'string', group: 'profile' }),
     defineField({
       name: 'order',
-      title: 'Display Order on Roster Page',
+      title: 'Position on the Artists page',
+      description: 'Lower numbers show first.',
       type: 'number',
+      group: 'profile',
+    }),
+    defineField({
+      name: 'gallery',
+      title: 'Photos',
+      description: 'The first photo is the main portrait. Add as many as you like; replace them any time.',
+      type: 'array',
+      group: 'photos',
+      of: [defineArrayMember({ type: 'image', options: { hotspot: true }, fields: [altField] })],
+      options: { layout: 'grid' },
+    }),
+    defineField({
+      name: 'photo',
+      title: 'Older main photo',
+      description: 'Only used when Photos above is empty.',
+      type: 'image',
+      group: 'photos',
+      options: { hotspot: true },
+      fields: [altField],
+    }),
+    defineField({
+      name: 'platforms',
+      title: 'Profiles',
+      description: 'Full links to their artist pages. The Apple Music link also loads their discography.',
+      type: 'object',
+      group: 'links',
+      options: { columns: 2 },
+      fields: [
+        defineField({ name: 'spotify', title: 'Spotify', type: 'url' }),
+        defineField({ name: 'appleMusic', title: 'Apple Music', type: 'url' }),
+        defineField({ name: 'audiomack', title: 'Audiomack', type: 'url' }),
+        defineField({ name: 'youtube', title: 'YouTube', type: 'url' }),
+        defineField({ name: 'instagram', title: 'Instagram', type: 'url' }),
+        defineField({ name: 'tiktok', title: 'TikTok', type: 'url' }),
+        defineField({ name: 'x', title: 'X (Twitter)', type: 'url' }),
+        defineField({ name: 'boomplay', title: 'Boomplay', type: 'url' }),
+      ],
     }),
   ],
+  orderings: [{ title: 'Position on the Artists page', name: 'order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: {
-    select: {
-      title: 'name',
-      relationship: 'relationship',
-      location: 'location',
-      media: 'photo',
-    },
-    prepare: ({ title, relationship, location, media }) => ({
+    select: { title: 'name', relationship: 'relationship', location: 'location', media: 'gallery.0', photo: 'photo' },
+    prepare: ({ title, relationship, location, media, photo }) => ({
       title,
       subtitle: [{ alumni: 'Alumni', hidden: 'Hidden', distributed: 'Distribution artist' }[relationship as string] ?? 'Managed artist', location].filter(Boolean).join(', '),
-      media,
+      media: media ?? photo,
     }),
   },
 })

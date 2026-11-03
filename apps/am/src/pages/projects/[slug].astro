@@ -12,6 +12,8 @@ const body = project.longDescription?.length ? toHtml(project.longDescription) :
 const gallery = [project.coverImage, ...(project.galleryImages ?? [])].filter(Boolean)
 const facilitators = project.slug === 'indiba-project-series' ? indibaFacilitators : []
 const albums = project.albums?.filter(Boolean) ?? []
+const contact = `/contact?about=${encodeURIComponent(project.title)}`
+const apply = project.registrationUrl ?? contact
 ---
 <Site title={project.title} description={project.excerpt ?? project.title} image={img(project.coverImage, 1200, 630)} type="article">
   <header class="phero">
@@ -69,11 +71,23 @@ const albums = project.albums?.filter(Boolean) ?? []
 
   <section class="ink final">
     <div class="wrap">
-      <h2 data-split><a href={`/contact?about=${encodeURIComponent(project.title)}`}>{project.registrationOpen ? 'Apply now.' : 'Want in next time?'}</a></h2>
-      <div class="row">
-        <p data-reveal>{project.registrationClosedText ?? 'Tell us about yourself and your music, and we will let you know when the next edition opens.'}</p>
-        <a class="btn" href={`/contact?about=${encodeURIComponent(project.title)}`} data-reveal>Get in touch</a>
-      </div>
+      {project.registrationOpen ? (
+        <>
+          <h2 data-split><a href={apply}>Applications are open.</a></h2>
+          <div class="row">
+            <p data-reveal>Tell us about yourself and your music. We read every application.</p>
+            <a class="btn" href={apply} data-reveal>{project.registrationButtonText ?? 'Apply now'}</a>
+          </div>
+        </>
+      ) : (
+        <>
+          <h2 data-split><a href={contact}>Want in next time?</a></h2>
+          <div class="row">
+            <p data-reveal>{project.registrationClosedText ?? 'Tell us about yourself and your music, and we will let you know when the next edition opens.'}</p>
+            <a class="btn" href={contact} data-reveal>Get in touch</a>
+          </div>
+        </>
+      )}
     </div>
   </section>
 </Site>

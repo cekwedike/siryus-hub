@@ -258,3 +258,12 @@ Owner feedback: the first rebuild felt bland and template-like, A.M used lime wh
 - Hub: the A.M, ARC. and SIGNAL. cards open in the same tab (every site has Back to SIRYUS); PAVO Create still opens in a new tab. 404 eyebrow removed.
 - Rebuild on publish: Sanity webhooks call GitHub repository_dispatch (event sanity-publish), which runs .github/workflows/deploy-sites.yml. Cloudflare deploy hooks only exist for Git-connected Pages projects, and the three content sites are direct-upload projects. NEEDS OWNER ACTION: create the webhooks (see the owner notes).
 - www.siryushub.com: redirect rule confirmed working (301, path and query kept).
+
+## 2026-11-03 (evening): Studio clean-up and schema refinement
+- Backups of both datasets exported to Desktop/SIRYUS/sanity-backups-2026-11-03/ (am-production.tar.gz, arc-production.tar.gz) before any change.
+- A.M Studio schema: removed Studio Content and Team Member (no site uses them). Artist and Project now use tabs (Profile, Photos, Links; Story, Images, Details, Applications), plain labels, and only the fields the site reads. Legacy artist fields (active, featured, managementLabel, releases) dropped: discographies come from Apple Music and releases from the Releases type. Project dropped projectType, tags and artist. Desk: Artists (Managed, Distribution, Alumni, All), Releases, Projects, Journal.
+- A.M site: projects now come straight from the Studio (Acoustic Rwanda always excluded); when applications are open the Apply button uses the project's application link.
+- ARC. blog merges posts from both datasets without duplicates, so moving the five ARC. articles into ARC.'s dataset is seamless.
+- Data changes were not permitted from this session, so two scripts do them, run by the owner:
+  1. studio-arc/scripts/move-arc-posts.mjs copies the five ARC. articles (and their images) into ARC.'s dataset.
+  2. studio/scripts/cleanup-2026-11.mjs deletes Acoustic Rwanda, the Studio Content entry and the Team Member entries; removes the ARC. articles from the A.M dataset only once ARC. has them; sets artist relationships (Max, Jlinez managed; Hidaya alumni; Winny hidden), Max's Instagram and Hidaya's corrected bio; switches on the three A.M journal posts; writes the Indiba facilitator correction into the Studio text.

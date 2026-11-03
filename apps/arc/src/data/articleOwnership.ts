@@ -19,3 +19,12 @@ export function isSiryusAmArticle(slug: string): boolean {
 export function isArcArticle(slug: string): boolean {
   return (ARC_ARTICLE_SLUGS as readonly string[]).includes(slug)
 }
+
+/**
+ * ARC. posts from ARC.'s own dataset, plus ARC. articles still stored in the A.M dataset. Once an article has been
+ * moved to ARC.'s dataset (studio-arc/scripts/move-arc-posts.mjs) the ARC. copy wins and the old one is skipped.
+ */
+export function mergeArcPosts<T extends { slug?: { current?: string } }>(arcPosts: T[], mainPosts: T[]): T[] {
+  const seen = new Set(arcPosts.map((post) => post.slug?.current))
+  return [...arcPosts, ...mainPosts.filter((post) => isArcArticle(post.slug?.current ?? '') && !seen.has(post.slug?.current))]
+}

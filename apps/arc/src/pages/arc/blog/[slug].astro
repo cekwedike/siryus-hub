@@ -4,14 +4,14 @@ import { blogCoverImageUrlArc } from '../../../lib/sanityArc';
 import { blogCoverImageUrl } from '../../../lib/sanity';
 import { getAllArcPosts, getArcPostBySlug } from '../../../lib/queriesArc';
 import { getAllPosts, getPostBySlug, type BlogPostSummary } from '../../../lib/queries';
-import { isArcArticle } from '../../../data/articleOwnership';
+import { isArcArticle, mergeArcPosts } from '../../../data/articleOwnership';
 import { portableTextToArcHtml } from '../../../lib/portableTextHtml';
 import { portableTextToPlainText } from '../../../lib/portableTextPlain';
 import { getCanonicalOrigin } from '../../../lib/siteCanonical';
 
 export async function getStaticPaths() {
   const [arcPosts, mainPosts] = await Promise.all([getAllArcPosts(), getAllPosts()]);
-  const posts = [...arcPosts, ...mainPosts.filter((post) => isArcArticle(post.slug?.current ?? ''))];
+  const posts = mergeArcPosts(arcPosts, mainPosts);
 
   return posts
     .filter((post) => post.slug?.current)
@@ -106,10 +106,7 @@ if (post) {
   }
 
   const [arcForRelated, mainForRelated] = await Promise.all([getAllArcPosts(), getAllPosts()]);
-  const allForRelated = [
-    ...arcForRelated,
-    ...mainForRelated.filter((row) => isArcArticle(row.slug?.current ?? '')),
-  ];
+  const allForRelated = mergeArcPosts(arcForRelated, mainForRelated);
   related = allForRelated.filter((row) => row._id !== post._id).slice(0, 3);
 
   heroCover = postCover(1800, 1000);

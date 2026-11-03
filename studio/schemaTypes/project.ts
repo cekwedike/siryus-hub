@@ -1,90 +1,45 @@
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
-const categoryList = [
-  'Release Campaign',
-  'Creative Production',
-  'Artist Development',
-  'Brand Marketing',
-  'Content Strategy',
-  'Live Performance',
-  'Content Series',
-  'Other',
-]
-
+// A SIRYUS A.M project such as the Indiba Project Series. Every published project gets a page on
+// artists.siryushub.com/projects. Fields are grouped into tabs so the everyday ones come first.
+const categoryList = ['Artist Development', 'Release Campaign', 'Creative Production', 'Content Series', 'Live Performance', 'Other']
 const statusList = ['Active', 'Completed', 'Coming Soon']
 
-const projectTypeList = [
-  'Ongoing Initiative',
-  'Seasonal Event',
-  'One-Time Campaign',
-  'Series',
-]
+const altField = defineField({ name: 'alt', title: 'Alternative text', description: 'Describe the image for screen readers.', type: 'string' })
 
 export default defineType({
   name: 'project',
   title: 'Project',
   type: 'document',
+  groups: [
+    { name: 'story', title: 'Story', default: true },
+    { name: 'media', title: 'Images' },
+    { name: 'details', title: 'Details' },
+    { name: 'applications', title: 'Applications' },
+  ],
   fields: [
-    defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
+    defineField({ name: 'title', title: 'Title', type: 'string', group: 'story', validation: (Rule) => Rule.required() }),
+    defineField({ name: 'slug', title: 'Web address', type: 'slug', group: 'story', options: { source: 'title', maxLength: 96 }, validation: (Rule) => Rule.required() }),
     defineField({
       name: 'excerpt',
-      title: 'Short Excerpt for cards',
-      type: 'string',
-      description: 'Shown on project cards. Up to 500 characters.',
-      validation: (Rule) => Rule.max(500),
-    }),
-    defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'string',
-      options: {
-        list: categoryList.map((title) => ({ title, value: title })),
-        layout: 'dropdown',
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'projectType',
-      title: 'Project Type',
-      type: 'string',
-      options: {
-        list: projectTypeList.map((title) => ({ title, value: title })),
-        layout: 'dropdown',
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
+      title: 'Short summary',
+      description: 'One or two sentences for the Projects page and link previews.',
       type: 'text',
-      validation: (Rule) => Rule.required(),
+      rows: 2,
+      group: 'story',
+      validation: (Rule) => Rule.required().max(300),
     }),
     defineField({
       name: 'longDescription',
-      title: 'Full Project Description',
+      title: 'Full story',
       type: 'array',
+      group: 'story',
       of: [
-        {
+        defineArrayMember({
           type: 'block',
           styles: [
             { title: 'Normal', value: 'normal' },
-            { title: 'H2', value: 'h2' },
-            { title: 'H3', value: 'h3' },
+            { title: 'Heading', value: 'h2' },
             { title: 'Quote', value: 'blockquote' },
           ],
           lists: [
@@ -93,152 +48,79 @@ export default defineType({
           ],
           marks: {
             decorators: [
-              { title: 'Strong', value: 'strong' },
-              { title: 'Emphasis', value: 'em' },
-              { title: 'Code', value: 'code' },
+              { title: 'Bold', value: 'strong' },
+              { title: 'Italic', value: 'em' },
             ],
             annotations: [
               {
                 name: 'link',
                 type: 'object',
                 title: 'Link',
-                fields: [
-                  {
-                    name: 'href',
-                    type: 'url',
-                    title: 'URL',
-                    validation: (Rule) =>
-                      Rule.uri({
-                        allowRelative: true,
-                        scheme: ['http', 'https', 'mailto', 'tel'],
-                      }),
-                  },
-                ],
+                fields: [{ name: 'href', type: 'url', title: 'URL', validation: (Rule) => Rule.uri({ allowRelative: true, scheme: ['http', 'https', 'mailto', 'tel'] }) }],
               },
             ],
           },
-        },
-        {
-          type: 'image',
-          readOnly: false,
-          options: { hotspot: true },
-          fields: [
-            defineField({
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-            }),
-          ],
-        },
+        }),
+        defineArrayMember({ type: 'image', options: { hotspot: true }, fields: [altField] }),
       ],
     }),
     defineField({
-      name: 'coverImage',
-      title: 'Cover Image',
-      type: 'image',
-      readOnly: false,
-      options: { hotspot: true },
-      fields: [
-        defineField({
-          name: 'alt',
-          title: 'Alternative text',
-          type: 'string',
-        }),
-      ],
+      name: 'description',
+      title: 'Plain summary (fallback)',
+      description: 'Used only if the full story is empty.',
+      type: 'text',
+      rows: 3,
+      group: 'story',
     }),
+    defineField({ name: 'coverImage', title: 'Cover image', type: 'image', group: 'media', options: { hotspot: true }, fields: [altField] }),
     defineField({
       name: 'galleryImages',
-      title: 'Project Gallery',
+      title: 'Gallery',
+      description: 'Photos and artwork from the project. Add new ones any time.',
       type: 'array',
-      of: [
-        {
-          type: 'image',
-          readOnly: false,
-          options: { hotspot: true },
-          fields: [
-            defineField({
-              name: 'alt',
-              title: 'Alternative text',
-              type: 'string',
-            }),
-          ],
-        },
-      ],
+      group: 'media',
+      of: [defineArrayMember({ type: 'image', options: { hotspot: true }, fields: [altField] })],
+      options: { layout: 'grid' },
     }),
     defineField({
       name: 'albums',
-      title: 'Albums and releases from this project',
-      description: 'For example the collaborative album each Indiba cohort records. Add the release under Releases first, then pick it here.',
+      title: 'Albums and releases',
+      description: 'For example the collaborative album each Indiba cohort records. Add it under Releases first, then pick it here.',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'release' }] }],
+      group: 'details',
+      of: [defineArrayMember({ type: 'reference', to: [{ type: 'release' }] })],
     }),
-    defineField({
-      name: 'tags',
-      title: 'Project Tags',
-      type: 'array',
-      of: [{ type: 'string' }],
-    }),
-    defineField({
-      name: 'year',
-      title: 'Year',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'status',
-      title: 'Status',
-      type: 'string',
-      options: {
-        list: statusList.map((title) => ({ title, value: title })),
-        layout: 'dropdown',
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'artist',
-      title: 'Artist or Client',
-      type: 'string',
-    }),
-    defineField({
-      name: 'registrationOpen',
-      title: 'Registration is Open',
-      type: 'boolean',
-      initialValue: false,
-    }),
+    defineField({ name: 'category', title: 'Category', type: 'string', group: 'details', options: { list: categoryList, layout: 'dropdown' } }),
+    defineField({ name: 'status', title: 'Status', type: 'string', group: 'details', options: { list: statusList, layout: 'radio', direction: 'horizontal' } }),
+    defineField({ name: 'year', title: 'Year started', type: 'string', group: 'details' }),
+    defineField({ name: 'featured', title: 'Show first on the Projects page', type: 'boolean', group: 'details', initialValue: false }),
+    defineField({ name: 'registrationOpen', title: 'Applications are open', type: 'boolean', group: 'applications', initialValue: false }),
     defineField({
       name: 'registrationUrl',
-      title: 'Registration URL',
+      title: 'Application link',
+      description: 'Where the Apply button goes. Leave empty to use the SIRYUS A.M contact form.',
       type: 'url',
+      group: 'applications',
+      hidden: ({ document }) => !document?.registrationOpen,
     }),
     defineField({
       name: 'registrationButtonText',
-      title: 'Registration Button Text',
+      title: 'Apply button text',
+      description: 'Defaults to "Apply now".',
       type: 'string',
-      description: 'Defaults to Apply Now if left empty',
+      group: 'applications',
+      hidden: ({ document }) => !document?.registrationOpen,
     }),
     defineField({
       name: 'registrationClosedText',
-      title: 'Closed State Message',
+      title: 'Message while applications are closed',
       type: 'text',
       rows: 3,
-    }),
-    defineField({
-      name: 'featured',
-      title: 'Featured',
-      type: 'boolean',
-      initialValue: false,
-    }),
-    defineField({
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime',
+      group: 'applications',
+      hidden: ({ document }) => Boolean(document?.registrationOpen),
     }),
   ],
   preview: {
-    select: {
-      title: 'title',
-      subtitle: 'category',
-      media: 'coverImage',
-    },
+    select: { title: 'title', subtitle: 'status', media: 'coverImage' },
   },
 })
