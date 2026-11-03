@@ -3,7 +3,6 @@
 const starOuter = 'M843.2,501.06c-23.91,29.7-37.92,67.43-37.57,107.87l-6.45-3.89l-79.27,68.77l23.71-102.23l-89.9-54.14l104.56-9.04l23.71-102.23l40.91,96.64L843.2,501.06z'
 const starInner = 'M814.64,519.79c-12.4,15.41-19.68,34.99-19.5,55.98l-3.35-2.02l-41.13,35.69l12.3-53.05l-46.65-28.09l54.26-4.69l12.3-53.05l21.23,50.15L814.64,519.79z'
 const sparkle = 'M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z'
-const constellation: [number, number][] = [[6, 44], [50, 20], [94, 36], [138, 12], [182, 30], [214, 52]]
 ---
 <div class="cosmos" aria-hidden="true">
   <svg class="orbit" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -15,9 +14,19 @@ const constellation: [number, number][] = [[6, 44], [50, 20], [94, 36], [138, 12
     </g>
   </svg>
 
-  <svg class="doodle constellation" viewBox="0 0 220 64" focusable="false">
-    <polyline pathLength="1" points={constellation.map((p) => p.join(',')).join(' ')} />
-    {constellation.map(([x, y], i) => <circle class="node" cx={x} cy={y} r={i === 3 ? 3.4 : 2.2} style={`--n:${i}`} />)}
+  <svg class="doodle comet" viewBox="0 0 132 44" focusable="false">
+    <path class="tail" pathLength="1" d="M108 15C80 19 46 26 6 36" />
+    <path class="tail" pathLength="1" d="M107 11C84 12 62 12 34 15" style="--t:1" />
+    <path class="tail" pathLength="1" d="M109 20C92 28 72 34 50 39" style="--t:2" />
+    <circle cx="114" cy="14" r="6" />
+    <path class="glint" d="M114 4v-3M124 14h3M114 24v3" />
+  </svg>
+
+  <svg class="doodle satellite" viewBox="0 0 48 48" focusable="false">
+    <g class="spin">
+      <rect x="19" y="19" width="10" height="10" rx="1.5" />
+      <path d="M19 24H5M29 24h14M5 18v12M43 18v12M24 19v-6M24 13l-3-4M24 13l3-4" />
+    </g>
   </svg>
 
   <svg class="doodle planet" viewBox="0 0 64 40" focusable="false">
@@ -36,4 +45,6 @@ const constellation: [number, number][] = [[6, 44], [50, 20], [94, 36], [138, 12
   <svg class="sparkle s2" viewBox="0 0 24 24"><path d={sparkle} /></svg>
   <svg class="sparkle s3" viewBox="0 0 24 24"><path d={sparkle} /></svg>
   <svg class="sparkle s4" viewBox="0 0 24 24"><path d={sparkle} /></svg>
+  <svg class="sparkle s5" viewBox="0 0 24 24"><path d={sparkle} /></svg>
+  <svg class="sparkle s6" viewBox="0 0 24 24"><path d={sparkle} /></svg>
 </div>

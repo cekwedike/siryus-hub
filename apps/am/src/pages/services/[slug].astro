@@ -1,6 +1,6 @@
 ---
 import Site from '../../layouts/Site.astro'
-import Disc from '../../components/Disc.astro'
+import Turntable from '../../components/Turntable.astro'
 import { services, packages, type Service } from '../../data/services'
 
 export function getStaticPaths() {
@@ -32,7 +32,7 @@ const schema = [{
           <a class="more" href="/services">All services</a>
         </div>
       </div>
-      <div class="mini"><Disc /></div>
+      <div class="mini"><Turntable /></div>
     </div>
   </header>
 

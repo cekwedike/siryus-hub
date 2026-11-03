@@ -57,11 +57,20 @@ img { display: block; max-width: 100%; }
 .s4 { width: 1.15rem; bottom: 1.5rem; left: 57%; animation-delay: -3s; }
 @keyframes twinkle { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.6); opacity: .4; } }
 
-/* Hand-drawn doodles: a constellation, a ringed planet, a crescent moon and the odd shooting star. */
+/* Hand-drawn doodles: a comet, a satellite, a ringed planet, a crescent moon and the odd shooting star. */
 .doodle { position: absolute; overflow: visible; fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
-.constellation { width: clamp(7rem, 12vw, 12rem); top: clamp(1.1rem, 2.6vh, 1.8rem); left: 21%; }
-.constellation polyline { stroke-width: .9; opacity: .55; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.6s .5s var(--ease) forwards; }
-.constellation .node { fill: var(--ink); stroke: none; transform-box: fill-box; transform-origin: center; animation: twinkle 5s ease-in-out infinite; animation-delay: calc(var(--n) * -.8s); }
+/* A comet that draws its tail once, then drifts; a small satellite turning slowly. Transform and opacity only. */
+.comet { width: clamp(6.5rem, 10vw, 9.5rem); top: clamp(1.2rem, 2.8vh, 1.9rem); left: 21%; animation: drift 9s ease-in-out infinite alternate; }
+.comet circle { fill: var(--paper); }
+.comet .tail { stroke-width: .9; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.8s var(--ease) forwards; animation-delay: calc(.4s + var(--t, 0) * .18s); }
+.comet .glint { stroke-width: .9; opacity: .6; }
+.satellite { width: clamp(1.8rem, 2.4vw, 2.4rem); top: clamp(1.4rem, 3vh, 2.1rem); right: 40%; }
+.satellite .spin { transform-box: view-box; transform-origin: 24px 24px; animation: turn 40s linear infinite; }
+.satellite rect { fill: var(--paper); }
+.s5 { width: .7rem; top: 3.6rem; left: 33%; animation-delay: -1s; }
+.s6 { width: .9rem; bottom: 2.6rem; left: 27%; animation-delay: -5s; }
+@keyframes drift { from { transform: translate(0, 0); } to { transform: translate(.6rem, -.25rem); } }
+@keyframes turn { to { transform: rotate(360deg); } }
 .planet { width: clamp(2.6rem, 4vw, 3.6rem); bottom: .65rem; left: 50%; }
 .planet circle { fill: var(--paper); }
 .moon { width: clamp(1.1rem, 1.6vw, 1.5rem); bottom: 1.1rem; right: 24%; }
@@ -177,7 +186,8 @@ img { display: block; max-width: 100%; }
   .signal .name { font-size: clamp(1.9rem, 5.8cqi, 3.2rem); }
   .pavo .name { font-size: clamp(1.5rem, 4.6cqi, 2.6rem); }
   .note { font-size: .82rem; }
-  .constellation { left: 24%; width: 7rem; }
+  .comet { left: 24%; width: 6.5rem; }
+  .satellite { right: 36%; }
   .planet { left: 36%; }
 }
 
@@ -213,7 +223,7 @@ img { display: block; max-width: 100%; }
   .foot { padding-block: .9rem 1.1rem; }
   .status { display: none; }
   .s1 { left: 46%; top: 1.4rem; } .s2 { left: 52%; top: 3.2rem; } .s3 { display: none; } .s4 { left: 70%; bottom: 1.1rem; }
-  .constellation, .planet, .meteor { display: none; }
+  .comet, .satellite, .s5, .s6, .planet, .meteor { display: none; }
   .moon { right: 1.25rem; bottom: 1.2rem; }
   .crop { display: none; }
 }
@@ -221,7 +231,7 @@ img { display: block; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .media img:not(:first-child), .ticks, .traveller, .meteor { display: none; }
-  .orbit .inner, .constellation polyline { stroke-dashoffset: 0; }
+  .orbit .inner, .comet .tail { stroke-dashoffset: 0; }
 }
 
 /* Legal pages and footer links. */

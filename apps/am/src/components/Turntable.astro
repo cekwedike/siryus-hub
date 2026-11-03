@@ -1,0 +1,14 @@
+---
+// A record on a turntable, with the tonearm lowering onto it as the page loads. Decorative only.
+import Disc from './Disc.astro'
+---
+<div class="deck" aria-hidden="true">
+  <div class="platter"><Disc /></div>
+  <svg class="arm" viewBox="0 0 100 100">
+    <circle cx="86" cy="14" r="7.5" class="base" />
+    <circle cx="86" cy="14" r="3" class="cap" />
+    <path d="M86 14 L88 3" class="weight" />
+    <path d="M86 14 L79 58 L64 72" class="rod" />
+    <rect x="57" y="69" width="11" height="7" rx="1" transform="rotate(-38 62 72)" class="head" />
+  </svg>
+</div>

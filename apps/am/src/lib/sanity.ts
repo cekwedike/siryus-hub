@@ -291,12 +291,14 @@ export const date = (iso: string) =>
   new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
 
 
-// Every release an artist has on Apple Music, read at build time from Apple's public lookup API using the ID in
-// the artist's Apple Music link. New releases appear on the next build with no Studio or code changes.
-export type Disc = { title: string; format: string; year: string; date: string; cover: string; apple: string }
+// Every release an artist has on Apple Music, read at build time from Apple's public lookup API. New releases
+// appear on the next build with no Studio or code changes. Works for any artist with an Apple Music link.
+export type Disc = { title: string; credit: string; format: string; year: string; date: string; cover: string; apple: string }
 const discCache = new Map<string, Promise<Disc[]>>()
-export function discographyOf(artist: Artist): Promise<Disc[]> {
-  const id = artist.platforms?.appleMusic?.match(/(\d{6,})(?:\?.*)?$/)?.[1]
+export const appleId = (link?: string) => link?.match(/(\d{6,})(?:\?.*)?$/)?.[1]
+export const titleKey = (title: string) => title.toLowerCase().replace(/\s*[([]feat\..*$/, '').replace(/[^a-z0-9]+/g, ' ').trim()
+
+export function appleCatalog(id: string | undefined): Promise<Disc[]> {
   if (!id) return Promise.resolve([])
   if (!discCache.has(id)) {
     discCache.set(id, (async () => {
@@ -308,17 +310,19 @@ export function discographyOf(artist: Artist): Promise<Disc[]> {
           .filter((r) => r.wrapperType === 'collection')
           .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))
           .map((r) => {
-            const format = / - Single$/.test(r.collectionName) ? 'Single' : / - EP$/.test(r.collectionName) ? 'EP' : 'Album'
+            const name = r.collectionName.replace(/ - (Single|EP)$/, '')
+            const feat = name.match(/[([]feat\. ([^)\]]+)[)\]]/)?.[1]
             return {
-              title: r.collectionName.replace(/ - (Single|EP)$/, ''),
-              format,
+              title: name.replace(/\s*[([]feat\.[^)\]]+[)\]]/, ''),
+              credit: feat ? `${r.artistName} featuring ${feat.replace(/ & /g, ' and ')}` : r.artistName.replace(/ & /g, ' and '),
+              format: / - Single$/.test(r.collectionName) ? 'Single' : / - EP$/.test(r.collectionName) ? 'EP' : 'Album',
               year: r.releaseDate.slice(0, 4),
               date: r.releaseDate.slice(0, 10),
-              cover: r.artworkUrl100.replace(/\/\d+x\d+bb\./, '/300x300bb.'),
+              cover: r.artworkUrl100.replace(/\/\d+x\d+bb\./, '/600x600bb.'),
               apple: r.collectionViewUrl.split('?')[0],
             }
           })
-          .filter((d) => (seen.has(d.title.toLowerCase()) ? false : (seen.add(d.title.toLowerCase()), true)))
+          .filter((d) => (seen.has(titleKey(d.title)) ? false : (seen.add(titleKey(d.title)), true)))
       } catch {
         return []
       }
@@ -326,6 +330,8 @@ export function discographyOf(artist: Artist): Promise<Disc[]> {
   }
   return discCache.get(id)!
 }
+
+export const discographyOf = (artist: Artist) => appleCatalog(appleId(artist.platforms?.appleMusic))
 
 export type Release = {
   title: string

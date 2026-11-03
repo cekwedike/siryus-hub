@@ -1,23 +1,32 @@
-# ARC Blog: Sanity Studio
+# ARC. Creatives Studio
 
-This Studio connects to a **separate Sanity project** from the main Siryus Hub CMS. Only `blogPost` documents are defined here.
+Content for collective.siryushub.com: the journal, events, releases, supporters and FAQ. It uses its own Sanity
+project (`qi12mdx6`, dataset `production`), separate from the SIRYUS A.M Studio in `../studio`.
 
-## Setup
-
-1. Create a new project (or dataset) at [sanity.io/manage](https://www.sanity.io/manage).
-2. Copy `.env.example` to `.env.local` in this folder and set:
-   - `SANITY_STUDIO_ARC_PROJECT_ID`
-   - `SANITY_STUDIO_ARC_DATASET` (usually `production`)
-3. Install and run:
+## Run it
 
 ```bash
 cd studio-arc
 pnpm install
-pnpm dev
+pnpm dev          # http://localhost:3333
+npx sanity deploy # publish the hosted Studio after schema changes
 ```
 
-4. In the **site** repo root `.env` / Vercel env, set the Astro-facing variables (see root `.env.example`):
-   - `PUBLIC_SANITY_ARC_PROJECT_ID`: same project ID as above
-   - `PUBLIC_SANITY_ARC_DATASET`: same dataset name
+The project ID defaults to `qi12mdx6`; set `SANITY_STUDIO_ARC_PROJECT_ID` / `SANITY_STUDIO_ARC_DATASET` in
+`.env.local` only to point at a different project.
 
-The public site reads ARC posts at `/arc/blog` using those `PUBLIC_*` variables.
+## How content reaches the site
+
+The site is static (Astro on Cloudflare Pages). A Sanity webhook sends a `sanity-publish` event to GitHub, which runs
+`.github/workflows/deploy-sites.yml` to rebuild and deploy ARC. and SIRYUS A.M. Publishing in the Studio updates the
+site in about two to three minutes.
+
+## Releases
+
+The music page combines ARC. Creatives' Apple Music catalogue (automatic), the Releases added here (for Spotify and
+other links, notes, track lists, or releases Apple does not list under ARC., such as features), and a short built-in
+list. Entries with the same title are merged.
+
+## Scripts
+
+`scripts/move-arc-posts.mjs` is a one-off that copies the five ARC. articles from the A.M dataset into this one.

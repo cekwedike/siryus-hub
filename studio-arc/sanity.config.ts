@@ -13,7 +13,23 @@ export default defineConfig({
   title: 'ARC. Creatives Studio',
   projectId,
   dataset,
-  plugins: [structureTool(), visionTool()],
+  plugins: [
+    structureTool({
+      // The order follows the site: journal, events, music, then the supporting pages.
+      structure: (S) =>
+        S.list()
+          .title('ARC. Creatives')
+          .items([
+            S.documentTypeListItem('blogPost').title('Journal'),
+            S.documentTypeListItem('arcEvent').title('Events'),
+            S.documentTypeListItem('arcRelease').title('Releases'),
+            S.divider(),
+            S.documentTypeListItem('arcSupporter').title('Supporters'),
+            S.documentTypeListItem('arcFaqItem').title('FAQ'),
+          ]),
+    }),
+    visionTool(),
+  ],
   schema: {
     types: schemaTypes,
   },

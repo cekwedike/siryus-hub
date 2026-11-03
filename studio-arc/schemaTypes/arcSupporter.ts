@@ -9,7 +9,7 @@ const categoryOptions = [
 
 export default defineType({
   name: 'arcSupporter',
-  title: 'ARC Supporter',
+  title: 'Supporter',
   type: 'document',
   fields: [
     defineField({

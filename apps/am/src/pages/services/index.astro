@@ -1,6 +1,6 @@
 ---
 import Site from '../../layouts/Site.astro'
-import Disc from '../../components/Disc.astro'
+import Turntable from '../../components/Turntable.astro'
 import { services, groups, groupLines } from '../../data/services'
 
 const schema = services.map((s) => ({ '@type': 'Service', name: s.name, description: s.intro, url: new URL(`/services/${s.slug}`, Astro.site).href, provider: { '@id': 'https://artists.siryushub.com/#organization' } }))
@@ -13,7 +13,7 @@ const schema = services.map((s) => ({ '@type': 'Service', name: s.name, descript
         <p class="lede" data-reveal style="margin-top:1.6rem">Release, grow and build. Pick the service you need now, or let us put a full plan together for your next release.</p>
         <div class="actions" data-reveal style="margin-top:1.8rem"><a class="btn" href="/contact">Book a meeting</a><a class="more" href="/packages">See packages</a></div>
       </div>
-      <div class="mini"><Disc /></div>
+      <div class="mini"><Turntable /></div>
     </div>
   </header>
 

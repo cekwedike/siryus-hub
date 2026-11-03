@@ -91,3 +91,6 @@ Release artwork in `apps/am/public/images/releases/` and `apps/arc/public/arc/re
 
 ## Discography artwork
 Cover art on artist pages loads from Apple Music's image CDN via the public iTunes lookup API, used to promote each artist's own releases.
+
+## Hub SIGNAL. card (2026-11-03)
+`apps/siryus/public/images/portal/signal-billboards.webp`, `signal-camera.webp` and `signal-billboard-night.webp` are resized copies of the SIGNAL. site photos london-billboard, video-camera and billboard-night (Unsplash License, credited in the SIGNAL. section above). The older signal-workshop/planning/wall files stay for the share image.

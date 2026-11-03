@@ -8,7 +8,7 @@ const formatOptions = [
 
 export default defineType({
   name: 'arcEvent',
-  title: 'ARC Event',
+  title: 'Event',
   type: 'document',
   fields: [
     defineField({

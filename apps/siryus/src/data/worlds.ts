@@ -37,7 +37,7 @@ export const worlds: World[] = [
     href: 'https://growth.siryushub.com',
     domain: 'growth.siryushub.com',
     logo: { src: '/brand/signal/symbol.png', width: 425, height: 355 },
-    images: ['/images/portal/signal-workshop.webp', '/images/portal/signal-planning.webp', '/images/portal/signal-wall.webp'],
+    images: ['/images/portal/signal-billboards.webp', '/images/portal/signal-camera.webp', '/images/portal/signal-billboard-night.webp'],
   },
   {
     id: 'pavo',

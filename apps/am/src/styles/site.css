@@ -453,3 +453,18 @@ html.js:not(.motion-fallback) [data-split]:not(.in) .w > span { transform: trans
 .pager ol span { background: var(--ink); color: var(--paper); }
 .pager ol a:hover { background: var(--smoke); }
 @media (max-width: 36rem) { .pager { grid-template-columns: 1fr 1fr; } .pager ol { grid-column: 1 / -1; grid-row: 1; justify-content: center; } }
+
+/* ---------- Records always keep their circle; the turntable on inner pages and the 404 ---------- */
+.disc { aspect-ratio: 1; height: auto; }
+.disc-slot .disc { height: 100%; }
+.deck { position: relative; width: 100%; aspect-ratio: 1; }
+.deck .platter { position: absolute; left: 0; bottom: 0; width: 84%; aspect-ratio: 1; border-radius: 50%; padding: 3%; background: var(--smoke); box-shadow: inset 0 0 0 1px var(--line); }
+.deck .platter .disc { width: 100%; }
+.deck .arm { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transform-origin: 86% 14%; animation: arm-in 1.6s .5s var(--ease) both; }
+.deck .arm .base { fill: var(--ink); }
+.deck .arm .cap { fill: var(--paper); }
+.deck .arm .weight { stroke: var(--ink); stroke-width: 6; stroke-linecap: round; }
+.deck .arm .rod { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.deck .arm .head { fill: var(--ink); }
+@keyframes arm-in { from { transform: rotate(-26deg); } to { transform: rotate(0); } }
+.lost .disc-wrap { width: min(100%, 26rem); justify-self: center; }

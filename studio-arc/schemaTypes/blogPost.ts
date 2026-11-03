@@ -13,7 +13,7 @@ const categoryOptions = [
 
 export default defineType({
   name: 'blogPost',
-  title: 'Blog Post',
+  title: 'Journal post',
   type: 'document',
   fields: [
     defineField({

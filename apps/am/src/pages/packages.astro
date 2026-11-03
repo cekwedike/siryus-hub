@@ -1,6 +1,6 @@
 ---
 import Site from '../layouts/Site.astro'
-import Disc from '../components/Disc.astro'
+import Turntable from '../components/Turntable.astro'
 import { packages, services } from '../data/services'
 
 const featured = ['release-strategy', 'playlist-pitching', 'content-strategy', 'marketing-plans'].map((s) => services.find((x) => x.slug === s)!)
@@ -12,7 +12,7 @@ const featured = ['release-strategy', 'playlist-pitching', 'content-strategy', '
         <h1 data-split>One release. Everything it needs.</h1>
         <p class="lede" data-reveal style="margin-top:1.6rem">Our packages bring the four things every release needs into one plan, so nothing gets missed and every part works together.</p>
       </div>
-      <div class="mini"><Disc /></div>
+      <div class="mini"><Turntable /></div>
     </div>
   </header>
   <section class="section">

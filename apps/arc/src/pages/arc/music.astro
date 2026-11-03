@@ -42,20 +42,63 @@ const fallback = [
   },
 ]
 type Link = [string, string]
-const studio = await getArcReleases()
-const releases = studio.length
-  ? studio.map((r) => ({
-      title: r.title,
-      credit: r.credit,
-      type: r.format ?? 'Single',
-      date: r.releaseDate,
-      cover: r.coverUrl ? `${r.coverUrl}?w=900&h=900&fit=crop&auto=format` : '/arc/releases/me-and-you.webp',
-      alt: r.coverAlt ?? `${r.title} cover art`,
-      note: r.note ?? '',
-      tracks: r.tracks ?? [],
-      links: ([['Spotify', r.spotify], ['Apple Music', r.appleMusic], ['Audiomack', r.audiomack], ['YouTube', r.youtube], ...(r.otherLinks ?? []).map((l) => [l.label, l.url])] as [string, string | undefined][]).filter((l): l is Link => Boolean(l[1])),
-    }))
-  : fallback.map((r) => ({ ...r, links: [['Spotify', spotify], ['Apple Music', r.apple]] as Link[] }))
+type Item = { title: string; credit: string; type: string; date: string; cover: string; alt: string; note: string; tracks: string[]; links: Link[] }
+const key = (t: string) => t.toLowerCase().replace(/\s*[([]feat\..*$/, '').replace(/[^a-z0-9]+/g, ' ').trim()
+
+// Three sources, matched by title: ARC. Creatives' Apple Music catalogue (automatic), the built-in list above,
+// then releases added in the ARC. Studio, which win for anything they fill in.
+async function appleReleases(): Promise<Item[]> {
+  try {
+    const res = await fetch('https://itunes.apple.com/lookup?id=6789002500&entity=album&limit=200')
+    if (!res.ok) return []
+    return ((await res.json()).results as Record<string, string>[])
+      .filter((r) => r.wrapperType === 'collection')
+      .map((r) => {
+        const name = r.collectionName.replace(/ - (Single|EP)$/, '')
+        const feat = name.match(/[([]feat\. ([^)\]]+)[)\]]/)?.[1]
+        return {
+          title: name.replace(/\s*[([]feat\.[^)\]]+[)\]]/, ''),
+          credit: feat ? `${r.artistName} featuring ${feat.replace(/ & /g, ' and ')}` : r.artistName,
+          type: / - Single$/.test(r.collectionName) ? 'Single' : / - EP$/.test(r.collectionName) ? 'EP' : 'Album',
+          date: r.releaseDate.slice(0, 10),
+          cover: r.artworkUrl100.replace(/\/\d+x\d+bb\./, '/900x900bb.'),
+          alt: `${name} cover art`,
+          note: '',
+          tracks: [],
+          links: [['Spotify', spotify], ['Apple Music', r.collectionViewUrl.split('?')[0]]] as Link[],
+        }
+      })
+  } catch {
+    return []
+  }
+}
+
+const merged = new Map<string, Item>()
+const add = (item: Item) => {
+  const existing = merged.get(key(item.title))
+  if (!existing) return merged.set(key(item.title), item)
+  const links = [...item.links, ...existing.links].filter(([label], i, all) => all.findIndex(([l]) => l === label) === i)
+  const filled = Object.fromEntries(Object.entries(item).filter(([, v]) => (Array.isArray(v) ? v.length : v)))
+  merged.set(key(item.title), { ...existing, ...filled, links } as Item)
+}
+for (const r of await appleReleases()) add(r)
+for (const r of fallback) add({ ...r, links: [['Apple Music', r.apple]] })
+for (const r of await getArcReleases())
+  add({
+    title: r.title,
+    credit: r.credit,
+    type: r.format ?? 'Single',
+    date: r.releaseDate,
+    cover: r.coverUrl ? `${r.coverUrl}?w=900&h=900&fit=crop&auto=format` : '',
+    alt: r.coverAlt ?? `${r.title} cover art`,
+    note: r.note ?? '',
+    tracks: r.tracks ?? [],
+    links: ([['Spotify', r.spotify], ['Apple Music', r.appleMusic], ['Audiomack', r.audiomack], ['YouTube', r.youtube], ...(r.otherLinks ?? []).map((l) => [l.label, l.url])] as [string, string | undefined][]).filter((l): l is Link => Boolean(l[1])),
+  })
+const linkOrder = ['Spotify', 'Apple Music']
+const releases = [...merged.values()]
+  .map((r) => ({ ...r, links: [...r.links].sort(([x], [y]) => ((linkOrder.indexOf(x) + 9) % 9) - ((linkOrder.indexOf(y) + 9) % 9)) }))
+  .sort((x, y) => y.date.localeCompare(x.date))
 const fmt = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
 const schema = {
   '@context': 'https://schema.org',

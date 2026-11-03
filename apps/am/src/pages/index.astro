@@ -4,13 +4,19 @@ import Site from '../layouts/Site.astro'
 import Disc from '../components/Disc.astro'
 import Ticker from '../components/Ticker.astro'
 import Releases from '../components/Releases.astro'
-import { getRoster, getAlumni, getProjects, getPosts, shotsOf, date } from '../lib/sanity'
+import { getRoster, getDistributed, getAlumni, getProjects, getPosts, shotsOf, date, type Artist } from '../lib/sanity'
 import { services, packages, groups, groupLines } from '../data/services'
 
-const [roster, alumni, projects, posts] = await Promise.all([getRoster(), getAlumni(), getProjects(), getPosts()])
+const [roster, distributed, alumni, projects, posts] = await Promise.all([getRoster(), getDistributed(), getAlumni(), getProjects(), getPosts()])
 const indiba = projects.find((p) => p.slug === 'indiba-project-series')
-// The hero sleeve cycles through the current roster, two portraits each.
-const sleeve = roster.flatMap((a) => shotsOf(a).slice(0, 2).map((p) => ({ ...p, name: a.name })))
+// The hero sleeve cycles through everyone in the Studio: managed artists (two portraits each), then
+// distribution artists and alumni (one each), each captioned with their relationship to SIRYUS A.M.
+const slides = (list: Artist[], count: number, tag: string) => list.flatMap((a) => shotsOf(a).slice(0, count).map((p) => ({ ...p, name: a.name, tag })))
+const sleeve = [
+  ...slides(roster, 2, 'On the SIRYUS A.M roster'),
+  ...slides(distributed, 1, 'Distributed by SIRYUS A.M'),
+  ...slides(alumni, 1, 'SIRYUS A.M alumni'),
+]
 const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
 const letters = ['A', 'B', 'C']
 ---
@@ -33,9 +39,9 @@ const letters = ['A', 'B', 'C']
           <div class="disc-slot"><Disc /></div>
           <div class="sleeve" data-sleeve>
             {sleeve.map((shot, i) => (
-              <img class={i === 0 ? 'on bw' : 'bw'} src={shot.large ?? shot.src} alt={shot.alt} width="640" height="640" data-name={shot.name} fetchpriority={i === 0 ? 'high' : undefined} loading={i === 0 ? 'eager' : 'lazy'} />
+              <img class={i === 0 ? 'on bw' : 'bw'} src={shot.large ?? shot.src} alt={shot.alt} width="640" height="640" data-name={shot.name} data-tag={shot.tag} fetchpriority={i === 0 ? 'high' : undefined} loading={i === 0 ? 'eager' : 'lazy'} />
             ))}
-            <p class="cap"><span><strong data-sleeve-name>{sleeve[0]?.name}</strong>On the SIRYUS A.M roster</span></p>
+            <p class="cap"><span><strong data-sleeve-name>{sleeve[0]?.name}</strong><span data-sleeve-tag>{sleeve[0]?.tag}</span></span></p>
           </div>
         </div>
       </div>
@@ -203,6 +209,7 @@ const letters = ['A', 'B', 'C']
   const sleeve = document.querySelector<HTMLElement>('[data-sleeve]')
   const shots = sleeve ? [...sleeve.querySelectorAll<HTMLImageElement>('img')] : []
   const name = document.querySelector<HTMLElement>('[data-sleeve-name]')
+  const tag = document.querySelector<HTMLElement>('[data-sleeve-tag]')
   const bar = document.querySelector<HTMLElement>('[data-sleeve-bar]')
   const count = document.querySelector<HTMLElement>('[data-sleeve-count]')
   const total = String(shots.length).padStart(2, '0')
@@ -220,6 +227,7 @@ const letters = ['A', 'B', 'C']
       i = (i + 1) % shots.length
       shots[i].classList.add('on')
       if (name) name.textContent = shots[i].dataset.name ?? ''
+      if (tag) tag.textContent = shots[i].dataset.tag ?? ''
       if (count) count.textContent = `${String(i + 1).padStart(2, '0')} / ${total}`
       run()
     })

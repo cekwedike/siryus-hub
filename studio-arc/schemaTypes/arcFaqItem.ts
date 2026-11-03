@@ -2,7 +2,7 @@ import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'arcFaqItem',
-  title: 'ARC FAQ item',
+  title: 'FAQ question',
   type: 'document',
   orderings: [
     {

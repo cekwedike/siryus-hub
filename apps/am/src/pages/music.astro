@@ -1,6 +1,6 @@
 ---
 import Site from '../layouts/Site.astro'
-import Disc from '../components/Disc.astro'
+import Turntable from '../components/Turntable.astro'
 import Releases from '../components/Releases.astro'
 import { releases, features, spotify } from '../lib/collective'
 import { getReleases, linksOf } from '../lib/sanity'
@@ -25,7 +25,7 @@ const schema = [{
         <p class="lede" data-reveal style="margin-top:1.6rem">SIRYUS A.M is a creative collective as well as a management company. We release our own records and bring artists together on them.</p>
         <div class="actions" data-reveal style="margin-top:1.8rem"><a class="btn" href={spotify} target="_blank" rel="noopener">Follow on Spotify</a></div>
       </div>
-      <div class="mini"><Disc /></div>
+      <div class="mini"><Turntable /></div>
     </div>
   </header>
   <section class="section">
