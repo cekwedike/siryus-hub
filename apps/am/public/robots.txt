@@ -1,3 +1,4 @@
+# Search engines and AI assistants are welcome. A plain summary of this site is at https://artists.siryushub.com/llms.txt
 User-agent: *
 Allow: /
 

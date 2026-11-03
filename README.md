@@ -1,110 +1,44 @@
-# Siryus Hub
+# SIRYUS
 
-Static marketing site for **Siryus Hub** and **SIRYUS A.M**, the public face of Siryus Creative Media Ltd’s work supporting independent creatives (management, marketing, community, and resources). Built with [Astro](https://astro.build/) as a fully static export (`output: 'static'`), deployed like any static host (Netlify-style `_redirects`, Apache `.htaccess` on Hostinger, etc.).
+The websites of Siryus Creative Media Ltd: four static Astro sites in one pnpm workspace, hosted on Cloudflare Pages.
 
----
+| Site | Folder | Address | Cloudflare Pages project |
+|---|---|---|---|
+| SIRYUS (hub) | `apps/siryus` | https://siryushub.com | `siryus-hub` (builds from Git) |
+| SIRYUS A.M | `apps/am` | https://artists.siryushub.com | `siryus-artists` |
+| SIGNAL. by SIRYUS | `apps/signal` | https://growth.siryushub.com | `siryus-growth` |
+| ARC. Creatives | `apps/arc` | https://collective.siryushub.com | `siryus-collective` |
 
-## Vision
+Content lives in two Sanity Studios: `studio/` (SIRYUS A.M, project `h16wl0pr`) and `studio-arc/` (ARC. Creatives,
+project `qi12mdx6`). Shared code is in `shared/`: the "Back to SIRYUS" link, motion, the contact-form email handler
+and `seo.ts`, the company and founder facts used in every site's structured data.
 
-- **Purpose:** Present the Siryus ecosystem clearly: who we are, what SIRYUS A.M offers, how to explore artists and projects, and how to get in touch, without duplicating a full product app.
-- **Audience:** Independent artists, collaborators, partners, and fans landing from social or search.
-- **Tone:** Bold, dark-first UI with lime accent (`#d1df4b`), glass/clay/neu/skeuo surfaces (see `src/styles/morphism.css`), and a cinematic `/home` experience separate from lightweight legal/marketing inner pages.
-- **Non-goals:** This repo is not a CMS, dashboard, or authenticated product; content is in-repo Astro pages and components.
-
----
-
-## What the codebase is today
-
-### Entry and main experiences
-
-| Route | File | Role |
-|--------|------|------|
-| `/` | `src/pages/index.astro` | Splash / brand entry; transitions or skip to `/home`. Styles: `src/styles/splash.css`. |
-| `/home` | `src/pages/home.astro` | Primary marketing homepage: `Navigation`, `Sidebar`, `HeroSection`, `ExploreSection`, `Footer`. Imports `brand-tokens.css`, `morphism.css`. Client theme + parallax in page script. |
-
-### Marketing + legal (shared layout)
-
-Most inner pages use **`src/layouts/BaseLayout.astro`**: `SimpleSiteNav`, main slot wrapped in **`morph-surface morph-surface--glass`**, `SiteFooterLegal`. Shared styles: `src/styles/marketing-layout.css` + `morphism.css`.
-
-Representative routes:
-
-- `/services`, `/siryus-am`, `/projects`, `/contact`, `/about`, `/community`, `/reels`, `/blog`, `/artists`, `/artists/max-prodigy`, `/artists/hidaya-morgan`
-- Legal: `/privacy-policy`, `/terms-of-use`, `/cookie-policy`, `/faq`, `/sitemap`
-- `/404`: custom not found
-
-### Design system (high level)
-
-- **`src/styles/brand-tokens.css`**: Background, surface, accent, gradients.
-- **`src/styles/morphism.css`**: Shared morphism utilities: `nav-glass`, `morph-surface--glass`, `morph-clay-card`, `morph-skeuo-frame`, `morph-neu-*`, `morph-footer-glass`, hero helpers; includes `body.light-theme` overrides.
-- **`src/components/BrandWordmark.astro`**: Wordmark variants for nav, footer, marketing.
-- Home-specific sections live under `src/components/` (`HeroSection`, `ExploreSection`, `Footer`, `Navigation`, `Sidebar`, etc.).
-
-### Redirects (legacy URLs)
-
-- **`public/_redirects`**: Netlify-style 301s (e.g. old builder paths).
-- **`public/.htaccess`**: Apache equivalents for Hostinger-style hosting.
-- Notable: `/hybrid` → `/projects`, **`/brief` → `/services`** (the old “Project brief” page was removed in favor of the Services page and nav label **SERVICES**).
-
-### SEO
-
-- **`@astrojs/sitemap`**: `site` in `astro.config.mjs` is `https://www.siryushub.com`; sitemap emitted at build.
-
-### Scripts and tooling
-
-- `pnpm build` / `pnpm dev` / `pnpm preview`
-- `pnpm lint:max-lines`: guards file length under `src/` (see `package.json`)
-
----
-
-## Project structure (abbreviated)
-
-```
-siryus-hub/
-├── public/                 # Static assets, _redirects, .htaccess, fonts, images
-├── src/
-│   ├── components/         # UI sections (home footer, nav, explore grid, etc.)
-│   ├── layouts/            # BaseLayout (marketing shell)
-│   ├── pages/              # File-based routes (*.astro)
-│   ├── styles/             # brand-tokens, morphism, marketing-layout, splash
-│   └── scripts/            # Splash-related TS where used
-├── docs/                   # Additional internal / spec material (optional)
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
-```
-
----
-
-## Local development
-
-**Requirements:** Node 18+ (or 20+).
+## Work on it
 
 ```bash
 pnpm install
-pnpm dev
+pnpm dev:hub        # or dev:am, dev:signal, dev:arc
+pnpm build          # builds all four sites
+pnpm studio         # A.M Studio; pnpm studio:arc for ARC.
 ```
 
-- Splash: `http://localhost:4321/`
-- Home: `http://localhost:4321/home`
+## Deploys
 
-```bash
-pnpm build
-pnpm preview
-```
+- siryushub.com rebuilds when `main` is pushed.
+- A.M, SIGNAL. and ARC. deploy through `.github/workflows/deploy-sites.yml`: on pushes that touch them, by hand from
+  the Actions tab, and when content is published in either Studio (a Sanity webhook sends a `sanity-publish` event).
+- The contact forms on A.M and SIGNAL. need the `MAILJET_API_KEY` and `MAILJET_SECRET_KEY` secrets on their Pages
+  projects.
 
----
+## Search
 
-## What happened to “Brief”?
+Each site serves `/sitemap-index.xml`, `/robots.txt` and `/llms.txt` (a plain summary for AI assistants, generated
+from the same data as the pages). Old URLs from the previous siryushub.com are redirected in
+`apps/siryus/public/_redirects`; see `docs/ROUTE_MIGRATION_MATRIX.md`.
 
-The former **`/brief`** page was a short page titled “Project brief,” with tips on what to include when starting a project (goals, timeline, references) and a link to **Contact**. That overlapped **Services** and **Contact**, so the route was **removed**. Primary nav, sidebar, and the Explore grid now point to **`/services`** instead; old **`/brief`** URLs **301 redirect to `/services`**.
+## Docs
 
----
-
-## Further reading
-
-- Deeper product or migration notes may live under `docs/` (e.g. `docs/README.md`).
-- For splash-only behavior (timers, text rotation), see inline comments and scripts in `src/pages/index.astro` and `src/styles/splash.css`.
-
----
-
-Maintained as part of the Siryus Hub web presence (Siryus Creative Media Ltd).
+- `AGENTS.md`: rules for anyone, human or AI, changing this repository.
+- `docs/DECISIONS_AND_PROGRESS.md`: what changed and why.
+- `docs/IMAGE_CREDITS.md`: where every image comes from and the right to use it.
+- `docs/BRAND_SIGNAL.md`: the SIGNAL. brand.

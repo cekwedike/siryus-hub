@@ -2,6 +2,7 @@
 import SiryusStar from '../components/SiryusStar.astro';
 import ArcAnimatedLogo from '../components/ArcAnimatedLogo.astro';
 import ArcFooter from '../components/ArcFooter.astro';
+import { arcGraph } from '../lib/arcSchema';
 import '../styles/arc-fonts.css';
 import '../styles/arc-blog.css';
 import '../styles/arc-x.css';
@@ -36,28 +37,7 @@ import '../styles/arc-x.css';
     />
     <meta name="twitter:image" content="https://collective.siryushub.com/og.png" />
     <link rel="canonical" href="https://collective.siryushub.com/" />
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "ARC. Creatives",
-  "alternateName": ["ARC", "Ascent. Refuge. Collective.", "ARC Creative Community"],
-  "url": "https://collective.siryushub.com/",
-  "logo": "https://collective.siryushub.com/arc/arc-logo.png",
-  "description": "ARC. Creatives is a faith-rooted collective for Christian creatives across music, film, poetry, dance, design, and performance.",
-  "areaServed": {
-    "@type": "Place",
-    "name": "Worldwide"
-  },
-  "keywords": "Christian creative community, independent Christian creatives, faith and creativity, gospel creatives, ARC., Ascent Refuge Collective",
-  "parentOrganization": {
-    "@type": "Organization",
-    "name": "Siryus Creative Media Ltd",
-    "url": "https://siryushub.com"
-  },
-  "sameAs": []
-}
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(arcGraph)} />
     <meta name="theme-color" content="#0a0908" />
     <link rel="icon" href="/favicon-arc.png" type="image/png" />
     <link rel="shortcut icon" href="/favicon-arc.png" type="image/png" />

@@ -1,7 +1,5 @@
+# Search engines and AI assistants are welcome. A plain summary of this site is at https://collective.siryushub.com/llms.txt
 User-agent: *
 Allow: /
-
-Disallow: /studio/
-Disallow: /api/
 
 Sitemap: https://collective.siryushub.com/sitemap-index.xml

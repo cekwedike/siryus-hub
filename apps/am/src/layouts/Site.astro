@@ -1,6 +1,7 @@
 ---
 import '../styles/site.css'
 import Return from '../../../../shared/astro/Return.astro'
+import { ids, parentNodes } from '../../../../shared/seo'
 import { profiles } from '../lib/collective'
 import { services, groups } from '../data/services'
 
@@ -13,10 +14,13 @@ interface Props {
   schema?: Record<string, unknown>[]
 }
 const { title, description, noIndex = false, image, type = 'website', schema = [] } = Astro.props
-const pageTitle = title === 'SIRYUS A.M' ? 'SIRYUS A.M | Music management for independent artists' : `${title} | SIRYUS A.M`
+// Search results show about 60 characters of a title and 160 of a description: long titles drop the brand suffix
+// and long descriptions are cut at a word.
+const pageTitle = title === 'SIRYUS A.M' ? 'SIRYUS A.M | Music management for independent artists' : title.length > 46 ? title : `${title} | SIRYUS A.M`
+const metaDescription = description.length <= 160 ? description : `${description.slice(0, 157).replace(/\s+\S*$/, '')}...`
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).href
 const ogImage = image ?? new URL('/og.png', Astro.site).href
-const org = 'https://artists.siryushub.com/#organization'
+const org = ids.am
 const graph = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -30,8 +34,9 @@ const graph = {
       description: 'Music management company and creative collective: release strategy, playlist pitching, content strategy, marketing, artist branding, distribution and artist management.',
       sameAs: profiles.map(([, url]) => url),
       address: { '@type': 'PostalAddress', addressLocality: 'Abuja', addressCountry: 'NG' },
-      parentOrganization: { '@type': 'Organization', name: 'Siryus Creative Media Ltd', url: 'https://siryushub.com/' },
+      parentOrganization: { '@id': ids.siryus },
     },
+    ...parentNodes,
     { '@type': 'WebSite', '@id': 'https://artists.siryushub.com/#website', name: 'SIRYUS A.M', url: 'https://artists.siryushub.com/', publisher: { '@id': org } },
     ...schema,
   ],
@@ -53,7 +58,7 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     {noIndex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <meta name="theme-color" content="#ffffff" />
     <script is:inline>
@@ -70,14 +75,14 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
     <meta property="og:site_name" content="SIRYUS A.M" />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     {!image && <meta property="og:image:width" content="1200" />}
     {!image && <meta property="og:image:height" content="630" />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImage} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(graph)} />
   </head>

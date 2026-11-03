@@ -4,6 +4,7 @@ import '../styles/arc-fonts.css';
 import '../styles/arc-blog.css';
 import '../styles/arc-x.css';
 import ArcFooter from '../components/ArcFooter.astro';
+import { arcGraph } from '../lib/arcSchema';
 
 interface Props {
   title: string;
@@ -31,7 +32,10 @@ const {
   paginationNext,
 } = Astro.props;
 
-const pageTitle = title.includes('|') ? title : `${title} | ARC`;
+// Older CMS titles carry the retired "Siryus Hub" name; search results show about 60 characters, so long titles keep
+// only their first part and drop the brand suffix.
+const cleanTitle = title.replace(/\s*-\s*Siryus Hub/gi, '').replace(/&amp;/g, '&');
+const pageTitle = cleanTitle.length > 52 ? cleanTitle.split(' | ')[0] : cleanTitle.includes('|') ? cleanTitle : `${cleanTitle} | ARC. Creatives`;
 
 const canonicalURL = canonical
   ? new URL(canonical, Astro.url.origin).href
@@ -48,22 +52,8 @@ const metaDescription =
     ? description
     : `${description.slice(0, 157).replace(/\s+\S*$/, '')}...`;
 
-const defaultSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'ARC',
-  alternateName: 'Ascent. Refuge. Collective.',
-  url: 'https://collective.siryushub.com/',
-  logo: 'https://collective.siryushub.com/arc/arc-logo.png',
-  description:
-    'ARC. is a community supporting independent Christian creatives as they grow in craft and faith, together.',
-  sameAs: [
-    'https://www.instagram.com/wearearc.creatives/',
-    'https://www.youtube.com/@wearearc.creatives',
-  ],
-};
-
-const finalSchema = schema || defaultSchema;
+// ARC.'s organisation graph is on every page; a page's own schema (article, event, FAQ) is added alongside it.
+const pageSchema = schema;
 const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const inBlog = currentPath === '/arc/blog' || currentPath.startsWith('/arc/blog/');
 const inEvents = currentPath === '/arc/events' || currentPath.startsWith('/arc/events/');
@@ -101,7 +91,8 @@ const inArcHome = currentPath === '/';
     <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(arcGraph)} />
+    {pageSchema && <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />}
 
     <link rel="icon" href="/favicon-arc.png" type="image/png" />
     <link rel="shortcut icon" href="/favicon-arc.png" type="image/png" />

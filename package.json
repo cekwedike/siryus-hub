@@ -19,11 +19,6 @@
     "icons": "node scripts/build-brand-icons.mjs",
     "og": "node scripts/build-og-images.mjs",
     "lint:max-lines": "node scripts/check-line-length.mjs",
-    "seed:artists": "node scripts/seed-artists.mjs",
-    "seed:projects": "node scripts/seed-projects.mjs",
-    "update:indiba": "node scripts/update-indiba.mjs",
-    "seed:team": "node scripts/seed-team.mjs",
-    "patch:artist-keys": "node scripts/patch-artist-release-keys.mjs",
     "studio": "pnpm --dir studio dev",
     "studio:arc": "pnpm --dir studio-arc dev"
   },

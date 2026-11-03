@@ -3,22 +3,17 @@ import '../styles/global.css'
 import Head from '../components/Head.astro'
 import Cosmos from '../components/Cosmos.astro'
 import { worlds } from '../data/worlds'
+import { siryus, founder, pavo, ids } from '../../../../shared/seo'
 
 const title = 'SIRYUS | Different Worlds. One Creative Universe.'
+// The company, its founder, PAVO Create (same founder, separate company) and the site itself. See shared/seo.ts.
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': 'https://siryushub.com/#organization',
-      name: 'Siryus Creative Media Ltd',
-      alternateName: 'SIRYUS',
-      url: 'https://siryushub.com/',
-      logo: 'https://siryushub.com/icon-512.png',
-      slogan: 'Different Worlds. One Creative Universe.',
-      brand: worlds.filter((world) => !world.external).map((world) => ({ '@type': 'Brand', name: world.name + (world.period ? '.' : ''), url: world.href })),
-    },
-    { '@type': 'WebSite', '@id': 'https://siryushub.com/#website', name: 'SIRYUS', url: 'https://siryushub.com/', publisher: { '@id': 'https://siryushub.com/#organization' } },
+    { ...siryus, brand: worlds.filter((world) => !world.external).map((world) => ({ '@type': 'Brand', name: world.name + (world.period ? '.' : ''), url: world.href })) },
+    founder,
+    pavo,
+    { '@type': 'WebSite', '@id': 'https://siryushub.com/#website', name: 'SIRYUS', alternateName: 'Siryus Hub', url: 'https://siryushub.com/', publisher: { '@id': ids.siryus } },
   ],
 }
 const description = 'SIRYUS is home to SIRYUS A.M, ARC. Creatives and SIGNAL., with PAVO Create alongside. Choose a world to enter.'

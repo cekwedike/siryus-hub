@@ -1,4 +1,4 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "exclude": ["legacy-source", "src/lib/queries.ts", "dist", ".vercel/output", "studio/dist", "studio-arc/dist"]
+  "exclude": ["dist", "src/lib/queries.ts"]
 }

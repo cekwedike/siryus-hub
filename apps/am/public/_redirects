@@ -1,7 +1,10 @@
 # Paths from earlier versions of this site and from the old combined siryushub.com.
 /what-we-do        /services   301
+/what-we-do/        /services   301
 /insights          /journal    301
+/insights/          /journal    301
 /insights/*        /journal/:splat  301
 /blog              /journal    301
+/blog/              /journal    301
 /blog/*            /journal/:splat  301
 /am/*              /:splat     301

@@ -1,5 +1,11 @@
 # Route Migration Matrix
 
+> **Status (2026-11-03): migration complete.** The old site has been removed from this repository (it remains in git
+> history). Every old URL below is redirected by `apps/siryus/public/_redirects`, including the trailing-slash forms the
+> old sitemap used (`/about/`) and the old `www.siryushub.com` host (a Cloudflare redirect rule sends www to the bare
+> domain with path and query kept, then these rules apply). The table below is the original audit, kept as the record
+> of what Google had indexed.
+
 Audit date: 2026-11-02  
 Canonical host in current code: `https://www.siryushub.com`  
 Status vocabulary: KEEP, REWRITE, MOVE, MERGE, RETIRE, INVESTIGATE.

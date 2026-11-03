@@ -1,51 +1,90 @@
 # Legacy siryushub.com URLs from the old combined site, sent to their new homes (docs/ROUTE_MIGRATION_MATRIX.md).
-# These only matter once siryushub.com points at this project. The subdomains must be live first.
+# The old site was served at www.siryushub.com (Cloudflare redirects www to the bare domain, keeping the path) and its
+# sitemap listed URLs ending in "/", so each exact rule has a trailing-slash twin.
 
 /home                          /                                                            301
+/home/                          /                                                            301
 /about                         /                                                            301
+/about/                         /                                                            301
 /sitemap                       /sitemap-index.xml                                           301
+/sitemap/                       /sitemap-index.xml                                           301
 /contact-page-siryus           /                                                            301
+/contact-page-siryus/           /                                                            301
 /services                      /                                                            301
+/services/                      /                                                            301
+/faq                           /                                                            301
+/faq/                           /                                                            301
+/contact                       https://artists.siryushub.com/contact                        301
+/contact/                       https://artists.siryushub.com/contact                        301
 
 # SIRYUS A.M. Exact pages first; Cloudflare uses the first rule that matches.
 /siryus-am                     https://artists.siryushub.com/                               301
+/siryus-am/                     https://artists.siryushub.com/                               301
 /siryus-am/blog                https://artists.siryushub.com/journal                        301
+/siryus-am/blog/                https://artists.siryushub.com/journal                        301
 /siryus-am/blog/*              https://artists.siryushub.com/journal/:splat                 301
 /am                            https://artists.siryushub.com/                               301
+/am/                            https://artists.siryushub.com/                               301
 /am/*                          https://artists.siryushub.com/:splat                         301
 /artists                       https://artists.siryushub.com/artists                        301
+/artists/                       https://artists.siryushub.com/artists                        301
 /artists/max-prodigy           https://artists.siryushub.com/artists/max-prodigy            301
+/artists/max-prodigy/           https://artists.siryushub.com/artists/max-prodigy            301
 /artists/jlinez                https://artists.siryushub.com/artists/jlinez                 301
+/artists/jlinez/                https://artists.siryushub.com/artists/jlinez                 301
+/artists/hidaya-morgan         https://artists.siryushub.com/artists/hidaya-morgan          301
+/artists/hidaya-morgan/         https://artists.siryushub.com/artists/hidaya-morgan          301
 /artists/*                     https://artists.siryushub.com/artists                        301
 /max-prodigy                   https://artists.siryushub.com/artists/max-prodigy            301
+/max-prodigy/                   https://artists.siryushub.com/artists/max-prodigy            301
 /jlinez                        https://artists.siryushub.com/artists/jlinez                 301
-/hidaya-morgan                 https://artists.siryushub.com/artists                        301
+/jlinez/                        https://artists.siryushub.com/artists/jlinez                 301
+/hidaya-morgan                 https://artists.siryushub.com/artists/hidaya-morgan          301
+/hidaya-morgan/                 https://artists.siryushub.com/artists/hidaya-morgan          301
 /projects                      https://artists.siryushub.com/projects                       301
+/projects/                      https://artists.siryushub.com/projects                       301
 /projects/indiba-project-series  https://artists.siryushub.com/projects/indiba-project-series  301
+/projects/indiba-project-series/  https://artists.siryushub.com/projects/indiba-project-series  301
 /projects/the-abditory-sessions  https://artists.siryushub.com/projects/the-abditory-sessions  301
+/projects/the-abditory-sessions/  https://artists.siryushub.com/projects/the-abditory-sessions  301
 # Acoustic Rwanda is retired. Its old URL lands on the projects index, never on an unrelated project.
 /projects/*                    https://artists.siryushub.com/projects                       301
 /indiba-project-series         https://artists.siryushub.com/projects/indiba-project-series 301
+/indiba-project-series/         https://artists.siryushub.com/projects/indiba-project-series 301
 /siryus-hub-projects           https://artists.siryushub.com/projects                       301
+/siryus-hub-projects/           https://artists.siryushub.com/projects                       301
 /studio                        https://artists.siryushub.com/projects                       301
+/studio/                        https://artists.siryushub.com/projects                       301
 /blog/what-independent-artists-get-wrong-about-marketing  https://artists.siryushub.com/journal/what-independent-artists-get-wrong-about-marketing  301
+/blog/what-independent-artists-get-wrong-about-marketing/  https://artists.siryushub.com/journal/what-independent-artists-get-wrong-about-marketing  301
 /blog/copyright-vs-intellectual-property                  https://artists.siryushub.com/journal/copyright-vs-intellectual-property  301
+/blog/copyright-vs-intellectual-property/                  https://artists.siryushub.com/journal/copyright-vs-intellectual-property  301
 /blog/how-mental-health-impacts-your-art                  https://artists.siryushub.com/journal/how-mental-health-impacts-your-art  301
+/blog/how-mental-health-impacts-your-art/                  https://artists.siryushub.com/journal/how-mental-health-impacts-your-art  301
 
 # ARC. Creatives keeps its /arc/* paths on its own host.
 /arc                           https://collective.siryushub.com/                            301
+/arc/                           https://collective.siryushub.com/                            301
 /arc/*                         https://collective.siryushub.com/arc/:splat                  301
 /community                     https://collective.siryushub.com/arc/community               301
+/community/                     https://collective.siryushub.com/arc/community               301
 /blog/monetizing-creativity-earn-living-passion           https://collective.siryushub.com/arc/blog/monetizing-creativity-earn-living-passion  301
+/blog/monetizing-creativity-earn-living-passion/           https://collective.siryushub.com/arc/blog/monetizing-creativity-earn-living-passion  301
 /blog/mastering-time-management-for-creatives             https://collective.siryushub.com/arc/blog/mastering-time-management-for-creatives  301
+/blog/mastering-time-management-for-creatives/             https://collective.siryushub.com/arc/blog/mastering-time-management-for-creatives  301
 /blog/building-an-online-portfolio-that-pops              https://collective.siryushub.com/arc/blog/building-an-online-portfolio-that-pops  301
+/blog/building-an-online-portfolio-that-pops/              https://collective.siryushub.com/arc/blog/building-an-online-portfolio-that-pops  301
 /blog/building-your-brand-as-a-creative                   https://collective.siryushub.com/arc/blog/building-your-brand-as-a-creative  301
+/blog/building-your-brand-as-a-creative/                   https://collective.siryushub.com/arc/blog/building-your-brand-as-a-creative  301
 /blog/collaboration-in-creative-industries                https://collective.siryushub.com/arc/blog/collaboration-in-creative-industries  301
+/blog/collaboration-in-creative-industries/                https://collective.siryushub.com/arc/blog/collaboration-in-creative-industries  301
 
 # Old blog index and pagination have no single new home.
 /blog                          /                                                            301
+/blog/                          /                                                            301
 /blog/page/*                   /                                                            301
 
 # SIGNAL. lives on its own host.
 /signal                        https://growth.siryushub.com/                                301
+/signal/                        https://growth.siryushub.com/                                301
 /signal/*                      https://growth.siryushub.com/:splat                          301
