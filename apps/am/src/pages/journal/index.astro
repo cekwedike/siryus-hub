@@ -1,9 +1,10 @@
 ---
 import Site from '../../layouts/Site.astro'
-import { getPosts, date } from '../../lib/sanity'
+import JournalList from '../../components/JournalList.astro'
+import { getPosts, POSTS_PER_PAGE } from '../../lib/sanity'
 
 const posts = await getPosts()
-const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
+const pages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE))
 ---
 <Site title="Journal" description="Straight talk for independent artists on marketing, copyright and the life behind the music, from SIRYUS A.M.">
   <header class="phero">
@@ -14,18 +15,7 @@ const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5
   </header>
   <section class="section">
     <div class="wrap">
-      <ul class="notes">
-        {posts.map((post) => (
-          <li class="note-row" data-reveal>
-            <a href={`/journal/${post.slug}`}>
-              <time datetime={post.publishedAt}>{date(post.publishedAt)}</time>
-              <h2 class="display" style="font-size:clamp(1.5rem,2.8vw,2.5rem);line-height:1.02">{post.title}</h2>
-              <span class="go" set:html={arrow} />
-              <p>{post.seoDescription ?? post.excerpt}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <JournalList posts={posts.slice(0, POSTS_PER_PAGE)} page={1} pages={pages} />
     </div>
   </section>
 </Site>

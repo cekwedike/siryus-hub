@@ -131,7 +131,10 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
         <div class="footer-top">
           <div>
             <h2>Let's move your music.</h2>
-            <a class="btn" href="/contact">Book a meeting</a>
+            <div class="footer-cta">
+              <a class="btn" href="/contact">Book a meeting</a>
+              <a class="footer-mail" href="mailto:management@siryushub.com">management@siryushub.com</a>
+            </div>
           </div>
           <div>
             <h3>Services</h3>
@@ -145,7 +148,6 @@ const current = (href: string) => here === href || here.startsWith(`${href}/`)
             <h3>Follow</h3>
             <div class="list">
               {profiles.map(([label, url]) => <a href={url} target="_blank" rel="noopener">{label}</a>)}
-              <a href="mailto:management@siryushub.com">management@siryushub.com</a>
             </div>
           </div>
         </div>

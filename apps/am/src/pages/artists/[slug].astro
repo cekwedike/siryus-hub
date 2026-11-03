@@ -1,29 +1,37 @@
 ---
 import Site from '../../layouts/Site.astro'
-import { getRoster, getAlumni, photosOf, type Artist } from '../../lib/sanity'
+import { getRoster, getDistributed, getAlumni, shotsOf, discographyOf, type Artist } from '../../lib/sanity'
 
-// Profiles for the current roster and for alumni. Alumni pages say plainly that the relationship has ended.
+// Profiles for managed artists, distribution artists and alumni. Alumni pages say plainly that the relationship
+// has ended. Everything here comes from the Studio, plus the artist's full catalogue from Apple Music.
+type Status = 'managed' | 'distributed' | 'alumni'
 export async function getStaticPaths() {
-  const [roster, alumni] = await Promise.all([getRoster(), getAlumni()])
-  return [
-    ...roster.map((artist) => ({ params: { slug: artist.slug }, props: { artist, isAlumni: false } })),
-    ...alumni.map((artist) => ({ params: { slug: artist.slug }, props: { artist, isAlumni: true } })),
-  ]
+  const [roster, distributed, alumni] = await Promise.all([getRoster(), getDistributed(), getAlumni()])
+  const paths = (list: Artist[], status: Status) => list.map((artist) => ({ params: { slug: artist.slug }, props: { artist, status } }))
+  return [...paths(roster, 'managed'), ...paths(distributed, 'distributed'), ...paths(alumni, 'alumni')]
 }
 
-const { artist, isAlumni } = Astro.props as { artist: Artist; isAlumni: boolean }
-const labels: Record<string, string> = { spotify: 'Spotify', appleMusic: 'Apple Music', audiomack: 'Audiomack', youtube: 'YouTube', instagram: 'Instagram', boomplay: 'Boomplay', tiktok: 'TikTok' }
-const platforms = Object.entries(artist.platforms ?? {}).filter(([, url]) => typeof url === 'string' && url.startsWith('http'))
+const { artist, status } = Astro.props as { artist: Artist; status: Status }
+const isAlumni = status === 'alumni'
+const labels: Record<string, string> = { spotify: 'Spotify', appleMusic: 'Apple Music', audiomack: 'Audiomack', youtube: 'YouTube', instagram: 'Instagram', tiktok: 'TikTok', x: 'X', boomplay: 'Boomplay' }
+const order = Object.keys(labels)
+const platforms = Object.entries(artist.platforms ?? {})
+  .filter(([, url]) => typeof url === 'string' && url.startsWith('http'))
+  .sort(([a], [b]) => (order.indexOf(a) + 99) % 99 - (order.indexOf(b) + 99) % 99)
 const description = (isAlumni ? `${artist.name}, SIRYUS A.M alumni. ` : '') + (artist.bioParagraph1 ?? artist.oneLiner ?? artist.name)
-const photos = photosOf(artist.slug)
-const share = new URL(photos[0]?.src ?? '/og.png', Astro.site).href
+const photos = shotsOf(artist)
+const discs = await discographyOf(artist)
+const shown = discs.slice(0, 12)
+const more = discs.slice(12)
+const share = new URL(photos[0]?.large ?? photos[0]?.src ?? '/og.png', Astro.site).href
+const statusLine = { managed: 'Managed by SIRYUS A.M', distributed: 'Distributed by SIRYUS A.M', alumni: 'SIRYUS A.M alumni' }[status]
 const schema = [{ '@type': 'MusicGroup', name: artist.name, url: new URL(`/artists/${artist.slug}`, Astro.site).href, image: share, genre: artist.genre, description: artist.oneLiner, sameAs: platforms.map(([, url]) => url) }]
 ---
 <Site title={isAlumni ? `${artist.name}, alumni` : artist.name} description={description.slice(0, 155).replace(/\s+\S*$/, '') + '…'} image={share} type="profile" schema={schema}>
   <header class="phero">
     <div class="wrap grid">
       <div>
-        <a class="crumb" href={isAlumni ? '/artists#alumni' : '/artists'}>{isAlumni ? 'Artists, alumni' : 'Artists'}</a>
+        <a class="crumb" href={status === 'managed' ? '/artists' : `/artists#${status}`}>{status === 'managed' ? 'Artists' : status === 'alumni' ? 'Artists, alumni' : 'Artists, distribution'}</a>
         <h1 data-split>{artist.name}</h1>
       </div>
       <p class="lede" data-reveal>{artist.oneLiner}</p>
@@ -33,11 +41,11 @@ const schema = [{ '@type': 'MusicGroup', name: artist.name, url: new URL(`/artis
   <section class="section">
     <div class="wrap profile">
       <div class="photos" data-reveal>
-        {photos.map((p, i) => <img class="bw" src={i === 0 ? p.large ?? p.src : p.src} alt={p.alt} width="640" height="640" fetchpriority={i === 0 ? 'high' : undefined} loading={i === 0 ? 'eager' : 'lazy'} />)}
+        {photos.map((p, i) => <img src={i === 0 ? p.large ?? p.src : p.src} alt={p.alt} width="640" height="640" fetchpriority={i === 0 ? 'high' : undefined} loading={i === 0 ? 'eager' : 'lazy'} />)}
       </div>
       <div>
         <p class="facts" data-reveal>
-          {isAlumni ? <span>SIRYUS A.M alumni</span> : <span>Managed by SIRYUS A.M</span>}
+          <span>{statusLine}</span>
           {artist.location && <span>{artist.location}</span>}
           {artist.genre?.length ? <span>{artist.genre.join(', ')}</span> : null}
         </p>
@@ -47,23 +55,36 @@ const schema = [{ '@type': 'MusicGroup', name: artist.name, url: new URL(`/artis
           {artist.bioParagraph2 && <p>{artist.bioParagraph2}</p>}
         </div>
         {platforms.length > 0 && <div class="platforms" data-reveal>{platforms.map(([key, url]) => <a class="more" href={url} target="_blank" rel="noopener">{labels[key] ?? key}</a>)}</div>}
-        {artist.releases?.length ? (
-          <>
-            <h2 class="sr">Releases</h2>
-            <ol class="tracklist">
-              {artist.releases.map((r) => (
-                <li data-reveal>
-                  {r.spotifyUrl
-                    ? <a href={r.spotifyUrl} target="_blank" rel="noopener"><strong>{r.title}</strong><span>{r.year}</span></a>
-                    : <span class="row"><strong>{r.title}</strong><span>{r.year}</span></span>}
-                </li>
-              ))}
-            </ol>
-          </>
-        ) : null}
       </div>
     </div>
   </section>
+
+  {discs.length > 0 && (
+    <section class="section smoke" aria-labelledby="disco-title">
+      <div class="wrap">
+        <div class="title">
+          <h2 id="disco-title" data-split>Discography.</h2>
+          <p data-reveal>{discs.length} releases. Open one on Apple Music{artist.platforms?.spotify ? ', or hear everything on Spotify' : ''}.</p>
+        </div>
+        <ul class="disco">
+          {shown.map((d) => (
+            <li><a href={d.apple} target="_blank" rel="noopener"><img src={d.cover} alt="" width="300" height="300" loading="lazy" decoding="async" /><strong>{d.title}</strong><span>{d.format}, {d.year}</span></a></li>
+          ))}
+        </ul>
+        {more.length > 0 && (
+          <details class="disco-more">
+            <summary>Show all {discs.length} releases</summary>
+            <ul class="disco">
+              {more.map((d) => (
+                <li><a href={d.apple} target="_blank" rel="noopener"><img src={d.cover} alt="" width="300" height="300" loading="lazy" decoding="async" /><strong>{d.title}</strong><span>{d.format}, {d.year}</span></a></li>
+              ))}
+            </ul>
+          </details>
+        )}
+        {artist.platforms?.spotify && <div class="actions" style="margin-top:2rem"><a class="btn" href={artist.platforms.spotify} target="_blank" rel="noopener">Listen on Spotify</a>{artist.platforms.appleMusic && <a class="more" href={artist.platforms.appleMusic} target="_blank" rel="noopener">Apple Music</a>}</div>}
+      </div>
+    </section>
+  )}
 
   <section class="ink final">
     <div class="wrap">

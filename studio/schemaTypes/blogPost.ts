@@ -169,6 +169,13 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'showOnAm',
+      title: 'Show on the SIRYUS A.M journal',
+      description: 'Turn off for posts that belong to another SIRYUS site.',
+      type: 'boolean',
+      initialValue: true,
+    }),
+    defineField({
       name: 'featured',
       title: 'Featured',
       type: 'boolean',

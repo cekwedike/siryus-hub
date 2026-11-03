@@ -1,13 +1,15 @@
 ---
 import ArcLayout from '../../layouts/ArcLayout.astro'
 import { getCanonicalOrigin } from '../../lib/siteCanonical'
+import { getArcReleases } from '../../lib/queriesArc'
 
 const origin = getCanonicalOrigin()
 
-// Releases credited to ARC. Creatives, checked against Apple Music on 2026-11-02.
+// Releases credited to ARC. Creatives. Releases added in the ARC. Studio replace this list; until then it is the
+// fallback, checked against Apple Music on 2026-11-02.
 const spotify = 'https://open.spotify.com/artist/6JujQRVWUPspGwmKWo3cgp'
 const appleArtist = 'https://music.apple.com/us/artist/arc-creatives/6789002500'
-const releases = [
+const fallback = [
   {
     title: 'BAGAJIYA: The Remix Collection',
     credit: 'Jlinez featuring ARC. Creatives',
@@ -39,6 +41,21 @@ const releases = [
     tracks: ['Me & You'],
   },
 ]
+type Link = [string, string]
+const studio = await getArcReleases()
+const releases = studio.length
+  ? studio.map((r) => ({
+      title: r.title,
+      credit: r.credit,
+      type: r.format ?? 'Single',
+      date: r.releaseDate,
+      cover: r.coverUrl ? `${r.coverUrl}?w=900&h=900&fit=crop&auto=format` : '/arc/releases/me-and-you.webp',
+      alt: r.coverAlt ?? `${r.title} cover art`,
+      note: r.note ?? '',
+      tracks: r.tracks ?? [],
+      links: ([['Spotify', r.spotify], ['Apple Music', r.appleMusic], ['Audiomack', r.audiomack], ['YouTube', r.youtube], ...(r.otherLinks ?? []).map((l) => [l.label, l.url])] as [string, string | undefined][]).filter((l): l is Link => Boolean(l[1])),
+    }))
+  : fallback.map((r) => ({ ...r, links: [['Spotify', spotify], ['Apple Music', r.apple]] as Link[] }))
 const fmt = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
 const schema = {
   '@context': 'https://schema.org',
@@ -46,7 +63,7 @@ const schema = {
   name: 'ARC. Creatives',
   url: `${origin}/arc/music`,
   sameAs: [spotify, appleArtist],
-  album: releases.map((r) => ({ '@type': 'MusicAlbum', name: r.title, datePublished: r.date, url: r.apple, image: `${origin}${r.cover}`, numTracks: r.tracks.length })),
+  album: releases.map((r) => ({ '@type': 'MusicAlbum', name: r.title, datePublished: r.date, url: r.links[0]?.[1], image: r.cover.startsWith('http') ? r.cover : `${origin}${r.cover}`, numTracks: r.tracks.length || undefined })),
 }
 ---
 
@@ -80,18 +97,17 @@ const schema = {
         <div class="arc-releases">
           {releases.map((r) => (
             <article class="arc-release" data-reveal>
-              <a class="arc-release__cover" href={r.apple} target="_blank" rel="noopener" aria-label={`Listen to ${r.title} on Apple Music`}>
+              <a class="arc-release__cover" href={r.links[0]?.[1]} target="_blank" rel="noopener" aria-label={`Listen to ${r.title}`}>
                 <img src={r.cover} alt={r.alt} width="800" height="800" loading="lazy" decoding="async" />
               </a>
               <div class="arc-release__body">
                 <p class="arc-release__meta">{r.type}, {fmt(r.date)}</p>
                 <h3 class="arc-release__title">{r.title}</h3>
                 <p class="arc-release__credit">{r.credit}</p>
-                <p class="arc-release__note">{r.note}</p>
-                <ol class="arc-release__tracks">{r.tracks.map((t) => <li>{t}</li>)}</ol>
-                <div class="arc-bridge__actions">
-                  <a class="arc-bridge__pill" href={r.apple} target="_blank" rel="noopener">Listen on Apple Music</a>
-                  <a class="arc-bridge__pill" href={spotify} target="_blank" rel="noopener">Find it on Spotify</a>
+                {r.note && <p class="arc-release__note">{r.note}</p>}
+                {r.tracks.length > 1 && <ol class="arc-release__tracks">{r.tracks.map((t) => <li>{t}</li>)}</ol>}
+                <div class="arc-bridge__actions" style="margin-top:1.4rem">
+                  {r.links.map(([label, url]) => <a class="arc-bridge__pill" href={url} target="_blank" rel="noopener">{label}</a>)}
                 </div>
               </div>
             </article>
@@ -111,8 +127,8 @@ const schema = {
           <li><strong>Management.</strong> Long-term support for a small, focused roster.</li>
         </ul>
         <div class="x-actions">
-          <a class="x-btn" href="https://artists.siryushub.com/contact?service=distribution&amp;about=a%20release%20via%20ARC.%20Creatives" target="_blank" rel="noopener">Talk to SIRYUS A.M</a>
-          <a class="x-link" href="https://artists.siryushub.com/services" target="_blank" rel="noopener">See A.M services</a>
+          <a class="x-btn" href="https://artists.siryushub.com/contact?service=distribution&amp;about=a%20release%20via%20ARC.%20Creatives">Talk to SIRYUS A.M</a>
+          <a class="x-link" href="https://artists.siryushub.com/services">See A.M services</a>
         </div>
       </div>
     </section>

@@ -9,7 +9,7 @@ import { getCanonicalOrigin } from '../../../../lib/siteCanonical';
 const origin = getCanonicalOrigin();
 
 export async function getStaticPaths() {
-  const POSTS_PER_PAGE = 3;
+  const POSTS_PER_PAGE = 6;
   const [arcPosts, mainPosts] = await Promise.all([getAllArcPosts(), getAllPosts()]);
   const allPosts = [
     ...arcPosts,

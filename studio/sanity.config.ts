@@ -24,12 +24,14 @@ export default defineConfig({
                 S.list()
                   .title('Artists')
                   .items([
-                    S.listItem().title('Current roster').child(S.documentList().title('Current roster').filter('_type == "artist" && (relationship == "current" || !defined(relationship))')),
+                    S.listItem().title('Managed artists').child(S.documentList().title('Managed artists').filter('_type == "artist" && (relationship == "current" || !defined(relationship))')),
+                    S.listItem().title('Distribution artists').child(S.documentList().title('Distribution artists').filter('_type == "artist" && relationship == "distributed"')),
                     S.listItem().title('Alumni').child(S.documentList().title('Alumni').filter('_type == "artist" && relationship == "alumni"')),
                     S.listItem().title('All artists').child(S.documentTypeList('artist')),
                   ]),
               ),
-            ...S.documentTypeListItems().filter((item) => item.getId() !== 'artist'),
+            S.documentTypeListItem('release').title('Releases'),
+            ...S.documentTypeListItems().filter((item) => !['artist', 'release'].includes(item.getId() ?? '')),
           ]),
     }),
     visionTool(),

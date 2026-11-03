@@ -20,13 +20,12 @@ import { worlds } from '../data/worlds'
       </header>
 
       <main class="lost">
-        <p class="lost-code">Page not found</p>
         <h1>This star isn't on our map.</h1>
         <p class="lost-note">The page moved or never existed. Choose a world, or head back to the start.</p>
         <ul class="lost-worlds">
           {worlds.map((world) => (
             <li>
-              <a class:list={['lost-world', world.id]} href={world.href} target="_blank" rel="noopener">
+              <a class:list={['lost-world', world.id]} href={world.href} target={world.external ? '_blank' : undefined} rel={world.external ? 'noopener' : undefined}>
                 <span class="name">{world.name}{world.period && <span class="period">.</span>}</span>
                 <span class="go">{world.domain}<span class="sr"> (opens in a new tab)</span></span>
               </a>

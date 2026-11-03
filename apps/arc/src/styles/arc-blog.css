@@ -270,7 +270,7 @@ body.arc-route.light-theme .blog-featured {
 .blog-post-hero__meta-row {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.4rem 1.2rem;
   flex-wrap: wrap;
 }
 
@@ -279,10 +279,8 @@ body.arc-route.light-theme .blog-featured {
 }
 
 .blog-featured__sep {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--arc-accent);
+  /* Meta items are spaced by the flex gap; no dot separators. */
+  display: none;
 }
 
 .blog-read-time {

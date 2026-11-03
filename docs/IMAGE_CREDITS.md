@@ -84,3 +84,10 @@ Files in `apps/am/public/images/artists/{slug}-{n}-640.webp` (plus `-1200` where
 The hub card for A.M (`apps/siryus/public/images/artists/`) uses max-prodigy.webp, jlinez-studio.webp and max-prodigy-hands.webp from the same set. Replace with approved press photos when available.
 
 Release artwork in `apps/am/public/images/releases/` and `apps/arc/public/arc/releases/` is the official cover art from Apple Music, used to promote SIRYUS A.M and ARC. Creatives' own releases.
+
+
+## Indiba Project Series facilitator posters (2026-11-03)
+`apps/am/public/images/indiba/{name}-600.webp` and `-1000.webp`, made from the owner's original 9000 px session posters ("Indiba Sessions Facilitators" folder): Winny Ezeme, Marlon Grigsby, Eddie Hatitye, Dana Dane, Bob Ngene, Julz Ossom, Kofi Black, Ritadeviolinist. SIRYUS A.M brand material.
+
+## Discography artwork
+Cover art on artist pages loads from Apple Music's image CDN via the public iTunes lookup API, used to promote each artist's own releases.

@@ -4,13 +4,13 @@ import Site from '../layouts/Site.astro'
 import Disc from '../components/Disc.astro'
 import Ticker from '../components/Ticker.astro'
 import Releases from '../components/Releases.astro'
-import { getRoster, getAlumni, getProjects, getPosts, photosOf, date } from '../lib/sanity'
+import { getRoster, getAlumni, getProjects, getPosts, shotsOf, date } from '../lib/sanity'
 import { services, packages, groups, groupLines } from '../data/services'
 
 const [roster, alumni, projects, posts] = await Promise.all([getRoster(), getAlumni(), getProjects(), getPosts()])
 const indiba = projects.find((p) => p.slug === 'indiba-project-series')
 // The hero sleeve cycles through the current roster, two portraits each.
-const sleeve = roster.flatMap((a) => photosOf(a.slug).slice(0, 2).map((p) => ({ ...p, name: a.name })))
+const sleeve = roster.flatMap((a) => shotsOf(a).slice(0, 2).map((p) => ({ ...p, name: a.name })))
 const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
 const letters = ['A', 'B', 'C']
 ---
@@ -131,7 +131,7 @@ const letters = ['A', 'B', 'C']
           <p data-reveal>Artists we have managed and released with before. The work stays part of our story.</p>
         </div>
         {alumni.slice(0, 1).map((a) => {
-          const shots = photosOf(a.slug)
+          const shots = shotsOf(a)
           return (
             <article class="alumni">
               <div class="shots" data-reveal>
@@ -172,7 +172,7 @@ const letters = ['A', 'B', 'C']
           <p data-reveal><a class="more" href="/journal">All articles</a></p>
         </div>
         <ul class="notes">
-          {posts.map((post) => (
+          {posts.slice(0, 3).map((post) => (
             <li class="note-row" data-reveal>
               <a href={`/journal/${post.slug}`}>
                 <time datetime={post.publishedAt}>{date(post.publishedAt)}</time>

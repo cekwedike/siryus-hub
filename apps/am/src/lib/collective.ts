@@ -48,9 +48,13 @@ export const releases = [
 ]
 
 // Appearances on releases by artists on the roster.
+const levitate = [
+  ['Spotify', 'https://open.spotify.com/album/6RT13UExYo2oQPYUr1gkMZ'],
+  ['Apple Music', 'https://music.apple.com/us/album/levitate-ep/1844929785'],
+] as const
 export const features = [
-  ['B.A.N.S (Boys Are Not Smiling)', 'Max Prodigy featuring SIRYUS A.M, from the LEVITATE EP (2025)'],
-  ['Happiness Is Free', 'Max Prodigy featuring ALU Choir and SIRYUS A.M, from the LEVITATE EP (2025)'],
+  { title: 'B.A.N.S (Boys Are Not Smiling)', credit: 'Max Prodigy featuring SIRYUS A.M, from the LEVITATE EP (2025)', links: levitate },
+  { title: 'Happiness Is Free', credit: 'Max Prodigy featuring ALU Choir and SIRYUS A.M, from the LEVITATE EP (2025)', links: levitate },
 ] as const
 
 export const year = (d: string) => d.slice(0, 4)

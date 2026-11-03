@@ -1,0 +1,32 @@
+---
+// One page of journal posts with previous/next links. Page 1 lives at /journal, later pages at /journal/page/N.
+import { date, type Post } from '../lib/sanity'
+
+interface Props { posts: Post[]; page: number; pages: number }
+const { posts, page, pages } = Astro.props
+const href = (n: number) => (n === 1 ? '/journal' : `/journal/page/${n}`)
+const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
+---
+<ul class="notes">
+  {posts.map((post) => (
+    <li class="note-row" data-reveal>
+      <a href={`/journal/${post.slug}`}>
+        <time datetime={post.publishedAt}>{date(post.publishedAt)}</time>
+        <h2 class="display" style="font-size:clamp(1.5rem,2.8vw,2.5rem);line-height:1.02">{post.title}</h2>
+        <span class="go" set:html={arrow} />
+        <p>{post.seoDescription ?? post.excerpt}</p>
+      </a>
+    </li>
+  ))}
+</ul>
+{pages > 1 && (
+  <nav class="pager" aria-label="Journal pages">
+    {page > 1 ? <a class="more" href={href(page - 1)} rel="prev">Newer posts</a> : <span></span>}
+    <ol>
+      {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
+        <li>{n === page ? <span aria-current="page">{n}</span> : <a href={href(n)}>{n}</a>}</li>
+      ))}
+    </ol>
+    {page < pages ? <a class="more" href={href(page + 1)} rel="next">Older posts</a> : <span></span>}
+  </nav>
+)}

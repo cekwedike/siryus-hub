@@ -50,7 +50,6 @@ export default defineType({
       name: 'bioParagraph2',
       title: 'Bio Paragraph 2',
       type: 'text',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'photo',
@@ -64,6 +63,19 @@ export default defineType({
           title: 'Alternative text',
           type: 'string',
         }),
+      ],
+    }),
+    defineField({
+      name: 'gallery',
+      title: 'More photos',
+      description: 'Extra photos for the profile page. The first photo is also used on the Artists page if there is no main photo.',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: { hotspot: true },
+          fields: [defineField({ name: 'alt', title: 'Alternative text', type: 'string' })],
+        },
       ],
     }),
     defineField({
@@ -111,16 +123,19 @@ export default defineType({
         defineField({ name: 'instagram', title: 'Instagram', type: 'url' }),
         defineField({ name: 'audiomack', title: 'Audiomack', type: 'url' }),
         defineField({ name: 'tiktok', title: 'TikTok', type: 'url' }),
+        defineField({ name: 'x', title: 'X (Twitter)', type: 'url' }),
+        defineField({ name: 'boomplay', title: 'Boomplay', type: 'url' }),
       ],
     }),
     defineField({
       name: 'relationship',
       title: 'Relationship with SIRYUS A.M',
-      description: 'Current roster shows on the Artists page. Alumni shows in the Alumni section for artists we have worked with before. Hidden keeps the profile off the site.',
+      description: 'Managed artists get a full panel on the Artists page. Distribution artists are listed as artists we release music for. Alumni are artists we worked with before. Hidden keeps the profile off the site.',
       type: 'string',
       options: {
         list: [
-          { title: 'Current roster', value: 'current' },
+          { title: 'Managed artist (current roster)', value: 'current' },
+          { title: 'Distribution artist (we release their music)', value: 'distributed' },
           { title: 'Alumni (worked with us before)', value: 'alumni' },
           { title: 'Hidden', value: 'hidden' },
         ],
@@ -170,7 +185,7 @@ export default defineType({
     },
     prepare: ({ title, relationship, location, media }) => ({
       title,
-      subtitle: [relationship === 'alumni' ? 'Alumni' : relationship === 'hidden' ? 'Hidden' : 'Current roster', location].filter(Boolean).join(', '),
+      subtitle: [{ alumni: 'Alumni', hidden: 'Hidden', distributed: 'Distribution artist' }[relationship as string] ?? 'Managed artist', location].filter(Boolean).join(', '),
       media,
     }),
   },

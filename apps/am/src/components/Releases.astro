@@ -1,22 +1,32 @@
 ---
+// SIRYUS A.M's own records. Releases added in the Studio (Releases, "Our release") are used when there are any;
+// otherwise the list in lib/collective.ts. Each record links to every platform it has, Spotify first.
 import Disc from './Disc.astro'
-import { releases, profiles, year } from '../lib/collective'
+import { releases as fallback, profiles, spotify, year } from '../lib/collective'
+import { getReleases, img, linksOf } from '../lib/sanity'
+
 interface Props { limit?: number }
 const { limit } = Astro.props
-const list = limit ? releases.slice(0, limit) : releases
+
+const fromStudio = (await getReleases()).filter((r) => r.kind !== 'feature')
+const all = fromStudio.length
+  ? fromStudio.map((r) => ({ title: r.title, credit: r.credit, format: r.format ?? 'Single', date: r.releaseDate, cover: img(r.cover, 800, 800), links: linksOf(r) }))
+  : fallback.map((r) => ({ title: r.title, credit: r.credit, format: r.type, date: r.date, cover: r.cover, links: [['Spotify', spotify], ['Apple Music', r.apple]] as [string, string][] }))
+const list = limit ? all.slice(0, limit) : all
 ---
 <div class="crate">
   {list.map((r, i) => (
-    <a class="record" href={r.apple} target="_blank" rel="noopener" data-reveal style={`--d:${i}`}>
-      <div class="art">
-        <img src={r.cover} alt={`${r.title} cover art`} width="800" height="800" loading="lazy" decoding="async" />
+    <article class="record" data-reveal style={`--d:${i}`}>
+      <a class="art" href={r.links[0]?.[1]} target="_blank" rel="noopener" aria-label={`Listen to ${r.title}`}>
+        {r.cover && <img src={r.cover} alt={`${r.title} cover art`} width="800" height="800" loading="lazy" decoding="async" />}
         <Disc />
-      </div>
+      </a>
       <h3>{r.title}</h3>
-      <p>{r.type}, {year(r.date)}. {r.credit}</p>
-    </a>
+      <p>{r.format}, {year(r.date)}. {r.credit}</p>
+      <p class="record-links">{r.links.map(([label, url]) => <a href={url} target="_blank" rel="noopener">{label}</a>)}</p>
+    </article>
   ))}
 </div>
 <div class="listen">
-  {profiles.slice(0, 4).map(([label, url]) => <a class="more" href={url} target="_blank" rel="noopener">Listen on {label}</a>)}
+  {profiles.slice(0, 4).map(([label, url]) => <a class="more" href={url} target="_blank" rel="noopener">Follow on {label}</a>)}
 </div>

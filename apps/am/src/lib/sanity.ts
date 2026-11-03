@@ -91,7 +91,8 @@ export type Artist = {
   photo?: ImageRef
   platforms?: Record<string, string>
   releases?: { title: string; year?: string; spotifyUrl?: string }[]
-  relationship?: 'current' | 'alumni' | 'hidden'
+  relationship?: 'current' | 'distributed' | 'alumni' | 'hidden'
+  gallery?: ImageRef[]
   alumniPeriod?: string
   alumniNote?: string
 }
@@ -110,6 +111,7 @@ export type Project = {
   description?: string
   registrationOpen?: boolean
   registrationClosedText?: string
+  albums?: Release[]
 }
 
 export type Post = {
@@ -122,13 +124,51 @@ export type Post = {
   author?: string
   coverImage?: ImageRef
   body?: Block[]
+  showOnAm?: boolean
 }
 
 const artistFields = '..., "slug": slug.current'
-const withPhoto = (artist: Artist) => ({ ...artist, photo: photosOf(artist.slug)[0]?.src ?? artist.photo, bioParagraph2: artist.bioParagraph2 && correctText(artist.bioParagraph2) })
+// Links confirmed by the owner that are not yet in the Studio. Studio values always win.
+const platformExtras: Record<string, Record<string, string>> = {
+  'max-prodigy': { instagram: 'https://www.instagram.com/iammaxprodigy' },
+}
+
+export type Shot = { src: string; large?: string; alt: string }
+
+// Photos for an artist. Images added under "More photos" in the Studio take priority, so new artists need no code.
+// Otherwise the curated set above is used, then the Studio's main photo.
+export function shotsOf(artist: Artist): Shot[] {
+  const fromStudio = (artist.gallery ?? [])
+    .map((ref) => ({ src: img(ref, 640, 640)!, large: img(ref, 1200, 1200), alt: (typeof ref === 'object' && ref.alt) || artist.name }))
+    .filter((shot) => shot.src)
+  if (fromStudio.length) return fromStudio
+  const curated = photosOf(artist.slug)
+  if (curated.length) return curated
+  const main = artist.photo && img(artist.photo, 640, 640)
+  return main ? [{ src: main, large: img(artist.photo, 1200, 1200), alt: artist.name }] : []
+}
+
+// The 4:5 portrait on the Artists page: first Studio gallery photo, then the graded local portrait, then the main photo.
+export function portraitOf(artist: Artist) {
+  const ref = artist.gallery?.[0]
+  if (ref) return { src: img(ref, 800, 1000)!, srcset: `${img(ref, 800, 1000)} 800w, ${img(ref, 1200, 1500)} 1200w`, width: 800, height: 1000, alt: (typeof ref === 'object' && ref.alt) || artist.name }
+  if (panelPhotos[artist.slug]) return panelPhotos[artist.slug]
+  const main = artist.photo ? img(artist.photo, 800, 1000) : undefined
+  return main ? { src: main, srcset: `${main} 800w`, width: 800, height: 1000, alt: artist.name } : undefined
+}
+
+const withPhoto = (artist: Artist) => ({
+  ...artist,
+  platforms: { ...platformExtras[artist.slug], ...artist.platforms },
+  bioParagraph2: artist.bioParagraph2 && correctText(artist.bioParagraph2),
+})
 
 export const getRoster = async () =>
   (await query<Artist[]>(`*[_type == "artist" && (relationship == "current" || (!defined(relationship) && slug.current in $slugs))] | order(coalesce(order, 999) asc) { ${artistFields} }`, { slugs: rosterSlugs })).map(withPhoto)
+
+// Artists SIRYUS A.M distributes but does not manage. Set "Distribution artist" in the Studio to list someone here.
+export const getDistributed = async () =>
+  (await query<Artist[]>(`*[_type == "artist" && relationship == "distributed"] | order(coalesce(order, 999) asc, name asc) { ${artistFields} }`)).map(withPhoto)
 
 export const getAlumni = async () =>
   (await query<Artist[]>(`*[_type == "artist" && (relationship == "alumni" || (!defined(relationship) && slug.current in $slugs))] | order(coalesce(order, 999) asc) { ${artistFields} }`, { slugs: alumniSlugs }))
@@ -145,15 +185,33 @@ const corrections: [string, string][] = [
   ['She is managed by SIRYUS A.M.', 'SIRYUS A.M managed and distributed her music for a year.'],
 ]
 const correctText = (text: string) => corrections.reduce((t, [from, to]) => t.replace(from, to), text)
+
+// Whole paragraphs replaced or removed, matched by how they start. The owner corrected the Indiba facilitators on
+// 2026-11-03: the Studio text had the wrong roles and topics. Replace the Studio paragraphs and these stop matching.
+const paragraphOverrides: [string, string | null][] = [
+  ['The facilitators who poured into that first cohort',
+    'The first cohort learned from people who have done the work. Winny Ezeme, winner of The Gospel Icons Africa 2023, spoke on branding as an artist. Marlon Grigsby, an author, coach and renowned CISO who is CEO of Sentry IT Group, a CIO advisory in the USA, led a session on goal-setting as a creative. Eddie Hatitye, Executive Director of the Music In Africa Foundation, and hip-hop legend Dana Dane took the artists through the music business. Bob Ngene covered music marketing. Julz Ossom, Kofi Black and Ritadeviolinist worked with the artists on stage performance.'],
+  ['The series has also drawn international recognition', null],
+  ['Vocalists, producers, instrumentalists.', 'Vocalists, producers, instrumentalists. Any independent artist ready to grow their craft and do the work that turns talent into a sustainable career.'],
+]
 const correct = (blocks: Block[] = []) =>
-  blocks.map((b) => ({ ...b, children: b.children?.map((c) => ({ ...c, text: correctText(c.text) })) }))
+  blocks.flatMap((b) => {
+    const text = (b.children ?? []).map((c) => c.text).join('')
+    const override = paragraphOverrides.find(([start]) => text.startsWith(start))
+    if (override) return override[1] === null ? [] : [{ ...b, children: [{ text: override[1] }] }]
+    return [{ ...b, children: b.children?.map((c) => ({ ...c, text: correctText(c.text) })) }]
+  })
 
 export const getProjects = async () =>
-  (await query<Project[]>(`*[_type == "project" && slug.current in $slugs] | order(featured desc) { ..., "slug": slug.current }`, { slugs: projectSlugs }))
+  (await query<Project[]>(`*[_type == "project" && slug.current in $slugs] | order(featured desc) { ..., "slug": slug.current, "albums": albums[]-> }`, { slugs: projectSlugs }))
     .map((p) => ({ ...p, longDescription: p.longDescription && correct(p.longDescription) }))
 
+// Journal posts: any post with "Show on the SIRYUS A.M journal" switched on, plus the three original A.M posts
+// (older posts in this dataset belong to ARC. Creatives and have no switch set).
 export const getPosts = () =>
-  query<Post[]>(`*[_type == "blogPost" && slug.current in $slugs] | order(publishedAt desc) { ..., "slug": slug.current }`, { slugs: journalSlugs })
+  query<Post[]>(`*[_type == "blogPost" && defined(slug.current) && showOnAm != false && (showOnAm == true || slug.current in $slugs)] | order(publishedAt desc) { ..., "slug": slug.current }`, { slugs: journalSlugs })
+
+export const POSTS_PER_PAGE = 9
 
 // Minimal Portable Text renderer for the block types these documents use: paragraphs, h2/h3, bold,
 // italics, links, bullet lists and images. Dividers become spacing; editorial copy avoids rule lines.
@@ -228,3 +286,80 @@ export function plain(blocks: Block[] = []): string {
 
 export const date = (iso: string) =>
   new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+
+
+// Every release an artist has on Apple Music, read at build time from Apple's public lookup API using the ID in
+// the artist's Apple Music link. New releases appear on the next build with no Studio or code changes.
+export type Disc = { title: string; format: string; year: string; date: string; cover: string; apple: string }
+const discCache = new Map<string, Promise<Disc[]>>()
+export function discographyOf(artist: Artist): Promise<Disc[]> {
+  const id = artist.platforms?.appleMusic?.match(/(\d{6,})(?:\?.*)?$/)?.[1]
+  if (!id) return Promise.resolve([])
+  if (!discCache.has(id)) {
+    discCache.set(id, (async () => {
+      try {
+        const res = await fetch(`https://itunes.apple.com/lookup?id=${id}&entity=album&limit=200`)
+        if (!res.ok) return []
+        const seen = new Set<string>()
+        return ((await res.json()).results as Record<string, string>[])
+          .filter((r) => r.wrapperType === 'collection')
+          .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))
+          .map((r) => {
+            const format = / - Single$/.test(r.collectionName) ? 'Single' : / - EP$/.test(r.collectionName) ? 'EP' : 'Album'
+            return {
+              title: r.collectionName.replace(/ - (Single|EP)$/, ''),
+              format,
+              year: r.releaseDate.slice(0, 4),
+              date: r.releaseDate.slice(0, 10),
+              cover: r.artworkUrl100.replace(/\/\d+x\d+bb\./, '/300x300bb.'),
+              apple: r.collectionViewUrl.split('?')[0],
+            }
+          })
+          .filter((d) => (seen.has(d.title.toLowerCase()) ? false : (seen.add(d.title.toLowerCase()), true)))
+      } catch {
+        return []
+      }
+    })())
+  }
+  return discCache.get(id)!
+}
+
+export type Release = {
+  title: string
+  credit: string
+  kind: 'release' | 'feature'
+  format?: string
+  releaseDate: string
+  cover?: ImageRef
+  spotify?: string
+  appleMusic?: string
+  audiomack?: string
+  youtube?: string
+  otherLinks?: { label: string; url: string }[]
+}
+
+// Releases added in the Studio. When there are none yet the site falls back to the list in lib/collective.ts.
+export const getReleases = () => query<Release[]>(`*[_type == "release"] | order(releaseDate desc)`)
+
+// Links for a release, in the order listeners expect.
+export const linksOf = (r: Release) =>
+  [
+    ['Spotify', r.spotify],
+    ['Apple Music', r.appleMusic],
+    ['Audiomack', r.audiomack],
+    ['YouTube', r.youtube],
+    ...(r.otherLinks ?? []).map((l) => [l.label, l.url]),
+  ].filter((l): l is [string, string] => Boolean(l[1]))
+
+// Facilitator posters from the first Indiba cohort, self-hosted at 600 and 1000 px. Images added to the project's
+// gallery in the Studio show alongside these.
+export const indibaFacilitators = [
+  ['winny-ezeme', 'Winny Ezeme'],
+  ['marlon-grigsby', 'Marlon Grigsby'],
+  ['eddie-hatitye', 'Eddie Hatitye'],
+  ['dana-dane', 'Dana Dane'],
+  ['bob-ngene', 'Bob Ngene'],
+  ['julz-ossom', 'Julz Ossom'],
+  ['kofi-black', 'Kofi Black'],
+  ['ritadeviolinist', 'Ritadeviolinist'],
+].map(([file, name]) => ({ src: `/images/indiba/${file}-600.webp`, large: `/images/indiba/${file}-1000.webp`, alt: `${name}, Indiba Project Series facilitator` }))

@@ -268,3 +268,28 @@ export async function getAllArcFaqItems(): Promise<ArcFaqItem[]> {
     return []
   }
 }
+
+
+/** Releases added in the ARC. Studio (Release documents), newest first. Empty when none exist yet. */
+export type ArcRelease = {
+  title: string
+  credit: string
+  kind?: 'release' | 'feature'
+  format?: string
+  releaseDate: string
+  note?: string
+  tracks?: string[]
+  coverUrl?: string
+  coverAlt?: string
+  spotify?: string
+  appleMusic?: string
+  audiomack?: string
+  youtube?: string
+  otherLinks?: { label: string; url: string }[]
+}
+export async function getArcReleases(): Promise<ArcRelease[]> {
+  if (!sanityArcClient) return []
+  return sanityArcClient.fetch(
+    `*[_type == "arcRelease"] | order(releaseDate desc) { title, credit, kind, format, releaseDate, note, tracks, "coverUrl": cover.asset->url, "coverAlt": cover.alt, spotify, appleMusic, audiomack, youtube, otherLinks }`,
+  )
+}

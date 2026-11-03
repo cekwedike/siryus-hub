@@ -47,8 +47,8 @@ const description = 'SIRYUS is home to SIRYUS A.M, ARC. Creatives and SIGNAL., w
               class:list={['shard', world.id]}
               href={world.href}
               data-domain={world.domain}
-              target="_blank"
-              rel="noopener"
+              target={world.external ? '_blank' : undefined}
+              rel={world.external ? 'noopener' : undefined}
               style={`--w:${w}`}
             >
               <span class="media" aria-hidden="true">

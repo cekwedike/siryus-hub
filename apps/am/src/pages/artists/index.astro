@@ -1,9 +1,9 @@
 ---
 import ArtistPanel from '../../components/ArtistPanel.astro'
 import Site from '../../layouts/Site.astro'
-import { getRoster, getAlumni } from '../../lib/sanity'
+import { getRoster, getDistributed, getAlumni } from '../../lib/sanity'
 
-const [roster, alumni] = await Promise.all([getRoster(), getAlumni()])
+const [roster, distributed, alumni] = await Promise.all([getRoster(), getDistributed(), getAlumni()])
 const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
 ---
 <Site title="Artists" description={`Meet ${roster.map((a) => a.name).join(' and ')}, the artists managed by SIRYUS A.M, and the alumni we have worked with before.`}>
@@ -17,6 +17,27 @@ const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13L13 3M5
   <div class="stack">
     {roster.map((a, i) => <ArtistPanel artist={a} heading="h2" eager={i === 0} />)}
   </div>
+
+  {distributed.length > 0 && (
+    <section class="section" id="distributed" aria-labelledby="dist-title">
+      <div class="wrap">
+        <div class="title">
+          <h2 id="dist-title" data-split>Distribution artists.</h2>
+          <p data-reveal>Artists whose music we release and support. They keep control of their careers; we get their music everywhere it should be.</p>
+        </div>
+        <ul class="alumni-list dist" style="margin-top:0">
+          {distributed.map((a) => (
+            <li data-reveal>
+              <a href={`/artists/${a.slug}`}>
+                <span>{a.name}<small style="display:block;font:500 .9rem/1.5 var(--body);margin-top:.5rem;opacity:.75">{[...(a.genre ?? []), a.location].filter(Boolean).join(', ')}</small></span>
+                <span set:html={arrow} style="width:1.2rem;flex:none" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   {alumni.length > 0 && (
     <section class="section ink" id="alumni" aria-labelledby="alumni-title">

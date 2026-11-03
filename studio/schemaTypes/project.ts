@@ -166,6 +166,13 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'albums',
+      title: 'Albums and releases from this project',
+      description: 'For example the collaborative album each Indiba cohort records. Add the release under Releases first, then pick it here.',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'release' }] }],
+    }),
+    defineField({
       name: 'tags',
       title: 'Project Tags',
       type: 'array',

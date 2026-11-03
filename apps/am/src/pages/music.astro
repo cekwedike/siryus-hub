@@ -3,6 +3,13 @@ import Site from '../layouts/Site.astro'
 import Disc from '../components/Disc.astro'
 import Releases from '../components/Releases.astro'
 import { releases, features, spotify } from '../lib/collective'
+import { getReleases, linksOf } from '../lib/sanity'
+
+// Appearances: Studio releases marked "We feature on it", else the list in lib/collective.ts.
+const studioFeatures = (await getReleases()).filter((r) => r.kind === 'feature')
+const featured = studioFeatures.length
+  ? studioFeatures.map((r) => ({ title: r.title, credit: r.credit, links: linksOf(r) }))
+  : features.map((f) => ({ title: f.title, credit: f.credit, links: f.links as unknown as [string, string][] }))
 
 const schema = [{
   '@type': 'MusicGroup',
@@ -23,7 +30,7 @@ const schema = [{
   </header>
   <section class="section">
     <div class="wrap">
-      <div class="title"><h2 data-split>Releases.</h2><p data-reveal>Open a record to listen on Apple Music, or follow us on your favourite platform.</p></div>
+      <div class="title"><h2 data-split>Releases.</h2><p data-reveal>Listen on Spotify, Apple Music and more, or follow us on your favourite platform.</p></div>
       <Releases />
     </div>
   </section>
@@ -31,8 +38,8 @@ const schema = [{
     <div class="wrap">
       <div class="title"><h2 data-split>Also featured on.</h2></div>
       <ol class="tracklist" style="margin-top:0">
-        {features.map(([title, credit]) => (
-          <li data-reveal><a href={spotify} target="_blank" rel="noopener"><span><strong>{title}</strong><br /><span>{credit}</span></span><span>Listen</span></a></li>
+        {featured.map((f) => (
+          <li data-reveal><span class="row"><span><strong>{f.title}</strong><br /><span>{f.credit}</span></span><span class="record-links" style="margin:0">{f.links.map(([label, url]) => <a href={url} target="_blank" rel="noopener">{label}</a>)}</span></span></li>
         ))}
       </ol>
     </div>

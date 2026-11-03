@@ -1,14 +1,16 @@
 ---
 // One full-height roster panel: a framed, colour-graded portrait beside the artist's name, line, latest
 // releases and links. Panels stack on scroll (see .panel-artist in site.css).
-import { panelPhotos, photosOf, type Artist } from '../lib/sanity'
+import { portraitOf, shotsOf, discographyOf, type Artist } from '../lib/sanity'
 
 interface Props { artist: Artist; heading?: 'h2' | 'h3'; eager?: boolean }
 const { artist: a, heading = 'h3', eager = false } = Astro.props
 const Heading = heading
-const panel = panelPhotos[a.slug]
-const fallback = photosOf(a.slug)[0]
-const latest = (a.releases ?? []).slice(0, 3)
+const panel = portraitOf(a)
+const fallback = shotsOf(a)[0]
+// Latest three from the full Apple Music catalogue; the Studio's release list if that is unavailable.
+const discs = await discographyOf(a)
+const latest = discs.length ? discs.slice(0, 3).map((d) => ({ title: d.title, year: d.year })) : (a.releases ?? []).slice(0, 3)
 const spotify = a.platforms?.spotify
 ---
 <article class="panel-artist">

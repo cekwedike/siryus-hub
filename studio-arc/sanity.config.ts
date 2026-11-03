@@ -4,7 +4,7 @@ import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './schemaTypes'
 
 const projectId =
-  process.env.SANITY_STUDIO_ARC_PROJECT_ID ?? ''
+  process.env.SANITY_STUDIO_ARC_PROJECT_ID || 'qi12mdx6'
 const dataset =
   process.env.SANITY_STUDIO_ARC_DATASET ?? 'production'
 
