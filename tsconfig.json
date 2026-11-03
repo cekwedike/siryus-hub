@@ -1,4 +1,0 @@
-{
-  "extends": "astro/tsconfigs/strict",
-  "exclude": ["dist", ".vercel/output", "studio/dist", "studio-arc/dist"]
-}
