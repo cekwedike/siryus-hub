@@ -14,7 +14,7 @@
   --am: #ffffff;
   --arc: #f27930;
   --signal: #e32620;
-  --pavo: #ffffff;
+  --pavo: #00d8e4; /* PAVO Create Ribbon Cyan */
   --gutter: clamp(1rem, 3vw, 3rem);
   --gap: clamp(.4rem, .7vw, .75rem);
   --slant: clamp(3.5rem, 7vw, 7.5rem);
@@ -156,7 +156,7 @@ img { display: block; max-width: 100%; }
 .lost-world { display: grid; justify-items: center; gap: .5rem; padding: .75rem .5rem; text-decoration: none; }
 .lost .lost-world .name { font-size: clamp(1.35rem, 2.2vw, 1.95rem); }
 .lost .lost-world.arc .name { font-size: clamp(1.05rem, 1.65vw, 1.45rem); }
-.lost .pavo { --accent: var(--ink); }
+.lost .pavo { --accent: #087cfa; } /* PAVO Create Electric Blue, readable on white */
 .lost-world .go { margin-top: 0; }
 .lost-world:hover .go, .lost-world:focus-visible .go { background-size: 100% 2px; }
 .home { margin-top: clamp(1.75rem, 4vh, 2.75rem); padding: .9rem 1.5rem; border: 1px solid var(--ink); border-radius: 0; font-size: .85rem; font-weight: 800; text-decoration: none; transition: background-color .3s, color .3s; }
